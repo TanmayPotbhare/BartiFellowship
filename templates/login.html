@@ -160,16 +160,17 @@
                                             <label class="text-white">Registration year</label>
                                             <select name="year" id="year" class="form-control login-input" required>
                                                 <option value="">--- Select Registration Year ---</option>
-                                                {% if value in ['2021', '2022'] %}
+                                                {% if value in ['2021', '2022', '2023'] %}
                                                     <option value="2021" disabled>2021 - 2022</option>
                                                     <option value="2022" disabled>2022 - 2023</option>
+                                                    <option value="2023">2023 - 2024</option>
                                                     {# Display an error message or any other logic here #}
                                                 {% else %}
-                                                    <option value="2021">2021 - 2022</option>
-                                                    <option value="2022">2022 - 2023</option>
+                                                    <option value="2024">2024 - 2025</option>
+                                                    <option value="2025">2025 - 2026</option>
+                                                    <option value="2026">2026 - 2027</option>
+                                                    <option value="2027">2027 - 2028</option>
                                                 {% endif %}
-                                                <option value="2023">2023 - 2024</option>
-                                                <option value="2024">2024 - 2025</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
@@ -226,11 +227,11 @@
         $(document).ready(function () { 
             $('#year').on('change',function(){
                 var year=$('#year').val()
-                if (year === '2021' || year === '2022') {
+                if (year === '2021' || year === '2022' || year === '2023') {
                           Swal.fire({
                             icon: "info",
                             title: "IT SEEMS YOU ARE AN OLD USER....",
-                            text: `LOGIN IS ALREADY CREATED FOR YOU. Please Login with the registered email ID and Password for your login will be Fellowship123.`,
+                            text: `Year cannot be less then or equal to 2023.`,
                 
                           });
                           $('#year').val('')

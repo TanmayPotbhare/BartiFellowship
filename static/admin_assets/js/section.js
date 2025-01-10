@@ -114,7 +114,7 @@ document.getElementById("caste").addEventListener("change", function () {
     const uniqueNumber = selectedOption.getAttribute("data-hidden");
     const subcasteDropdown = document.getElementById("your_caste");
 
-    alert(uniqueNumber);
+//    alert(uniqueNumber);
 
     // Clear the subcaste dropdown
     subcasteDropdown.innerHTML = '<option value="" selected>-- Select Subcaste --</option>';

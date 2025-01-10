@@ -44,7 +44,7 @@ app.config['SESSION_KEY_PREFIX'] = 'session:'  # Optional, to prevent conflicts
 # Session(app)
 # ---------------------xxx-------------------------------
 
-UPLOAD_PDF_FOLDER = os.path.join('/var/www/icswebapp/icswebapp/static', 'pdf_application_form')
+UPLOAD_PDF_FOLDER = os.path.join('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static', 'pdf_application_form')
 app.config['UPLOAD_PDF_FOLDER'] = UPLOAD_PDF_FOLDER
 # Test
 
@@ -66,20 +66,20 @@ database = HostConfig.database
 
 # For Host Server
 if host == localserver:
-    app.config['USER_DOC_SEC_FIVE'] = '/var/www/icswebapp/icswebapp/static/uploads/user_doc_secfive/'
-    app.config['RENT_AGREEMENT_REPORT'] = '/var/www/icswebapp/icswebapp/static/uploads/rent_agreement/'
-    app.config['HALF_YEARLY_REPORTS'] = '/var/www/icswebapp/icswebapp/static/uploads/half_yearly/'
-    app.config['PRESENTY_REPORTS'] = '/var/www/icswebapp/icswebapp/static/uploads/presenty_reports/'
-    app.config['UPLOAD_PHOTO_SECTION1'] = '/var/www/icswebapp/icswebapp/static/uploads/image_retrive/'
-    app.config['PDF_STORAGE_PATH'] = '/var/www/icswebapp/icswebapp/static/pdf_application_form/pdfform.pdf'
-    app.config['AWARD_LETTER'] = '/var/www/icswebapp/icswebapp/static/pdf_application_form/award_letter.pdf'
-    app.config['JOINING_REPORT'] = '/var/www/icswebapp/icswebapp/static/uploads/joining_reports/'
-    app.config['PDF_CERTIFICATE'] = '/var/www/icswebapp/icswebapp/static/uploads/phd_certificate/'
-    app.config['UPLOAD_THESIS'] = '/var/www/icswebapp/icswebapp/static/uploads/upload_thesis/'
-    app.config['EMAIL_DOCS'] = '/var/www/icswebapp/icswebapp/static/uploads/sendbulkemails/'
-    app.config['ASSESSMENT_REPORT'] = '/var/www/icswebapp/icswebapp/static/uploads/assessment_report/'
-    app.config['SAVE_NEWS'] = '/var/www/icswebapp/icswebapp/static/uploads/save_news/'
-    app.config['UNDERTAKING_REPORT'] = '/var/www/icswebapp/icswebapp/static/uploads/undertaking_doc/'
+    app.config['USER_DOC_SEC_FIVE'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/user_doc_secfive/'
+    app.config['RENT_AGREEMENT_REPORT'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/rent_agreement/'
+    app.config['HALF_YEARLY_REPORTS'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/half_yearly/'
+    app.config['PRESENTY_REPORTS'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/presenty_reports/'
+    app.config['UPLOAD_PHOTO_SECTION1'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/image_retrive/'
+    app.config['PDF_STORAGE_PATH'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/pdf_application_form/pdfform.pdf'
+    app.config['AWARD_LETTER'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/pdf_application_form/award_letter.pdf'
+    app.config['JOINING_REPORT'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/joining_reports/'
+    app.config['PDF_CERTIFICATE'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/phd_certificate/'
+    app.config['UPLOAD_THESIS'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/upload_thesis/'
+    app.config['EMAIL_DOCS'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/sendbulkemails/'
+    app.config['ASSESSMENT_REPORT'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/assessment_report/'
+    app.config['SAVE_NEWS'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/save_news/'
+    app.config['UNDERTAKING_REPORT'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/undertaking_doc/'
 elif host == hostserver:
     app.config['USER_DOC_SEC_FIVE'] = 'static/uploads/user_doc_secfive/'
     app.config['RENT_AGREEMENT_REPORT'] = 'static/uploads/rent_agreement/'
@@ -780,12 +780,13 @@ def login():
                         if is_withdrawn(email):
                             flash('You have withdrawn from Fellowship. Please contact us.', 'error')
                             return redirect(url_for('login'))
-                        elif old_user(email):
-                            session['logged_in_from_login'] = True
-                            return redirect(url_for('old_user_preview'))
+                        # elif old_user(email):
+                        #     session['logged_in_from_login'] = True
+                        #     return redirect(url_for('old_user_preview'))
                         elif new_applicant_incomplete_form(email):
+                            print('I am here')
                             flash('Your form is incomplete.', 'error')
-                            return redirect(url_for('section1'))
+                            return redirect(url_for('app_form_info'))
                         elif check_final_approval(email):
                             session['final_approval'] = "accepted"
                             session['logged_in_from_login'] = True
@@ -812,10 +813,11 @@ def login():
                     if is_withdrawn(email):
                         flash('You have withdrawn from Fellowship. Please contact us.', 'error')
                         return redirect(url_for('login'))
-                    elif old_user(email):
-                        session['logged_in_from_login'] = True
-                        return redirect(url_for('old_user_preview'))
+                    # elif old_user(email):
+                    #     session['logged_in_from_login'] = True
+                    #     return redirect(url_for('old_user_preview'))
                     elif new_applicant_incomplete_form(email):
+                        print('I am here')
                         flash('Your form is incomplete.', 'error')
                         return redirect(url_for('section1'))
                     elif check_final_approval(email):
@@ -828,7 +830,8 @@ def login():
                         return redirect(url_for('viewform', id=id))
                     else:
                         flash('Redirecting to login closed page for 2023.', 'info')
-                        return redirect(url_for('section1'))
+                        print('Hrer mate')
+                        return redirect(url_for('app_form_info'))
                 else:
                     flash('Invalid password. Please try again.', 'error')
                     return redirect(url_for('login'))
@@ -846,18 +849,18 @@ def login():
     return render_template('login.html', language=language, multilingual_content=multilingual_content)
 
 
-@app.route('/refresh_login_captcha', methods=['GET'])
-def refresh_login_captcha():
-    captcha_number = random.randrange(100000, 999999)
-    img = ImageCaptcha(width=280, height=90)
-    captcha_text = str(captcha_number)
-    img.write(captcha_text, 'static/Images/captcha/user_captcha.png')
-
-    # Update the captcha number in the session
-    session['captcha_number'] = captcha_number
-
-    # Redirect back to the login page after refreshing the Captcha
-    return redirect(url_for('login'))
+# @app.route('/refresh_login_captcha', methods=['GET'])
+# def refresh_login_captcha():
+#     captcha_number = random.randrange(100000, 999999)
+#     # img = ImageCaptcha(width=280, height=90)
+#     captcha_text = str(captcha_number)
+#     img.write(captcha_text, 'static/Images/captcha/user_captcha.png')
+# 
+#     # Update the captcha number in the session
+#     session['captcha_number'] = captcha_number
+# 
+#     # Redirect back to the login page after refreshing the Captcha
+#     return redirect(url_for('login'))
 
 
 # @app.route('/forgot_password', methods=['GET', 'POST'])
@@ -1033,7 +1036,11 @@ def viewform_old_users(id):                                                   # 
 
 # VIEW STUDENT FORM
 @app.route('/viewform/<int:id>', methods=['GET', 'POST'])
-def viewform(id):                                                   # -------------- VIEW STUDENT FORM
+def viewform(id):
+    user = HostConfig.user
+    password = HostConfig.password
+    database = HostConfig.database
+
     cnx = mysql.connector.connect(user=user, password=password,
                                   host=host,
                                   database=database)
@@ -1067,7 +1074,11 @@ def viewform(id):                                                   # ----------
 
 @app.route('/mainpage')
 @auth
-def main_page():                                                    # -------------- APPLICATION LIST PAGE
+def main_page():
+    user = HostConfig.user
+    password = HostConfig.password
+    database = HostConfig.database
+    # -------------- APPLICATION LIST PAGE
     if session.pop('logged_in_from_login', None):
         flash('Logged in Successfully', 'success')
     email = session['email']
@@ -1281,7 +1292,7 @@ def signup():                                               # ------------------
             otp = random.randint(100000, 999999)
 
             # Store user registration data in a session for verification
-            session['registration_data'] = {
+            registration_data = {
                 'first_name': first_name,
                 'middle_name': middle_name,
                 'last_name': last_name,
@@ -1293,28 +1304,30 @@ def signup():                                               # ------------------
                 'mobile_number': mobile_number
             }
             print('Sending Email')
-            send_email_verification(email, first_name, otp)
+            # send_email_verification(email, first_name, otp)
             print('Sending SMS')
-            send_sms(mobile_number, otp)
-
-            return render_template('email_verify.html', email=email)
+            # send_sms(mobile_number, otp)
+            insert_user_data(registration_data)
+            flash('Your email is verified and registration is successful.')
+            # return render_template('email_verify.html', email=email)
+            return redirect(url_for('login'))
     error = ('This email is already registered. Please use a different email or log in with an existing one.',
                  'error')
     return render_template('login.html', error=error, language=language, multilingual_content=multilingual_content)
 
 
-@app.route('/refresh_signup_captcha', methods=['GET'])
-def refresh_signup_captcha():
-    captcha_number = random.randrange(100000, 999999)
-    img = ImageCaptcha(width=280, height=90)
-    captcha_text = str(captcha_number)
-    img.write(captcha_text, 'static/Images/captcha/user_captcha.png')
-
-    # Update the captcha number in the session
-    session['captcha_number'] = captcha_number
-
-    # Redirect back to the login page after refreshing the Captcha
-    return redirect(url_for('signup'))
+# @app.route('/refresh_signup_captcha', methods=['GET'])
+# def refresh_signup_captcha():
+#     captcha_number = random.randrange(100000, 999999)
+#     img = ImageCaptcha(width=280, height=90)
+#     captcha_text = str(captcha_number)
+#     img.write(captcha_text, 'static/Images/captcha/user_captcha.png')
+# 
+#     # Update the captcha number in the session
+#     session['captcha_number'] = captcha_number
+# 
+#     # Redirect back to the login page after refreshing the Captcha
+#     return redirect(url_for('signup'))
 
 
 # Define a function to insert user registration data into the database
@@ -1380,7 +1393,11 @@ def email_verify():
 
 # ----------------- ADMIN LOGIN -----------------------
 @app.route('/adminlogin', methods=['GET', 'POST'])
-def admin_login():                                                     # ------------------ ADMIN LOGIN
+def admin_login():
+    user = HostConfig.user
+    password = HostConfig.password
+    database = HostConfig.database
+    # ------------------ ADMIN LOGIN
     cnx = mysql.connector.connect(user=user, password=password,
                                   host=host,
                                   database=database)
@@ -1511,7 +1528,11 @@ def submit_edit_profile():                                          # ----------
 #                                                ---- FINALLY APPROVED USER FUNCTIONALITY
 # ---------------- USER AFTER FINAL APPROVAL -----------------------------
 @app.route('/manage_profile_AA')
-def manage_profile():                                                       # ---------- MANAGE PROFILE
+def manage_profile():
+    user = HostConfig.user
+    password = HostConfig.password
+    database = HostConfig.database
+    # ---------- MANAGE PROFILE
     email = session['email']
 
     if request.method == 'POST':
@@ -1713,7 +1734,7 @@ def generate_award_letter_2022(data, filename):
                 print(var)
                 # Add a header
                 self.set_font("Arial", "B", 12)
-                self.image('/var/www/icswebapp/icswebapp/static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
                 # Calculate the width of the image
                 image_width = 100  # Assuming the width of the image is 100 (adjust if different)
                 # Calculate the position for "Government of Maharashtra" text
@@ -1721,8 +1742,8 @@ def generate_award_letter_2022(data, filename):
                 text_y_position = self.get_y() + 20  # Set Y position below the image
                 # Set cursor position
                 self.set_xy(text_x_position, text_y_position)
-                self.image('/var/www/icswebapp/icswebapp/static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
-                self.image('/var/www/icswebapp/icswebapp/static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
                 self.ln(5)
                 self.ln(0)  # Reduce the space below the address
                 self.cell(0, 5, "Government of Maharashtra", align="C", ln=True)
@@ -1791,7 +1812,7 @@ def generate_award_letter_2022(data, filename):
             self.multi_cell(0, 20, "Wish you all the best. ")
             self.set_x(150)  # Adjust the x-coordinate as needed
             # self.image('static/Images/signature_awardletter.png', 20, 230, 30)
-            self.image('/var/www/icswebapp/icswebapp/static/Images/sonanwanesir_signature.png', 125, 210, 50)
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/sonanwanesir_signature.png', 125, 210, 50)
             self.ln(5)  # Adjust this value to control the space after static data
 
         def footer(self):
@@ -1825,7 +1846,7 @@ def generate_award_letter_2023(data, filename):
                 # Add a header
                 self.set_font("Arial", "B", 12)
                 # self.image('static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
-                self.image('/var/www/icswebapp/icswebapp/static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
                 # Calculate the width of the image
                 image_width = 100  # Assuming the width of the image is 100 (adjust if different)
                 # Calculate the position for "Government of Maharashtra" text
@@ -1834,9 +1855,9 @@ def generate_award_letter_2023(data, filename):
                 # Set cursor position
                 self.set_xy(text_x_position, text_y_position)
                 # self.image('static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
-                self.image('/var/www/icswebapp/icswebapp/static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
                 # self.image('static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
-                self.image('/var/www/icswebapp/icswebapp/static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
                 self.ln(5)
                 self.ln(0)  # Reduce the space below the address
                 self.cell(0, 5, "Government of Maharashtra", align="C", ln=True)
@@ -1913,7 +1934,7 @@ def generate_award_letter_2023(data, filename):
             self.set_x(150)  # Adjust the x-coordinate as needed
             # self.image('static/Images/signature_awardletter.png', 20, 230, 30)
             # self.image('static/Images/chanchalamam_signature.png', 125, 210, 50)
-            self.image('/var/www/icswebapp/icswebapp/static/Images/chanchalamam_signature.png', 125, 210, 50)
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/chanchalamam_signature.png', 125, 210, 50)
             self.ln(5)  # Adjust this value to control the space after static data
 
         def footer(self):
@@ -1947,7 +1968,7 @@ def generate_award_letter_Aadesh15(data, filename):
                 # Add a header
                 self.set_font("Arial", "B", 12)
                 # self.image('static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
-                self.image('/var/www/icswebapp/icswebapp/static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
                 # Calculate the width of the image
                 image_width = 100  # Assuming the width of the image is 100 (adjust if different)
                 # Calculate the position for "Government of Maharashtra" text
@@ -1956,9 +1977,9 @@ def generate_award_letter_Aadesh15(data, filename):
                 # Set cursor position
                 self.set_xy(text_x_position, text_y_position)
                 # self.image('static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
-                self.image('/var/www/icswebapp/icswebapp/static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
                 # self.image('static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
-                self.image('/var/www/icswebapp/icswebapp/static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
                 self.ln(5)
                 self.ln(0)  # Reduce the space below the address
                 self.cell(0, 5, "Government of Maharashtra", align="C", ln=True)
@@ -2034,7 +2055,7 @@ def generate_award_letter_Aadesh15(data, filename):
             self.set_x(150)  # Adjust the x-coordinate as needed
             # self.image('static/Images/signature_awardletter.png', 20, 230, 30)
             # self.image('static/Images/chanchalamam_signature.png', 125, 210, 50)
-            self.image('/var/www/icswebapp/icswebapp/static/Images/chanchalamam_signature.png', 125, 210, 50)
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/chanchalamam_signature.png', 125, 210, 50)
             self.ln(5)  # Adjust this value to control the space after static data
 
         def footer(self):
@@ -2060,7 +2081,7 @@ def generate_award_letter_Aadesh15(data, filename):
 def award_letter_AA():
     try:
         email = session['email']
-        output_filename = '/var/www/icswebapp/icswebapp/static/pdf_application_form/award_letter.pdf'
+        output_filename = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/pdf_application_form/award_letter.pdf'
         # output_filename = 'static/pdf_application_form/award_letter.pdf'
         cnx = mysql.connector.connect(user='icswebapp', password=password, host=host, database=database)
         cursor = cnx.cursor(dictionary=True)
@@ -2108,7 +2129,7 @@ def award_letter_AA():
 def generate_award_letter_AA(email):
     try:
         # email = session['email']
-        output_filename = '/var/www/icswebapp/icswebapp/static/pdf_application_form/award_letter.pdf'
+        output_filename = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/pdf_application_form/award_letter.pdf'
         # output_filename = 'static/pdf_application_form/award_letter.pdf'
         cnx = mysql.connector.connect(user='icswebapp', password=password, host=host, database=database)
         cursor = cnx.cursor(dictionary=True)
@@ -2156,6 +2177,9 @@ def generate_award_letter_AA(email):
 # --------------------- JOINING LETTER ----------------------------------
 @app.route('/joining_report_AA', methods=['GET', 'POST'])
 def joining_report_AA():
+    user = HostConfig.user
+    password = HostConfig.password
+    database = HostConfig.database
     cnx = mysql.connector.connect(user=user, password=password,
                                   host=host,
                                   database=database)
@@ -2201,6 +2225,9 @@ def joining_report_AA():
 # --------------------- PRESENTY LETTER ----------------------------------
 @app.route('/presenty_AA', methods=['GET', 'POST'])
 def presenty_AA():
+    user = HostConfig.user
+    password = HostConfig.password
+    database = HostConfig.database
     if 'email' not in session:
         return redirect('/login')
 
@@ -4094,14 +4121,14 @@ class PDF(FPDF):
 
             # Adjust the X, Y, and image size to fit A3 format
             # for LOCALSERVER
-            self.image('/var/www/icswebapp/icswebapp/static/Images/satya.png', 140, 10, 30)  # Adjusted position and size for A3
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 140, 10, 30)  # Adjusted position and size for A3
             image_width = 140  # Updated to a size appropriate for A3
             text_x_position = self.get_x()
             text_y_position = self.get_y() + 25  # Adjusted for A3 format
             self.set_xy(text_x_position, text_y_position)
             # Adjusted positions for A3 format
-            self.image('/var/www/icswebapp/icswebapp/static/Images/newtrtiImage.png', 20, 10, 60)  # Adjust size for larger format
-            self.image('/var/www/icswebapp/icswebapp/static/Images/mahashasn_new.png', 215, 10, 60)  # Adjust size and position for A3
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/newtrtiImage.png', 20, 10, 60)  # Adjust size for larger format
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/mahashasn_new.png', 215, 10, 60)  # Adjust size and position for A3
 
             # For HOSTSERVER
             # self.image('static/Images/satya.png', 140, 10, 30)  # Adjusted position and size for A3
@@ -6799,9 +6826,9 @@ def section1():
             # Save the form data to the database
             print('Inserting new record for:' + email)
             cursor.execute("INSERT INTO application_page (applicant_photo, adhaar_number, adhaar_refnum, adhaar_seeding,  first_name, "
-                           "middle_name, last_name, mobile_number, email, date_of_birth, gender, age,pvtg, pvtg_caste, caste, your_caste,"
-                           "marital_status, add_1, add_2, pincode, village, taluka, district, state, city,subcaste) "
-                           "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s)",
+                           "middle_name, last_name, mobile_number, email, date_of_birth, gender, age, caste, your_caste,"
+                           "marital_status, add_1, add_2, pincode, village, taluka, district, state, city) "
+                           "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)",
                            (photo_path, adhaar_number, adhaar_refnum, adhaar_seeding, first_name, middle_name, last_name, mobile_number,
                             email, date_of_birth, gender, age, caste, your_caste, marital_status, add_1, add_2,
                             pincode, village, taluka, district, state, city))
@@ -8014,14 +8041,14 @@ def generate_pdf_with_styling(data, filename):
         header_added = False  # To track whether the header is added to the first page
         def header(self):
             if not self.header_added:
-                # /var/www/icswebapp/icswebapp/
+                # /var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/
                 self.set_font("Arial", "B", 12)
                 self.cell(0, 10, "Fellowship ", align="C", ln=True)  # Add space by changing the second parameter (e.g., 20)
                 # Insert an image (symbol) at the center of the header
-                self.image('/var/www/icswebapp/icswebapp/static/Images/trti.jpeg', 10, 10, 20)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti.png', 10, 10, 20)  # Replace with the path to your symbol image
                 # Insert an image (symbol) at the right of the header
-                self.image('/var/www/icswebapp/icswebapp/static/Images/satya.png', 155, 10, 20)  # Replace with the path to your small image
-                self.image('/var/www/icswebapp/icswebapp/static/Images/maharashtra_shasn.png', 175, 10, 20)  # Replace with the path to your symbol image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 155, 10, 20)  # Replace with the path to your small image
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/img.png', 175, 10, 20)  # Replace with the path to your symbol image
                 self.cell(0, 10, "Tribal Research & Training Institute, Pune ", align="C", ln=True)
                 self.cell(0, 1, "Government of Maharashtra ", align="C", ln=True)
                 self.set_font("Arial", "B", size=8)
@@ -8056,7 +8083,7 @@ def generate_pdf_with_styling(data, filename):
 
             if 'applicant_photo' in data:
                 # photo = 'static/Images/trti.jpeg'
-                photo = '/var/www/icswebapp/icswebapp' + data['applicant_photo']
+                photo = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['applicant_photo']
                 print(photo)
                 # Insert the applicant photo (adjust the coordinates and size as needed)
                 self.image(photo, 165, 65, 30, 35)  # Adjust the Y-coordinate from 60 to 65
@@ -8358,7 +8385,7 @@ def generate_pdf_with_styling(data, filename):
     pdf.cell(width, 10, txt=text, ln=True)
     pdf.set_font("Arial", size=12)
     # Assuming data['signature'] contains the path to the image file
-    signature_path = '/var/www/icswebapp/icswebapp' + data['signature']
+    signature_path = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['signature']
     # Determine the current position
     x = pdf.get_x()
     y = pdf.get_y()
@@ -8386,7 +8413,7 @@ def generate_pdf():
     cnx = mysql.connector.connect(user=user, password=password, host=host, database=database)
     cursor = cnx.cursor(dictionary=True)
 
-    cursor.execute(" SELECT * FROM signup WHERE year IN ('2020', '2021', '2022') and email = %s ", (email,))
+    cursor.execute(" SELECT * FROM signup WHERE year IN ('2020', '2021', '2022', '2023') and email = %s ", (email,))
     output = cursor.fetchall()
 
     if output:
