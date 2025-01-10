@@ -65,7 +65,7 @@ password = HostConfig.password
 database = HostConfig.database
 
 # For Host Server
-if host == localserver:
+if host == hostserver:
     app.config['USER_DOC_SEC_FIVE'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/user_doc_secfive/'
     app.config['RENT_AGREEMENT_REPORT'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/rent_agreement/'
     app.config['HALF_YEARLY_REPORTS'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/half_yearly/'
@@ -80,7 +80,7 @@ if host == localserver:
     app.config['ASSESSMENT_REPORT'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/assessment_report/'
     app.config['SAVE_NEWS'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/save_news/'
     app.config['UNDERTAKING_REPORT'] = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/undertaking_doc/'
-elif host == hostserver:
+elif host == localserver:
     app.config['USER_DOC_SEC_FIVE'] = 'static/uploads/user_doc_secfive/'
     app.config['RENT_AGREEMENT_REPORT'] = 'static/uploads/rent_agreement/'
     app.config['HALF_YEARLY_REPORTS'] = 'static/uploads/half_yearly/'
