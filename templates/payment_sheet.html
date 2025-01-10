@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard - Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/admin_assets/img/favicon.png" rel="icon">
+  <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/admin_assets/css/style.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+{% include 'admin_templates/header.html' %}
+
+
+<!-- ======= Sidebar ======= -->
+{% include 'admin_templates/sidebar.html' %}
+<!-- End Sidebar-->
+
+<main class="main " id="main">
+  <div class="content-wrapper"></div>
+  <div id="recordContainer"></div>
+  <div class="pagetitle">
+    <h1>Payment Sheet of 2023-24</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index">Home</a></li>
+        <li class="breadcrumb-item">Payment Sheet</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Table to display student applications -->
+  <div class="col-md-12 text-end">
+    {% if session['user'] == 'Auditor' %}
+          <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+    {% else %}
+          <a href ="/export_payment_sheet_pdf" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Generate PDF<a>
+          <a href ="/export_payment_sheet" class="btn btn-theme text-white" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+	{% endif %}
+    </div>
+  <div class="table-responsive">
+    <table class="table datatable shadow table-bordered">
+      <thead>
+<!--      <p><strong>NOTE : The H.R.A Rate is calculated according the City Category you are from. IF X Category - 30%, Y Category - 20%, Z Category - 10% </strong></p>-->
+
+        <tr class="text-center">
+          <th>Sr. No.</th>
+          <th>Applicant ID</th>
+          <th>Name of Student</th>
+          <th>Date of PHD Registration</th>
+          <th>Fellowship Awarded Date</th>
+          <th>Duration</th>
+          <th>Bank Name</th>
+          <th>Account Number</th>
+          <th>IFSC</th>
+          <th>Fellowship Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in user_records %}
+            <tr>
+              <td class="text-center" style="font-size:15px">{{ loop.index }}</td>
+              <td class="text-center" style="font-size:15px">
+                <a href="/fellowship_details/{{ record['email'] }}">TRTI/{{ record['phd_registration_year'] }}/{{ record['id'] }}</a>
+              </td>
+              <td class="text-center" style="font-size:15px">
+                {% if record['first_name'] and record['last_name'] %}
+                    {{ record['first_name'] }} {{ record['middle_name'] }} {{ record['last_name'] }}
+                {% else %}
+                    N/A
+                {% endif %}
+              </td>
+              <td class="text-center" style="font-size:15px">{{ record['joining_date'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['fellowship_awarded_date'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['duration']|safe }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['bank_name'] }} </td>
+              <td class="text-center" style="font-size:15px">{{ record['account_number'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['ifsc'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['total'] }}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+
+</main>
+
+
+<!-- ======= Footer ======= -->
+{% include 'admin_templates/footer.html' %}
+<!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+    class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+<script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+<script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+<script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="static/admin_assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+  integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="static/admin_assets/js/common.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+    // Function to handle button click events
+      $(document).ready(function() {
+        $('.export-excel').click(function(event) {
+          event.preventDefault();
+          // Check if the user has read-only access
+          var hasReadOnlyAccess = true; // Replace this with your logic to determine read-only access
+          if (hasReadOnlyAccess) {
+            // Show SweetAlert modal
+            Swal.fire({
+              icon: 'warning',
+              title: 'Read Only Access',
+              text: 'Please contact the administrator to request Execution Access, as your current access level is Read Only.',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            });
+          } else {
+            // Continue with button action if user has appropriate access
+            // You can add your export or send email logic here
+          }
+        });
+      });
+  </script>
+
+</body>
+
+</html>

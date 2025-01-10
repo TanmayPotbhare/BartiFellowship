@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Form | Fellowship</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/admin_assets/img/favicon.png" rel="icon">
+    <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/admin_assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2-bootstrap4.css">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+
+<body>
+
+    <!-- ======= Header ======= -->
+    {% include 'user_templates/header.html' %}
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+
+    <!-- End Sidebar-->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-journal-text"></i><span>Application Form</span></i>
+                </a>
+            </li><!-- End Forms Nav -->
+        </ul>
+    </aside>
+
+
+    <!-- MAIN -->
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Application Form</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item">Preview</li>
+                    <li class="breadcrumb-item active">App Form</li>
+                    
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <div class="card col-md-6 m-auto">
+            <div class="card-header text-center">
+                <img src="/static/assets/img/accepted.gif" width="80px" alt="">
+            </div>
+            <div class="card-body py-3 bg-light text-center">
+                {% if records %}
+                <section class="section contact">
+                    {% if records %}
+                        {% if records['first_name'] and records['last_name'] %}
+                            <p> Hello, {{ records['first_name'] + " " + records['last_name'] }} </p>
+                        {% else %}
+                            <p> Hello, User </p>
+                        {% endif %}
+                    <p><strong>The Application form is Successfully submitted & You won't be able to edit it now.
+                        </strong> </p>
+                    <p> <strong>Your Applicant ID -</strong> {{ records['applicant_id'] }}
+                    </p>
+
+                    <form method="GET" action="/generate_pdf" target="_blank">
+                        <button type="submit" class="btn btn-theme">Generate PDF</button>
+                    </form>
+                    {% endif %}
+                </section>
+                {% endif %}
+
+            </div>
+        </div>
+
+
+
+    </main>
+    <!----------------================== END MAIN FORM =====================------------------>
+
+    {% include 'user_templates/footer.html' %}
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+    <script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+    <script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/admin_assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/static/select2/js/select2.min.js"></script>
+    <script src="static/admin_assets/js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

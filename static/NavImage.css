@@ -1,0 +1,124 @@
+
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #00008B; /* Replace with your desired background color */
+  padding: 10px;
+  height: 50px;
+}
+
+.navbar-logo {
+  color: #fff; /* Replace with your desired text color */
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.dropdown-toggle {
+  background-color: transparent;
+  border: none;
+  color: #fff; /* Replace with your desired text color */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  background-color: #f8f9fa; /* Replace with your desired background color */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 0;
+  text-align: right;
+}
+
+.dropdown-item {
+  color: #000; /* Replace with your desired text color */
+  display: block;
+  padding: 5px 20px;
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background-color: #ccc; /* Replace with your desired hover background color */
+}
+
+/* Header Container Styles */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left-image img,
+.right-images img {
+  height: 80px; /* Change the height value as per your requirement */
+}
+
+.content {
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.heading {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Palanquin Dark', sans-serif; /* Change the font-family to your desired font */
+  color: #ff0000;  /* Replace with your desired text color */
+}
+
+.right-images {
+  display: flex;
+  align-items: center;
+}
+
+.right-images img {
+  content: ' ';
+  margin-right: 10px;
+}
+
+.right-images img:last-child {
+  margin-right: 0;
+}
+
+/* Set the names and images of eknath */
+  .person-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .person {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  .person img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .person .name {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .person .description {
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 768px) {
+  .person {
+    width: 100%;
+  }

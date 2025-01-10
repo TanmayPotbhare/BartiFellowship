@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>My Application | Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/admin_assets/img/favicon.png" rel="icon">
+  <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/admin_assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  {% include 'user_templates/header.html' %}
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  {% include 'user_templates/sidebar.html' %}
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>My Applications</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Pages</li>
+          <li class="breadcrumb-item active">My Applications</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section contact">
+      <div class="row">
+        <div class="col-md-12 card p-3">
+          <!-- Table with stripped rows -->
+          <table class="table datatable">
+            <thead>
+              <tr>
+                <th scope="col">ID</th> 
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Mobile Number</th>              
+                <th scope="col">Email</th>
+                <th scope="col">Day</th>
+                <th scope="col">Month</th>
+                <th scope="col">Year</th>
+                <th scope="col">Age</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in records %}
+              <tr>
+                <th>{{ record['id'] }}</th>    
+                <td>{{ record['first_name']}}</td>
+                <td>{{ record['last_name']}}</td> 
+                <td>{{ record['mobile_number']}}</td>
+                <td>{{ record['email']}}</td>
+                <td>{{ record['day']}}</td>
+                <td>{{ record['month']}}</td>
+                <td>{{ record['year']}}</td>
+                <td>{{ record['age']}}</td>
+
+                <td>
+                  <a href="/viewform_old_users/{{record['id']}}" class="btn btn-theme btn-sm tooltip-trigger"
+                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form"><i
+                      class="ri-eye-fill"></i></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+        </div>
+      </div>
+<div>
+  
+</div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'user_templates/footer.html' %}
+  <!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="static/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="static/assets/vendor/quill/quill.min.js"></script>
+  <script src="static/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="static/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="static/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="static/admin_assets/js/common.js"></script>
+
+</body>
+
+</html>

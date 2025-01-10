@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Dashboard - Fellowship</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/admin_assets/img/favicon.png" rel="icon">
+    <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/admin_assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    {% include 'admin_templates/header.html' %}
+    <!-- ======= Sidebar ======= -->
+    {% include 'admin_templates/sidebar.html' %}
+
+
+    <!-- MAIN -->
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Application Form</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item">Preview</li>
+                    <li class="breadcrumb-item active">App Form</li>
+
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <div class="card col-md-6 m-auto">
+            <div class="card-header text-center">
+                <img src="/static/assets/img/accepted.gif" width="80px" alt="">
+            </div>
+            <div class="card-body py-3 bg-light text-center">
+
+                <section class="section contact">
+
+
+                    <p> <strong>Email Has been sent.!!</strong>
+                    </p>
+
+                    <div>
+                        <a href="/sendbulkEmails">
+                            <button class="btn btn-primary">
+                                Go back
+                            </button>
+                        </a>
+                    </div>
+
+                </section>
+
+
+            </div>
+        </div>
+
+
+
+    </main>
+
+    {% include 'admin_templates/footer.html' %}
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+    <script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+    <script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+    <!-- Add Bootstrap JS and Popper.js CDN links if needed -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/admin_assets/js/main.js"></script>
+    <script src="static/admin_assets/js/admin/bulkEmail.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

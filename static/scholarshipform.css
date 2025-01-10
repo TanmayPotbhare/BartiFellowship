@@ -1,0 +1,145 @@
+/******************************************
+/* COLOURS
+/*******************************************/
+
+/* add a list of colours used in the project */
+
+/******************************************
+/* SENSIBLE DEFAULTS
+/*******************************************/
+
+* {
+     box-sizing: border-box;
+}
+
+/******************************************
+/* TYPOGRAPHY
+/*******************************************/
+
+/* add type styles here */
+
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+
+.site-container {
+ background-image: url("../images/background.png");
+ max-width: 1200px;
+ margin: 0 auto;
+}
+
+.site-header {
+ width:100%;
+ background-color: White;
+ border:0px solid black ;
+  Border-radius: 0px 0px 0px 0px;
+}
+
+.site-header h1 {
+ margin: 0;
+ padding:15px;
+ text-align:center;
+ font-size: 25px;
+ font-family: 'Open Sans', sans-serif;
+ color:black;
+}
+h3{
+ font-size: 15px;
+  font-weight:normal;
+ color:black;
+}
+.form-field label{
+ margin:15px;
+ vertical-align:middle;
+ display: inline-block;
+ width:250px;
+  font-size: 15px;
+}
+
+#street {
+  order: -1;
+}
+
+#address2 {
+  order: 1;
+}
+
+.form-field.address input {
+  margin-bottom: 10px; /* Adjust the margin-bottom value as desired */
+}
+
+.site-content {
+    border:auto solid black;
+    padding:10px;
+}
+
+input:focus {
+    background: white;
+}
+
+input[type="text"]{
+  background:white;
+  outline: 0;
+}
+
+input[type="tel"]{
+  background:white;
+  outline:0;
+}
+
+input[type="Submit"]{
+  border-radius: 8px;
+ margin:30px 1px 15px 10px;
+}
+h2{
+ font-size: 20px;
+}
+#course{
+  width:90px;
+}
+form{
+  width:auto;
+}
+/******************************************
+/* HELPER CLASSES
+/*******************************************/
+
+/* Clearfix */
+.clearfix:before,
+.clearfix:after {
+     content: " ";
+     display: table;
+}
+.clearfix:after {
+     clear:both;
+}
+
+.is-hidden {
+     display: none;
+}
+.is-visible {
+     display: block;
+}
+
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+
+.error-text {
+        color: red;
+  display: inline-block;
+  margin-left: 5px;
+    }
+
+.error-message {
+    color: red;
+    font-size: 12px;
+  }
+
+
+@media screen and (max-width: 768px) {
+  .person {
+    width: 100%;
+  }

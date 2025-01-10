@@ -1,0 +1,65 @@
+<div class="container-fluid p-0 bg-light warli-bg">
+  <div class="top-header row justify-content-between align-items-center px-5">
+    <div class="col-md-4 col-sm-12 col-12 w-sm-100 d-flex justify-content-around">
+      <div class="font-14 trti-mail">trti.mah@nic.in</div>
+      <div class="font-14 mob-no">{{ multilingual_content[language]['mobile-no'] }}</div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-12 w-sm-100 d-flex justify-content-around align-items-center">
+      <div class="text-white font-14 d-mob-none header-menu"> <a href="#main" class="text-white">{{ multilingual_content[language]['skip-to-main-content'] }}</a></div>
+      <div class="border-left d-mob-none"></div>
+      <div class="text-white font-14"><a href="javascript:void(0);" class="text-white header-menu" id="jfontsize-m" aria-label="Text-minus" onclick="fontDecrease();" title="Text-minus">{{ multilingual_content[language]['a-'] }}</a></div>
+      <div class="border-left"></div>
+      <div class="text-white font-14"><a href="javascript:void(0);" class="text-white header-menu" id="jfontsize-d" aria-label="Text-normal" onclick="fontNormal();" title="Text-normal">{{ multilingual_content[language]['a'] }}</a></div>
+      <div class="border-left"></div>
+
+      <div class="text-white font-14"><a href="javascript:void(0);" class="text-white header-menu" id="jfontsize-p" aria-label="Text-plus" onclick="fontIncrease();" title="Text-plus">{{ multilingual_content[language]['a+'] }}</a></div>
+      <div class="border-left"></div>
+
+      <div class="text-white font-14 header-menu"><a href="{{ url_for('set_session', value='english') }}" class="text-white">{{ multilingual_content[language]['english'] }} </a></div>
+      <div class="border-left"></div>
+
+      <div class="text-white font-14 header-menu"><a href="{{ url_for('set_session', value='marathi') }}" class="text-white">{{ multilingual_content[language]['marathi'] }}</a></div>
+      <div class="border-left"></div>
+
+      <div class="admin-login-container">
+        <a href="/adminlogin" class="admin-login-btn">{{ multilingual_content[language]['admin_login_btn'] }}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-logo-section container py-3 display-head">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-md-4 d-flex align-items-center trti-logo-container">
+        <img src="/static/assets/img/logo/logo-new.png" class="w-100px" alt="TRTI Logo" />
+        <div>
+          <p class="font-13 mb-0 font-bold trti-text ms-1 trti-title">{{ multilingual_content[language]['trti_header'] }}</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <h5 class="fellowship-text trti-title">{{ multilingual_content[language]['fellowship'] }}</h5>
+      </div>
+
+      <div class="col-md-4 text-end">
+        <img src="/static/assets/img/logo/satyamev-logo.png" class="w-100px" alt="National Embleme" />
+        <img src="/static/assets/img/logo/maharashtra-shasan.png" class="w-100px" alt="Maharashtra logo" />
+      </div>
+    </div>
+  </div>
+  <div class="header-logo-section container py-3 mobile-head">
+    <div class="d-flex align-items-center justify-content-between flex-column">
+      <div class="d-flex justify-content-between">
+        <img src="/static/assets/img/logo/logo-new.png" class="w-80px" alt="TRTI Logo" />
+        <img src="/static/assets/img/logo/satyamev-logo.png" class="w-80px" alt="National Embleme" />
+        <img src="/static/assets/img/logo/maharashtra-shasan.png" class="w-80px" alt="Maharashtra logo" />
+      </div>
+
+      <div class="text-center">
+        <h5 class="fw-bold trti-text  trti-title">{{ multilingual_content[language]['trti_header'] }}</h5>
+      </div>
+      <div class="text-center">
+        <h5 class="fellowship-text">{{ multilingual_content[language]['fellowship'] }}</h5>
+      </div>
+    </div>
+  </div>
+</div>

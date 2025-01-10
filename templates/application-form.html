@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Form | Fellowship</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/admin_assets/img/favicon.png" rel="icon">
+    <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/admin_assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2-bootstrap4.css">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    {% include 'user_templates/header.html' %}
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+
+    <!-- End Sidebar-->
+    <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Application Form</span></i>
+            </a>
+        </li><!-- End Forms Nav -->
+    </ul>
+    </aside>
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Application Form</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item active">App Form</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section contact">
+            <div class="">
+                <div class="progress-form mb-3">
+                    <div>
+                        <div class="progress-chart w-75 m-auto">
+                            <div class="bar-1 bg-theme text-white">1</div>
+                            <span class="progress-bar bar-2"></span>
+                            <div class="bar-2">2</div>
+                            <span class="progress-bar bar-3"></span>
+                            <div class="bar-3">3</div>
+                            <span class="progress-bar bar-4"></span>
+                            <div class="bar-4">4</div>
+                            <span class="progress-bar bar-5"></span>
+                            <div class="bar-5"> 5</div>
+                        </div>
+                    </div>
+                </div>
+                <form method="POST" action="/submit_form" class="needs-validation" novalidate=""
+                    enctype="multipart/form-data">
+                    <div class="card">
+                        <div class="page-1">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Applicant Details / अर्जदाराचे तपशील</h5>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="form-group row ">
+                                    <div class="col-md-4 position-relative">
+                                        <label for="" class="fw-bold">Applicant Photo <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="
+                                            The file size limit is a maximum of 2MB, and it only accepts files with PDF, JPEG, JPG, or PNG extensions "><i
+                                                class=" ri-information-fill
+                                                    "></i></label><br>
+                                        <img src="" class="preview-img  mb-3 shadow" id="candidate_preview" alt="">
+                                        <input type="file" class="form-control upload-img file_validation"
+                                            name="applicant_photo" id="candidate_photo" accept="image/*" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please attach your Photo
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 position-relative">
+                                        <label for="" class="fw-bold">Adhar Card No. (आधार कार्ड क्रमांक) <span
+                                                class="text-danger">*</span></label>
+                                        {% for row in records %}
+                                        <input type="text" class="form-control" name="adhaar_number" id="aadhaar"
+                                            accept="image/*" required placeholder="Enter Adhar Card number"
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 12)"
+                                            maxlength="14" title="candidate_photo"
+                                        {% if 'adhaar_number' in row %} disabled {% endif %} value="{{ row['adhaar_number'] }}">
+                                        {% endfor %}
+                                        <span id="aadhaarError" class="error"></span><br>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please Enter your Adhaar ID
+                                            <br>Should be in this format comulsory - XXXX XXXX XXXX
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Personal Details / वैयक्तिक माहिती </h5>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="form-group row">
+                                    <div class="col-md-9 row">
+                                        <label for="" class="fw-bold">Full-Name (As per SSC) / पूर्ण नाव (SSC मार्कशीट
+                                            नुसार)<span class="text-danger">*</span></label>
+                                        <div class="col-md-4">
+                                            {% for row in records %}
+                                            <input type="text" class="form-control" name="first_name"
+                                                id="candidate_first_name" placeholder="First" required=""
+                                                  {% if records %} disabled {% endif %}  value="{{row['first_name']}}">
+                                            {% endfor %}
+                                            <div class="valid-feedback">
+                                                Looks Good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please Enter your First Name Only
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {% for row in records %}
+                                            <input type="text" class="form-control" name="middle_name"
+                                                id="candidate_middle_name" placeholder="Middle" required=""
+                                            {% if records %} disabled {% endif %}  value="{{row['middle_name']}}">
+                                            {% endfor %}
+                                            <div class="valid-feedback">
+                                                Looks Good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please Enter your Middle Name only
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="last_name"
+                                                id="candidate_last_name" placeholder="Last" required="">
+                                            <div class="valid-feedback">
+                                                Looks Good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please Enter your Last Name only
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="fw-bold">Mobile Number / मोबाईल नंबर <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="mobile_number" id="mobile"
+                                            placeholder="Enter Mobile Number" maxlength="10" minlength="10" required>
+                                        <span id="mobileError" class="error"></span><br>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please Enter Mobile Number
+                                            <br> It Should be in this Format Compulsory - XXXXXXXXXX
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Email ID / ई - मेल आयडी <span
+                                                class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email_id" name="email" size="25"
+                                            placeholder="yourname@domain.com" value="{{ session['email'] }}" required=""
+                                            readonly disabled>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Date Of Birth / जन्मतारिख <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control datepicker" id="dob" name="date_of_birth" placeholder="Select a date" required>
+                                        <span id="doberror" class="error"></span><br>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please Enter your Birth Date as per Adhaar
+                                            <br> The age will be autocalculated on this Date.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Gender / लिंग <span
+                                                class="text-danger">*</span></label>
+                                        <select name="gender" id="gen" class="form-control select2">
+                                            <option value="">--- Select Gender ---</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please Enter your Gender
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Age (In Years)/ वय (वर्षांमध्ये)<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="age" name="age" size="25"
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                                            placeholder="Enter Your Age" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please Enter the date of Birth
+                                            <br> This field will get calculated automatically
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Category / प्रवर्ग <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter Your Caste"
+                                            id="caste" name="caste" size="25" value="Scheduled Tribe" required=""
+                                            readonly>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Caste/Tribe | जात/जमात <span
+                                                class="text-danger">*</span></label>
+                                        <select name="your_caste" class="form-control select2" id="your_caste">
+                                            <option value="" class="text-wrap">-- Select Sub Caste --</option>
+                                            <option value="Andh" class="text-wrap"> Andh (1)</option>
+                                            <option value="Baiga" class="text-wrap"> Baiga (2)</option>
+                                            <option value="Barda" class="text-wrap"> Barda (3)</option>
+                                            <option value="Bavacha" class="text-wrap"> Bavacha (4)</option>
+                                            <option value="Bamcha" class="text-wrap"> Bamcha (4)</option>
+                                            <option value="Bhaina" class="text-wrap"> Bhaina (5)</option>
+                                            <option value="Bharia Bhumia" class="text-wrap"> Bharia Bhumia (6)</option>
+                                            <option value="Bhuinhar Bhumia" class="text-wrap"> Bhuinhar Bhumia (6)
+                                            </option>
+                                            <option value="Pando" class="text-wrap"> Pando (6)</option>
+                                            <option value="Bhattra" class="text-wrap"> Bhattra (7)</option>
+                                            <option value="Bhil" class="text-wrap"> Bhil (8)</option>
+                                            <option value="Bhil Garasia" class="text-wrap"> Bhil Garasia (8)</option>
+                                            <option value="Dholi Bhil" class="text-wrap"> Dholi Bhil (8)</option>
+                                            <option value="Dungri Bhil" class="text-wrap"> Dungri Bhil (8)</option>
+                                            <option value="Dungri Garasia" class="text-wrap"> Dungri Garasia (8)
+                                            </option>
+                                            <option value="Mewasi Bhil" class="text-wrap"> Mewasi Bhil (8)</option>
+                                            <option value="Rawal Bhil" class="text-wrap"> Rawal Bhil (8)</option>
+                                            <option value="Tadvi Bhil" class="text-wrap"> Tadvi Bhil (8)</option>
+                                            <option value="Bhagalia" class="text-wrap"> Bhagalia (8)</option>
+                                            <option value="Bhilala" class="text-wrap"> Bhilala (8)</option>
+                                            <option value="Pawra" class="text-wrap"> Pawra (8)</option>
+                                            <option value="Vasava" class="text-wrap"> Vasava (8)</option>
+                                            <option value="Vasave" class="text-wrap"> Vasave (8)</option>
+                                            <option value="Bhunjia" class="text-wrap"> Bhunjia (9)</option>
+                                            <option value="Binjhwar" class="text-wrap"> Binjhwar (10)</option>
+                                            <option value="Birhul" class="text-wrap"> Birhul (11)</option>
+                                            <option value="Birhor" class="text-wrap"> Birhor (11)</option>
+                                            <option value="Omitted" class="text-wrap"> Omitted (12)</option>
+                                            <option value="Dhanka" class="text-wrap"> Dhanka (13)</option>
+                                            <option value="Tadvi" class="text-wrap"> Tadvi (13)</option>
+                                            <option value="Tetaria" class="text-wrap"> Tetaria (13)</option>
+                                            <option value="Valvi" class="text-wrap"> Valvi (13)</option>
+                                            <option value="Dhanwar" class="text-wrap"> Dhanwar (14)</option>
+                                            <option value="Dhodia" class="text-wrap"> Dhodia (15)</option>
+                                            <option value="Dubla" class="text-wrap"> Dubla (16)</option>
+                                            <option value="Talavia" class="text-wrap"> Talavia (16)</option>
+                                            <option value="Halpati" class="text-wrap"> Halpati (16)</option>
+                                            <option value="Gamit" class="text-wrap"> Gamit (17)</option>
+                                            <option value="Gamta" class="text-wrap"> Gamta (17)</option>
+                                            <option value="Gavit" class="text-wrap"> Gavit (17)</option>
+                                            <option value="Mavchi" class="text-wrap"> Mavchi (17)</option>
+                                            <option value="Padvi" class="text-wrap"> Padvi (17)</option>
+                                            <option value="Gond" class="text-wrap"> Gond (18)</option>
+                                            <option value="Rajgond" class="text-wrap"> Rajgond (18)</option>
+                                            <option value="Arakh" class="text-wrap"> Arakh (18)</option>
+                                            <option value="Arrakh" class="text-wrap"> Arrakh (18)</option>
+                                            <option value="Agaria" class="text-wrap"> Agaria (18)</option>
+                                            <option value="Asur" class="text-wrap"> Asur (18)</option>
+                                            <option value="Badi Maria" class="text-wrap"> Badi Maria (18)</option>
+                                            <option value="Bada Maria" class="text-wrap"> Bada Maria (18)</option>
+                                            <option value="Bhatola" class="text-wrap"> Bhatola (18)</option>
+                                            <option value="Bhimma" class="text-wrap"> Bhimma (18)</option>
+                                            <option value="Bhuta" class="text-wrap"> Bhuta (18)</option>
+                                            <option value="Koilabhuta" class="text-wrap"> Koilabhuta (18)</option>
+                                            <option value="Koilabhuti" class="text-wrap"> Koilabhuti (18)</option>
+                                            <option value="Bhar" class="text-wrap"> Bhar (18)</option>
+                                            <option value="Bisonhorn Maria" class="text-wrap"> Bisonhorn Maria (18)
+                                            </option>
+                                            <option value="Chota Maria" class="text-wrap"> Chota Maria (18)</option>
+                                            <option value="Dandami Maria" class="text-wrap"> Dandami Maria (18)</option>
+                                            <option value="Dhuru" class="text-wrap"> Dhuru (18)</option>
+                                            <option value="Dhurwa" class="text-wrap"> Dhurwa (18)</option>
+                                            <option value="Dhoba" class="text-wrap"> Dhoba (18)</option>
+                                            <option value="Dhulia" class="text-wrap"> Dhulia (18)</option>
+                                            <option value="Dorla" class="text-wrap"> Dorla (18)</option>
+                                            <option value="Gaiki" class="text-wrap"> Gaiki (18)</option>
+                                            <option value="Gatta" class="text-wrap"> Gatta (18)</option>
+                                            <option value="Gatti" class="text-wrap"> Gatti (18)</option>
+                                            <option value="Gaita" class="text-wrap"> Gaita (18)</option>
+                                            <option value="Gond Gowari" class="text-wrap"> Gond Gowari (18)</option>
+                                            <option value="Hill Maria" class="text-wrap"> &lt;br/&gt; Hill Maria (18)
+                                            </option>
+                                            <option value="Kandra" class="text-wrap"> Kandra (18)</option>
+                                            <option value="Kalanga" class="text-wrap"> Kalanga (18)</option>
+                                            <option value="Khatola" class="text-wrap"> Khatola (18)</option>
+                                            <option value="Koitar" class="text-wrap"> Koitar (18)</option>
+                                            <option value="Koya" class="text-wrap"> Koya (18)</option>
+                                            <option value="Khirwar" class="text-wrap"> Khirwar (18)</option>
+                                            <option value="Khirwara" class="text-wrap"> Khirwara (18)</option>
+                                            <option value="Kucha Maria" class="text-wrap"> Kucha Maria (18)</option>
+                                            <option value="Kuchaki Maria" class="text-wrap"> Kuchaki Maria (18)</option>
+                                            <option value="Madia" class="text-wrap"> Madia (18)</option>
+                                            <option value="Maria" class="text-wrap"> Maria (18)</option>
+                                            <option value="Mana" class="text-wrap"> Mana (18)</option>
+                                            <option value="Mannewar" class="text-wrap"> Mannewar (18)</option>
+                                            <option value="Moghya" class="text-wrap"> Moghya (18)</option>
+                                            <option value="Mogia" class="text-wrap"> Mogia (18)</option>
+                                            <option value="Monghya" class="text-wrap"> Monghya (18)</option>
+                                            <option value="Mudia" class="text-wrap"> Mudia (18)</option>
+                                            <option value="Muria" class="text-wrap"> Muria (18)</option>
+                                            <option value="Nagarchi" class="text-wrap"> Nagarchi (18)</option>
+                                            <option value="Naikpod" class="text-wrap"> Naikpod (18)</option>
+                                            <option value="Nagwanshi" class="text-wrap"> Nagwanshi (18)</option>
+                                            <option value="Ojha" class="text-wrap"> Ojha (18)</option>
+                                            <option value="Raj" class="text-wrap"> Raj (18)</option>
+                                            <option value="Sonjhari Jhareka" class="text-wrap"> Sonjhari Jhareka (18)
+                                            </option>
+                                            <option value="Thatia" class="text-wrap"> Thatia (18)</option>
+                                            <option value="Thotya" class="text-wrap"> Thotya (18)</option>
+                                            <option value="Wade Maria" class="text-wrap"> Wade Maria (18)</option>
+                                            <option value="Vade Maria" class="text-wrap"> Vade Maria. (18)</option>
+                                            <option value="Halba" class="text-wrap"> Halba (19)</option>
+                                            <option value="Halbi" class="text-wrap"> Halbi (19)</option>
+                                            <option value="Kamar" class="text-wrap"> Kamar (20)</option>
+                                            <option value="Kathodi" class="text-wrap"> Kathodi (21)</option>
+                                            <option value="Katkari" class="text-wrap"> Katkari (21)</option>
+                                            <option value="Dhor Kathodi" class="text-wrap"> Dhor Kathodi (21)</option>
+                                            <option value="Dhor Kathkari" class="text-wrap"> Dhor Kathkari (21)</option>
+                                            <option value="Son Kathodi" class="text-wrap"> Son Kathodi (21)</option>
+                                            <option value="Son Katkari" class="text-wrap"> Son Katkari (21)</option>
+                                            <option value="Kawar" class="text-wrap"> Kawar (22)</option>
+                                            <option value="Kanwar" class="text-wrap"> Kanwar (22)</option>
+                                            <option value="Kaur" class="text-wrap"> Kaur (22)</option>
+                                            <option value="Cherwa" class="text-wrap"> Cherwa (22)</option>
+                                            <option value="Rathia" class="text-wrap"> Rathia (22)</option>
+                                            <option value="Tanwar" class="text-wrap"> Tanwar (22)</option>
+                                            <option value="Chattri" class="text-wrap"> Chattri (22)</option>
+                                            <option value="Khairwar" class="text-wrap"> Khairwar (23)</option>
+                                            <option value="Kharia" class="text-wrap"> Kharia (24)</option>
+                                            <option value="Kokna" class="text-wrap"> Kokna (25)</option>
+                                            <option value="Kokni" class="text-wrap"> Kokni (25)</option>
+                                            <option value="Kukna" class="text-wrap"> Kukna (25)</option>
+                                            <option value="Kol" class="text-wrap"> Kol (26)</option>
+                                            <option value="Kolam" class="text-wrap"> Kolam (27)</option>
+                                            <option value="Mannervarlu" class="text-wrap"> Mannervarlu (27)</option>
+                                            <option value="Koli Dhor" class="text-wrap"> Koli Dhor (28)</option>
+                                            <option value="Tokre Koli" class="text-wrap"> Tokre Koli (28)</option>
+                                            <option value="Kolcha" class="text-wrap"> Kolcha (28)</option>
+                                            <option value="Kolgha" class="text-wrap"> Kolgha (28)</option>
+                                            <option value="Koli Mahadev" class="text-wrap"> Koli Mahadev (29)</option>
+                                            <option value="Dongar Koli" class="text-wrap"> Dongar Koli (29)</option>
+                                            <option value="Koli Malhar" class="text-wrap"> Koli Malhar (30)</option>
+                                            <option value="Kondh" class="text-wrap"> Kondh (31)</option>
+                                            <option value="Khond" class="text-wrap"> Khond (31)</option>
+                                            <option value="Kandh" class="text-wrap"> Kandh (31)</option>
+                                            <option value="Korku" class="text-wrap"> Korku (32)</option>
+                                            <option value="Bopchi" class="text-wrap"> Bopchi (32)</option>
+                                            <option value="Mouasi" class="text-wrap"> Mouasi (32)</option>
+                                            <option value="Nihal" class="text-wrap"> Nihal (32)</option>
+                                            <option value="Nahul" class="text-wrap"> Nahul (32)</option>
+                                            <option value="Bondhi" class="text-wrap"> Bondhi (32)</option>
+                                            <option value="Bondeya" class="text-wrap"> Bondeya (32)</option>
+                                            <option value="Koya" class="text-wrap"> Koya (33)</option>
+                                            <option value="Bhine Koya" class="text-wrap"> Bhine Koya (33)</option>
+                                            <option value="Rajkoya" class="text-wrap"> Rajkoya (33)</option>
+                                            <option value="Nagesia" class="text-wrap"> Nagesia (34)</option>
+                                            <option value="Nagasia" class="text-wrap"> Nagasia (34)</option>
+                                            <option value="Naikda" class="text-wrap"> Naikda (35)</option>
+                                            <option value="Nayaka" class="text-wrap"> Nayaka (35)</option>
+                                            <option value="Cholivala Nayaka" class="text-wrap"> Cholivala Nayaka (35)
+                                            </option>
+                                            <option value="Kapadia Nayaka" class="text-wrap"> Kapadia Nayaka (35)
+                                            </option>
+                                            <option value="Mota Nayaka" class="text-wrap"> Mota Nayaka (35)</option>
+                                            <option value="Nana Nayaka" class="text-wrap"> Nana Nayaka (35)</option>
+                                            <option value="Oraon" class="text-wrap"> Oraon (36)</option>
+                                            <option value="Dhangad" class="text-wrap"> Dhangad (36)</option>
+                                            <option value="Pardhan" class="text-wrap"> Pardhan (37)</option>
+                                            <option value="Pathari" class="text-wrap"> Pathari (37)</option>
+                                            <option value="Saroti" class="text-wrap"> Saroti (37)</option>
+                                            <option value="Pardhi" class="text-wrap"> Pardhi (38)</option>
+                                            <option value="Advichincher" class="text-wrap"> Advichincher (38)</option>
+                                            <option value="Phans Pardhi" class="text-wrap"> Phans Pardhi (38)</option>
+                                            <option value="Phanse Pardhi" class="text-wrap"> Phanse Pardhi (38)</option>
+                                            <option value="Langoli Pardhi" class="text-wrap"> Langoli Pardhi (38)
+                                            </option>
+                                            <option value="Bahelia" class="text-wrap"> Bahelia (38)</option>
+                                            <option value="Bahellia" class="text-wrap"> Bahellia (38)</option>
+                                            <option value="Chita Pardhi" class="text-wrap"> Chita Pardhi (38)</option>
+                                            <option value="Shikari" class="text-wrap"> Shikari (38)</option>
+                                            <option value="Takankar" class="text-wrap"> Takankar (38)</option>
+                                            <option value="Takia" class="text-wrap"> Takia (38)</option>
+                                            <option value="Parja" class="text-wrap"> Parja (39)</option>
+                                            <option value="Patelia" class="text-wrap"> Patelia (40)</option>
+                                            <option value="Pomla" class="text-wrap"> Pomla (41)</option>
+                                            <option value="Rathawa" class="text-wrap"> Rathawa (42)</option>
+                                            <option value="Sawar" class="text-wrap"> Sawar (43)</option>
+                                            <option value="Sawara" class="text-wrap"> Sawara (43)</option>
+                                            <option value="Thakur" class="text-wrap"> Thakur (44)</option>
+                                            <option value="Thakar" class="text-wrap"> Thakar (44)</option>
+                                            <option value="Ka Thakur" class="text-wrap"> Ka Thakur (44)</option>
+                                            <option value="Ma Thakur" class="text-wrap"> Ma Thakur (44)</option>
+                                            <option value="Omitted" class="text-wrap"> Omitted (45)</option>
+                                            <option value="Varli" class="text-wrap"> Varli (46)</option>
+                                            <option value="Vitolia" class="text-wrap"> Vitolia (47)</option>
+                                            <option value="Kotwalia" class="text-wrap"> Kotwalia (47)</option>
+                                            <option value="Barodia" class="text-wrap"> Barodia (47)</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select your Caste from Dropdown
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Marital Status / वैवाहिक स्थिती <span
+                                                class="text-danger">*</span></label>
+                                        <select name="marital_status" id="ms" class="form-control select2">
+                                            <option value="">--- Select Status ---</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Widowed">Widowed</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select Marital Status
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Personal Address Details / वैयक्तिक पत्त्याचे तपशील </h5>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="col-md-12 row">
+                                    <label for="" class="fw-bold">Address <span class="text-danger">*</span></label>
+                                    <div class="col-md-6 position-relative py-3">
+                                        <textarea name="add_1" id="street" class="form-control"
+                                            placeholder="Street Address" maxlength="100" required></textarea>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the address
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 position-relative py-3">
+                                        <textarea name="add_2" id="address2" class="form-control"
+                                            placeholder="Address Line 2" maxlength="50" required></textarea>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the address
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Pincode / पिन कोड <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="pincode" name="pincode" size="25"
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                                            placeholder="Enter Your Pincode" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Pincode
+                                            <br> Pincode should be in this format Compulsory - XXXXXX (6 Digits only)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Village / गाव <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter Your Village / गाव"
+                                            id="village" name="village" size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Village
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Taluka / तालुका <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter Your Taluka"
+                                            id="taluka" name="taluka" size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Taluka
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">District / जिल्हा <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="district" name="district" size="25"
+                                            placeholder="Enter Your District" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the District
+                                        </div>
+                                    </div>
+                                     <div class="col-md-4">
+                                        <label for="" class="fw-bold">City<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter Your State"
+                                            id="city" name="city" size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the State
+                                        </div>
+                                     </div>
+                                        <div class="col-md-4">
+                                        <label for="" class="fw-bold">State / राज्य<span class="text-danger">*</span></label>
+                                        <select class="form-select" id="state" name="state" required>
+                                            <option value="" disabled selected>Select Your State</option>
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                            <option value="Assam">Assam</option>
+                                            <option value="Bihar">Bihar</option>
+                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                            <option value="Goa">Goa</option>
+                                            <option value="Gujarat">Gujarat</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                            <option value="Jharkhand">Jharkhand</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Manipur">Manipur</option>
+                                            <option value="Meghalaya">Meghalaya</option>
+                                            <option value="Mizoram">Mizoram</option>
+                                            <option value="Nagaland">Nagaland</option>
+                                            <option value="Odisha">Odisha</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            <option value="Sikkim">Sikkim</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Tripura">Tripura</option>
+                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                            <option value="Uttarakhand">Uttarakhand</option>
+                                            <option value="West Bengal">West Bengal</option>
+                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                                            <option value="Lakshadweep">Lakshadweep</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Puducherry">Puducherry</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select your State
+                                        </div>
+                                    </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-success" data-bs-toggle="tooltip"
+                                    data-bs-title="Save"> Save
+                                </button>
+                                <button type="button" class="btn bg-theme text-white next-btn-2"
+                                    data-bs-toggle="tooltip" data-bs-title="Next">
+                                    Next </button>
+                            </div>
+                        </div>
+
+                        <div class="page-2">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Qualification Details / पात्रता तपशील</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-12 mt-3">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th class="text-center">
+                                                    Qualification
+                                                </th>
+                                                <th class="text-center">Passing Year</th>
+                                                <th class="text-center">Percentage</th>
+                                                <th class="text-center">School Name</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>SSC</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Passing Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Percentage">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="School Name">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>HSC</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Passing Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Percentage">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="School Name">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>Graduation</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Passing Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Percentage">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="School Name">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>Post - Graduation</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Passing Year">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Percentage">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="School Name">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                            <label for="" class="fw-bold"> Have you qualified? <span
+                                                    class="text-danger">*</span></label>
+                                            <select name="qualified" id="qualified" class="form-control">
+                                                <option value=""> --- Select Option ---</option>
+                                                <option value="M.Phil">M.Phil</option>
+                                                <option value="PET">PET</option>
+                                                <option value="SET">SET</option>
+                                                <option value="NET">NET</option>
+                                                <option value="GATE">GATE</option>
+                                            </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="card-header bg-light">
+                            <h5 class="card-title p-0">PHD Details / उत्पन्न तपशील </h5>
+                        </div>
+                                    <div class="card-body">
+                                        <div class="form-group row my-2">
+                                        <div class="col-md-4">
+                                        <label for="" class="fw-bold">PHD Registration Date<span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control"
+                                            placeholder="Electrical / Computer Science" id="date"
+                                            name="phd_registration_date" size="25" placeholder="Hindu" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select the P.H.D Registration Date
+                                            <br> Please enter this date as per the registration as this will be an
+                                            important
+                                            date used in your profile.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">P.H.D Registration Year<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter University Name"
+                                            maxlength="150" id="phd_registration_year" name="phd_registration_year"
+                                            size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your University Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Concerned University<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter University Name"
+                                            maxlength="150" id="concerned_university" name="concerned_university"
+                                            size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your University Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Topic of PHD<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter P.H.D Topic"
+                                            maxlength="150" id="topic_of_phd" name="topic_of_phd" size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter P.H.D Topic
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Name of Guide<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter Name of Guide"
+                                            id="name_of_guide" name="name_of_guide" size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Name of Guide
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Board / University (बोर्ड) <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter University Name"
+                                            id="Board" name="board_university" size="25" required="">
+                                        <!--                                    <select name="board_university" class="form-control select2" id="Board">-->
+                                        <!--                                        <option value="">&#45;&#45;Select University &#45;&#45;</option>-->
+                                        <!--                                        {% for arr in universities %}-->
+                                        <!--                                        <option value="{{ arr['u_id'] }}">{{ arr['affiliated_universities'] }}</option>-->
+                                        <!--                                        {% endfor %}-->
+                                        <!--                                    </select>-->
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your board / university Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Name of College<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter College Name"
+                                            id="name_of_college" name="name_of_college" size="25" placeholder="Hindu"
+                                            required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your Name of College
+                                        </div>
+                                        <!--                                    <select name="name_of_college" id="name_of_college" class="form-control select2">-->
+                                        <!--                                        <option value="">&#45;&#45; Select College &#45;&#45;</option>-->
+                                        <!--                                    </select>-->
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Stream / प्रवाह <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter Stream" id="stream"
+                                            name="stream" size="25" placeholder="Hindu" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your Stream
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Faculty <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Enter Faculty" id="faculty"
+                                            name="faculty" size="25" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your Stream
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Admission year / प्रवेश वर्ष <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="admission_year" class="form-control"
+                                            placeholder="Enter Your Year of Admission"
+                                            onkeyup="this.value = this.value.replace(/[^0-9.]/g, '').substring(0,4)"
+                                            required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Admission Year
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Passing year / उत्तीर्ण वर्ष </label>
+                                        <input type="text" class="form-control" placeholder="Enter year of passing"
+                                            id="passing_year" name="passing_year" size="25" placeholder="Hindu"
+                                            onkeyup="this.value = this.value.replace(/[^0-9.]/g, '').substring(0,4)">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the passing year
+                                            <br> If the Admission Year is 2023 enter 2023 as Passing year.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Percentage / टक्केवार </label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Make sure the percentage is in Decimal - 99.99" id="percent"
+                                            name="percentage" size="25"
+                                            onkeyup="this.value = this.value.replace(/[^0-9.]/g, '').substring(0,5)">
+                                        <div class="valid-feedback">
+                                            Looks Good
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Percentage
+                                            <br> Make sure the percentage is in Decimal - XX.XX.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Income Details / उत्पन्न तपशील </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Family's Annual Income/ कुटुंबाचे वार्षिक उत्पन्न
+                                            (वार्षिक)
+                                            <span class="text-danger">*</span></label>
+                                        <input type="text" name="family_annual_income"
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,10)"
+                                            class="form-control" placeholder="Enter Your family income" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Family Annual Income
+                                            <br> Family Annual income should be per annum.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Income Certificate Number / उत्पन्न प्रमाणपत्र
+                                            क्रमांक<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Income Certificate Number"
+                                            id="certificate_number" name="income_certificate_number" size="25"
+                                            placeholder="Hindu" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please Enter the Annual Income
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Issuing Authority / जारी करणारा अधिकार<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Issuing Authority"
+                                            id="issuing_authority" name="issuing_authority" size="25"
+                                            placeholder="Hindu" required="">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Issuing Authority for Income Certificate
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center ">
+                                <button type="button" class="btn btn-warning shadow preview-btn-1"
+                                    data-bs-toggle="tooltip" data-bs-title="Previous">Previous</button>
+                                <button type="button" class="btn btn-success shadow" data-bs-toggle="tooltip"
+                                    data-bs-title="Save">Save</button>
+                                <button type="button" class="btn bar-active shadow next-btn-3" data-bs-toggle="tooltip"
+                                    data-bs-title="Next">Next</button>
+                            </div>
+                        </div>
+
+                        <div class="page-3">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Domicile Details / अधिवास तपशील </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Are you Domicile of Maharashtra <span
+                                                class="text-danger">*</span></label>
+                                        <select name="domicile" id="domocile" class="form-control">
+                                            <option value=""> --- Select Option ---</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select Yes or No
+                                            <br> If No, then the fields will be disabled
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 row" id="domocile_wrapper">
+                                        <div class="col-md-6">
+                                            <label for="" class="fw-bold">Do you have Domicile Certificate <span
+                                                    class="text-danger">*</span></label>
+                                            <select name="domicile_certificate" id="domocile_certificate"
+                                                class="form-control">
+                                                <option value=""> --- Select Option ---</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                            <div class="valid-feedback">
+                                                Looks Good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please enter if you have Domilicile Certificate
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="" class="fw-bold">Domicile Certificate Number <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Enter Certificate number" id="domocile_number"
+                                                name="domicile_number" size="25">
+                                            <div class="valid-feedback">
+                                                Looks Good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please enter the Domicile Certificate Number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Caste Details / जात तपशील </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Do you have Caste Certificate <span
+                                                class="text-danger">*</span></label>
+                                        <select name="caste_certf" id="caste_option" class="form-control">
+                                            <option value=""> --- Select Option ---</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                            <div class="valid-feedback">
+                                                Looks Good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                If you dont have Caste Certificate, you cannot apply for this Scheme
+                                            </div>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Issuing District <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="issuing_district" id="issuing_district"
+                                            class="form-control" placeholder="Enter Certificate number" size="25"
+                                            readonly>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Issuing District
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Issuing Authority<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="caste_issuing_authority" id="caste_issuing_authority"
+                                            class="form-control" placeholder="Enter Certificate number" size="25"
+                                            readonly>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Issuing Authority for Caste Certificate
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Personal Eligibility Details / वैयक्तिक पात्रता तपशील </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Are You Salaried? / पगारदार आहात का? <span
+                                                class="text-danger">*</span></label>
+                                        <select name="salaried" class="form-control">
+                                            <option value=""> --- Select Option ---</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select if you are Salaried
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Do you have a Disability? / अक्षम आहात का?<span
+                                                class="text-danger">*</span></label>
+                                        <select name="disability" id="disability" class="form-control">
+                                            <option value=""> --- Select Option ---</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select if you have disability or not.
+                                            <br> If yes please attach the medical or Disability certificate
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Type of Disability? / अक्षम आहात का?<span
+                                                class="text-danger">*</span></label>
+                                        <select name="type_disability" id="type_disability" class="form-control">
+                                            <option value=""> --- Select Option ---</option>
+                                            <option value="Physically Handicapped">Physically Handicapped</option>
+                                            <option value="Visually Impaired">Visually Impaired</option>
+                                            <option value="Hearing Impaired">Hearing Impaired</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select if you have disability or not.
+                                            <br> If yes please attach the medical or Disability certificate
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-warning shadow preview-btn-2"
+                                    data-bs-toggle="tooltip" data-bs-title="Previous">Previous</button>
+                                <button type="button" class="btn btn-success shadow" data-bs-toggle="tooltip"
+                                    data-bs-title="Save">Save</button>
+                                <button type="button" class="btn bar-active shadow next-btn-4" data-bs-toggle="tooltip"
+                                    data-bs-title="Next">Next</button>
+                            </div>
+                        </div>
+
+                        <div class="page-4">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">
+                                    Parent's-Guardian's Details Details / पालकांचे-पालकांचे तपशील तपशील </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Enter Father's Name<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="father_name" class="form-control"
+                                            placeholder="Enter Father's Name">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter Fathers Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Enter Mother's Name<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="mother_name" class="form-control"
+                                            placeholder="Enter mother's Name">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter Mothers Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Does anyone work in Government?<span
+                                                class="text-danger">*</span></label>
+                                        <select name="work_in_government" id="work_in_government" class="form-control">
+                                            <option value=""> --- Select Option ---</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select if anyone from Mother or Father works in Government or Not
+                                            <br> If Yes, attach ID Proof
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">
+                                    Bank Details </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Bank Name<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="bank_name" class="form-control"
+                                            placeholder="Enter Bank Name" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Name of the bank
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Account Number<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="account_number" class="form-control"
+                                            placeholder="Enter Account Number" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your Account Number
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">IFSC Code<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="ifsc_code" class="form-control"
+                                            placeholder="Enter IFSC Code" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the IFSC Code of your bank
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Account Holder Name<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="account_holder_name" class="form-control"
+                                            placeholder="Enter Account Holder Name" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Account Holder Name
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-warning shadow preview-btn-3"
+                                    data-bs-toggle="tooltip" data-bs-title="Previous">Previous</button>
+                                <button type="button" class="btn btn-success shadow" data-bs-toggle="tooltip"
+                                    data-bs-title="Save">Save</button>
+                                <button type="button" class="btn bar-active shadow next-btn-5" data-bs-toggle="tooltip"
+                                    data-bs-title="Next">Next</button>
+                            </div>
+                        </div>
+
+                        <div class="page-5">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Attach Documents
+                                    <span class="fw-bold">(Only PDF,JPG,JPEG,PNG format allowed)</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Identity Proof <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                    "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="identity_prev" alt="">
+                                        <input type="file" name="documentfile1" class="form-control file_validation"
+                                            id="identity_proof">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Address Proof <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                        "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="add_prev" alt="">
+                                        <input type="file" name="documentfile2" class="form-control file_validation"
+                                            id="add_proof">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Qualification Certificate Copies <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                        "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="qual_prev" alt="">
+                                        <input type="file" name="documentfile3" class="form-control file_validation"
+                                            id="qual_proof">
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Income Certificate <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                        "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="income_prev" alt="">
+                                        <input type="file" name="documentfile4" class="form-control file_validation"
+                                            id="income_proof">
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Domicile Certificate <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                        "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="domicile_prev" alt="">
+                                        <input type="file" name="documentfile5" class="form-control file_validation"
+                                            id="domicile_proof">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Caste Certificate <span
+                                                class="text-danger">*</span></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="caste_prev" alt="">
+                                        <input type="file" name="documentfile6" class="form-control file_validation"
+                                            id="caste_proof">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Medical Certificate for Disability <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                        "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="medical_prev" alt="">
+                                        <input type="file" name="documentfile7" class="form-control file_validation"
+                                            id="medical_proof">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Passbook or Cheque book <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                        "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="bank_prev" alt="">
+                                        <input type="file" name="documentfile8" class="form-control file_validation"
+                                            id="Bank_Proof">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Government ID Proof <span
+                                                class="text-danger">*</span></label> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="File Size is maximum 2MB allowed"><i class=" ri-information-fill
+                                                        "></i></label><br>
+                                        <img src="" class="preview-img mb-3 shadow" id="gov_prev" alt="">
+                                        <input type="file" name="documentfile9" class="form-control file_validation"
+                                            id="gov_proof">
+                                    </div>
+                                </div>
+                                <div class="form-group  my-4">
+                                    <p><b>Note: </b>Check the form again before submitting. If you are sure that all
+                                        given
+                                        details
+                                        are correct and aunthenticate please tick the box, and submit.</p>
+                                    <input type="checkbox" name="agree" id="agree" required> <label for="agree"
+                                        class="fw-bold">I
+                                        Agree
+                                    </label>
+                                    <br>
+
+                                </div>
+
+                            </div>
+                            <div class="card-footer text-center ">
+                                <button type="button" class="btn btn-warning preview-btn-4">Previous</button>
+                                <input type="submit" class="text-center btn btn-theme" name="" id="">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </form>
+            </div>
+            </div>
+
+        </section>
+
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    {% include 'user_templates/footer.html' %}
+    <!-- End Footer -->
+
+    <script>
+        flatpickr(".datepicker", {
+            // Customize the date format and other options here
+            dateFormat: "Y-m-d", // Change the date format as needed
+        });
+    </script>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+    <script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+    <script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/admin_assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/static/select2/js/select2.min.js"></script>
+    <script src="static/admin_assets/js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

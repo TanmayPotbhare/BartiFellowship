@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include jQuery Validate plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+        integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Form | Fellowship</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/admin_assets/img/favicon.png" rel="icon">
+    <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/admin_assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2-bootstrap4.css">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        input[readonly] {
+            background-color: var(--bs-secondary-bg);
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ======= Header ======= -->
+    {% include 'user_templates/header.html' %}
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+
+    <!-- End Sidebar-->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/section1">
+                    <i class="bi bi-journal-text"></i><span>Application Form</span></i>
+                </a>
+            </li><!-- End Forms Nav -->
+            <li class="nav-item">
+                <a class="nav-link" href="/app_form_info">
+                    <i class="bi bi-arrow-down-right-square-fill"></i><span>Basic Form Information</span></i>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- MAIN FORM -->
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>IMPORTANT INFORMATION TO KNOW BEFORE FILLNG THE FORM</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item active">App Form</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section contact">
+            <div class="">
+
+                <form method="POST" action="/section1" class="needs-validation" novalidate=""
+                    enctype="multipart/form-data">
+                    <div class="card">
+                        <div class="page-1">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Basic Information</h5>
+                            </div>
+                                <ol>
+                                    <li><strong>After you press submit on Section 5 you will not be able to edit anything. </strong></li>
+                                    <li><strong>On Each section of the form you will see three buttons - <span class="text-warning">Previous</span> | <span class="text-success">Save & Next </span> | <span class="text-primary">Next </span> </strong>| <span class="fw-bold text-primary">फॉर्म 5 विभागांमध्ये विभागलेला आहे</span></li>
+                                    <li><strong>Please select <span class="text-success">Save & Next</span> to save and go to the next section.</strong></li>
+                                    <li><strong>Please select <span class="text-warning">Previous</span> to go to the previous page section without saving the details.</strong></li>
+                                    <li><strong>Please select <span class="text-primary">Next</span> to go to the next page section without saving the details.</strong></li>
+                                    <li><strong>Each field has <i class="ri-information-fill">Instructions</i> this symbol and text which will tell you how to fill that particular field. Also some fields are dependent on other fields please look at instructions before filling</strong></li>
+                                    <li><strong>If you fail to submit the form correctly you can request to reset the form on the given mail ID below.</strong></li>
+                                </ol>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Information about Application Form Sections</h5>
+                            </div>
+                                <ol>
+                                    <li><strong>The form is divided into 5 sections </strong>| <span class="fw-bold text-primary">फॉर्म 5 विभागांमध्ये विभागलेला आहे</span></li>
+                                    <li><strong>Section 1 contains Personal Details</strong> | <span class="fw-bold text-primary">विभाग १ मध्ये वैयक्तिक तपशील आहेत</span></li>
+                                    <li><strong>Section 2 contains Qualification Details</strong> | <span class="fw-bold text-primary">विभाग २ मध्ये पात्रता तपशील आहेत</span></li>
+                                    <li><strong>Section 3 contains Domicile, Caste, Validity Details</strong> | <span class="fw-bold text-primary">विभाग ३ मध्ये अधिवास, जात, वैधता तपशील आहेत</span></li>
+                                    <li><strong>Section 4 contains Parents & Bank Details</strong> | <span class="fw-bold text-primary">विभाग 4 मध्ये पालक आणि बँक तपशील आहेत</span></li>
+                                    <li><strong>Section 5 contains Documents which you need to uplaod</strong> | <span class="fw-bold text-primary">विभाग 5 मध्ये तुम्हाला अपलोड करणे आवश्यक असलेले दस्तऐवज आहेत</span></li>
+                                </ol>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Documents to Uplaod</h5>
+                                <h5 class="card-title p-0">Please be ready with these documents before starting. As you will need to uplaod them.</h5>
+                            </div>
+                              <ol>
+                                <li><strong>Adhaar Card </strong> | <span class="fw-bold text-primary">आधार कार्ड</span></li>
+                                <li><strong>PAN Card</strong> |  <span class="fw-bold text-primary">पॅन कार्ड</span></li>
+                                <li><strong>Domicile Certificate</strong> |  <span class="fw-bold text-primary">अधिवास प्रमाणपत्र</span></li>
+                                <li><strong>Caste Certificate</strong> | <span class="fw-bold text-primary">जातीचा दाखला</span></li>
+                                <li><strong>Caste Validity Certificate</strong> | <span class="fw-bold text-primary">जात वैधता प्रमाणपत्र</span></li>
+                                <li><strong>Income Certificate</strong> | <span class="fw-bold text-primary">उत्पन्नाचा दाखला</span></li>
+                                <li><strong>10th Marksheet & Passing Certificate</strong> | <span class="fw-bold text-primary">10वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></li>
+                                <li><strong>12th Marksheet & Passing Certificate</strong> |<span class="fw-bold text-primary"> 12वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></li>
+                                <li><strong>Diploma Marksheet & Passing Certificate</strong>|<span class="fw-bold text-prmary">डिप्लोमा मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></li>
+                                <li><strong>Graduation Marksheet & Passing Certificate</strong> | <span class="fw-bold text-primary">पदवी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></li>
+                                <li><strong>Post-Graduation Marksheet & Passing Certificate</strong> | <span class="fw-bold text-primary">पदव्युत्तर मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></li>
+                                <li><strong>NET/SET/PET/M.Phil Marksheet & Passing Certificate</strong> | <span class="fw-bold text-primary">नेट/सेट/पीईटी/एम.फिल मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></li>
+                                <li><strong>Ph.D Admission Reciept</strong> | <span class="fw-bold text-primary">पीएच.डी प्रवेशाची पावती</span></li>
+                                <li><strong>Guide Allotment Letter</strong> | <span class="fw-bold text-primary">मार्गदर्शक वाटप पत्</span></li>
+                                <li><strong>Guide Acceptance Letter</strong> | <span class="fw-bold text-primary">मार्गदर्शक स्वीकृती पत्र</span></li>
+                                <li><strong>Letter of Accpetance from RAC/RRC</strong> | <span class="fw-bold text-primary">RAC/RRC कडून मान्यतेचे पत्र</span></li>
+                                <li><strong>Confirmation Letter</strong> | <span class="fw-bold text-primary">पुष्टीकरण पत्र</span></li>
+                                <li><strong>Research Center Joining Report</strong> | <span class="fw-bold text-primary">संशोधन केंद्र जॉईनिंग रिपोर्ट</span></li>
+                                <li><strong>Kendra Pramukh - Sanyukta Pramanpatra</strong> | <span class="fw-bold text-primary">केंद्रप्रमुख - संयुक्त प्रमानपत्र</span></li>
+                                <li><strong>If Disabled - Disability Certificate</strong> | <span class="fw-bold text-primary">अक्षम असल्यास - अपंगत्व प्रमाणपत्र</span></li>
+                                <li><strong>Change in Name - Gazzette</strong> | <span class="fw-bold text-primary">नावात बदल - राजपत्र</span></li>
+                                <li><strong>Acknowledgement of not getting scholarship from anywhere</strong> | <span class="fw-bold text-primary">कुठूनही शिष्यवृत्ती न मिळाल्याची पावती</span></li>
+                                <li><strong>Research Synopsis/ Research Center Allotment letter</strong> | <span class="fw-bold text-primary">संशोधन सारांश/ संशोधन केंद्र वाटप पत्र</span></li>
+                              </ol>
+
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">After filling the form</h5>
+                            </div>
+                            <ol>
+                                <li><strong>After filling the form you will be redirected to a page where you can download the PDF Format of the form.</strong></li>
+                                <li><strong>Once you submit the form you can view the status after logging in. There are three stages to get the fellowship.</strong></li>
+                                <li><strong>You will be notified by email whether you have been <span class="text-success"><strong>selected</strong></span> or <span class="text-danger"><strong>rejected</strong></span> for fellowship.</strong></li>
+                                <li><strong>If you face any issue regarding form, Don't worry <span class="text-primary">contact by Email Only</span>. Email ID - <span class="text-info fw-bold">it_helpdesk@icspune.com</span> </strong></li>
+                            </ol>
+
+
+
+                        <div class="card-footer text-center">
+
+                            <a href="/section1">
+                                <button type="button" class="btn bg-theme text-white next-btn-2"
+                                    data-bs-toggle="tooltip" data-bs-title="Next">Start Filling the form</button>
+                            </a>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <!----------------================== END MAIN FORM =====================------------------>
+    {% include 'admin_templates/footer.html' %}
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+    <script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+    <script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/admin_assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/static/select2/js/select2.min.js"></script>
+    <script src="static/admin_assets/js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="static/admin_assets/js/validation.js"></script>
+    <script src="static/admin_assets/js/section.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fellowship | Privacy Policy</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/assets/img/fellow_logo_1.png" rel="icon">
+  <link href="/static/assets/img/fellow_logo_1.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  {% include 'frontend/header.html' %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="index.html">{{
+              multilingual_content[language]['home'] }}</a></li>
+          <li>{{
+            multilingual_content[language]['privacy_policy'] }}</li>
+        </ol>
+        <h2>{{
+          multilingual_content[language]['privacy_policy'] }}</h2>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+        <!-- ======= Contact Section ======= -->
+        <section id="hyperlink_policy" class="hyperlink_policy pt-3">
+
+          <div class="container" data-aos="fade-up">
+            <div class="container p-0">
+              <p class="text-justify para">
+                {% if(language == 'english') %}
+                As a general rule, this portal does not automatically capture any specific
+                personal information from you, (like name, phone number or e-mail address), that allows us to identify
+                you individually. This portal records your visit and logs the following information for statistical
+                purposes, such as Internet Protocol (IP) addresses, domain name, browser type, operating system, the
+                date and time of the visit and the pages visited. We make no attempt to link these addresses with the
+                identity of individuals visiting our site unless an attempt to damage the site has been detected We will
+                not identify users or their browsing activities, except when a law enforcement agency may exercise a
+                warrant to inspect the service provider's logs. If Tribal Development Department portal requests you to
+                provide personal information, you will be informed how it will be used if you choose to give it and
+                adequate security measures will be taken to protect your personal information.
+                {% else %}
+                सामान्य नियमानुसार, हे पोर्टल तुमच्याकडून कोणतीही विशिष्ट वैयक्तिक माहिती स्वयंचलितपणे कॅप्चर करत नाही,
+                (जसे की नाव, फोन नंबर किंवा ई-मेल पत्ता), जे आम्हाला तुम्हाला वैयक्तिकरित्या ओळखू देते. हे पोर्टल तुमची
+                भेट रेकॉर्ड करते आणि इंटरनेट प्रोटोकॉल (IP) पत्ते, डोमेन नाव, ब्राउझर प्रकार, ऑपरेटिंग सिस्टम यासारख्या
+                सांख्यिकीय हेतूंसाठी खालील माहिती लॉग करते, भेटीची तारीख आणि वेळ आणि भेट दिलेली पृष्ठे. साइटचे नुकसान
+                करण्याचा प्रयत्न आढळल्यास आम्ही हे पत्ते आमच्या साइटला भेट देणाऱ्या व्यक्तींच्या ओळखीशी जोडण्याचा
+                कोणताही प्रयत्न करत नाही, आम्ही वापरकर्ते किंवा त्यांच्या ब्राउझिंग क्रियाकलापांना ओळखणार नाही,
+                कायद्याची अंमलबजावणी करणारी एजन्सी सेवा प्रदात्याच्या नोंदींची तपासणी करण्यासाठी वॉरंट वापरू शकते तेव्हा
+                वगळता. आदिवासी विकास विभागाच्या पोर्टलने आपल्याला वैयक्तिक माहिती देण्याची विनंती केल्यास, आपण ते देणे
+                निवडल्यास ते कसे वापरले जाईल याची आपल्याला माहिती दिली जाईल आणि आपल्या वैयक्तिक माहितीचे संरक्षण
+                करण्यासाठी पुरेसे सुरक्षा उपाय केले जातील.
+                {% endif %}
+              </p>
+            </div>
+
+          </div>
+
+        </section><!-- End Contact Section -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  {% include 'frontend/footer.html' %}
+
+</body>
+
+</html>

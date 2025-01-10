@@ -1,0 +1,496 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{{ multilingual_content[language]['title_home'] }}</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/assets/img/fellow_logo_1.png" rel="icon">
+  <link href="/static/assets/img/fellow_logo_1.png" rel="apple-touch-icon" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .same-size-image {
+      width: 60px;
+      /* Adjust the width as per your requirement */
+      height: 60px;
+      /* Adjust the height as per your requirement */
+    }
+
+    .news-item {
+      padding-right: 50px; /* Adjust as needed to add space between news items */
+    }
+
+
+    .marquee_content {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite;
+    }
+
+    .marquee_content:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  {% include 'frontend/header.html' %}
+
+  <div class="marquee-wrapper">
+    <div class="scroller">
+      <ul class="inner_scroller" onmouseover="this.stop()">
+        {% for row in news_record %}
+        <li class="news-item">
+           <a href="{{ row['doc'] }}" alt="Document" target="_blank">{{ row['title'] }}</a>
+          <img src="https://www.aactni.edu.in/iqac/images/animated/new_gif.gif" class="w-40px" alt="News Update">
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center p-0">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-7 bg-hero">
+          <div class="container m-auto py-5 px-5">
+            <div class="row gy-5 justify-content-between align-items-center">
+              <div class="col-md-5 count-container p-4">
+                <div class="row justify-content-around">
+                  <div class="col-md-2">
+                    <img src="/static/Images/users.svg" alt="Users Count" />
+                  </div>
+                  <div class="col-md-8">
+                    <div>
+                      <span data-purecounter-start="0" data-purecounter-end="152" data-purecounter-duration="0"
+                        class="counter-value bannertext">{{ total_count }}</span>
+                      <p class="mb-0 counter-text bannertext">{{ multilingual_content[language]['total_applications'] }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 count-container p-4">
+                <div class="row justify-content-around">
+                  <div class="col-md-2">
+                    <img src="/static/Images/graduation-cap.svg" alt="Users Count" />
+                  </div>
+                  <div class="col-md-8">
+                    <div>
+                      <span data-purecounter-start="0" data-purecounter-end="162" data-purecounter-duration="0"
+                        class="counter-value bannertext">{{ fellow_awarded }}</span>
+                      <p class="mb-0 counter-text bannertext">{{ multilingual_content[language]['fellowship_awarded'] }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 count-container p-3">
+                <div class="row justify-content-around">
+                  <div class="col-md-2">
+                    <img src="/static/Images/tickk.png" alt="Users Count" />
+                  </div>
+                  <div class="col-md-8">
+                    <div>
+                      <span data-purecounter-start="0" data-purecounter-end="old_user_22" data-purecounter-duration="0"
+                        class="counter-value bannertext">{{ total_appl_22 }}</span>
+                      <p class="mb-0 counter-text bannertext">{{
+                        multilingual_content[language]['total_applications_2022'] }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 count-container p-3">
+                <div class="row justify-content-around">
+                  <div class="col-md-2">
+                    <img src="/static/Images/formm.png" class="color-burn" alt="Users Count" />
+                  </div>
+                  <div class="col-md-8">
+                    <div>
+                      <span data-purecounter-start="0" data-purecounter-end="162" data-purecounter-duration="0"
+                        class="counter-value bannertext">{{ total_appl_23 }}</span>
+                      <p class="mb-0 counter-text bannertext">{{ multilingual_content[language]['this_yrs_application']
+                        }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="leaders container-fluid">
+              <div class="row"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <div class="text-center d-flex align-items-center justify-content-center text-lg-start flex-column h-100">
+            <div class="bannertext">
+              <h2 data-aos="fade-up">{{ multilingual_content[language]['get_your_fellowship_now'] }}</h2>
+            </div>
+            <div>
+              <a href="/login"
+                class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center"
+                data-aos="fade-up">
+                <span class="bannertext">{{ multilingual_content[language]['enroll_here'] }}</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="row gx-0">
+          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content bg-gradient-dark">
+              <h3 class="text-white text-shadow text-upppercase font-14">{{
+                multilingual_content[language]['about_the_institute'] }}</h3>
+              <h2 class="text-theme banner-title">{{ multilingual_content[language]['about_title'] }}</h2>
+              <p class="truncate text-justify font-14">
+                {% if(language == 'english') %}
+                <span class="h3">T</span>o realize the vision of the architect of the Constitution of India,
+                Dr. Babasaheb Ambedkar; To achieve the objectives enshrined in the Constitution of India viz.
+                Justice, Liberty, Equality, Fraternity among the peoples of our nation; To uplift the disadvantaged
+                sections of the society, from the vortex of blind faith, superstition, communal hatred, caste bias,
+                To obliterate disparity based on sects or gender and develop brotherhood, Scientific temperament and
+                Communal harmony, the Government of Maharashtra in Cultural Affairs, Sports & Tourism Department,
+                vide No. UTA, 1078 / D-XXV dated 22nd December, 1978 established “Dr. Babasaheb Ambedkar Samata Vichar Peeth”.
+                This Samta Peeth started functioning on 12th March 1979 from the premises of Mahatma Phule
+                Backward Classes Development Corporation Ltd, Mumbai. By Govt. order, Dr. Babasaheb Ambedkar
+                Samata Vichar Peeth was relocated to Pune at the present address- 28, Queens Garden, Pune,
+                on 11th February 1987.
+                {% else %}
+                <span class="h3">भा</span>रतीय राज्यघटनेचे शिल्पकार डॉ.बाबासाहेब आंबेडकर यांची दूरदृष्टी साकार करण्यासाठी; ला भारतीय
+                राज्यघटनेत नमूद केलेली उद्दिष्टे साध्य करणे उदा. न्याय, स्वातंत्र्य, समानता, आपल्या राष्ट्रातील लोकांमध्ये बंधुभाव; समाजातील वंचित
+                घटकांच्या उन्नतीसाठी, अंधश्रद्धा, अंधश्रद्धा, जातीय द्वेष, जातीय भेदभाव यांच्या भोवऱ्यातून, विषमता नष्ट करण्यासाठी पंथ किंवा लिंग यावर
+                आधारित आणि बंधुता, वैज्ञानिक स्वभाव आणि सांप्रदायिक सौहार्द विकसित करणे, महाराष्ट्र शासन सांस्कृतिक कार्य, क्रीडा आणि पर्यटन विभाग,
+                क्रमांक UTA, 1078 / द्वारे D-XXV दिनांक 22 डिसेंबर 1978 ची स्थापना “डॉ. बाबासाहेब आंबेडकर समता विचार पीठ”. हा समता पीठाचे
+                कामकाज 12 मार्च 1979 रोजी महात्मा फुले मागासवर्गीयांच्या आवारातून सुरू झाले. डेव्हलपमेंट कॉर्पोरेशन लिमिटेड, मुंबई. शासनाकडून आदेश,
+                डॉ.बाबासाहेब आंबेडकर समता विचार पीठ होते 11 फेब्रुवारी 1987 रोजी पुण्यात सध्याच्या पत्त्यावर - 28, क्वीन्स गार्डन, पुणे येथे स्थलांतरित झाले.
+                {% endif %}
+              </p>
+              <div class="text-center text-lg-start">
+                <a href="/aboutus"
+                  class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>{{ multilingual_content[language]['read_more'] }}</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+            <img src="https://barti.in/assets/barti/sliders/6761697b8956c.jpg" class="img-fluid" alt="" style="height:400px;"/>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End About Section -->
+
+    <!-- ======= Values Section ======= -->
+    <section id="values" class="values">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <p>{{ multilingual_content[language]['criteria'] }}</p>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+            <div class="box text-center">
+              <img src="/static/assets/img/features-3.png" class="img-fluid img-scheme-details" alt="Scheme Details" />
+              <h3 class="text-center elig">{{ multilingual_content[language]['scheme_benefits'] }}</h3>
+              <p>
+                {% if(language == 'english') %}
+              <ul class="elig line-ul">
+                <li>Student can get ₹31,000/- per month</li>
+                <li>Incidental expenses Rs. 25,000/- Annual</li>
+                <li>Disabled candidates will get Rs. 2000/- Assistance Plan (Approx.. 10 candidate)</li>
+              </ul>
+              {% else %}
+              <ul class="elig line-ul">
+                <li>विद्यार्थ्यांना दरमहा ₹31,000/- मिळतात</li>
+                <li>आकस्मिक खर्च रु. 25,000/- वार्षिक</li>
+                <li>दिव्यांग उमेदवारांना रु. 2000/- सहाय्य अनुदान (अंशक 10 उमेदवार) </li>
+              </ul>
+
+              {% endif %}
+              <a class="scheme_btn">{{ multilingual_content[language]['read_more'] }} &#62;</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="/static/assets/img/features.png" class="img-fluid img-eligibility" alt="" />
+              <h3 class="text-center elig">{{ multilingual_content[language]['eligibility_criteria'] }}</h3>
+              {% if(language == 'english') %}
+              <p class="text-start">
+              <ol class="elig line-ul">
+                <li class="text-justify mb-2 elig">
+                  The applicant should be a resident of the state of Maharashtra.
+                </li>
+                <li class="text-justify mb-2 elig">
+                  It is necessary for the community of the applicant to be included in the list of scheduled tribe in
+                  the state of Maharashtra.
+                </li>
+                <li class="text-justify mb-2 elig">
+                  For this scheme, it is mandatory for the applicant to have a valid caste certificate of scheduled
+                  tribe at the time of applying
+                </li>
+                <li class="text-justify mb-2 elig">
+                  To avail the benefits of this scheme, the maximum age of the applicant should be 45 years.
+                </li>
+              </ol>
+              <div class="text-center">
+                <a class="scheme_btn">Read More &#62;</a>
+              </div>
+              </p>
+              {% else %}
+              <p class="text-start">
+              <ol class="elig line-ul">
+                <li class="text-justify mb-2 elig">
+                  उमेदवार महाराष्ट्र राज्याचा रहिवाशी असावा.
+                </li>
+                <li class="text-justify mb-2 elig">
+                  उमेदवाराची जमात ही महाराष्ट्र राज्यातील अनुसूचित जमातीच्या यादीमधील असणे आवश्यक आहे.
+                </li>
+                <li class="text-justify mb-2 elig">
+                  या योजनेसाठी अर्ज करते वेळेस उमेदवाराकडे अनुसूचित जमातीचे जात वैधता प्रमाणपत्र असणे बंधनकारक आहे.
+                </li>
+                <li class="text-justify mb-2 elig">
+                  सदर योजनेचा लाभ घेणेसाठी उमेदवाराची कमाल वयोमर्यादा ४५ वर्ष इतकी असेल.
+                </li>
+              </ol>
+              <div class="text-center">
+                <a class="scheme_btn">पुढे वाचा &#62;</a>
+              </div>
+              </p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4 " data-aos="fade-up" data-aos-delay="600">
+            <div class="box">
+              <img src="/static/assets/img/values-1.png" class="img-fluid img-news" alt="" />
+              <h3 class="text-center elig">{{ multilingual_content[language]['updates'] }}</h3>
+              <p>
+              <ul class="elig line-ul">
+                {% if(language == 'english') %}
+                <!-- List group Numbered -->
+                <ol class="elig line-ul p-0">
+                  {% for row in news_record %}
+                  <li class="text-justify mb-2 elig text-wrap"> {{ row['title'] }} </li>
+                  <ul class="elig line-ul p-0">
+                    <li><a href="{{ row['doc'] }}" target="_blank">{{ row['title'] }}</a></li>
+                  </ul>
+                  {% endfor %}
+                </ol><!-- End List group Numbered -->
+
+                {% else %}
+                <ol class="elig line-ul p-0">
+                  {% for row in news_record %}
+                  <li class="text-justify mb-2 elig text-wrap"> {{ row['title'] }} </li>
+                  <ul class="elig line-ul p-0">
+                    <li class="text-dark"><a href="{{ row['doc'] }}" target="_blank">{{ row['title'] }}</a></li>
+                  </ul>
+                  {% endfor %}
+                </ol><!-- End List group Numbered -->
+                {% endif %}
+              </ul>
+              <div class="text-center">
+                <a class="scheme_btn">{{ multilingual_content[language]['read_more'] }} &#62;</a>
+              </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Values Section -->
+
+    <!-- ======= Counts Section ======= -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <p>{{ multilingual_content[language]['how_to_enroll'] }}</p>
+        </header>
+
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-box blue">
+              <i class="ri-login-box-line icon"></i>
+              <h3 class="enroll-steps esteps-1" data-type="component-text">{{ multilingual_content[language]['step'] }}
+                1</h3>
+              <p class="enroll-steps esteps-2">{{ multilingual_content[language]['step_1_content'] }}</p>
+              <!-- <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a> -->
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-box orange">
+              <i class="ri-article-line icon"></i>
+              <h3 class="enroll-steps esteps-1">{{ multilingual_content[language]['step'] }} 2</h3>
+              <p class="enroll-steps esteps-2">{{ multilingual_content[language]['step_2_content'] }}</p>
+              <!-- <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a> -->
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-box green">
+              <i class="ri-user-settings-line icon"></i>
+              <h3 class="enroll-steps esteps-1">{{ multilingual_content[language]['step'] }} 3</h3>
+              <p class="enroll-steps esteps-2">{{ multilingual_content[language]['step_3_content'] }}</p>
+              <!-- <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a> -->
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-box red">
+              <i class="ri-mail-send-line icon"></i>
+              <h3 class="enroll-steps esteps-1">{{ multilingual_content[language]['step'] }} 4</h3>
+              <p class="enroll-steps esteps-2">{{ multilingual_content[language]['step_4_content'] }}</p>
+              <!-- <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a> -->
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-box purple">
+              <i class="ri-graduation-cap-line icon"></i>
+              <h3 class="enroll-steps esteps-1">{{ multilingual_content[language]['step'] }} 5</h3>
+              <p class="enroll-steps esteps-2">{{ multilingual_content[language]['step_5_content'] }}</p>
+              <!-- <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a> -->
+            </div>
+          </div>
+
+          <!--  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+            <div class="service-box pink">
+              <i class="ri-discuss-line icon"></i>
+              <h3>Dolori Architecto</h3>
+              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti
+                recusandae ducimus enim.</p>
+              <a href="#" class="read-more"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>  -->
+        </div>
+      </div>
+    </section>
+    <!-- End Services Section -->
+
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header sectionheading">
+          <p>{{ multilingual_content[language]['faq'] }}</p>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- F.A.Q List 1 -->
+            <div class="accordion accordion-flush" id="faqlist1">
+              <!--  <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-1">
+                    What if you do not fit all the criteria?
+                  </button>
+                </h2>
+                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+
+                  </div>
+                </div>
+              </div>  -->
+
+              <!-- Embedding a video -->
+              <!-- Button trigger modal -->
+              <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button collapsed accordion-header1" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq-content-2">{{ multilingual_content[language]['q1']
+                    }}</button>
+                </h2>
+                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">{{ multilingual_content[language]['ans1'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- F.A.Q List 2 -->
+            <div class="accordion accordion-flush" id="faqlist2">
+              <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button collapsed accordion-header1" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq-content-3">{{ multilingual_content[language]['q2']
+                    }}</button></h2>
+                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">{{ multilingual_content[language]['ans2'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End F.A.Q Section -->
+  </main>
+
+  {% include 'frontend/footer.html' %}
+
+  <script>
+    $(document).ready(function () {
+      $('.counter-value').each(function () {
+        $(this).prop('Counter', 0).animate({
+          Counter: $(this).text()
+        }, {
+          duration: 3500,
+          easing: 'swing',
+          step: function (now) {
+            $(this).text(Math.ceil(now));
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

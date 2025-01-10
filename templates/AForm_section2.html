@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Form | Fellowship</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/admin_assets/img/favicon.png" rel="icon">
+    <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/admin_assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2-bootstrap4.css">
+    <link rel="stylesheet" href="/static/admin_assets/css/select2.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        input[readonly] {
+            background-color: var(--bs-secondary-bg);
+        }
+
+        input::placeholder {
+            opacity: 0.6; /* Make the placeholder text lighter (faded) */
+            font-weight: 100; /* Reduce the boldness of the placeholder */
+            transition: opacity 0.3s ease, font-weight 0.3s ease; /* Smooth transition */
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ======= Header ======= -->
+    {% include 'user_templates/header.html' %}
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+
+    <!-- End Sidebar-->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-journal-text"></i><span>Application Form</span></i>
+                </a>
+            </li><!-- End Forms Nav -->
+        </ul>
+    </aside>
+
+
+    <!-- MAIN -->
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Application Form</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item active">App Form</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section contact">
+            <div class="">
+                {% include 'user_templates/steps.html' %}
+                <form method="POST" action="/section2" class="needs-validation" novalidate=""
+                    enctype="multipart/form-data" id="section2">
+                    <div class="card">
+                        <div class="page-2">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Qualification Details / अर्जदाराचे तपशील</h5>
+                                <!--                                <ol>-->
+                                <!--                                    <li>Please fill in all the details correctly.</li>-->
+                                <!--                                    <li>Passing year should be 4 digits only.</li>-->
+                                <!--                                    <li>Enter Attempts which will take only integer values.</li>-->
+                                <!--                                    <li>In Total Section enter the out of marks for each of the following fields, for ex: 546/1000.</li>-->
+                                <!--                                </ol>-->
+                                <i class="bi bi-arrow-right"></i> <label data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    data-bs-original-title="Please fill in all the details correctly. Passing year should be 4 digits only. Enter Attempts which will take only integer values. In Total Section enter the out of marks for each of the following fields, for ex: 546/1000.">
+                                    <i class="ri-information-fill fw-bold text-dark">Instructions</i></label><br>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-12 mt-3">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th class="text-center">Qualification</th>
+                                                <th class="text-center">Passing Year</th>
+                                                <th class="text-center">Stream</th>
+                                                <th class="text-center">School / University Name</th>
+                                                <th class="text-center">Attempts</th>
+                                                <th class="text-center">Total Marks (Out of)</th>
+                                                <th class="text-center">Percentage/CGPA (For Grade add respective
+                                                    percentage value)</th>
+
+                                            </tr>
+                                            <!-- For SSC qualification starts here -->
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>SSC</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="ssc_passing_year" name="ssc_passing_year"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)"
+                                                        maxlength="4" class="form-control" placeholder="Passing Year" {%
+                                                        if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['ssc_passing_year'] }}" {% endif %}
+                                                        required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="ssc_stream" id="ssc_stream"
+                                                        class="form-control" value="General" placeholder="Enter Stream"
+                                                        data-name="Stream" minlength="2" maxlength="15"
+                                                        onblur="validateField(this)" disabled {% if view_mode=='view'
+                                                        %}disabled value="{{ existing_record['ssc_stream'] }}" {% endif
+                                                        %} required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="ssc_school_name" class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s,. \-]/g, '')"
+                                                        placeholder="School Name" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['ssc_school_name'] }}" {% endif %}
+                                                        data-name="SSC School Name" required=""
+                                                        onblur="validateField(this)" minlength="2" maxlength="150">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="ssc_attempts" class="form-control" id=""
+                                                        {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['ssc_attempts'] }}" {% endif %}
+                                                        placeholder="Enter your Attempts" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="ssc_total" class="form-control" id="" {% if
+                                                        view_mode=='view' %}disabled
+                                                        value="{{ existing_record['ssc_total'] }}" {% endif %}
+                                                        placeholder="E.g. : 80/100" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="ssc_percentage"
+                                                        onchange="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{2})/g, '$1.').substring(0, 5)"
+                                                        class="form-control percentage_validation"
+                                                        placeholder="Percentage" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['ssc_percentage'] }}" {% endif %}
+                                                        required>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>HSC</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="hsc_passing_year" name="hsc_passing_year"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)"
+                                                        class="form-control" placeholder="Passing Year" maxlength="4" {%
+                                                        if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['hsc_passing_year'] }}" {% endif %}
+                                                        required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="hsc_stream" class="form-control"
+                                                        placeholder="Enter Stream" minlength="2" {% if view_mode=='view'
+                                                        %}disabled value="{{ existing_record['hsc_stream'] }}" {% endif
+                                                        %} maxlength="15" onblur="validateField(this)" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="hsc_school_name" class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s,. \-]/g, '')"
+                                                        placeholder="School Name" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['hsc_school_name'] }}" {% endif %}
+                                                        data-name="HSC School Name" required=""
+                                                        onblur="validateField(this)" minlength="2" maxlength="150">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="hsc_attempts" class="form-control" id=""
+                                                        {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['hsc_attempts'] }}" {% endif %}
+                                                        placeholder="Enter your Attempts" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="hsc_total" class="form-control"
+                                                        id="hsc_total" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['hsc_total'] }}" {% endif %}
+                                                        placeholder="E.g. : 80/100" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="hsc_percentage"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{2})/g, '$1.').substring(0, 5)"
+                                                        class="form-control" placeholder="Percentage" {% if
+                                                        view_mode=='view' %}disabled
+                                                        value="{{ existing_record['hsc_percentage'] }}" {% endif %}
+                                                        required>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>Diploma (If completed)</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="diploma_year" name="diploma_year"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)"
+                                                        class="form-control" placeholder="Passing Year" maxlength="4" {%
+                                                        if view_mode=='view' %}disabled
+                                                        value="{{ new_record['diploma_passing_year'] }}" {% endif %}>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="diploma_stream" class="form-control"
+                                                        placeholder="Enter Stream" minlength="2" {% if view_mode=='view'
+                                                        %}disabled value="{{ new_record['diploma_stream'] }}" {%
+                                                        endif %} maxlength="15" onblur="validateField(this)">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="diploma_school_name" class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s,. \-]/g, '')"
+                                                        placeholder="School Name" {% if view_mode=='view' %}disabled
+                                                        value="{{ new_record['diploma_school_name'] }}" {% endif %}
+                                                        data-name="Diploma School Name" onblur="validateField(this)"
+                                                        minlength="2" maxlength="150">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="diploma_attempts" class="form-control"
+                                                        id="" {% if view_mode=='view' %}disabled
+                                                        value="{{ new_record['diploma_attempts'] }}" {% endif %}
+                                                        placeholder="Enter your Attempts">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="diploma_total" class="form-control"
+                                                        id="diploma_total" {% if view_mode=='view' %}disabled
+                                                        value="{{ new_record['diploma_total'] }}" {% endif %}
+                                                        placeholder="E.g. : 80/100">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="diploma_percentage"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{2})/g, '$1.').substring(0, 5)"
+                                                        class="form-control" placeholder="Percentage" {% if
+                                                        view_mode=='view' %}disabled
+                                                        value="{{ new_record['diploma_percentage'] }}" {% endif %}>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>Graduation</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="graduation_passing_year"
+                                                        name="graduation_passing_year" class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)"
+                                                        placeholder="Passing Year" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['graduation_passing_year'] }}" {%
+                                                        endif %} maxlength="4" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grad_stream" class="form-control"
+                                                        placeholder="Enter Stream" minlength="2" {% if view_mode=='view'
+                                                        %}disabled value="{{ existing_record['grad_stream'] }}" {% endif
+                                                        %} maxlength="15" onblur="validateField(this)" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="graduation_school_name"
+                                                        class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s,. \-]/g, '')"
+                                                        placeholder="School Name" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['graduation_school_name'] }}" {% endif
+                                                        %} data-name="Graduation School Name" required=""
+                                                        onblur="validateField(this)" minlength="2" maxlength="35">
+                                                </td>
+                                                <td> <input type="number" name="grad_attempts" class="form-control"
+                                                        id="" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['grad_attempts'] }}" {% endif %}
+                                                        placeholder="Enter your Attempts" required></td>
+                                                <td>
+                                                    <input type="text" name="grad_total" class="form-control"
+                                                        id="grad_total" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['grad_total'] }}" {% endif %}
+                                                        placeholder="E.g : 80/100" required>
+                                                </td>
+                                                <td> <input type="text" name="graduation_percentage"
+                                                        class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{2})/g, '$1.').substring(0, 5)"
+                                                        placeholder="Percentage" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['graduation_percentage'] }}" {% endif
+                                                        %} required></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label>Post - Graduation</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="phd_passing_year" name="phd_passing_year"
+                                                        class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)"
+                                                        placeholder="Passing Year" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['phd_passing_year'] }}" {% endif %}
+                                                        maxlength="4" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="pg_stream" class="form-control"
+                                                        placeholder="Enter Stream" minlength="2" maxlength="15" {% if
+                                                        view_mode=='view' %}disabled
+                                                        value="{{ existing_record['pg_stream'] }}" {% endif %}
+                                                        onblur="validateField(this)" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="phd_school_name" class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s,. \-]/g, '')"
+                                                        placeholder="School Name" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['phd_school_name'] }}" {% endif %}
+                                                        data-name="Post Graduation School Name" required=""
+                                                        onblur="validateField(this)" minlength="2" maxlength="35">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="pg_attempts" class="form-control"
+                                                        id="pg_attempts" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['pg_attempts'] }}" {% endif %}
+                                                        placeholder="Enter your Attempts" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="pg_total" class="form-control" id="" {% if
+                                                        view_mode=='view' %}disabled
+                                                        value="{{ existing_record['pg_total'] }}" {% endif %}
+                                                        placeholder="E.g : 80/100" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="phd_percentage" class="form-control"
+                                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{2})/g, '$1.').substring(0, 5)"
+                                                        placeholder="Percentage" {% if view_mode=='view' %}disabled
+                                                        value="{{ existing_record['phd_percentage'] }}" {% endif %}
+                                                        required>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="" class="fw-bold">Have you Qualified?<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please select from the dropdown. ">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        {% if view_mode=='view' %}
+                                        <input type="text" value="{{ existing_record['have_you_qualified'] }}" name="faculty"
+                                            id="qualified" class="form-control" disabled>
+                                        {% else %}
+                                        <select name="have_you_qualified" id="qualified" {% if view_mode=='view' %}disabled
+                                            required="" value="{{ existing_record['have_you_qualified'] }}" {% endif %}
+                                            data-name="Stream Name" class="form-control select2" required>
+                                            <option value=""> --- Select Option ---</option>
+                                            <option>M.Phil</option>
+                                            <option>PET</option>
+                                            <option>SET</option>
+                                            <option>NET</option>
+                                            <option>GATE</option>
+                                            <option>OTHER</option>
+                                        </select>
+                                        {% endif %}
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select your Qualification
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 d-none" id="other_cet">
+                                        <label for="" class="fw-bold">Have you Qualified?(Other)<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please Enter the Name of the Exam">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" minlength="3" maxlength="12" class="form-control" id="cet_other" name="cet_other"
+                                            placeholder="Please Enter name of the Exam">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">PHD Details / पीएचडी तपशील </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Ph.D Registration Date<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter your Ph.D Registration Date which should match the Ph.D registration year">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="date" class="form-control"
+                                            placeholder="Electrical / Computer Science" id="phd_registration_date"
+                                            name="phd_registration_date" size="25" placeholder="Hindu" required="" {% if
+                                            view_mode=='view' %}disabled
+                                            value="{{ existing_record['phd_registration_date'] }}" {% endif %}>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please select the P.H.D Registration Date
+                                            <br> Please enter this date as per the registration as this will be an
+                                            important date used in your profile.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Ph.D Registration Year<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter your Ph.D Registration Year. You cannot edit this field.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control"
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)"
+                                            placeholder="Enter PHD Registration Year" maxlength="150"
+                                            id="phd_registration_year" name="phd_registration_year" size="25"
+                                            required="" {% if signup_year %} value="{{ signup_year['year'] }}" {% endif
+                                            %} readonly>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your University Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold"><span class="text-primary">Age</span> As per PHD
+                                            registration date<span class="text-danger">*</span></label> <i
+                                            class="bi bi-arrow-right"></i> <label data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-original-title="Please enter your Ph.D Registration Year. You cannot edit this field.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control"
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)"
+                                            maxlength="150" id="phd_registration_age" name="phd_registration_age"
+                                            size="25" required="" {% if signup_year %} value="{% if dob_year %} {{signup_year ['year'] - dob_year['birth_year']}} {% endif %}
+                                            " {% endif %} readonly>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your University Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">University Name<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please select from dropdown. On your selection you will see the colleges.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        {% if view_mode=='view' %}
+                                        <input type="text" value="{{ existing_record['concerned_university'] }}"
+                                            name="concerned_university" id="concerned_university" class="form-control"
+                                            disabled>
+                                        {% else %}
+                                        <select name="concerned_university" id="concerned_university"
+                                            class="form-control select2" {% if view_mode=='view' %}disabled
+                                            value="{{ existing_record['concerned_university'] }}" {% endif %}
+                                            data-name="University Name" required>
+                                            <option value="">-- Select University --</option>
+                                            {% for uni in university_data %}
+                                            <option value="{{ uni['affiliated_universities'] }}"
+                                                data-hidden="{{ uni['u_id'] }}">{{ uni['affiliated_universities'] }}
+                                            </option>
+                                            {% endfor %}
+                                            <option value="Other" data-hidden="Other">Other</option>
+                                        </select>
+                                        {% endif %}
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your University Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Name of College<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Select your college from the dropdown. If you don't see names please select the university name again. If you don't find your college please enter it in other column after department name.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        {% if view_mode == 'view' %}
+                                        <input type="text" name="name_of_college" id="name_of_college"
+                                            class="form-control" value="{{ existing_record['name_of_college'] }}"
+                                            disabled>
+
+                                        {% else %}
+                                        <select name="name_of_college" id="name_of_college" class="form-control select2"
+                                            required>
+                                            <option value=""> -- Select College --</option>
+                                        </select>
+                                        {% endif %}
+
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your Name of College
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Department Name<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter Department Name. If you don't have a college name please leave it blank and fill in department name. ">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control" placeholder="Enter Department Name"
+                                            maxlength="150" id="department_name" name="department_name" size="25" {% if
+                                            view_mode=='view' %}disabled
+                                            value="{{ existing_record['department_name'] }}" {% endif %} required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Topic of Ph.D<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter topic of Ph.D. If it is in marathi directly enter marathi text.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control" placeholder="Enter P.H.D Topic"
+                                            maxlength="150" id="topic_of_phd" name="topic_of_phd" size="25" required=""
+                                            {% if view_mode=='view' %}disabled
+                                            value="{{ existing_record['topic_of_phd'] }}" {% endif %}>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter P.H.D Topic
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Name of Guide<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter Name of Guide, which should match the Guide acceptance letter.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control"
+                                            onkeyup="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"
+                                            placeholder="Enter Name of Guide" id="name_of_guide" name="name_of_guide"
+                                            size="25" required="" {% if view_mode=='view' %}disabled
+                                            value="{{ existing_record['name_of_guide'] }}" {% endif %}
+                                            data-name="Guide Name" required="" onblur="validateField(this)"
+                                            minlength="2" maxlength="35">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Name of Guide
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Faculty / Stream<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please select from dropdown. Unless your stream is not science, select Arts for every other stream.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        {% if view_mode=='view' %}
+                                        <input type="text" value="{{ existing_record['faculty'] }}" name="faculty"
+                                            id="faculty" class="form-control" disabled>
+                                        {% else %}
+                                        <select name="faculty" id="faculty" {% if view_mode=='view' %}disabled
+                                            required="" value="{{ existing_record['faculty'] }}" {% endif %}
+                                            data-name="Stream Name" class="form-control select2" required>
+                                            <option value="">--- Select Stream ---</option>
+                                            <option value="Other">Other</option>
+                                            <option value="Science">Science</option>
+                                            <option value="Arts">Arts</option>
+                                            <option value="Law">Law</option>
+                                            <option value="Commerce">Commerce</option>
+                                        </select>
+                                        {% endif %}
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter your Stream
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Other - For Faculty<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="If you don't find your faculty/stream in the dropdown, please enter it here. If it is in the dropdown please leave this field blank.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control" placeholder="Enter Department Name"
+                                            maxlength="150" id="other_college_name" name="other_college_name" size="25"
+                                            {% if view_mode=='view' %}disabled
+                                            value="{{ new_record['other_college_name'] }}" {% endif %}>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+                            <div class="card-header bg-light">
+                                <h5 class="card-title p-0">Income Details / उत्पन्न तपशील </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row my-2">
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Family Annual Income<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter families annual income. Make sure that the income is not above 8 Lacs, or else you wont be able to apply for Fellowship.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" name="family_annual_income" id="family_annual_income"
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,10)"
+                                            class="form-control" maxlength="6" placeholder="Enter Your family income"
+                                            required {% if view_mode=='view' %}disabled
+                                            value="{{ existing_record['family_annual_income'] }}" {% endif %}>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Family Annual Income
+                                            <br> Family Annual income should be per annum.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Income Certificate Number<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter income certificate number which should match the income certificate document which you will uplaod.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control" placeholder="Income Certificate Number"
+                                            id="certificate_number" name="income_certificate_number" size="25"
+                                            placeholder="Hindu" required="" {% if view_mode=='view' %}disabled
+                                            value="{{ existing_record['income_certificate_number'] }}" {% endif %}
+                                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 30)">
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please Enter the Annual Income
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Issuing Authority<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter issuing authority">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control" placeholder="Issuing Authority"
+                                            id="issuing_authority" name="issuing_authority" size="25"
+                                            placeholder="Hindu" required="" {% if view_mode=='view' %}disabled
+                                            value="{{ existing_record['issuing_authority'] }}" {% endif %}>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Issuing Authority for Income Certificate
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Issuing District<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter issuing authority.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control" placeholder="Enter District Name"
+                                            id="income_issuing_district" name="income_issuing_district"
+                                            placeholder="Hindu" minlength="3" maxlength="15"
+                                            onblur="validateField(this)" data-name="District" required {% if
+                                            view_mode=='view' %}disabled
+                                            value="{{ existing_record['income_issuing_district'] }}" {% endif %}>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Issuing Authority for Income Certificate
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="" class="fw-bold">Issuing Taluka<span
+                                                class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i>
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-original-title="Please enter issuing taluka.">
+                                            <i class="ri-information-fill">Instructions</i></label><br>
+                                        <input type="text" class="form-control" placeholder="Enter Taluka Name"
+                                            id="income_issuing_taluka" name="income_issuing_taluka" placeholder="Hindu"
+                                            minlength="3" maxlength="15" data-name="Taluka" onblur="validateField(this)"
+                                            required {% if view_mode=='view' %}disabled
+                                            value="{{ existing_record['income_issuing_district'] }}" {% endif %}>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please enter the Issuing Authority for Income Certificate
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center ">
+                                <a href="/section1">
+                                    <button type="button" class="btn btn-warning shadow preview-btn-1"
+                                        data-bs-toggle="tooltip" data-bs-title="Previous">Previous</button>
+                                </a>
+                                {% if not view_mode == 'view' %}
+                                <form action="/section2" method="POST">
+                                    <button type="submit" class="btn btn-success" data-bs-toggle="tooltip"
+                                        data-bs-title="Save">Save & Next</button>
+                                </form>
+                                {% endif %}
+                                <a href="/section3">
+                                    <button type="button" class="btn bar-active shadow next-btn-3"
+                                        data-bs-toggle="tooltip" data-bs-title="Next">Next</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <!----------------================== END MAIN FORM =====================------------------>
+    {% include 'admin_templates/footer.html' %}
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+    <script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+    <script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/admin_assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/static/select2/js/select2.min.js"></script>
+    <script src="static/admin_assets/js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="static/admin_assets/js/validation.js"></script>
+    <script src="static/admin_assets/js/section.js"></script>
+    <script src="static/admin_assets/js/section2.js"></script>
+</body>
+
+</html>

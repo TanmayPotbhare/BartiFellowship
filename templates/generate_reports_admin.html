@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard - Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/admin_assets/img/favicon.png" rel="icon">
+  <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/admin_assets/css/style.css" rel="stylesheet">
+
+</head>
+
+{% include 'admin_templates/header.html' %}
+
+
+<!-- ======= Sidebar ======= -->
+{% include 'admin_templates/sidebar.html' %}
+<!-- End Sidebar-->
+
+<main class="main " id="main">
+  <div class="content-wrapper"></div>
+  <div id="recordContainer"></div>
+  <div class="pagetitle">
+    <h1>Generate Reports</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index">Home</a></li>
+        <li class="breadcrumb-item">Generate Reports</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            {% if session['user'] == 'Auditor' %}
+                <h5 class="pagetitle fw-bold text-center">View Records</h5>
+            {% else %}
+            <form action="#" method="POST">
+                <div class="row g-3 justify-content-center">
+                    <h3 class="form-label text-center mb-4"><strong>Generate Reports</strong></h3>
+
+                    <div class="col-md-2">
+                        <label for="start_date" class="form-label"><strong>Start Date</strong></label>
+                        <input type="date" name="start_date" class="form-control" id="start_date">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="end_date" class="form-label"><strong>End Date</strong></label>
+                        <input type="date" name="end_date" class="form-control" id="end_date">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="end_date" class="form-label"><strong>Select Year</strong></label>
+                        <select name="year" id="year" class="form-control">
+                          <option value="">SELECT YEAR</option>
+                          <option value="2021">2021 - 2022</option>
+                          <option value="2022">2022 - 2023</option>
+                          <option value="2023">2023 - 2024</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="end_date" class="form-label"><strong>Select Filter</strong></label>
+                        <select name="filter" id="filter" class="form-control">
+                          <option value="">SELECT OPTION</option>
+                          <option value="total">Total Students Applications</option>
+                          <option value="pending">Pending Students Applications after Submission</option>
+                          <option value="accepted">Accepted Students Applications</option>
+                          <option value="rejected">Rejected Students Applications</option>
+                          <option value="complete">Completed Form Applications</option>
+                          <option value="incomplete">Incompleted Form Applications</option>
+                          <option value="male">Male Students</option>
+                          <option value="female">Female Students</option>
+                          <option value="transgender">Transgender Students</option>
+                          <option value="Katari">Katkari Students</option>
+                          <option value="Kolam">Kolam Students</option>
+                          <option value="Madia">Madia Students</option>
+                          <option value="disabled">Disabled Students</option>
+                          <option value="notdisabled">Not Disabled Students</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="end_date" class="form-label"><strong>Select Stream/Faculty</strong></label>
+                        <select name="stream" id="stream" class="form-control">
+                          <option value="">SELECT STREAM</option>
+                          <option value="science">Science Stream Students</option>
+                          <option value="arts">Arts Stream Students</option>
+                          <option value="commerce">Commerce Stream Students</option>
+                          <option value="other">Other Stream Students</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-10  text-center">
+                      <form method="post" action="{{ url_for('generate_reports_admin') }}">
+                            <!-- Your existing form inputs here -->
+                            <input class="btn btn-theme" type="submit" name="fetch_result" value="Fetch Result">
+                            <span class="text-danger fw-bold">OR</span>
+                            <input class="btn btn-theme" type="submit" name="export_to_excel" value="Export to Excel">
+                        </form>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+
+
+            <br>
+            <br>
+
+
+            <!-- Display payment data if available -->
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Application ID</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Mobile Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Faculty</th>
+                        <th scope="col">Ph.D. Registration Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in data %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <a href="/viewform/{{record['id']}}"><strong>{{ record['applicant_id'] }}</strong></a>
+                        </td>
+                        <td>{{ record['first_name'] }}</td>
+                        <td>{{ record['last_name'] }}</td>
+                        <td>{{ record['mobile'] }}</td>
+                        <td><strong>{{ record['email'] }}</strong></td>
+                        <td>{{ record['faculty'] }}</td>
+                        <td>{{ record['phd_registration_date'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- End Display payment data -->
+        </div>
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- ======= Footer ======= -->
+{% include 'admin_templates/footer.html' %}
+<!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+    class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+<script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+<script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+<script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="static/admin_assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+  integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="static/admin_assets/js/common.js"></script>
+
+
+</body>
+
+</html>

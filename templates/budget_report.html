@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Application Details | Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='admin_assets/img/favicon.png')}}" rel="icon">
+  <link href="{{ url_for('static', filename='admin_assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='admin_assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/bootstrap-icons/bootstrap-icons.css')}}"
+    rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='admin_assets/css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+
+  {% include 'admin_templates/header.html' %}
+  {% include 'admin_templates/sidebar.html' %}
+
+  <!-- End Header -->
+
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Application Details</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Pages</li>
+          <li class="breadcrumb-item active">Details</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+          {% for row in result %}
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                <img src="{{ row['applicant_photo'] }}" style="width: 100%; height: 100%;">
+            </div>
+
+            <div class="card-body col-md-11">
+              <div class="row align-items-center">
+                <div class="col-md-7">
+                  <h5 class="card-title ">Application ID : </h5>
+                </div>
+                <div class="col-md-5 text-start">
+                  <span>{{ row['applicant_id'] }}</span>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-7">
+                  <h5 class="card-title ">Application Date : </h5>
+                </div>
+                <div class="col-md-5 text-start">
+                  <span> {{ row['application_date'] }}</span>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-7">
+                  <h5 class="card-title ">Email : </h5>
+                </div>
+                <div class="col-md-5 text-start">
+                  <span> {{ row['email'] }}</span>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-12">
+                  <h5 class="card-title ">Application Status : </h5>
+                </div>
+                <div class="col-md-12 text-start">
+                  <div class="row">
+                    <div class="col-md-7 label ">Pre Scrutiny Status:</div>
+                    <div class="col-md-5">
+                      {% if(row['status'] == 'accepted') %}
+                      <span class="text-success fw-bold text-capitalize"> {{ row['status'] }}</span>
+                      {% elif(row['status'] =='pending') %}
+                      <span class="text-warning fw-bold text-capitalize"> {{ row['status'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold text-capitalize"> {{ row['status'] }}</span>
+                      {% endif %}
+
+
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-7 label ">Scrutiny Status:</div>
+                    <div class="col-md-5">
+                      {% if(row['scrutiny_status'] == 'accepted') %}
+                      <span class="text-success fw-bold text-capitalize"> {{ row['scrutiny_status'] }}</span>
+                      {% elif(row['scrutiny_status'] =='pending') %}
+                      <span class="text-warning fw-bold text-capitalize"> {{ row['scrutiny_status'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold text-capitalize"> {{ row['scrutiny_status'] }}</span>
+                      {% endif %}
+
+
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-7 label ">Final Approval Status:</div>
+                    <div class="col-md-5">
+                      {% if(row['final_approval'] == 'accepted') %}
+                      <span class="text-success fw-bold text-capitalize"> {{ row['final_approval'] }}</span>
+                      {% elif(row['final_approval'] =='pending') %}
+                      <span class="text-warning fw-bold text-capitalize"> {{ row['final_approval'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold text-capitalize"> {{ row['final_approval'] }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab"
+                    data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab"
+                    data-bs-target="#installments">Installments Paid</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab"
+                    data-bs-target="#payment_records">Payment Records</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab"
+                    data-bs-target="#presenty">Presenty Reports</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab"
+                    data-bs-target="#hypr">Half yearly Progress Reports</button>
+                </li>
+
+              </ul>
+
+              <div class="tab-content pt-2">
+                {% for row in result %}
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                  <h5 class="card-title">Personal Details / वैयक्तिक माहिती</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">First Name</div>
+                    <div class="col-lg-9 col-md-8">{{ row['first_name'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Second Name</div>
+                    <div class="col-lg-9 col-md-8">{{ row['middle_name'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Last Name</div>
+                    <div class="col-lg-9 col-md-8">{{ row['last_name'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Mobile Number</div>
+                    <div class="col-lg-9 col-md-8">{{ row['mobile_number'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Email</div>
+                    <div class="col-lg-9 col-md-8">{{ row['email'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Date of Birth</div>
+                    <div class="col-lg-9 col-md-8">{{ row['date_of_birth'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Gender</div>
+                    <div class="col-lg-9 col-md-8">{{ row['gender'] }}</div>
+                  </div>
+
+                  <h5 class="card-title">Personal Address Details / वैयक्तिक पत्त्याचे तपशील</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Address Line 1</div>
+                    <div class="col-lg-9 col-md-8">{{ row['add_1'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Address Line 2</div>
+                    <div class="col-lg-9 col-md-8"> {{ row['add_2'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Pincode</div>
+                    <div class="col-lg-9 col-md-8"> {{ row['pincode'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Village</div>
+                    <div class="col-lg-9 col-md-8"> {{ row['village'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Taluka</div>
+                    <div class="col-lg-9 col-md-8"> {{ row['taluka'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">District</div>
+                    <div class="col-lg-9 col-md-8"> {{ row['district'] }}</div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">City</div>
+                    <div class="col-lg-9 col-md-8"> {{ row['city'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">State</div>
+                    <div class="col-lg-9 col-md-8"> {{ row['state'] }}</div>
+                  </div>
+                </div>
+
+
+                <div class="tab-pane fade profile-overview pt-3" id="payment_records">
+                  <h5 class="card-title">Payment Records</h5>
+                  {% for row in record %}
+
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    <div class="col-lg-9 col-md-8">{{ row['full_name'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Email</div>
+                    <div class="col-lg-9 col-md-8">{{ row['email'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Faculty</div>
+                    <div class="col-lg-9 col-md-8">{{ row['faculty'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Starting Duration Date</div>
+                    <div class="col-lg-9 col-md-8">{{ row['duration_date_from'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Ending Duration Date</div>
+                    <div class="col-lg-9 col-md-8">{{ row['duration_date_to'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Total Months</div>
+                    <div class="col-lg-9 col-md-8">{{ row['total_months'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Fellowship</div>
+                    <div class="col-lg-9 col-md-8">{{ row['fellowship'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Total Fellowship</div>
+                    <div class="col-lg-9 col-md-8">{{ row['to_fellowship'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Rate</div>
+                    <div class="col-lg-9 col-md-8">{{ row['rate'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Amount</div>
+                    <div class="col-lg-9 col-md-8">{{ row['amount'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Fellowship</div>
+                    <div class="col-lg-9 col-md-8">{{ row['fellowship'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Months</div>
+                    <div class="col-lg-9 col-md-8">{{ row['months'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Total House Rent Allowance</div>
+                    <div class="col-lg-9 col-md-8">{{ row['total_hra'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Count</div>
+                    <div class="col-lg-9 col-md-8">{{ row['count'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">PWD</div>
+                    <div class="col-lg-9 col-md-8">{{ row['pwd'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Total</div>
+                    <div class="col-lg-9 col-md-8">{{ row['total'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">City</div>
+                    <div class="col-lg-9 col-md-8">{{ row['city'] }}</div>
+                  </div>
+                </div>
+                  {% endfor %}
+              <!-- End PaYment Records -->
+
+
+                <div class="tab-pane fade profile-overview" id="installments">
+                  <h5 class="card-title">Installments Paid</h5>
+                  {% for row in record %}
+
+                  <div class="card">
+                      <div class="card-body">
+
+                        <!-- Dark Table -->
+                        <table class="table table-dark">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr No</th>
+                              <th scope="col">Period</th>
+                              <th scope="col">Start Period</th>
+                              <th scope="col">End Period</th>
+                              <th scope="col">Due Date</th>
+                              <th scope="col">Balance</th>
+                              <th scope="col">Installment Number</th>
+                              <th scope="col">Paid or Not</th>
+                              <th scope="col"> Action </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for row in table_data %}
+                            <tr>
+                              <td>{{ loop.index }}</td>
+                              <td> {{ row['period'] }}</td>
+                              <td>{{ row['start_period'] }}</td>
+                              <td>{{ row['end_period'] }}</td>
+                              <td>{{ row['due_date'] }}</td>
+                              <td>{{ row['balance'] }}</td>
+                              <td>{{ row['installment_number'] }}</td>
+                              <td>{{ row['paid'] }}</td>
+                              <td>
+                                <button type="submit" name="accept" value="{{ approve_pay }}"
+                                class="btn btn-sm btn-success tooltip-trigger" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Approve Payment"><i class="bx bxs-check-circle"></i></button>
+                              </td>
+                            </tr>
+                          {% endfor %}
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                          <tr>
+                              <td>Total Period</td>
+                              <td>{{ total_period }}</td>
+                              <td></td>
+                              <td></td>
+                              <td>Total Balance</td>
+                              <td>{{ total_balance }}</td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <!-- End Dark Table -->
+
+                      </div>
+                    </div>
+
+                  {% endfor %}
+                </div>
+                <!-- End Half Yearly Reports -->
+
+
+                <div class="tab-pane fade profile-overview" id="presenty">
+                    <h5 class="card-title">Presenty Reports</h5>
+                    {% for row in solution %}
+                        {% for i in range(1, 61) %}
+                            <div class="row align-items-center">
+                                <div class="col-lg-3 col-md-4 label">Presenty Report {{ i }}</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <a href="{{ row['monthly_report{}'.format(i)] }}" target="_blank" class="btn btn-theme btn-sm"
+                                        data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="View Joining Report">
+                                        <span><i class="ri-eye-fill"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+
+
+
+
+                <div class="tab-pane fade profile-overview" id="hypr">
+                  <h5 class="card-title">Half Yearly Reports</h5>
+                  {% for row in result %}
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 1</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report1'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 2</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report2'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 3</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report3'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 4</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report4'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 5</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report5'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 6</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report6'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 7</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report7'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 8</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report8'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 9</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report9'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Half yearly Report 10</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ row['half_yearly_report10'] }}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Joining Report"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+                  {% endfor %}
+              </div>
+                <!-- End Half Yearly Reports -->
+
+                {% endfor %}
+              </div><!-- End Bordered Tabs -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% if(session['user_type'] == 'User' ) %}
+  {% include 'user_templates/footer.html' %}
+  {% else %}
+  {% include 'admin_templates/footer.html' %}
+  {% endif %}
+
+  <!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='admin_assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/chart.js/chart.umd.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/echarts/echarts.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/quill/quill.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/tinymce/tinymce.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/php-email-form/validate.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='admin_assets/js/main.js')}}"></script>
+
+</body>
+
+</html>

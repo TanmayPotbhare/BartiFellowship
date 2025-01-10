@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard - Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/admin_assets/img/favicon.png" rel="icon">
+  <link href="/static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.g/static.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/admin_assets/css/style.css" rel="stylesheet">
+  <style>
+     /* Small row */
+      .small-row td {
+          padding: 5px; /* Adjust padding as needed */
+      }
+
+      /* Large row */
+      .large-row td {
+          padding: 20px; /* Adjust padding as needed */
+      }
+  </style>
+</head>
+
+{% include 'admin_templates/header.html' %}
+
+
+<!-- ======= Sidebar ======= -->
+{% include 'admin_templates/sidebar.html' %}
+<!-- End Sidebar-->
+
+<main class="main " id="main">
+  <div class="content-wrapper"></div>
+  <div id="rowContainer"></div>
+
+  <!-- TITLE AND NAV BAR -->
+  <div class="pagetitle">
+    <h1>Add an Old User into Database - (Student Registered before 2023 - 2024)</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index">Home</a></li>
+        <li class="breadcrumb-item">Student Management Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- END NAV BAR -->
+
+  <div class="alert alert-success" role="alert">
+    Record has been added!
+  </div>
+
+  <div class="card p-4">
+      <!-- Table with stripped rows -->
+            <table class="table table-bordered datatable">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col"> First Name</th>
+                  <th scope="col"> Middle Name</th>
+                  <th scope="col"> Last Name</th>
+                  <th scope="col"> Email</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Confirm Password</th>
+                  <th scope="col">Year</th>
+                  <th scope="col">Added By</th>
+                  <th scope="col">Added Date</th>
+                  <th scope="col">Added Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in record  %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ row['first_name'] }}</td>
+                  <td>{{ row['middle_name'] }}</td>
+                  <td>{{ row['last_name'] }}</td>
+                  <td>{{ row['email'] }}</td>
+                  <td>{{ row['password'] }}</td>
+                  <td>{{ row['confirm_password'] }}</td>
+                  <td>{{ row['year'] }}</td>
+                  <td>{{ row['added_by'] }}</td>
+                  <td>{{ row['added_date'] }}</td>
+                  <td>{{ row['added_time'] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+  </div>
+
+
+
+</main>
+
+
+<!-- ======= Footer ======= -->
+{% include 'admin_templates/footer.html' %}
+<!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+    class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="/static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="/static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+<script src="/static/admin_assets/vendor/echarts/echarts.min.js"></script>
+<script src="/static/admin_assets/vendor/quill/quill.min.js"></script>
+<script src="/static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="/static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="/static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/static/admin_assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+  integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/static/admin_assets/js/common.js"></script>
+
+
+
+</body>
+
+</html>

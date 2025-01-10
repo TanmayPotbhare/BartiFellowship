@@ -1,0 +1,67 @@
+/* Footer styles */
+footer {
+    background-color: lightgrey;
+    padding: 20px;
+    text-align: left;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
+    /* You can further style the content inside the footer, e.g., centering the text */
+}
+
+/* Related Links and Security & Brand styles */
+.footer-sections {
+    display: flex;
+    justify-content: space-between;
+}
+
+.related-links h3,
+.security-brand h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.related-links ul,
+.security-brand ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.related-links li,
+.security-brand li {
+    margin-bottom: 5px;
+}
+
+.related-links a,
+.security-brand a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Social media icon styles (assuming you're using Font Awesome icons) */
+.social-media {
+    display: flex;
+    align-items: center;
+}
+
+.social-media a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333;
+    font-size: 20px;
+}
+
+/* Additional styles for the empty span used for spacing */
+.contact-info .space {
+    display: inline-block;
+    width: 20px; /* Adjust the width as needed */
+}
+
+/* Copyright text style */
+.footer-content p {
+    margin-top: 10px;
+    font-size: 14px;
+}

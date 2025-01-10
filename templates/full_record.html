@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="static/NavImage.css">
+
+  <title>Full Record</title>
+
+</head>
+<body>
+
+
+
+<div class="header-container">
+  <div class="left-image">
+    <img src="static/Images/logo_TRTI.jpg" alt="My Image">
+  </div>
+  <h1 class="heading">आदिवासी संशोधन आणि प्रशिक्षण संस्था</h1>
+  <div class="right-images">
+    <img src="static/Images/satya.png" alt="My Image">
+    <img src="static/Images/maharashtra_shasn.png" alt="My Image">
+  </div>
+</div>
+
+
+  <h1>Full Record Page</h1>
+   <!-- Full Record Template (fullrecord.html) -->
+<div class="records">
+    <table>
+      {% for record in full_record %}
+      <tr>
+                <td>Applicant Photo</td>
+                <td><img src="data:image/png;base64,{{ record[0].decode('utf-8') }}"></td>
+                <td><img src="data:image/jpeg;base64,{{ record[0].decode('utf-8') }}"></td>
+        </tr>
+        <tr>
+                <td>Applicant ID</td>
+                <td>{{ record[1] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Personal Details / वैयक्तिक माहिती
+            </td>
+        </tr>
+        <tr>
+                <td>First Name</td>
+                <td>{{ record[2] }}</td>
+        </tr>
+      <tr>
+                <td>Middle Name</td>
+                <td>{{ record[3] }}</td>
+        </tr>
+        <tr>
+                <td>Last Name </td>
+                <td>{{ record[4] }}</td>
+        </tr>
+        <tr>
+                <td>Mobile Number</td>
+                <td>{{ record[5] }}</td>
+        </tr>
+        <tr>
+                <td>Email ID</td>
+                <td>{{ record[6] }}</td>
+        </tr>
+        <tr>
+                <td>Date of Birth</td>
+                <td>{{ record[7] }}</td>
+        </tr>
+        <tr>
+                <td>Gender</td>
+                <td>{{ record[8] }}</td>
+        </tr>
+        <tr>
+                <td>Age</td>
+                <td>{{ record[9] }}</td>
+        </tr>
+        <tr>
+                <td>Caste</td>
+                <td>{{ record[10] }}</td>
+        </tr>
+        <tr>
+                <td>Marital Status</td>
+                <td>{{ record[11] }}</td>
+        </tr>
+        <tr>
+                <td>Guardian / Parents Mobile Number</td>
+                <td>{{ record[12] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Personal Address Details / वैयक्तिक पत्त्याचे तपशील
+            </td>
+        </tr>
+        <tr>
+                <td>Address Line 1</td>
+                <td>{{ record[17] }}</td>
+        </tr>
+        <tr>
+                <td> Address Line 2</td>
+                <td>{{ record[18] }}</td>
+        </tr>
+        <tr>
+                <td>Pincode</td>
+                <td>{{ record[19] }}</td>
+        </tr>
+        <tr>
+                <td>Village </td>
+                <td>{{ record[15] }}</td>
+        </tr>
+        <tr>
+                <td>Taluka</td>
+                <td>{{ record[15] }}</td>
+        </tr>
+        <tr>
+                <td>District</td>
+                <td>{{ record[14] }}</td>
+        </tr>
+        <tr>
+                <td>State</td>
+                <td>{{ record[13] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Qualification Details / पात्रता तपशील
+            </td>
+        </tr>
+        <tr>
+                <td>Qualification Level</td>
+                <td>{{ record[20] }}</td>
+        </tr>
+        <tr>
+                <td>Stream</td>
+                <td>{{ record[21] }}</td>
+        </tr>
+        <tr>
+                <td>Board / University</td>
+                <td>{{ record[22] }}</td>
+        </tr>
+        <tr>
+                <td>Admission year</td>
+                <td>{{ record[23] }}</td>
+        </tr>
+        <tr>
+                <td>Passing Year</td>
+                <td>{{ record[24] }}</td>
+        </tr>
+        <tr>
+                <td>Percentage</td>
+                <td>{{ record[25] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Income Details / उत्पन्न तपशील
+            </td>
+        </tr>
+        <tr>
+                <td>Family's Annual Income</td>
+                <td>{{ record[26] }}</td>
+        </tr>
+        <tr>
+                <td>Income Certificate Number</td>
+                <td>{{ record[27] }}</td>
+        </tr>
+        <tr>
+                <td>Issuing Authority</td>
+                <td>{{ record[28] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Domicile Details / अधिवास तपशील
+            </td>
+        </tr>
+        <tr>
+                <td>Are you Domicile of Maharashtra ?</td>
+                <td>{{ record[29] }}</td>
+        </tr>
+        <tr>
+                <td>Do you have Domicile Certificate ?</td>
+                <td>{{ record[30] }}</td>
+        </tr>
+        <tr>
+                <td>Domicile Certificate Number</td>
+                <td>{{ record[31] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Caste Details / जात तपशील
+            </td>
+        </tr>
+        <tr>
+                <td>Do you have Caste Certificate ?</td>
+                <td>{{ record[32] }}</td>
+        </tr>
+        <tr>
+                <td>What is your caste ?</td>
+                <td>{{ record[33] }}</td>
+        </tr>
+        <tr>
+                <td>Issuing District</td>
+                <td>{{ record[34] }}</td>
+        </tr>
+        <tr>
+                <td>Issuing Authority</td>
+                <td>{{ record[35] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Personal Eligibility Details / वैयक्तिक पात्रता तपशील
+            </td>
+        </tr>
+        <tr>
+                <td>Are you Salaried ?</td>
+                <td>{{ record[36] }}</td>
+        </tr>
+        <tr>
+                <td>Are you Disabled</td>
+                <td>{{ record[37] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Parent's-Guardian's Details Details / पालकांचे-पालकांचे तपशील तपशील
+            </td>
+        </tr>
+
+        <tr>
+                <td>Is your Father Alive ?</td>
+                <td>{{ record[38] }}</td>
+        </tr>
+        <tr>
+                <td>Father's Name</td>
+                <td>{{ record[39] }}</td>
+        </tr>
+        <tr>
+                <td>Is your Mother Alive ?</td>
+                <td>{{ record[40] }}</td>
+        </tr>
+        <tr>
+                <td>Mother's Name</td>
+                <td>{{ record[41] }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left; color: #FF0000; font-weight: bold; background-color: none;">
+                Attached Documents
+            </td>
+        </tr>
+        <tr>
+                <td>Identity Proof</td>
+                <td>{{ record[44] }}</td>
+        </tr>
+        <tr>
+                <td>Address Proof</td>
+                <td>{{ record[45] }}</td>
+        </tr>
+        <tr>
+                <td>Qualification Certificate</td>
+                <td>{{ record[46] }}</td>
+        </tr>
+        <tr>
+                <td>Domicile Certificate</td>
+                <td>{{ record[47] }}</td>
+        </tr>
+        <tr>
+                <td>Income Certificate</td>
+                <td>{{ record[48] }}</td>
+        </tr>
+        <tr>
+                <td>Caste Certificate</td>
+                <td>{{ record[49] }}</td>
+        </tr>
+      <!-- Add more rows for each field as needed -->
+      {% endfor %}
+    </table>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+
+  <!-- Flask flash message handling with SweetAlert -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          <script>
+              document.addEventListener("DOMContentLoaded", function() {
+                  {% for category, message in messages %}
+                      Swal.fire({
+                          title: "{{ 'Success!' if category == 'success' else 'Error!' }}",
+                          text: "{{ message }}",
+                          icon: "{{ category }}",
+                          confirmButtonText: 'OK'
+                      });
+                  {% endfor %}
+              });
+          </script>
+      {% endif %}
+  {% endwith %}

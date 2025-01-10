@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>My Application | Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/admin_assets/img/favicon.png" rel="icon">
+  <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/admin_assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ######### Header  starts here ######-->
+  {% include 'admin_templates/header.html' %}
+  <!-- End Header -->
+
+  <!-- Start Sidebar  -->
+  {% include 'admin_templates/sidebar.html' %}
+<!-- End Sidebar  -->
+
+  <main id="main" class="main">
+    <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+     
+      <div class="content-wrapper">
+        <div id="recordContainer">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="pagetitle">
+                      <h1>Total Accepted reports 2022</h1>
+                      <nav>
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="index">Home</a></li>
+                          <li class="breadcrumb-item">Pages</li>
+                          <li class="breadcrumb-item active">Total Accepted reports 2022</li>
+                        </ol>
+                      </nav>  
+                    </div><!-- End Page Title -->
+                  </div> 
+                  <div class="col-md-6">
+                     {% if session['user'] == 'Auditor' %}
+                         <div class="text-end">
+                            <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+                          </div>
+                      {% else %}
+                          <div class="text-end">
+                            <a href ="/export_accepted_applications_22" class="btn btn-theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+                          </div>
+                      {% endif %}
+                  </div>
+                  <div class="datatable-top">
+                    <div class="datatable-dropdown">
+                            <label>
+                                <select class="datatable-selector"><option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option></select> entries per page
+                            </label>
+                        </div>
+                    <div class="datatable-search">
+                            <input class="datatable-input" placeholder="Search..." type="search" title="Search within table">
+                        </div>
+                  </div>
+                </div>
+    <section class="section contact table-responsive">
+      <div class="row">
+        <div class="col-md-12 p-3">
+          <!-- Table with stripped rows -->
+          <table class="table datatable">
+            <thead>
+              <tr>
+                <th scope="col">Application Id</th>
+                <th scope="col">Email</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">PHD Registration Date</th>
+                <th scope="col">Year</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for record in result %}
+              <tr>
+                <td>{{ record['applicant_id'] }}</td>
+                <td>{{ record['email'] }}</td>
+                <td>{{ record['first_name'] }}</td>
+                <td>{{ record['last_name'] }}</td>
+                <td>{{ record['phd_registration_date'] }}</td>
+                <td>{{ record['phd_registration_year'] }}</td>
+                <td>
+                  <a href="/viewform_old_users/{{ record['id'] }}" class="btn btn-theme btn-sm " data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form"><i class="ri-eye-fill"></i></a>
+                </td>
+              </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+    </section>
+
+  </main><!-- End #main -->
+
+   <!-- ======= Footer ======= -->
+   <footer id="footer" class="footer">
+    <div class="copyright">
+        &copy; Copyright <strong><span>TRTI</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+        Designed by <a href="https://icspune.com/">Integrated Consultancy Services</a>
+    </div>
+</footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="static/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="static/assets/vendor/quill/quill.min.js"></script>
+  <script src="static/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="static/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="static/assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/assets/js/main.js"></script>
+
+  <script>
+    // Function to handle button click events
+      $(document).ready(function() {
+        $('.export-excel').click(function(event) {
+          event.preventDefault();
+          // Check if the user has read-only access
+          var hasReadOnlyAccess = true; // Replace this with your logic to determine read-only access
+          if (hasReadOnlyAccess) {
+            // Show SweetAlert modal
+            Swal.fire({
+              icon: 'warning',
+              title: 'Read Only Access',
+              text: 'Please contact the administrator to request Execution Access, as your current access level is Read Only.',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            });
+          } else {
+            // Continue with button action if user has appropriate access
+            // You can add your export or send email logic here
+          }
+        });
+      });
+  </script>
+
+</body>
+
+</html>

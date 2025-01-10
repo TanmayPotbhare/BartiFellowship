@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Form | Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/admin_assets/img/favicon.png" rel="icon">
+  <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/admin_assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/admin_assets/css/select2-bootstrap4.css">
+  <link rel="stylesheet" href="/static/admin_assets/css/select2.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  {% include 'user_templates/header.html' %}
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+
+  <!-- End Sidebar-->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Application Form</span></i>
+        </a>
+      </li><!-- End Forms Nav -->
+    </ul>
+  </aside>
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Application Form 
+      </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/index">Home</a></li>
+          <li class="breadcrumb-item">Pages</li>
+          <li class="breadcrumb-item active">App Form</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <div class="row d-flex">
+      <div class="col-xl-12 col-md-8">
+
+        <div class="card">
+          <form action="/submit_form" id="preview_form" method="POST" enctype="multipart/form-data">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab"
+                    data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+                {% if records %}
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                  <h5 class="card-title">Personal Details / वैयक्तिक माहिती</h5>
+                  <hr>
+                  <div class="row py-2">
+                    <div class="col-md-3 label">
+                      <label for="" class="fw-bold">Applicant Photo <span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter JPG, PNG, or JPEG only. File Size is maximum 2MB allowed">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="file" name="applicant_photo" id="applicant_photo"
+                          value="{{ records['applicant_photo'] }}" class=" form-control accept_img" disabled {% if
+                          not editable %}disabled{% endif %} 
+                          {% if records['applicant_photo'] == '' or records['applicant_photo'] is none %} required {% endif %}
+                          >
+                      </div>
+                      {% if editable %}
+                      <div class="col-md-2">
+                        {% if records['applicant_photo'] != '' and records['applicant_photo'] is not none %}
+                        <a href="{{ records['applicant_photo'] }}" target="_blank"
+                          class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                          data-bs-placement="top" data-bs-original-title="View Record">
+                          <i class="ri-eye-fill"></i>
+                        </a>
+                        {% endif %}
+                        <a data-hidden="applicant_photo" class="btn btn-theme btn-sm edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record"> <i
+                            class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+
+
+                  <!-- Repeat this structure for other fields -->
+
+                  <div class="row py-2">
+                    <div class="col-md-3 label">
+                      <label for="" class="fw-bold">Adhaar Number <span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter 12 Digits only without spaces">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="adhaar_number" id="adhaar_number"
+                          value="{{ records['adhaar_number'] }}" class="form-control" disabled
+                          onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 12)"
+                          {% if records['adhaar_number'] == '' or records['adhaar_number'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="adhaar_number" class="btn btn-theme btn-sm edit_preview_btn tooltip-trigger"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3 ">
+                      <label for="" class="fw-bold">First Name<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter First Name">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="first_name" value="{{ records['first_name'] }}"
+                          class="form-control text-capitalize accept_english" id="first_name" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g, '')" data-name="First Name" required=""
+                          onblur="validateField(this)" minlength="2" maxlength="35"
+                          {% if records['first_name'] == '' or records['first_name'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="first_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Second Name<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter Second/Fathers Name">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="middle_name" id="middle_name" value="{{ records['middle_name'] }}"
+                          class="form-control text-capitalize accept_english" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g, '')" data-name="Middle Name" required
+                          onblur="validateField(this)" minlength="2" maxlength="35"
+                          {% if records['middle_name'] == '' or records['middle_name'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="middle_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3 ">
+                      <label for="" class="fw-bold">Last Name<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter LastName/Surname">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="last_name" id="last_name" value="{{ records['last_name'] }}"
+                          class="form-control text-capitalize accept_english" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g, '')" data-name="Last Name" required=""
+                          onblur="validateField(this)" minlength="2" maxlength="35"
+                          {% if records['last_name'] == '' or records['last_name'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="last_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Mobile Number<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter 10 Digit Number without Spaces and +91">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" id="mobile_number" name="mobile_number"
+                          value="{{ records['mobile_number'] }}" class="form-control" disabled maxlength="10"
+                          minlength="10" onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 10)"
+                          oninput="validateMobileNumber(this)"
+                          {% if records['mobile_number'] == '' or records['mobile_number'] is none %}
+                          required
+                          {% endif %}
+                          
+                          >
+
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="mobile_number" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Email<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="You can't edit this field">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="email" id="email" value="{{ session['email'] }}" class="form-control"
+                          disabled>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="email" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Date of Birth<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Select from Calender and Age will be autopopulated">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="date" name="date_of_birth" id="date_of_birth"
+                          value="{{ records['date_of_birth'] }}" class="form-control datepicker" disabled
+                          {% if records['date_of_birth'] == '' or records['date_of_birth'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="date_of_birth" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Gender<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select from Dropdown">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <select id="gender" name="gender" class="form-control" disabled>
+                          <option value="Male" {% if records['gender']=='Male' %} selected {% endif %}>Male</option>
+                          <option value="Female" {% if records['Female']=='Female' %} selected {% endif %}>Female
+                          </option>
+                          <option value="Other" {% if records['marital_status']=='Other' %} selected {% endif %}>Other
+                          </option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-2">
+                        <a data-hidden="gender" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Age<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="You can't edit this field">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="age" id="age" value="{{ records['age'] }}" class="form-control"
+                          disabled onkeyup="this.value = this.value.replace(/[^0-9]/g)">
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="age" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Marital Status<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select from dropdown">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-lg-9 row">
+                      <div class="col-md-8">
+                        <select id="marital_status" name="marital_status" class="form-control" disabled>
+                          <option value="Single" {% if records['marital_status']=='Single' %} selected {% endif %}>
+                            Single</option>
+                          <option value="Married" {% if records['marital_status']=='Married' %} selected {% endif %}>
+                            Married</option>
+                          <option value="Divorced" {% if records['marital_status']=='Divorced' %} selected {% endif %}>
+                            Divorced</option>
+                          <option value="Widowed" {% if records['marital_status']=='Widowed' %} selected {% endif %}>
+                            Widowed</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="marital_status" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <hr>
+                  <h5 class="card-title">Personal Address Details / वैयक्तिक पत्त्याचे तपशील</h5>
+                  <hr>
+                  <div class="row py-2">
+                    <div class="col-lg-3 ">
+                      <label for="" class="fw-bold">Main Address<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter you main address">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" id="add_1" name="add_1" value="{{ records['add_1'] }}"
+                          class="form-control text-capitalize accept_english" disabled
+                          {% if records['add_1'] == '' or records['add_1'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="add_1" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Postal Address<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter you postal address">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="add_2" id="add_2" value="{{ records['add_2'] }}"
+                          class="form-control text-capitalize accept_english" disabled
+                          {% if records['add_2'] == '' or records['add_2'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="add_2" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3 ">
+                      <label for="" class="fw-bold">Pincode<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter picode - 6 Digits only. Select Village after that.">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" id="pincode" name="pincode" 
+                          class="form-control" disabled
+                          onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,6)"
+                          {% if session['user_type'] == 'old_user' %}
+                          value=""
+                          {% else %}
+                          value="{{ records['pincode'] }}"
+                          {% endif %}
+                          placeholder="Enter Your Pincode"
+                          {% if records['pincode'] == '' or records['pincode'] is none %}
+                          required
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="pincode" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Village<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select village from dropdown. If you cannot see please enter pincode again.">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <select name="village" id="village" class="form-control" disabled required>
+                          <option value="">--Select Village --</option>
+                        </select>
+                        <!-- <input type="text" class="form-control" disabled required name="village" id="village" placeholder="Enter village name"> -->
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="village" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Taluka<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="You can't edit this field. It is autopopulated after you select village.">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" id="taluka" name="taluka" 
+                          class="form-control text-capitalize accept_english" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g, '')" data-name="Taluka Name"
+                          onblur="validateField(this)" minlength="2" maxlength="20" placeholder="Enter Taluka Name"
+                          {% if session['user_type'] == 'old_user' %}
+                          value=""
+                          {% else %}
+                          value="{{ records['taluka'] }}"
+                          {% endif %}
+                          required>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="taluka" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">City<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="You can't edit this field. It is autopopulated after you select village.">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" id="city" name="city"
+                          class="form-control text-capitalize accept_english" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g, '')" data-name="City Name"
+                          onblur="validateField(this)" minlength="2" maxlength="20" placeholder="Enter City Name"
+                          {% if session['user_type'] == 'old_user' %}
+                          value=""
+                          {% else %}
+                          value="{{ records['city'] }}"
+                          {% endif %}
+                          required
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="city" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">District<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="You can't edit this field. It is autopopulated after you select village.">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="district" id="district"
+                          class="form-control text-capitalize" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g, '')" data-name="District Name"
+                          onblur="validateField(this)" minlength="2" maxlength="20" placeholder="Enter District Name"
+                          {% if session['user_type'] == 'old_user' %}
+                          value=""
+                          {% else %}
+                          value="{{ records['district'] }}"
+                          {% endif %}
+                          required
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="district" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">State<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="You can't edit this field. It is autopopulated after you select village.">
+                                <i class="ri-information-fill">Instructions</i>
+                      </label>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-8">
+                        <input type="text" name="state" id="state"
+                          class="form-control text-capitalize accept_english" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z]/g, '')" data-name="State Name"
+                          onblur="validateField(this)" minlength="2" maxlength="20" placeholder="Enter State Name"
+                          {% if session['user_type'] == 'old_user' %}
+                          value=""
+                          {% else %}
+                          value="{{ records['state'] }}"
+                          {% endif %}
+                          >
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="state" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <h5 class="card-title">Qualification Details / पात्रता तपशील</h5>
+                  <hr>
+
+                  <div class="row py-2">
+                      <div class="col-lg-4">
+                          <div class="row py-2">
+                              <div class="col-lg-3">
+                                <label for="" class="fw-bold">SSC Passing Year<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter you Passing Year. 4 Digits only.">
+                                <i class="ri-information-fill">Instructions</i>
+                              </div>
+                              <div class="col-md-9 row">
+                                <div class="col-md-10">
+                                  <input type="text" name="ssc_passing_year" id="ssc_passing_year"
+                                    value="{{ records['ssc_passing_year'] }}" class="form-control" disabled
+                                    onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)" required>
+                                </div>
+                                <div class="col-md-2">
+                                  <a data-hidden="ssc_passing_year" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                    data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                    <i class="ri-pencil-fill"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      <div class="col-lg-4">
+                          <div class="row py-2">
+                              <label for="" class="fw-bold">SSC Percentage<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter you percentage.">
+                                <i class="ri-information-fill">Instructions</i>
+                            </div>
+                            <div class="col-md-9 row">
+                              <div class="col-md-10">
+                                <input type="text" name="ssc_percentage" id="ssc_percentage"
+                                  value="{{ records['ssc_percentage'] }}" class="form-control" disabled
+                                  onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)" required>
+                              </div>
+                              <div class="col-md-2">
+                                <a data-hidden="ssc_passing_year" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                  data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                  <i class="ri-pencil-fill"></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4">
+                          <div class="row py-2">
+                              <div class="row py-2">
+                                <div class="col-lg-3">
+                                  <label for="">SSC School Name</label>
+                                </div>
+                                <div class="col-md-9 row">
+                                  <div class="col-md-10">
+                                    <input type="text" name="ssc_school_name" id="ssc_school_name"
+                                      value="{{ records['ssc_school_name'] }}" class="form-control text-capitalize accept_english"
+                                      disabled onkeyup="this.value = this.value.replace(/[^a-zA-Z\s,.]/g, '')" required >
+                                </div>
+                                <div class=" col-md-2">
+                                    <a data-hidden="ssc_school_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                      data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                      <i class="ri-pencil-fill"></i>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                      </div>
+                  </div>
+
+                  <div class="row py-2">
+                      <div class="col-lg-4">
+                          <div class="row py-2">
+                            <div class="col-lg-3">
+                              <label for="">HSC Passing Year</label>
+                            </div>
+                            <div class="col-md-9 row">
+                              <div class="col-md-10">
+                                <input type="text" name="hsc_passing_year" id="hsc_passing_year"
+                                  value="{{ records['hsc_passing_year'] }}" class="form-control " disabled
+                                  onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)" required>
+                              </div>
+                              <div class="col-md-2">
+                                <a data-hidden="hsc_passing_year" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                  data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                  <i class="ri-pencil-fill"></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4">
+                          <div class="row py-2">
+                            <div class="col-lg-3">
+                              <label for="">HSC Percentage</label>
+                            </div>
+                            <div class="col-md-9 row">
+                              <div class="col-md-10">
+                                <input type="text" name="hsc_percentage" id="hsc_percentage"
+                                  value="{{ records['hsc_percentage'] }}" class="form-control percentage_validate" disabled required>
+                              </div>
+                              <div class="col-md-2">
+                                <a data-hidden="hsc_percentage" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                  data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                  <i class="ri-pencil-fill"></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-4">
+                          <div class="row py-2">
+                            <div class="col-lg-3">
+                              <label for="">HSC College Name</label>
+                            </div>
+                            <div class="col-md-9 row">
+                              <div class="col-md-10">
+                                <input type="text" name="hsc_school_name" id="hsc_school_name"
+                                  value="{{ records['hsc_school_name'] }}" class="form-control text-capitalize accept_english"
+                                  disabled onkeyup="this.value = this.value.replace(/[^a-zA-Z\s,.]/g, '')" required>
+
+                            </div>
+                            <div class=" col-md-2">
+                                <a data-hidden="hsc_school_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                  data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                  <i class="ri-pencil-fill"></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row py-2">
+                      <div class="col-lg-4">
+                          <div class="row py-2">
+                              <div class="col-lg-3">
+                                <label for="">Graduation Passing year </label>
+                              </div>
+                              <div class="col-md-9 row">
+                                <div class="col-md-10">
+                                  <input type="text" name="graduation_passing_year" id="graduation_passing_year"
+                                    value="{{ records['graduation_passing_year'] }}" class="form-control percentage_validate"
+                                    disabled required>
+                                </div>
+                                <div class="col-md-2">
+                                  <a data-hidden="graduation_passing_year"
+                                    class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                                    data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                    <i class="ri-pencil-fill"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      <div class="col-lg-4">
+                          <div class="col-lg-3">
+                                <label for="">Graduation Percentage </label>
+                              </div>
+                              <div class="col-md-9 row">
+                                <div class="col-md-10">
+                                  <input type="text" name="graduation_percentage" id="graduation_percentage"
+                                    value="{{ records['graduation_percentage'] }}" class="form-control percentage_validate"
+                                    disabled required>
+                                </div>
+                                <div class="col-md-2">
+                                  <a data-hidden="graduation_percentage"
+                                    class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                                    data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                    <i class="ri-pencil-fill"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+
+                      <div class="col-lg-4">
+                          <div class="col-lg-3">
+                                <label for="">Graduation College Name </label>
+                              </div>
+                              <div class="col-md-9 row">
+                                <div class="col-md-10">
+                                  <input type="text" name="graduation_school_name" id="graduation_school_name"
+                                    value="{{ records['graduation_school_name'] }}" class="form-control percentage_validate"
+                                    disabled required>
+                                </div>
+                                <div class="col-md-2">
+                                  <a data-hidden="graduation_school_name"
+                                    class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                                    data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                    <i class="ri-pencil-fill"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+
+
+                      <div class="row py-2">
+                          <div class="col-lg-4">
+                              <div class="row py-2">
+                                  <div class="col-lg-3">
+                                    <label for="">Post Graduation Passing year</label>
+                                  </div>
+                                  <div class="col-md-9 row">
+                                    <div class="col-md-10">
+                                      <input type="text" name="phd_passing_year" id="phd_passing_year"
+                                        value="{{ records['phd_passing_year'] }}" class="form-control" disabled
+                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <a data-hidden="phd_passing_year" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                        <i class="ri-pencil-fill"></i>
+                                      </a>
+                                    </div>
+
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-lg-4">
+                              <div class="row py-2">
+                                  <div class="col-lg-3">
+                                    <label for="">Post Graduation Percentage </label>
+                                  </div>
+                                  <div class="col-md-9 row">
+                                    <div class="col-md-10">
+                                      <input type="text" name="phd_percentage" id="phd_percentage"
+                                        value="{{ records['phd_percentage'] }}" class="form-control" disabled
+                                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{2})/g, '$1.').substring(0, 5)" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <a data-hidden="phd_percentage" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                        <i class="ri-pencil-fill"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="col-lg-4">
+                              <div class="row py-2">
+                                  <div class="col-lg-3">
+                                    <label for="">Post Graduation University/College Name </label>
+                                  </div>
+                                  <div class="col-md-9 row">
+                                    <div class="col-md-10">
+                                      <input type="text" name="phd_school_name" id="phd_school_name"
+                                        value="{{ records['phd_school_name'] }}" class="form-control text-capitalize accept_english"
+                                        disabled onkeyup="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <a data-hidden="phd_school_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                                        <i class="ri-pencil-fill"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                      </div>
+
+                  <hr>
+                  <h5 class="card-title">PHD Details / पीएचडी तपशील</h5>
+                  <hr>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">P.H.D Registration Date (As per Confirmation Letter)<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter Date as per Confirmation Letter. Make sure it matches your registration year.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-lg-9 row">
+                      <div class="col-md-10">
+                        <input type="date" class="form-control" name="phd_registration_date" id="phd_registration_date"
+                          value="{{ records['phd_registration_date'] }}" disabled required>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="phd_registration_date"
+                          class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                          data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">P.H.D Registration Year<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="You can't edit this field. It will be autopopulated.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-lg-9 row">
+                      <div class="col-md-10">
+                        <input type="text" class="form-control" name="phd_registration_year" id="phd_registration_year"
+                          value="{{ records['phd_registration_year'] }}" disabled
+                          onkeyup="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)" required>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="phd_registration_year" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Name of University<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select your university.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-10">
+                        <select id="concerned_university" name="concerned_university" class="form-control select2" disabled required>
+                          <option value="" selected>Select University</option>
+                          {% for university in university_data %}
+                          <option value="{{ university['u_id'] }}">{{ university['affiliated_universities'] }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="concerned_university"
+                          class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                          data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Name of College<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select your college. If not in dropdown enter in Other column.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-10">
+                        <select id="selected_college" name="selected_college" class="form-control select2" disabled required>
+                          <option value="" selected >Select College</option>
+                        </select>
+                      </div>
+                      <div class=" col-md-2">
+                        <a data-hidden="selected_college" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Department (If Any)<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select your department if any.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-10">
+                        <input type="text" id="department" name="department_name" class="form-control select2">
+                      </div>
+                      <div class=" col-md-2">
+                        <a data-hidden="selected_college" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Topic of P.H.D<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter you topic of PHD. You can enter in marathi.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-10">
+                        <input type="text" name="topic_of_phd" id="topic_of_phd" value="{{ records['topic_of_phd'] }}"
+                          class="form-control text-capitalize accept_english" disabled
+                          required>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="topic_of_phd" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Name of Guide<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter the name of your Guide which matches the document you will upload.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-10">
+                        <input type="text" name="name_of_guide" id="name_of_guide"
+                          value="{{ records['name_of_guide'] }}" class="form-control text-capitalize" disabled
+                          onkeyup="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" required>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="name_of_guide" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Faculty<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select your faculty from the dropdown.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-md-9 row">
+                      <div class="col-md-10">
+                        <select id="faculty" name="faculty" class="form-control text-capitalize" disabled required>
+                          <option value="Science" {% if records['faculty']=='Science' %} selected {% endif %}>Science
+                          </option>
+                          <option value="Arts" {% if records['faculty']=='Arts' %} selected {% endif %}>Arts</option>
+                          <option value="Law" {% if records['faculty']=='Law' %} selected {% endif %}>Law</option>
+                          <option value="Commerce" {% if records['faculty']=='Commerce' %} selected {% endif %}>Commerce
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="faculty" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <h5 class="card-title">Personal Eligibility Details / वैयक्तिक पात्रता तपशील</h5>
+                  <hr>
+
+                  <div class="row py-2">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Are you Salaried<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select if you are salaried or not.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-lg-9 row">
+                      <div class="col-md-10">
+                        <select type="text" name="salaried" id="salaried" value="{{ records['salaried'] }}"
+                          class="form-control" disabled onblur="validateAnswer(this)" required>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="salaried" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <label for="" class="fw-bold">Are you disabled<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select if you have any disability.">
+                                <i class="ri-information-fill">Instructions</i>
+                    </div>
+                    <div class="col-lg-9 row">
+                      <div class="col-md-10">
+                        <select name="disability" id="disability" value="{{ records['disability'] }}"
+                          class="form-control" disabled onblur="validateAnswer(this)" required>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <a data-hidden="disability" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                          data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                          <i class="ri-pencil-fill"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Family Overview -->
+                <hr>
+                <h5 class="card-title">Income Details / उत्पन्न तपशील</h5>
+                <hr>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Family Annual Income (IN ₹)<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter family annual income not more than 9 digits which should not be more than 8 Lacs.">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" name="family_annual_income"
+                        value="{{ records['family_annual_income'] }}" id="family_annual_income" disabled
+                        onkeyup="this.value = this.value.replace(/[^0-9₹.]/g, '')" onblur="validateField(this)"
+                        minlength="3" data-name="Annual Income " maxlength="9" required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="family_annual_income"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Income Certificate Number<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter income certificate number">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" name="income_certificate_number"
+                        value="{{ records['income_certificate_number'] }}" id="income_certificate_number"
+                        onblur="validateField(this)" minlength="3" data-name="Income Certificate Number" maxlength="15"
+                        disabled required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="income_certificate_number"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Issuing Authority<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter income certificate issuing authority.">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" name="issuing_authority" class="form-control text-capitalize"
+                        value="{{ records['issuing_authority'] }}" id="issuing_authority" disabled
+                        onkeyup="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="issuing_authority" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <hr>
+                <h5 class="card-title">Domicile Details / अधिवास तपशील</h5>
+                <hr>
+
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Are you Domicile of Maharashtra? <span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select if you are domicile of maharashtra or not from the dropdown. ">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-8">
+                      <select id="domicile" name="domicile" class="form-control" disabled required>
+                        <option value="Yes" {% if records['domicile']=='Yes' %} selected {% endif %}>Yes</option>
+                        <option value="No" {% if records['domicile']=='No' %} selected {% endif %}>No</option>
+
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="domicile" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Domicile Certificate<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select if you have domicile certificate from dropdown">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-8">
+                      <select id="domicile_certificate" name="domicile_certificate" class="form-control" disabled required>
+                        <option value="Yes" {% if records['domicile_certificate']=='Yes' %} selected {% endif %}>Yes
+                        </option>
+                        <option value="No" {% if records['domicile_certificate']=='No' %} selected {% endif %}>No
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="domicile_certificate"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Domicile Certificate Number<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter domicile certificate number">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" id="domicile_number" name="domicile_number"
+                        value="{{ records['domicile_number'] }}" class="form-control" onblur="validateField(this)"
+                        minlength="3" data-name="Domicile Certificate Number" maxlength="9" disabled required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="domicile_number" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+
+                <hr>
+                <h5 class="card-title">Caste | Tribe Details / जात तपशील</h5>
+                <hr>
+
+
+                <div class="row align-items-center">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Validity Certificate<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select if you have validity certificate from dropdown. This is a mandatory field for applying for Fellowship.">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-8">
+                      <select id="validity_certificate" name="validity_certificate" class="form-control" disabled required>
+                        <option value="Yes" {% if records['validity_certificate']=='Yes' %} selected {% endif %}>Yes
+                        </option>
+                        <option value="No" {% if records['validity_certificate']=='No' %} selected {% endif %}>No
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="validity_certificate"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row align-items-center py-3">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Validity Certificate Number<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter validity certificate number. This is a mandatory field for applying for Fellowship.">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" id="validity_cert_number" name="validity_cert_number" class="form-control" disabled required>
+
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="validity_cert_number"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row align-items-center">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Caste Certificate<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please enter if you have Caste certificate. This is a mandatory field for applying for Fellowship.">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <select id="caste_certf" name="caste_certf" class="form-control" disabled required>
+                        <option value="Yes" {% if records['caste_certf']=='Yes' %} selected {% endif %}>Yes</option>
+                        <option value="No" {% if records['caste_certf']=='No' %} selected {% endif %}>No</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="caste_certf" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">Category<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="This field is autopopulated. This is a mandatory field for applying for Fellowship.">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" name="caste" id="category" value="Scheduled Tribes"
+                        disabled required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="category" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="" class="fw-bold">What is your Tribe<span
+                                    class="text-danger">*</span></label> <i class="bi bi-arrow-right"></i> <label
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-original-title="Please select from dropdown.">
+                                <i class="ri-information-fill">Instructions</i>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <select name="your_caste" class="form-control select2" {% if record %}disabled{% endif %}
+                        value="{{ records[your_caste] }}" disabled="True" id="your_caste" required>
+                        <option value="" class="text-wrap">-- Select Sub Caste | Tribe --</option>
+                        <option value="Andh" class="text-wrap" {% if records['your_caste']=='Andh' %} selected {% endif
+                          %}> Andh (1)</option>
+                        <option value="Baiga" class="text-wrap" {% if records['your_caste']=='Baiga' %} selected {%
+                          endif %}> Baiga (2)</option>
+                        <option value="Barda" class="text-wrap" {% if records['your_caste']=='Barda' %} selected {%
+                          endif %}> Barda (3)</option>
+                        <option value="Bavacha" class="text-wrap" {% if records['your_caste']=='Bavacha' %} selected {%
+                          endif %}> Bavacha (4)</option>
+                        <option value="Bamcha" class="text-wrap" {% if records['your_caste']=='Bamcha' %} selected {%
+                          endif %}> Bamcha (4)</option>
+                        <option value="Bhaina" class="text-wrap" {% if records['your_caste']=='Bhaina' %} selected {%
+                          endif %}> Bhaina (5)</option>
+                        <option value="Bharia Bhumia" class="text-wrap" {% if records['your_caste']=='Bharia Bhumia' %}
+                          selected {% endif %}> Bharia Bhumia (6)</option>
+                        <option value="Bhuinhar Bhumia" class="text-wrap" {% if records['your_caste']=='Bhuinhar Bhumia'
+                          %} selected {% endif %}> Bhuinhar Bhumia (6)
+                        </option>
+                        <option value="Pando" class="text-wrap" {% if records['your_caste']=='Pando' %} selected {%
+                          endif %}> Pando (6)</option>
+                        <option value="Bhattra" class="text-wrap" {% if records['your_caste']=='Bhattra' %} selected {%
+                          endif %}> Bhattra (7)</option>
+                        <option value="Bhil" class="text-wrap" {% if records['your_caste']=='Bhil' %} selected {% endif
+                          %}> Bhil (8)</option>
+                        <option value="Bhil Garasia" class="text-wrap" {% if records['your_caste']=='Bhil Garasia' %}
+                          selected {% endif %}> Bhil Garasia (8)</option>
+                        <option value="Dholi Bhil" class="text-wrap" {% if records['your_caste']=='Dholi Bhil' %}
+                          selected {% endif %}> Dholi Bhil (8)</option>
+                        <option value="Dungri Bhil" class="text-wrap" {% if records['your_caste']=='Dungri Bhil' %}
+                          selected {% endif %}> Dungri Bhil (8)</option>
+                        <option value="Dungri Garasia" class="text-wrap" {% if records['your_caste']=='Dungri Garasia'
+                          %} selected {% endif %}> Dungri Garasia (8)
+                        </option>
+                        <option value="Mewasi Bhil" class="text-wrap" {% if records['your_caste']=='Mewasi Bhil' %}
+                          selected {% endif %}> Mewasi Bhil (8)</option>
+                        <option value="Rawal Bhil" class="text-wrap" {% if records['your_caste']=='Rawal Bhil' %}
+                          selected {% endif %}> Rawal Bhil (8)</option>
+                        <option value="Tadvi Bhil" class="text-wrap" {% if records['your_caste']=='Tadvi Bhil' %}
+                          selected {% endif %}> Tadvi Bhil (8)</option>
+                        <option value="Bhagalia" class="text-wrap" {% if records['your_caste']=='Bhagalia' %} selected
+                          {% endif %}> Bhagalia (8)</option>
+                        <option value="Bhilala" class="text-wrap" {% if records['your_caste']=='Bhilala' %} selected {%
+                          endif %}> Bhilala (8)</option>
+                        <option value="Pawra" class="text-wrap" {% if records['your_caste']=='Pawra' %} selected {%
+                          endif %}> Pawra (8)</option>
+                        <option value="Vasava" class="text-wrap" {% if records['your_caste']=='Vasava' %} selected {%
+                          endif %}> Vasava (8)</option>
+                        <option value="Vasave" class="text-wrap" {% if records['your_caste']=='Vasave' %} selected {%
+                          endif %}> Vasave (8)</option>
+                        <option value="Bhunjia" class="text-wrap" {% if records['your_caste']=='Bhunjia' %} selected {%
+                          endif %}> Bhunjia (9)</option>
+                        <option value="Binjhwar" class="text-wrap" {% if records['your_caste']=='Binjhwar' %} selected
+                          {% endif %}> Binjhwar (10)</option>
+                        <option value="Birhul" class="text-wrap" {% if records['your_caste']=='Birhul' %} selected {%
+                          endif %}> Birhul (11)</option>
+                        <option value="Birhor" class="text-wrap" {% if records['your_caste']=='Birhor' %} selected {%
+                          endif %}> Birhor (11)</option>
+                        <option value="Omitted" class="text-wrap" {% if records['your_caste']=='Omitted' %} selected {%
+                          endif %}> Omitted (12)</option>
+                        <option value="Dhanka" class="text-wrap" {% if records['your_caste']=='Dhanka' %} selected {%
+                          endif %}> Dhanka (13)</option>
+                        <option value="Tadvi" class="text-wrap" {% if records['your_caste']=='Tadvi' %} selected {%
+                          endif %}> Tadvi (13)</option>
+                        <option value="Tetaria" class="text-wrap" {% if records['your_caste']=='Tetaria' %} selected {%
+                          endif %}> Tetaria (13)</option>
+                        <option value="Valvi" class="text-wrap" {% if records['your_caste']=='Valvi' %} selected {%
+                          endif %}> Valvi (13)</option>
+                        <option value="Dhanwar" class="text-wrap" {% if records['your_caste']=='Dhanwar' %} selected {%
+                          endif %}> Dhanwar (14)</option>
+                        <option value="Dhodia" class="text-wrap" {% if records['your_caste']=='Dhodia' %} selected {%
+                          endif %}> Dhodia (15)</option>
+                        <option value="Dubla" class="text-wrap" {% if records['your_caste']=='Dubla' %} selected {%
+                          endif %}> Dubla (16)</option>
+                        <option value="Talavia" class="text-wrap" {% if records['your_caste']=='Talavia' %} selected {%
+                          endif %}> Talavia (16)</option>
+                        <option value="Halpati" class="text-wrap" {% if records['your_caste']=='Halpati' %} selected {%
+                          endif %}> Halpati (16)</option>
+                        <option value="Gamit" class="text-wrap" {% if records['your_caste']=='Gamit' %} selected {%
+                          endif %}> Gamit (17)</option>
+                        <option value="Gamta" class="text-wrap" {% if records['your_caste']=='Gamta' %} selected {%
+                          endif %}> Gamta (17)</option>
+                        <option value="Gavit" class="text-wrap" {% if records['your_caste']=='Gavit' %} selected {%
+                          endif %}> Gavit (17)</option>
+                        <option value="Mavchi" class="text-wrap" {% if records['your_caste']=='Mavchi' %} selected {%
+                          endif %}> Mavchi (17)</option>
+                        <option value="Padvi" class="text-wrap" {% if records['your_caste']=='Padvi' %} selected {%
+                          endif %}> Padvi (17)</option>
+                        <option value="Gond" class="text-wrap" {% if records['your_caste']=='Gond' %} selected {% endif
+                          %}> Gond (18)</option>
+                        <option value="Rajgond" class="text-wrap" {% if records['your_caste']=='Rajgond' %} selected {%
+                          endif %}> Rajgond (18)</option>
+                        <option value="Arakh" class="text-wrap" {% if records['your_caste']=='Arakh' %} selected {%
+                          endif %}> Arakh (18)</option>
+                        <option value="Arrakh" class="text-wrap" {% if records['your_caste']=='Arrakh' %} selected {%
+                          endif %}> Arrakh (18)</option>
+                        <option value="Agaria" class="text-wrap" {% if records['your_caste']=='Agaria' %} selected {%
+                          endif %}> Agaria (18)</option>
+                        <option value="Asur" class="text-wrap" {% if records['your_caste']=='Asur' %} selected {% endif
+                          %}> Asur (18)</option>
+                        <option value="Badi Maria" class="text-wrap" {% if records['your_caste']=='Badi Maria' %}
+                          selected {% endif %}> Badi Maria (18)</option>
+                        <option value="Bada Maria" class="text-wrap" {% if records['your_caste']=='Bada Maria' %}
+                          selected {% endif %}> Bada Maria (18)</option>
+                        <option value="Bhatola" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Bhatola (18)</option>
+                        <option value="Bhimma" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Bhimma (18)</option>
+                        <option value="Bhuta" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Bhuta (18)</option>
+                        <option value="Koilabhuta" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected
+                          {% endif %}> Koilabhuta (18)</option>
+                        <option value="Koilabhuti" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected
+                          {% endif %}> Koilabhuti (18)</option>
+                        <option value="Bhar" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Bhar (18)</option>
+                        <option value="Bisonhorn Maria" class="text-wrap" {% if records['your_caste']=='Bhatola' %}
+                          selected {% endif %}> Bisonhorn Maria (18)
+                        </option>
+                        <option value="Chota Maria" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected
+                          {% endif %}> Chota Maria (18)</option>
+                        <option value="Dandami Maria" class="text-wrap" {% if records['your_caste']=='Bhatola' %}
+                          selected {% endif %}> Dandami Maria (18)</option>
+                        <option value="Dhuru" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Dhuru (18)</option>
+                        <option value="Dhurwa" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Dhurwa (18)</option>
+                        <option value="Dhoba" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Dhoba (18)</option>
+                        <option value="Dhulia" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Dhulia (18)</option>
+                        <option value="Dorla" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Dorla (18)</option>
+                        <option value="Gaiki" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Gaiki (18)</option>
+                        <option value="Gatta" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Gatta (18)</option>
+                        <option value="Gatti" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Gatti (18)</option>
+                        <option value="Gaita" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Gaita (18)</option>
+                        <option value="Gowari" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected {%
+                          endif %}> Gowari (18)</option>
+                        <option value="Hill Maria" class="text-wrap" {% if records['your_caste']=='Bhatola' %} selected
+                          {% endif %}> &lt;br/&gt; Hill Maria (18)
+                        </option>
+                        <option value="Kandra" class="text-wrap" {% if records['your_caste']=='Kandra' %} selected {%
+                          endif %}> Kandra (18)</option>
+                        <option value="Kalanga" class="text-wrap" {% if records['your_caste']=='Kalanga' %} selected {%
+                          endif %}> Kalanga (18)</option>
+                        <option value="Khatola" class="text-wrap" {% if records['your_caste']=='Khatola' %} selected {%
+                          endif %}> Khatola (18)</option>
+                        <option value="Koitar" class="text-wrap" {% if records['your_caste']=='Koitar' %} selected {%
+                          endif %}> Koitar (18)</option>
+                        <option value="Koya" class="text-wrap" {% if records['your_caste']=='Koya' %} selected {% endif
+                          %}> Koya (18)</option>
+                        <option value="Khirwar" class="text-wrap" {% if records['your_caste']=='Khirwar' %} selected {%
+                          endif %}> Khirwar (18)</option>
+                        <option value="Khirwara" class="text-wrap" {% if records['your_caste']=='Khirwara' %} selected
+                          {% endif %}> Khirwara (18)</option>
+                        <option value="Kucha Maria" class="text-wrap" {% if records['your_caste']=='Kucha Maria' %}
+                          selected {% endif %}> Kucha Maria (18)</option>
+                        <option value="Kuchaki Maria" class="text-wrap" {% if records['your_caste']=='Kuchaki Maria' %}
+                          selected {% endif %}> Kuchaki Maria (18)</option>
+                        <option value="Madia" class="text-wrap" {% if records['your_caste']=='Madia' %} selected {%
+                          endif %}> Madia (18)</option>
+                        <option value="Maria" class="text-wrap" {% if records['your_caste']=='Maria' %} selected {%
+                          endif %}> Maria (18)</option>
+                        <option value="Mana" class="text-wrap" {% if records['your_caste']=='Mana' %} selected {% endif
+                          %}> Mana (18)</option>
+                        <option value="Mannewar" class="text-wrap" {% if records['your_caste']=='Mannewar' %} selected
+                          {% endif %}> Mannewar (18)</option>
+                        <option value="Moghya" class="text-wrap"> Moghya (18)</option>
+                        <option value="Mogia" class="text-wrap" {% if records['your_caste']=='Mogia' %} selected {%
+                          endif %}> Mogia (18)</option>
+                        <option value="Monghya" class="text-wrap" {% if records['your_caste']=='Monghya' %} selected {%
+                          endif %}> Monghya (18)</option>
+                        <option value="Mudia" class="text-wrap" {% if records['your_caste']=='Mudia' %} selected {%
+                          endif %}> Mudia (18)</option>
+                        <option value="Muria" class="text-wrap" {% if records['your_caste']=='Muria' %} selected {%
+                          endif %}> Muria (18)</option>
+                        <option value="Nagarchi" class="text-wrap" {% if records['your_caste']=='Nagarchi' %} selected
+                          {% endif %}> Nagarchi (18)</option>
+                        <option value="Naikpod" class="text-wrap" {% if records['your_caste']=='Naikpod' %} selected {%
+                          endif %}> Naikpod (18)</option>
+                        <option value="Nagwanshi" class="text-wrap" {% if records['your_caste']=='Nagwanshi' %} selected
+                          {% endif %}> Nagwanshi (18)</option>
+                        <option value="Ojha" class="text-wrap" {% if records['your_caste']=='Ojha' %} selected {% endif
+                          %}> Ojha (18)</option>
+                        <option value="Raj" class="text-wrap" {% if records['your_caste']=='Raj' %} selected {% endif
+                          %}> Raj (18)</option>
+                        <option value="Sonjhari Jhareka" class="text-wrap" {% if
+                          records['your_caste']=='Sonjhari Jhareka' %} selected {% endif %}> Sonjhari Jhareka (18)
+                        </option>
+                        <option value="Thatia" class="text-wrap" {% if records['your_caste']=='Thatia' %} selected {%
+                          endif %}> Thatia (18)</option>
+                        <option value="Thotya" class="text-wrap" {% if records['your_caste']=='Thotya' %} selected {%
+                          endif %}> Thotya (18)</option>
+                        <option value="Wade Maria" class="text-wrap" {% if records['your_caste']=='Wade Maria' %}
+                          selected {% endif %}> Wade Maria (18)</option>
+                        <option value="Vade Maria" class="text-wrap" {% if records['your_caste']=='Vade Maria' %}
+                          selected {% endif %}> Vade Maria. (18)</option>
+                        <option value="Halba" class="text-wrap" {% if records['your_caste']=='Halba' %} selected {%
+                          endif %}> Halba (19)</option>
+                        <option value="Halbi" class="text-wrap" {% if records['your_caste']=='Halbi' %} selected {%
+                          endif %}> Halbi (19)</option>
+                        <option value="Kamar" class="text-wrap" {% if records['your_caste']=='Kamar' %} selected {%
+                          endif %}> Kamar (20)</option>
+                        <option value="Kathodi" class="text-wrap" {% if records['your_caste']=='Kathodi' %} selected {%
+                          endif %}> Kathodi (21)</option>
+                        <option value="Katkari" class="text-wrap" {% if records['your_caste']=='Katkari' %} selected {%
+                          endif %}> Katkari (21)</option>
+                        <option value="Dhor Kathodi" class="text-wrap" {% if records['your_caste']=='Dhor Kathodi' %}
+                          selected {% endif %}> Dhor Kathodi (21)</option>
+                        <option value="Dhor Kathkari" class="text-wrap" {% if records['your_caste']=='Dhor Kathkari' %}
+                          selected {% endif %}> Dhor Kathkari (21)</option>
+                        <option value="Son Kathodi" class="text-wrap" {% if records['your_caste']=='Son Kathodi' %}
+                          selected {% endif %}> Son Kathodi (21)</option>
+                        <option value="Son Katkari" class="text-wrap" {% if records['your_caste']=='Son Katkari' %}
+                          selected {% endif %}> Son Katkari (21)</option>
+                        <option value="Kawar" class="text-wrap" {% if records['your_caste']=='Kawar' %} selected {%
+                          endif %}> Kawar (22)</option>
+                        <option value="Kanwar" class="text-wrap" {% if records['your_caste']=='Kanwar' %} selected {%
+                          endif %}> Kanwar (22)</option>
+                        <option value="Kaur" class="text-wrap" {% if records['your_caste']=='Kaur' %} selected {% endif
+                          %}> Kaur (22)</option>
+                        <option value="Cherwa" class="text-wrap" {% if records['your_caste']=='Cherwa' %} selected {%
+                          endif %}> Cherwa (22)</option>
+                        <option value="Rathia" class="text-wrap" {% if records['your_caste']=='Rathia' %} selected {%
+                          endif %}> Rathia (22)</option>
+                        <option value="Tanwar" class="text-wrap" {% if records['your_caste']=='Tanwar' %} selected {%
+                          endif %}> Tanwar (22)</option>
+                        <option value="Chattri" class="text-wrap" {% if records['your_caste']=='Chattri' %} selected {%
+                          endif %}> Chattri (22)</option>
+                        <option value="Khairwar" class="text-wrap" {% if records['your_caste']=='Naikpod' %} selected {%
+                          endif %}> Khairwar (23)</option>
+                        <option value="Kharia" class="text-wrap" {% if records['your_caste']=='Kharia' %} selected {%
+                          endif %}> Kharia (24)</option>
+                        <option value="Kokna" class="text-wrap" {% if records['your_caste']=='Kokna' %} selected {%
+                          endif %}> Kokna (25)</option>
+                        <option value="Kokni" class="text-wrap" {% if records['your_caste']=='Kokni' %} selected {%
+                          endif %}> Kokni (25)</option>
+                        <option value="Kukna" class="text-wrap" {% if records['your_caste']=='Kukna' %} selected {%
+                          endif %}> Kukna (25)</option>
+                        <option value="Kol" class="text-wrap" {% if records['your_caste']=='Kol' %} selected {% endif
+                          %}> Kol (26)</option>
+                        <option value="Kolam" class="text-wrap" {% if records['your_caste']=='Kolam' %} selected {%
+                          endif %}> Kolam (27)</option>
+                        <option value="Mannervarlu" class="text-wrap" {% if records['your_caste']=='Mannervarlu' %}
+                          selected {% endif %}> Mannervarlu (27)</option>
+                        <option value="Koli Dhor" class="text-wrap" {% if records['your_caste']=='Koli Dhor' %} selected
+                          {% endif %}> Koli Dhor (28)</option>
+                        <option value="Tokre Koli" class="text-wrap" {% if records['your_caste']=='Tokre Koli' %}
+                          selected {% endif %}> Tokre Koli (28)</option>
+                        <option value="Kolcha" class="text-wrap" {% if records['your_caste']=='Kolcha' %} selected {%
+                          endif %}> Kolcha (28)</option>
+                        <option value="Kolgha" class="text-wrap" {% if records['your_caste']=='Kolgha' %} selected {%
+                          endif %}> Kolgha (28)</option>
+                        <option value="Koli Mahadev" class="text-wrap" {% if records['your_caste']=='Koli Mahadev' %}
+                          selected {% endif %}> Koli Mahadev (29)</option>
+                        <option value="Dongar Koli" class="text-wrap" {% if records['your_caste']=='Dongar Koli' %}
+                          selected {% endif %}> Dongar Koli (29)</option>
+                        <option value="Koli Malhar" class="text-wrap" {% if records['your_caste']=='Koli Malhar' %}
+                          selected {% endif %}> Koli Malhar (30)</option>
+                        <option value="Kondh" class="text-wrap" {% if records['your_caste']=='Kondh' %} selected {%
+                          endif %}> Kondh (31)</option>
+                        <option value="Khond" class="text-wrap" {% if records['your_caste']=='Khond' %} selected {%
+                          endif %}> Khond (31)</option>
+                        <option value="Kandh" class="text-wrap" {% if records['your_caste']=='Kandh' %} selected {%
+                          endif %}> Kandh (31)</option>
+                        <option value="Korku" class="text-wrap" {% if records['your_caste']=='Korku' %} selected {%
+                          endif %}> Korku (32)</option>
+                        <option value="Bopchi" class="text-wrap" {% if records['your_caste']=='Bopchi' %} selected {%
+                          endif %}> Bopchi (32)</option>
+                        <option value="Mouasi" class="text-wrap" {% if records['your_caste']=='Mouasi' %} selected {%
+                          endif %}> Mouasi (32)</option>
+                        <option value="Nihal" class="text-wrap" {% if records['your_caste']=='Nihal' %} selected {%
+                          endif %}> Nihal (32)</option>
+                        <option value="Nahul" class="text-wrap" {% if records['your_caste']=='Nahul' %} selected {%
+                          endif %}> Nahul (32)</option>
+                        <option value="Bondhi" class="text-wrap" {% if records['your_caste']=='Bondhi' %} selected {%
+                          endif %}> Bondhi (32)</option>
+                        <option value="Bondeya" class="text-wrap" {% if records['your_caste']=='Bondeya' %} selected {%
+                          endif %}> Bondeya (32)</option>
+                        <option value="Koya" class="text-wrap" {% if records['your_caste']=='Koya' %} selected {% endif
+                          %}> Koya (33)</option>
+                        <option value="Bhine Koya" class="text-wrap" {% if records['your_caste']=='Bhine Koya' %}
+                          selected {% endif %}> Bhine Koya (33)</option>
+                        <option value="Rajkoya" class="text-wrap" {% if records['your_caste']=='Rajkoya' %} selected {%
+                          endif %}> Rajkoya (33)</option>
+                        <option value="Nagesia" class="text-wrap" {% if records['your_caste']=='Nagesia' %} selected {%
+                          endif %}> Nagesia (34)</option>
+                        <option value="Nagasia" class="text-wrap" {% if records['your_caste']=='Nagasia' %} selected {%
+                          endif %}> Nagasia (34)</option>
+                        <option value="Naikda" class="text-wrap" {% if records['your_caste']=='Naikda' %} selected {%
+                          endif %}> Naikda (35)</option>
+                        <option value="Nayaka" class="text-wrap" {% if records['your_caste']=='Nayaka' %} selected {%
+                          endif %}> Nayaka (35)</option>
+                        <option value="Cholivala Nayaka" class="text-wrap" {% if
+                          records['your_caste']=='Cholivala Nayaka' %} selected {% endif %}> Cholivala Nayaka (35)
+                        </option>
+                        <option value="Kapadia Nayaka" class="text-wrap" {% if records['your_caste']=='Kapadia Nayaka'
+                          %} selected {% endif %}> Kapadia Nayaka (35)
+                        </option>
+                        <option value="Mota Nayaka" class="text-wrap" {% if records['your_caste']=='Mota Nayaka' %}
+                          selected {% endif %}> Mota Nayaka (35)</option>
+                        <option value="Nana Nayaka" class="text-wrap" {% if records['your_caste']=='Nana Nayaka' %}
+                          selected {% endif %}> Nana Nayaka (35)</option>
+                        <option value="Oraon" class="text-wrap" {% if records['your_caste']=='Oraon' %} selected {%
+                          endif %}> Oraon (36)</option>
+                        <option value="Dhangad" class="text-wrap" {% if records['your_caste']=='Dhangad' %} selected {%
+                          endif %}> Dhangad (36)</option>
+                        <option value="Pardhan" class="text-wrap" {% if records['your_caste']=='Pardhan' %} selected {%
+                          endif %}> Pardhan (37)</option>
+                        <option value="Pathari" class="text-wrap" {% if records['your_caste']=='Pathari' %} selected {%
+                          endif %}> Pathari (37)</option>
+                        <option value="Saroti" class="text-wrap" {% if records['your_caste']=='Saroti' %} selected {%
+                          endif %}> Saroti (37)</option>
+                        <option value="Pardhi" class="text-wrap" {% if records['your_caste']=='Pardhi' %} selected {%
+                          endif %}> Pardhi (38)</option>
+                        <option value="Advichincher" class="text-wrap" {% if records['your_caste']=='Advichincher' %}
+                          selected {% endif %}> Advichincher (38)</option>
+                        <option value="Phans Pardhi" class="text-wrap" {% if records['your_caste']=='Phans Pardhi' %}
+                          selected {% endif %}> Phans Pardhi (38)</option>
+                        <option value="Phanse Pardhi" class="text-wrap" {% if records['your_caste']=='Phanse Pardhi' %}
+                          selected {% endif %}> Phanse Pardhi (38)</option>
+                        <option value="Langoli Pardhi" class="text-wrap" {% if records['your_caste']=='Langoli Pardhi'
+                          %} selected {% endif %}> Langoli Pardhi (38)
+                        </option>
+                        <option value="Bahelia" class="text-wrap" {% if records['your_caste']=='Bahelia' %} selected {%
+                          endif %}> Bahelia (38)</option>
+                        <option value="Bahellia" class="text-wrap" {% if records['your_caste']=='Bahellia' %} selected
+                          {% endif %}> Bahellia (38)</option>
+                        <option value="Chita Pardhi" class="text-wrap" {% if records['your_caste']=='Chita Pardhi' %}
+                          selected {% endif %}> Chita Pardhi (38)</option>
+                        <option value="Shikari" class="text-wrap" {% if records['your_caste']=='Shikari' %} selected {%
+                          endif %}> Shikari (38)</option>
+                        <option value="Takankar" class="text-wrap" {% if records['your_caste']=='Takankar' %} selected
+                          {% endif %}> Takankar (38)</option>
+                        <option value="Takia" class="text-wrap" {% if records['your_caste']=='Takia' %} selected {%
+                          endif %}> Takia (38)</option>
+                        <option value="Parja" class="text-wrap" {% if records['your_caste']=='Parja' %} selected {%
+                          endif %}> Parja (39)</option>
+                        <option value="Patelia" class="text-wrap" {% if records['your_caste']=='Patelia' %} selected {%
+                          endif %}> Patelia (40)</option>
+                        <option value="Pomla" class="text-wrap" {% if records['your_caste']=='Pomla' %} selected {%
+                          endif %}> Pomla (41)</option>
+                        <option value="Rathawa" class="text-wrap" {% if records['your_caste']=='Rathawa' %} selected {%
+                          endif %}> Rathawa (42)</option>
+                        <option value="Sawar" class="text-wrap" {% if records['your_caste']=='Sawar' %} selected {%
+                          endif %}> Sawar (43)</option>
+                        <option value="Sawara" class="text-wrap" {% if records['your_caste']=='Sawara' %} selected {%
+                          endif %}> Sawara (43)</option>
+                        <option value="Thakur" class="text-wrap" {% if records['your_caste']=='Thakur' %} selected {%
+                          endif %}> Thakur (44)</option>
+                        <option value="Thakar" class="text-wrap" {% if records['your_caste']=='Thakar' %} selected {%
+                          endif %}> Thakar (44)</option>
+                        <option value="Ka Thakur" class="text-wrap" {% if records['your_caste']=='Ka Thakur' %} selected
+                          {% endif %}> Ka Thakur (44)</option>
+                        <option value="Ma Thakur" class="text-wrap" {% if records['your_caste']=='Ma Thakur' %} selected
+                          {% endif %}> Ma Thakur (44)</option>
+                        <option value="Omitted" class="text-wrap" {% if records['your_caste']=='Omitted' %} selected {%
+                          endif %}> Omitted (45)</option>
+                        <option value="Varli" class="text-wrap" {% if records['your_caste']=='Varli' %} selected {%
+                          endif %}> Varli (46)</option>
+                        <option value="Vitolia" class="text-wrap" {% if records['your_caste']=='Vitolia' %} selected {%
+                          endif %}> Vitolia (47)</option>
+                        <option value="Kotwalia" class="text-wrap" {% if records['your_caste']=='Kotwalia' %} selected
+                          {% endif %}> Kotwalia (47)</option>
+                        <option value="Barodia" class="text-wrap" {% if records['your_caste']=='Barodia' %} selected {%
+                          endif %}> Barodia (47)</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="your_caste" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Issuing District</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <!-- <input type="text" class="form-control text-capitalize accept_english"
+                        value="{{ records['issuing_district'] }}" id="issuing_district" name="issuing_district"
+                        disabled> -->
+                      <select id="issuing_district" name="issuing_district" class="form-control select2" disabled required>
+                        <option value="">--- Select District --</option>
+                        {% for dist in district_list %}
+                        <option value="{{dist['district']}}">{{dist['district']}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="issuing_district" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Issuing Authority</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control text-capitalize accept_english"
+                        value="{{ records['caste_issuing_authority'] }}" id="caste_issuing_authority"
+                        name="caste_issuing_authority" disabled required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="caste_issuing_authority"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <h5 class="card-title">
+                  Parent's-Guardian's Details / पालकांचे तपशील
+                </h5>
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Father's Name</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" name="father_name" class="form-control text-capitalize accept_english"
+                        value="{{ records['father_name'] }}" id="father_name" disabled
+                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" data-name="Father's Name"
+                        required onblur="validateField(this)" minlength="2" maxlength="35">
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="father_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Mother's Name</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" name="mother_name" class="form-control text-capitalize accept_english"
+                        value="{{ records['mother_name'] }}" id="mother_name" disabled
+                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" data-name="Mother's Name"
+                        required onblur="validateField(this)" minlength="2" maxlength="35">
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="mother_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Does anyone work in Government?</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <select id="work_in_government" name="work_in_government" class="form-control" disabled required>
+                        <option value="Yes" {% if records['work_in_government']=='Yes' %} selected {% endif %}>Yes
+                        </option>
+                        <option value="No" {% if records['work_in_government']=='No' %} selected {% endif %}>No</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="work_in_government" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <h5 class="card-title">
+                  Bank Details/बँक तपशील
+                </h5>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">IFSC Code</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" value="{{ records['ifsc_code'] }}" name="ifsc_code"
+                        id="ifsc_code" disabled required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="ifsc_code" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Bank Name</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control  text-capitalize accept_english "
+                        value="{{ records['bank_name'] }}" name="bank_name" id="bank_name" disabled
+                        onkeyup="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" data-name="bank's Name"
+                        required="" onblur="validateField(this)" minlength="2" maxlength="35" required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="bank_name" class="btn btn-theme btn-sm tooltip-trigger edit_alert"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Account Number</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" value="{{ records['account_number'] }}"
+                        name="account_number" id="account_number" onblur="validateField(this)" minlength="9"
+                        maxlength="18" data-name="Account Number" disabled
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="account_number" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Account Holder Name</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="text" class="form-control text-capitalize accept_english"
+                        value="{{ records['account_holder_name'] }}" name="account_holder_name" id="account_holder_name"
+                        disabled onkeyup="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"
+                        data-name="Account Holder's Name" onblur="validateField(this)" minlength="2"
+                        maxlength="35" required>
+                    </div>
+                    <div class="col-md-2">
+                      <a data-hidden="account_holder_name" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <h5 class="card-title">
+                  Attached Documents /जोडलेली कागदपत्रे
+                </h5>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Identity Proof</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile1" id="documentfile1"
+                        disabled
+                        {% if records['documentfile1'] == '' or records['documentfile1'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile1'] != '' and records['documentfile1'] is not none %}
+                      <a href="{{ records['documentfile1'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile1" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Address Proof</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile2" id="documentfile2"
+                        disabled
+                        {% if records['documentfile2'] == '' or records['documentfile2'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile2'] != '' and records['documentfile2'] is not none %}
+                      <a href="{{ records['documentfile2'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile2" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Qualification Certificate Copies</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile3" id="documentfile3"
+                        disabled
+                        {% if records['documentfile3'] == '' or records['documentfile3'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile3'] == '' and records['documentfile3'] is none %}
+                      <a href="{{ records['documentfile3'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile3" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Income Certificate</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile4" id="documentfile4"
+                        disabled
+                        {% if records['documentfile4'] == '' or records['documentfile4'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile4'] != '' and records['documentfile4'] is not none %}
+                      <a href="{{ records['documentfile4'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile4" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Domicile Certificate</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile5" id="documentfile5"
+                        disabled
+                        {% if records['documentfile5'] == '' or records['documentfile5'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile5'] != '' and records['documentfile5'] is not none %}
+                      <a href="{{ records['documentfile5'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile5" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Caste Certificate</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile6" id="documentfile6"
+                        disabled
+                        {% if records['documentfile6'] == '' or records['documentfile6'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile6'] != '' and records['documentfile6'] is not none %}
+                      <a href="{{ records['documentfile6'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile6" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Medical Certificate for Disability</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile7" id="documentfile7"
+                        disabled
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile7'] != '' and records['documentfile7'] is not none %}
+                      <a href="{{ records['documentfile7'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile7" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Passbook or Cheque book</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile8" id="documentfile8"
+                        disabled
+                        {% if records['documentfile8'] == '' or records['documentfile8'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile8'] != '' and records['documentfile8'] is not none %}
+                      <a href="{{ records['documentfile8'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile8" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Government ID Proof </label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile9" id="documentfile9"
+                        disabled
+                        >
+                    </div>
+                    <div class="col-md-2">
+                      {% if records['documentfile9'] != '' and records['documentfile9'] is not none %}
+                      <a href="{{ records['documentfile9'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile9" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row py-2">
+                  <div class="col-lg-3">
+                    <label for="">Validity Certificate</label>
+                  </div>
+                  <div class="col-lg-9 row">
+                    <div class="col-md-10">
+                      <input type="file" class="form-control accept_pdf" name="documentfile10" id="documentfile10"
+                        disabled required
+                        {% if records['documentfile10'] == '' or records['documentfile10'] is none %}
+                        required
+                        {% endif %}
+                        >
+                    </div>
+                    
+                    <div class="col-md-2">
+                      {% if records['documentfile10'] != '' and records['documentfile10'] is not none  %}
+                      <a href="{{ records['documentfile10'] }}" target="_blank"
+                        class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="View Record">
+                        <i class="ri-eye-fill"></i>
+                      </a>
+                      {% endif %}
+                      <a data-hidden="documentfile10" class="btn btn-theme btn-sm tooltip-trigger edit_preview_btn"
+                        data-bs-toggle="tooltip" data-bs-placement="Right" data-bs-original-title="Edit Record">
+                        <i class="ri-pencil-fill"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <input type="hidden" name="user_photo" value="{{ records['applicant_photo'] }}">
+                <input type="hidden" name="file1" value="{{ records['documentfile1'] }}">
+                <input type="hidden" name="file2" value="{{ records['documentfile2'] }}">
+                <input type="hidden" name="file3" value="{{ records['documentfile3'] }}">
+                <input type="hidden" name="file4" value="{{ records['documentfile4'] }}">
+                <input type="hidden" name="file5" value="{{ records['documentfile5'] }}">
+                <input type="hidden" name="file6" value="{{ records['documentfile6'] }}">
+                <input type="hidden" name="file7" value="{{ records['documentfile7'] }}">
+                <input type="hidden" name="file8" value="{{ records['documentfile8'] }}">
+                <input type="hidden" name="file9" value="{{ records['documentfile9'] }}">
+                {% endif %}
+                <div class="card-footer text-center">
+
+                  <!-- <form action="/submit_form" id="submit_form" method="POST"> -->
+                  <button type="submit" class="btn bar-active shadow next-btn-5" id="submit_preview"
+                    data-bs-toggle="tooltip" data-bs-title="Submit">Submit</button>
+                  <!-- </form> -->
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    </div>
+  </main>
+
+  <!-- Family Overview Ends -->
+
+  <!----------------================== END MAIN FORM =====================------------------>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+  <script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+  <script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/admin_assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="/static/select2/js/select2.min.js"></script>
+  <script src="static/admin_assets/js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="static/admin_assets/js/validation.js"></script>
+  <script src="static/admin_assets/js/preview.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"
+    integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#concerned_university').change(function () {
+        var selectedUniversity = $(this).val();
+        if (selectedUniversity) {
+          $.ajax({
+            url: '/get_colleges',  // Add the route for getting colleges
+            type: 'POST',
+            data: { 'selected_university': selectedUniversity },
+            success: function (data) {
+              console.log(data)
+              // Update the college dropdown with the received data
+              var collegeDropdown = $('#selected_college');
+              collegeDropdown.empty();
+              collegeDropdown.append('<option value="" selected disabled>Select College</option>');
+              $.each(data, function (index, college) {
+                collegeDropdown.append('<option value="' + college.id + '">' + college.college_name + '</option>');
+              });
+            },
+            error: function (err) {
+              console.log(err); // Log any errors to the console
+            }
+          });
+        } else {
+          // If no university is selected, reset the college dropdown
+          $('#selected_college').empty().append('<option value="" selected disabled>Select College</option>');
+        }
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>

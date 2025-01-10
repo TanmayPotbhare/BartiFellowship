@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <title>Dashboard - Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/admin_assets/img/favicon.png" rel="icon">
+  <link href="static/admin_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/admin_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/admin_assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
+    <!-- Template Main CSS File -->
+    <link href="static/admin_assets/css/style.css" rel="stylesheet">
+    <link href="/static/sweetAlert.js" rel="js">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 500px; /* Set the height of the map */
+            width: 100%; /* Set the width to full */
+        }
+
+        .tooltip-custom {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+  <!-- ######### Header  starts here ######-->
+  {% include 'admin_templates/header.html' %}
+  <!-- End Header -->
+  <!-- ======= Sidebar ======= -->
+  {% include 'admin_templates/sidebar.html' %}
+  <!-- End Sidebar-->
+
+
+  <!-- Flask flash message handling with SweetAlert -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    {% for category, message in messages %}
+                        Swal.fire({
+                            title: "{{ 'Success!' if category == 'success' else 'Error!' }}",
+                            text: "{{ message }}",
+                            icon: "{{ category }}",
+                            confirmButtonText: 'OK'
+                        });
+                    {% endfor %}
+                });
+            </script>
+        {% endif %}
+    {% endwith %}
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <hr>
+    <div class="card">
+      <div class="card-header">
+          <p class="text-primary fw-bold text-center mb-0" style="font-size:25px">Default Year is set as <span class="bg-warning text-dark">2023 - 2024</span></p>
+      </div>
+      <div class="card-body">
+          <div class="row">
+                <div class="mb-3 row col-md-6 m-auto p-3 text-center justify-content-around">
+                      <div class="col-sm-4">
+                          <h4 class="text-theme">Select the Year</h4>
+                      </div>
+                      <div class="col-sm-6">
+                        <select id="yearSelector" name="year" class="form-control text-center">
+                            <option value="">SELECT YEAR</option>
+                            <option value="2021">2021 - 2022</option>
+                            <option value="2022">2022 - 2023</option>
+                            <option value="2023" selected>2023 - 2024</option>
+                            <option value="2024">2024 - 2025</option>
+                        </select>
+                      </div>
+               </div>
+          </div>
+          <div class="text-end">
+              <a a href="/generate_reports_admin">
+                  <button class="btn btn-primary">Generate Reports</button>
+              </a>
+          </div>
+      </div>
+    </div>
+    <hr>
+
+    <section class="section dashboard">
+      <div class="row">
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+
+
+        <!-- DISTRICT-WISE STUDENT COUNT IN INDIA -->
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+                <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-square-fill"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="/all_news">Today</a></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h5 class="card-title text-center"><strong>District-wise Student Count</strong></h5>
+                    <div id="map" class="form-control col-md-12" style="height: 500px;"></div> <!-- Added height for the map -->
+                </div>
+
+                <script>
+                    // Function to initialize the map
+                    function initializeMap() {
+                        map = L.map('map').setView([20.5937, 78.9629], 7); // Centering on Maharashtra
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '© OpenStreetMap'
+                        }).addTo(map);
+                    }
+
+                   function addDistrictMarkers(districtData) {
+
+                       // Clear existing markers
+                        // markers.forEach(marker => map.removeLayer(marker));
+                        markers = []; // Reset markers array
+
+
+                        const districtCoordinates = {
+                            "Ahmednagar": [19.0952, 74.7496],
+                            "Akola": [20.7096, 76.9987],
+                            "Amravati": [20.9374, 77.7796],
+                            "Aurangabad": [19.8762, 75.3433],
+                            "Beed": [18.9927, 75.7600],
+                            "Bhandara": [21.1702, 79.6552],
+                            "Buldhana": [20.5333, 76.1833],
+                            "Chandrapur": [19.9507, 79.2952],
+                            "Dhule": [20.9042, 74.7749],
+                            "Gadchiroli": [20.1011, 80.2319],
+                            "Gondia": [21.4545, 80.1925],
+                            "Hingoli": [19.7148, 77.1040],
+                            "Jalgaon": [21.0077, 75.5626],
+                            "Jalna": [19.8410, 75.8800],
+                            "Kolhapur": [16.7050, 74.2433],
+                            "Latur": [18.4088, 76.5604],
+                            "Mumbai City": [18.9388, 72.8354],
+                            "Mumbai Suburban": [19.1754, 72.8740],
+                            "Nagpur": [21.1458, 79.0882],
+                            "Nanded": [19.1383, 77.3205],
+                            "Nandurbar": [21.3783, 74.2406],
+                            "Nashik": [19.9975, 73.7898],
+                            "Osmanabad": [18.1862, 76.0411],
+                            "Palghar": [19.6966, 72.7655],
+                            "Parbhani": [19.2620, 76.7767],
+                            "Pune": [18.5204, 73.8567],
+                            "Raigad": [18.6364, 73.8645],
+                            "Ratnagiri": [16.9915, 73.3104],
+                            "Sangli": [16.8524, 74.5815],
+                            "Satara": [17.6927, 73.9933],
+                            "Sindhudurg": [16.1002, 73.6607],
+                            "Solapur": [17.6599, 75.9064],
+                            "Thane": [19.2183, 72.9781],
+                            "Wardha": [20.7453, 78.6022],
+                            "Washim": [20.1117, 77.1338],
+                            "Yavatmal": [20.3964, 78.1300]
+                        };
+
+
+                        for (const [district, count] of Object.entries(districtData)) {
+                            const coords = districtCoordinates[district];
+                            if (coords) {
+                                console.log(`Adding marker for ${district} with count: ${count}`); // Debugging line
+                                const marker = L.marker(coords).addTo(map);
+                                marker.bindTooltip(`<strong>${district}</strong><br>Students: ${count}`, {
+                                    permanent: true,
+                                    direction: 'top',
+                                    className: 'tooltip-custom'
+                                }).openTooltip();
+                                markers.push(marker); // Add marker to the array for later removal
+                            } else {
+                                console.warn(`No coordinates found for district: ${district}`);
+                            }
+                        }
+                    }
+
+                    // Document ready function
+                    document.addEventListener("DOMContentLoaded", () => {
+                        initializeMap(); // Initialize the map
+
+                        // Fetch district data from the server
+                        $('#yearSelector').on('change', function () {
+                            let year = $(this).val();
+                            $.ajax({
+                                type: 'POST',
+                                url: '/get_district_data',
+                                data: { selected_year: year },
+                                success: function (data) {
+                                    addDistrictMarkers(data.district_data); // Add markers based on the fetched data
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                        });
+
+                        // Optional: Initial call to add markers for the default year
+                        let initialYear = $('#yearSelector').val();
+                        if (initialYear) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/get_district_data',
+                                data: { selected_year: initialYear },
+                                success: function (data) {
+                                    addDistrictMarkers(data.district_data);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                        }
+                    });
+                </script>
+
+            </div>
+        </div>
+        <!-- END DISTRICT-WISE STUDENT COUNT IN INDIA -->
+
+
+
+
+            <!-- APPLICATIONS 2023 - 2024 -->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-header">
+                  <div class="card-title text-center" style="font-size:25px">Applications <span id="yearChange" class="text-dark bg-warning" style="font-size:25px">2023 - 2024</span></div>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                              <!-- Sales Card -->
+                                    <div class="col-xxl-12 col-md-12">
+                                      <div class="info-card sales-card">
+                                        <div class="filter">
+                                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-cloud-download-fill"></i></a>
+                                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                              <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="/total_application_report">All records</a></li>
+                                          </ul>
+                                        </div>
+
+                                        <div class="card-body">
+                                          <h5 class="card-title">Total Applications</h5>
+
+                                          <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                              <i class="ri-account-circle-line"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                              <h3 style="color:#012970" id="total"><strong>{{ twentythree_count }}</strong></h3>
+                                              <!-- You can add other HTML elements here -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div><!-- End Sales Card -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                              <!-- Sales Card -->
+                                    <div class="col-xxl-12 col-md-12">
+                                      <div class="info-card sales-card">
+                                        <div class="filter">
+                                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-cloud-download-fill"></i></a>
+                                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                              <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="/completed_form">All records</a></li>
+                                          </ul>
+                                        </div>
+
+                                        <div class="card-body">
+                                          <h5 class="card-title">Completed Form </h5>
+
+                                          <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                              <i class="ri-account-circle-line"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                              <h3 style="color:#012970" id="complete"><strong>{{ form_filled }}</strong></h3>
+                                              <!-- You can add other HTML elements here -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div><!-- End Sales Card -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                              <!-- Sales Card -->
+                                    <div class="col-xxl-12 col-md-12">
+                                      <div class="info-card sales-card">
+                                        <div class="filter">
+                                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-cloud-download-fill"></i></a>
+                                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                              <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="/incompleted_form">All records</a></li>
+                                          </ul>
+                                        </div>
+
+                                        <div class="card-body">
+                                          <h5 class="card-title">Incomplete Form</h5>
+
+                                          <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                              <i class="ri-account-circle-line"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                              <h3 style="color:#012970" id="incomplete"><strong>{{ form_incomplete }}</strong></h3>
+                                              <!-- You can add other HTML elements here -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div><!-- End Sales Card -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                              <!-- Sales Card -->
+                                    <div class="col-xxl-12 col-md-12">
+                                      <div class="info-card sales-card">
+                                        <div class="filter">
+                                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-cloud-download-fill"></i></a>
+                                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                              <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="/total_accepted_report">All records</a></li>
+                                          </ul>
+                                        </div>
+
+                                        <div class="card-body">
+                                          <h5 class="card-title">Accepted Applications</h5>
+
+                                          <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                              <i class="ri-account-circle-line"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                              <h3 style="color:#012970" id="accept"><strong>{{ accept_23 }}</strong></h3>
+                                              <!-- You can add other HTML elements here -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div><!-- End Sales Card -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                              <!-- Sales Card -->
+                                    <div class="col-xxl-12 col-md-12">
+                                      <div class="info-card sales-card">
+                                        <div class="filter">
+                                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-cloud-download-fill"></i></a>
+                                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                              <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="/total_rejected_report">All records</a></li>
+                                          </ul>
+                                        </div>
+
+                                        <div class="card-body">
+                                          <h5 class="card-title">Rejected Applications</h5>
+
+                                          <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                              <i class="ri-account-circle-line"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                              <h3 style="color:#012970" id="reject"><strong>{{ reject_23 }}</strong></h3>
+                                              <!-- You can add other HTML elements here -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div><!-- End Sales Card -->
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+                    <script>
+                       document.addEventListener("DOMContentLoaded", () => {
+                            const yearSelector = document.getElementById('yearSelector');
+                            const totalCountElement = document.getElementById('total');
+                            const completeCountElement = document.getElementById('complete');
+                            const incompleteCountElement = document.getElementById('incomplete');
+                            const acceptCountElement = document.getElementById('accept');
+                            const rejectCountElement = document.getElementById('reject');
+
+                            // Define male and female counts for each year
+                            const countsByYear = {
+                                '2021': { total: {{twentyone_count}}, complete: {{twentyone_count}}, incomplete: 0, accept: {{old_user_accepted_21}}, reject:0 },
+                                '2022': { total: {{twentytwo_count}}, complete: {{twentytwo_count}}, incomplete: {{reject_23}}, accept: {{old_user_accepted_22}}, reject: {{reject_23}} },
+                                '2023': { total: {{twentythree_count}}, complete: {{form_filled}}, incomplete: {{form_incomplete}}, accept: {{accept_23}}, reject: {{reject_23}} },
+                                '2024': { total: {{twentythree_count}}, complete: {{form_filled}}, incomplete: {{form_incomplete}}, accept: {{accept_23}}, reject: {{reject_23}} }
+                            };
+
+
+                            // Function to update male and female counts based on the selected year
+                            function updateCounts(selectedYear) {
+
+                                const counts = countsByYear[selectedYear];
+                                totalCountElement.textContent = counts.total;
+                                completeCountElement.textContent = counts.complete;
+                                incompleteCountElement.textContent = counts.incomplete;
+                                acceptCountElement.textContent = counts.accept;
+                                rejectCountElement.textContent = counts.reject;
+
+                            }
+
+                            // Event listener for year selector change
+                            yearSelector.addEventListener('change', function() {
+                                const selectedYear = this.value;
+                                const yearChange = this.options[this.selectedIndex].innerHTML
+                                updateCounts(selectedYear);
+                                document.getElementById('yearChange').innerHTML = yearChange
+                            });
+
+                            // Initial update based on the default year
+                            //const defaultYear = {{current_year}};
+                            const defaultYear = 2023;
+                            updateCounts(defaultYear);
+                        });
+
+                    </script>
+              </div>
+            </div>
+            <!-- APPLICATIONS 2023 - 2024 -->
+
+
+            <!-- PRIORITY BY TRIBE -->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-square-fill"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="/priority_people_report">Today</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Priority by Tribe (KATKARI, KOLAM, MADIA) <span>| All</span></h5>
+
+                  <table class="table table-borderless datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Applicant ID</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Tribe</th>
+                        <th scope="col">Gender</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for record in priority_people_caste %}
+                      <tr>
+                        <th scope="row"><a href="#">
+                            TRTI/{{record['phd_registration_year']}}/{{record['id']}}</a></th>
+                        <td>{{ record['first_name'] +' '+ record['middle_name'] + " " + record['last_name'] }}
+                        </td>
+                        <td><a href="#" class="text-primary">{{ record['email'] }}</a></td>
+                        <td>{{ record['your_caste'] }}</td>
+                        <td><span class="badge bg-success">{{ record['gender'] }}</span></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+            </div>
+            <!-- END PRIORITY BY TRIBE -->
+
+            <!-- BUDGET -->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-square-fill"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href=""></a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body text-center">
+                  <h5 class="card-title"><strong>Budget Report & Add Allocated Budget </strong></h5>
+                  <!-- Table with stripped rows -->
+              <table class="table table-striped">
+                <thead>
+                      <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Allocated Budget</th>
+                        <th scope="col">In Hand Budget</th>
+                        <th scope="col">Spent Budget</th>
+                        <th scope="col"> Fiscal Year</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>1</th>
+                        <th scope="row"><a href="#">10,000</a></th>
+                        <td> 6,000 </td>
+                        <td><a href="#" class="text-primary">4,000</a></td>
+                        <td>2023 - 2024</td>
+                        <td>
+                          Add Budget Button
+                        </td>
+                      </tr>
+                    </tbody>
+              </table>
+              </div>
+
+              </div>
+            </div>
+            <!-- END BUDGET -->
+
+
+          </div>
+        </div>
+
+        <!----------------------------------START RIGHT SIDE COLUMN -------------------------------->
+
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+          <!-- GENDER RATIO -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-square-fill"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="/male_record_report">Male Report</a></li>
+                <li><a class="dropdown-item" href="/female_record_report">Female Report</a></li>
+              </ul>
+            </div>
+
+            <div class="card-body pb-0">
+              <h5 class="card-title">Gender Ratio <span>| Today</span></h5>
+
+              <div id="pieChart" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const yearSelector = document.getElementById('yearSelector');
+                        const maleDataByYear = {
+                            2021: [{{ male_count21  }}],
+                            2022: [{{ male_count22 }}],
+                            2023: [{{ male_count23 }}],
+                            2024: [{{ male_count23 }}]
+                        };
+                        const femaleDataByYear = {
+                            2021: [{{ female_count21 }}],
+                            2022: [{{ female_count22 }}],
+                            2023: [{{ female_count23 }}],
+                            2024: [{{ female_count23 }}]
+                        };
+
+                        // Function to update pie chart data based on selected year
+                        function updatePieChartData(data_year) {
+
+                            const maleData = maleDataByYear[data_year][0];
+                            const femaleData = femaleDataByYear[data_year][0];
+                            document.getElementById("pieChart").innerHTML = ""
+                            const chart = new ApexCharts(document.querySelector("#pieChart"), {
+                                series: [maleData, femaleData,0],
+                                chart: {
+                                    height: 350,
+                                    type: 'pie',
+                                    toolbar: {
+                                        show: true
+                                    }
+                                },
+                                labels: ['Male Students', 'Female Students', 'Transgender Students'],
+                                colors: ['#535C91', '#B784B7', '#FFC300']
+                            }).render();
+
+                            //chart;
+                        }
+
+                        // Event listener for year selector change
+                        yearSelector.addEventListener('change', function () {
+                            const selectedYear = this.value;
+                            updatePieChartData(selectedYear);
+                        });
+
+                        // Initial rendering of the pie chart with default year
+                        const defaultYear = 2023;
+                        updatePieChartData(defaultYear);
+                    });
+                </script>
+
+            </div>
+          </div>
+          <!-- END GENDER RATIO -->
+
+
+          <!-- COUNT GENDER RATIO -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-square-fill"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="/male_record_report">Male Report</a></li>
+                <li><a class="dropdown-item" href="/female_record_report">Female Report</a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <h5 class="card-title text-center">Count till Now</h5>
+                  <div class="col-md-6">
+                      <div class="card-body">
+                          <h5 class="card-title">Male Count</h5>
+                          <div class="d-flex align-items-center">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                  <i class="ri-account-circle-line"></i>
+                              </div>
+                              <div class="ps-3">
+                                  <h3 style="color:#012970"><strong id="maleCount">{{ male_count21 }}</strong></h3>
+                                  <!-- You can add other HTML elements here -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="card-body">
+                          <h5 class="card-title">Female Count</h5>
+                          <div class="d-flex align-items-center">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                  <i class="ri-account-circle-line"></i>
+                              </div>
+                              <div class="ps-3">
+                                  <h3 style="color:#012970"><strong id="femaleCount">{{ female_count21 }}</strong></h3>
+                                  <!-- You can add other HTML elements here -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <script>
+                       document.addEventListener("DOMContentLoaded", () => {
+                            const yearSelector = document.getElementById('yearSelector');
+                            const maleCountElement = document.getElementById('maleCount');
+                            const femaleCountElement = document.getElementById('femaleCount');
+
+                            // Define male and female counts for each year
+                            const countsByYear = {
+                                '2021': { male: {{male_count21}}, female: {{female_count21}} },
+                                '2022': { male: {{male_count22}}, female: {{female_count22}} },
+                                '2023': { male: {{male_count23}}, female: {{female_count23}} },
+                                '2024': { male: {{male_count23}}, female: {{female_count23}} }
+                            };
+
+                            // Function to update male and female counts based on the selected year
+                            function updateCounts(selectedYear) {
+
+                                const counts = countsByYear[selectedYear];
+                                maleCountElement.textContent = counts.male;
+                                femaleCountElement.textContent = counts.female;
+
+                            }
+
+                            // Event listener for year selector change
+                            yearSelector.addEventListener('change', function() {
+                                const selectedYear = this.value;
+
+                                updateCounts(selectedYear);
+                            });
+
+                            // Initial update based on the default year
+                            const defaultYear = 2023;
+                            updateCounts(defaultYear);
+                        });
+
+                    </script>
+              </div>
+          </div>
+          <!-- END COUNT GENDER RATIO -->
+
+
+          <!-- PVTG RATIO -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-square-fill"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="#">Katkari Report</a></li>
+                <li><a class="dropdown-item" href="#">Kolam Report</a></li>
+                <li><a class="dropdown-item" href="#">Madia Report</a></li>
+              </ul>
+            </div>
+
+            <div class="card-body pb-0">
+              <h5 class="card-title">PVTG Ratio <span>| Today</span></h5>
+
+              <div id="PVTG" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                        const yearSelector = document.getElementById('yearSelector');
+                        const katkariData = {
+                            2021: [{{ katkari21  }}],
+                            2022: [{{ katkari22 }}],
+                            2023: [{{ katkari23 }}],
+                            2024: [{{ katkari23 }}]
+                        };
+                        const kolamData = {
+                            2021: [{{ kolam21 }}],
+                            2022: [{{ kolam22 }}],
+                            2023: [{{ kolam23 }}],
+                            2024: [{{ kolam23 }}]
+                        };
+                        const madiaData = {
+                            2021: [{{ madia21 }}],
+                            2022: [{{ madia22 }}],
+                            2023: [{{ madia23 }}],
+                            2024: [{{ madia23 }}]
+                        };
+
+                        // Function to update pie chart data based on selected year
+                        function updatePieChartData(data_year) {
+
+                            const katkari = katkariData[data_year][0];
+                            const kolam = kolamData[data_year][0];
+                            const madia = madiaData[data_year][0];
+                            document.getElementById("PVTG").innerHTML = ""
+                            new ApexCharts(document.querySelector("#PVTG"), {
+                                    series: [ katkari, kolam, madia ],
+                                  chart: {
+                                  height: 350,
+                                  type: 'pie',
+                                  toolbar: {
+                                    show: true
+                                  }
+                                },
+                                labels: ['Katkari Students', 'Kolam Students', 'Madia Students'],
+                                colors: ['#03AED2', '#153448', '#874CCC']
+                            }).render();
+
+                            //chart;
+                        }
+
+                        // Event listener for year selector change
+                        yearSelector.addEventListener('change', function () {
+                            const selectedYear = this.value;
+                            updatePieChartData(selectedYear);
+                        });
+
+                        // Initial rendering of the pie chart with default year
+                        const defaultYear = 2023;
+                        updatePieChartData(defaultYear);
+                    });
+
+
+              </script>
+
+            </div>
+          </div>
+          <!-- END PVTG RATIO -->
+
+
+          <!-- COUNT PVTG RATIO -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-arrow-down-square-fill"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="/male_record_report">Male Report</a></li>
+                <li><a class="dropdown-item" href="/female_record_report">Female Report</a></li>
+              </ul>
+            </div>
+            <div>
+               <select id="yearSelected" class="form-control">
+                    <option value="2021">2021 - 2022</option>
+                    <option value="2022">2022 - 2023</option>
+                    <option value="2023">2023 - 2024</option>
+                    <option value="2024">2024 - 2024</option>
+                </select>
+            </div>
+            <div class="row">
+              <h5 class="card-title text-center">Count till Now</h5>
+                  <div class="col-md-6">
+                      <div class="card-body">
+                          <h5 class="card-title">Katkari Count</h5>
+                          <div class="d-flex align-items-center">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                  <i class="ri-account-circle-line"></i>
+                              </div>
+                              <div class="ps-3">
+                                  <h3 style="color:#012970"><strong>{{ katkari }}</strong></h3>
+                                  <!-- You can add other HTML elements here -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="card-body">
+                          <h5 class="card-title">Kolam Count</h5>
+                          <div class="d-flex align-items-center">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                  <i class="ri-account-circle-line"></i>
+                              </div>
+                              <div class="ps-3">
+                                  <h3 style="color:#012970"><strong>{{ kolam }}</strong></h3>
+                                  <!-- You can add other HTML elements here -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+               <div class="col-md-6">
+                      <div class="card-body">
+                          <h5 class="card-title">Madia Count</h5>
+                          <div class="d-flex align-items-center">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                  <i class="ri-account-circle-line"></i>
+                              </div>
+                              <div class="ps-3">
+                                  <h3 style="color:#012970"><strong>{{ madia }}</strong></h3>
+                                  <!-- You can add other HTML elements here -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- END COUNT PVTG RATIO -->
+
+
+          <!-- DISABILITY CHART -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"> <i class="bi bi-arrow-down-square-fill"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="/disability_report_no">Not Disabled People</a></li>
+                <li><a class="dropdown-item" href="/disability_report_yes">Disabled People</a></li>
+              </ul>
+            </div>
+            <div class="card-body p-0">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Disabled vs Not Disabled</h5>
+
+              <!-- Donut Chart -->
+              <div id="donutChart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#donutChart"), {
+                    series: [{{disability_yes}}, {{disability_no}}],
+                    chart: {
+                      height: 350,
+                      type: 'donut',
+                      toolbar: {
+                        show: true
+                      }
+                    },
+                    labels: ['Disabled', 'Not Disabled'],
+                  }).render();
+                });
+              </script>
+              <!-- End Donut Chart -->
+            </div>
+          </div>
+        </div>
+          </div>
+           <!-- END DISABILITY CHART -->
+
+
+      </div>
+
+
+      </div>
+      </div>
+      </div>
+    </section>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'admin_templates/footer.html' %}
+
+  <!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/admin_assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="static/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/admin_assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="static/admin_assets/vendor/echarts/echarts.min.js"></script>
+  <script src="static/admin_assets/vendor/quill/quill.min.js"></script>
+  <script src="static/admin_assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="static/admin_assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="static/admin_assets/vendor/php-email-form/validate.js"></script>
+  <script src="static/admin_assets/js/common.js"></script>
+
+  <!-- JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Template Main JS File -->
+  <script src="static/admin_assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+
+
+    $(document).ready(function(){
+      $('#select_fy_year').on('change',function(){
+          let year = $(this).val()
+          $.ajax({
+                    type: 'POST',
+                    url: '/get_year_count',
+                    data: { selected_year: year },
+                    success: function(data) {
+                        // Update the map markers
+                        addDistrictMarkers(data.district_data);
+                        $('#total_count').html(data.total_count);
+                        $('#accept_count').html(data.accept_count);
+                        $('#reject_count').html(data.reject_count);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+      })
+
+      $(".owl-carousel").owlCarousel({
+        loop:true,
+        margin:10,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+                nav:true
+            },
+            600:{
+                items:3,
+                nav:false
+            },
+            1000:{
+                items:5,
+                nav:true,
+                loop:false
+            }
+        }
+      });
+    });
+
+
+  </script>
+
+</body>
+
+</html>

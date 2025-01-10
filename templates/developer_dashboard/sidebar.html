@@ -1,0 +1,93 @@
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    </li><!-- End Contact Page Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/admin_DevDash">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Admin Table</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/applicationPage_DevDash">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Application Page Table</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Award Letter Page</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Budget Table</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>New & Updates Table</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Payment Sheet Table</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Signup Table</span>
+      </a>
+    </li><!-- End Sign out nav -->
+
+  </ul>
+
+</aside><!-- End Sidebar-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+  $(document).ready(function () {
+    // Get the current page's URL
+    var currentPageURL = window.location.href;
+
+    // Loop through the sidebar links and compare their href attributes to the current URL
+    $('#sidebar-nav li a').each(function () {
+
+      var menuItemURL = $(this).attr('href');
+
+      // Check if the current URL includes the menu item's URL and it is not the root URL '/'
+      if (currentPageURL.includes(menuItemURL)) {
+        // Add the 'active' class to the parent li element
+        $(this).removeClass('collapsed');
+      } else if (currentPageURL.endsWith('/')) {
+        // Special case for the home page when the URL ends with '/'
+        $(this).removeClass('collapsed');
+      }
+    });
+  });
+
+
+</script>

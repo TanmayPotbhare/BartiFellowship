@@ -1,0 +1,141 @@
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content" data-bs-parent="#sidebar-nav">
+                <li class="active">
+                    <a href="/mainpage">
+                        <i class="bi bi-circle"></i><span>My Applications</span>
+                    </a>
+                </li>
+            </ul>
+            <ul id="forms1" class="nav-content" data-bs-parent="#sidebar-nav">
+                <li class="active">
+                    <a href="/issues_raised_students">
+                        <i class="bi bi-circle"></i><span>Raise an Issue</span>
+                    </a>
+                </li>
+            </ul>
+            <ul id="forms2" class="nav-content" data-bs-parent="#sidebar-nav">
+                <li class="active">
+                    <a href="/generate_pdf" target="_blank">
+                        <i class="bi bi-circle"></i><span>Generate Application Form PDF</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if session['final_approval'] == 'accepted' %}
+            <ul id="forms" class="nav-content" data-bs-parent="#sidebar-nav">
+                <li class="active">
+<!--                    <a href="/installment_userpage">-->
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Installment Details</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul id="forms" class="nav-content" data-bs-parent="#sidebar-nav">
+                <li class="active">
+                    <a href="/old_user_adhaar_seed">
+                        <i class="bi bi-circle"></i><span>Adhaar Seeding Details</span>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+
+        </li><!-- End Forms Nav -->
+        {% if session['final_approval'] == 'accepted' %}
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/manage_profile_AA">
+                <i class="bi bi-person"></i>
+                <span>Manage Profile</span>
+            </a>
+        </li><!-- End Sign out nav -->
+
+        <li class="nav-item">
+                 <a class="nav-link collapsed" href="/award_letter_AA" target="_blank">
+                <!-- <a class="nav-link collapsed" href="#">-->
+                <i class="bi bi-award-fill"></i>
+                <span>Award Letter</span>
+            </a>
+        </li><!-- End Sign out nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/joining_report_AA">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>Joining Report</span>
+            </a>
+        </li><!-- End Sign out nav -->
+
+        <li class="nav-item">
+                <a class="nav-link collapsed" href="/undertakingDoc">
+                <i class="bi bi-file-earmark-post-fill"></i>
+                <span>Undertaking Document</span>
+            </a>
+        </li><!-- End Sign out nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/presenty_AA">
+                <i class="bi bi-file-bar-graph"></i>
+                <span>Presenty</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/half_yearly_rep_AA">
+                <i class="bi bi-file-bar-graph"></i>
+                <span>Half Yearly Progress Report</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/rent_agreement_AA">
+                <i class="bi bi-file-bar-graph"></i>
+                <span>H.R.A Certificate / Rent Agreement</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/assessment_report_AA">
+                <i class="bi bi-person"></i>
+                <span>Assessment Report</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/with_from_fellowship_AA">
+                <i class="bi bi-x-square"></i>
+                <span>Withdraw From Fellowship</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/change_guide_AA">
+                <i class="bi bi-file-earmark-person"></i>
+                <span>Change in Guide</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/change_center_AA">
+                <i class="bi bi-geo-alt"></i>
+                <span>Change in Research Center</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/phd_award_AA">
+                <i class="bi bi-geo-alt"></i>
+                <span>Upload P.H.D Award Certificate</span>
+            </a>
+        </li><!-- End Sign out nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/upload_thesis_AA">
+                <i class="bi bi-upload"></i>
+                <span>Upload Thesis</span>
+            </a>
+        </li><!-- End Sign out nav -->
+
+        {% endif %}
+
+
+    </ul>
+
+</aside>

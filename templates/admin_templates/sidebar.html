@@ -1,0 +1,144 @@
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/index">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Student Applications</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="/adminPage">
+            <i class="bi bi-circle"></i><span>LEVEL 1 - New Applications</span>
+          </a>
+        </li>
+        <li>
+          <a href="/level_two_admin">
+            <i class="bi bi-circle"></i><span>LEVEL 2 - Scrutiny</span>
+          </a>
+        </li>
+        <li>
+          <a href="/level_three_admin">
+            <i class="bi bi-circle"></i><span>LEVEL 3 - Final Approval</span>
+          </a>
+        </li>
+         <li>
+          <a href="/aadesh">
+            <i class="bi bi-circle"></i><span>2nd List Aadesh (15 Students)</span>
+          </a>
+        </li>
+
+      </ul>
+    </li><!-- End Forms Nav -->
+
+
+    </li><!-- End Contact Page Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/payment_sheet">
+        <i class="bi bi-cash-coin"></i>
+        <span>Payment Sheet (2023 - 2024)</span>
+      </a>
+    </li>
+
+
+<!--    <li class="nav-item">-->
+<!--      <a class="nav-link collapsed" href="/budget">-->
+<!--        <i class="bi bi-menu-button-wide"></i>-->
+<!--        <span>Add Budget</span>-->
+<!--      </a>-->
+<!--    </li>-->
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/payment_tracking">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Track Payments</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/fellowship_awarded">
+        <i class="bi bi-file-earmark-check"></i>
+        <span>Awarded Fellowships</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/withdrawed_application_admin">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span>Withrawed Fellowships</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/sendbulkEmails">
+        <i class="bi bi-layer-forward"></i>
+        <span>Send Bulk Emails</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/student_manage_dashbaord">
+        <i class="bi bi-kanban-fill"></i>
+        <span>Student Management Dashboard</span>
+      </a>
+    </li>
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="/admin_issue_raised_by_students">
+        <i class="bi bi-wrench-adjustable-circle"></i>
+        <span>Issues Raised by Students</span>
+      </a>
+    </li>
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="/news">
+        <i class="bi bi-newspaper"></i>
+        <span>News Section</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/logout">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Sign Out</span>
+      </a>
+    </li><!-- End Sign out nav -->
+
+  </ul>
+
+</aside><!-- End Sidebar-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+  $(document).ready(function () {
+    // Get the current page's URL
+    var currentPageURL = window.location.href;
+
+    // Loop through the sidebar links and compare their href attributes to the current URL
+    $('#sidebar-nav li a').each(function () {
+
+      var menuItemURL = $(this).attr('href');
+
+      // Check if the current URL includes the menu item's URL and it is not the root URL '/'
+      if (currentPageURL.includes(menuItemURL)) {
+        // Add the 'active' class to the parent li element
+        $(this).removeClass('collapsed');
+      } else if (currentPageURL.endsWith('/')) {
+        // Special case for the home page when the URL ends with '/'
+        $(this).removeClass('collapsed');
+      }
+    });
+  });
+
+
+</script>

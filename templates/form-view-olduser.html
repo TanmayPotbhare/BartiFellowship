@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Application Details | Fellowship</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='admin_assets/img/favicon.png')}}" rel="icon">
+  <link href="{{ url_for('static', filename='admin_assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='admin_assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/bootstrap-icons/bootstrap-icons.css')}}"
+    rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='admin_assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='admin_assets/css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  {% if(session['user_type'] == 'User' ) %}
+  {% include 'user_templates/header.html' %}
+  {% else %}
+  {% include 'admin_templates/header.html' %}
+  {% endif %}
+
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+
+  {% include 'user_templates/sidebar.html' %}
+
+
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Application Details</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Pages</li>
+          <li class="breadcrumb-item active">Details</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+          {% for record in records %}
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+              <img src="{{ record.applicant_photo }}" alt="Profile" class="rounded-circle">
+            </div>
+
+            <div class="card-body col-md-11">
+              <div class="row align-items-center">
+                <div class="col-md-7">
+                  <h5 class="card-title ">Application ID : </h5>
+                </div>
+                <div class="col-md-5 text-start">
+                  <span>{{ record['applicant_id'] }}</span>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-7">
+                  <h5 class="card-title ">Application Date : </h5>
+                </div>
+                <div class="col-md-5 text-start">
+                  <span> </span>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-12">
+                  <h5 class="card-title ">Application Status : </h5>
+                </div>
+                <div class="col-md-12 text-start">
+                  <div class="row">
+                    <div class="col-md-7 label ">Pre Scrutiny Status:</div>
+                    <div class="col-md-5">
+                      {% if(record['status'] == 'accepted') %}
+                      <span class="text-success fw-bold text-capitalize"> {{ record['status'] }}</span>
+                      {% elif(record['status'] =='pending') %}
+                      <span class="text-warning fw-bold text-capitalize"> {{ record['status'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold text-capitalize"> {{ record['status'] }}</span>
+                      {% endif %}
+
+
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-7 label ">Scrutiny Status:</div>
+                    <div class="col-md-5">
+                      {% if(record['scrutiny_status'] == 'accepted') %}
+                      <span class="text-success fw-bold text-capitalize"> {{ record['scrutiny_status'] }}</span>
+                      {% elif(record['scrutiny_status'] =='pending') %}
+                      <span class="text-warning fw-bold text-capitalize"> {{ record['scrutiny_status'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold text-capitalize"> {{ record['scrutiny_status'] }}</span>
+                      {% endif %}
+
+
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-7 label ">Final Approval Status:</div>
+                    <div class="col-md-5">
+                      {% if(record['final_approval'] == 'accepted') %}
+                      <span class="text-success fw-bold text-capitalize"> {{ record['final_approval'] }}</span>
+                      {% elif(record['final_approval'] =='pending') %}
+                      <span class="text-warning fw-bold text-capitalize"> {{ record['final_approval'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold text-capitalize"> {{ record['final_approval'] }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab"
+                    data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Family Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab"
+                    data-bs-target="#profile-change-password">Attachment</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+                {% for record in records %}
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                  <h5 class="card-title">Personal Details / वैयक्तिक माहिती</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">First Name</div>
+                    <div class="col-lg-9 col-md-8">{{ record['first_name'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Second Name</div>
+                    <div class="col-lg-9 col-md-8">{{ record['middle_name'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Last Name</div>
+                    <div class="col-lg-9 col-md-8">{{ record['last_name'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Mobile Number</div>
+                    <div class="col-lg-9 col-md-8">{{ record['mobile_number'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Email</div>
+                    <div class="col-lg-9 col-md-8">{{ record['email'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Date of Birth</div>
+                    <div class="col-lg-9 col-md-8">{{ record['date_of_birth'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Gender</div>
+                    <div class="col-lg-9 col-md-8">{{ record['gender'] }}</div>
+                  </div>
+
+                  <h5 class="card-title">Personal Address Details / वैयक्तिक पत्त्याचे तपशील</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Address Line 1</div>
+                    <div class="col-lg-9 col-md-8">{{ record['add_1'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Address Line 2</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['add_2'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Pincode</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['pincode'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Village</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['village'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Taluka</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['taluka'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">District</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['district'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">State</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['state'] }}</div>
+                  </div>
+
+                  <h5 class="card-title">Qualification Details / पात्रता तपशील</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Qualification Level </div>
+                    <div class="col-lg-9 col-md-8"> {{ record['qualification_level'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Stream</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['stream'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Board / University</div>
+                    <div class="col-lg-9 col-md-8"> {{ record['board_university'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Admission year</div>
+                    <div class="col-lg-9 col-md-8">{{ record['admission_year'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Passing Year</div>
+                    <div class="col-lg-9 col-md-8">{{ record['passing_year'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Percentage</div>
+                    <div class="col-lg-9 col-md-8">{{ record['percentage'] }}</div>
+                  </div>
+
+                  <h5 class="card-title">Personal Eligibility Details / वैयक्तिक पात्रता तपशील</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Are you Salaried ? </div>
+                    <div class="col-lg-9 col-md-8">{{ record['salaried'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Are you Disabled? </div>
+                    <div class="col-lg-9 col-md-8">{{ record['disability'] }}</div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade profile-overview pt-3" id="profile-edit">
+
+                  <!-- Family Overview -->
+                  <h5 class="card-title">Income Details / उत्पन्न तपशील</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Family's Annual Income</div>
+                    <div class="col-lg-9 col-md-8"> ₹ {{ record['family_annual_income'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Income Certificate Number</div>
+                    <div class="col-lg-9 col-md-8">{{ record['income_certificate_number'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Issuing Authority</div>
+                    <div class="col-lg-9 col-md-8">{{ record['issuing_authority'] }}</div>
+                  </div>
+
+                  <h5 class="card-title">Domicile Details / अधिवास तपशील</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Are you Domicile of Maharashtra ?</div>
+                    <div class="col-lg-9 col-md-8">
+                      {% if record['domicile'] == 'Yes' %}
+                      <span class="text-success fw-bold">{{ record['domicile'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold">{{ record['domicile'] }}</span>
+                      {% endif %}
+
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Do you have Domicile Certificate ?</div>
+                    <div class="col-lg-9 col-md-8">
+                      {% if record['domicile_certificate'] == 'Yes' %}
+                      <span class="text-success fw-bold">{{ record['domicile_certificate'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold">{{ record['domicile_certificate'] }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Domicile Certificate Number</div>
+                    <div class="col-lg-9 col-md-8">
+                      <span class="text-dark">{{ record['domicile_number'] }}</span>
+                    </div>
+                  </div>
+
+                  <h5 class="card-title">Caste Details / जात तपशील</h5>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Do you have Caste Certificate ?</div>
+                    <div class="col-lg-9 col-md-8">
+                      {% if record['caste_certf'] == 'Yes' %}
+                      <span class="text-success fw-bold">{{ record['caste_certf'] }}</span>
+                      {% else %}
+                      <span class="text-danger fw-bold">{{ record['caste_certf'] }}</span>
+
+                      {% endif %}
+                      <label data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-original-title="If you answer 'NO,' your application will be rejected."><i class=" ri-information-fill
+                      "></i></label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">What is your caste ?</div>
+                    <div class="col-lg-9 col-md-8">{{ record['caste'] }} </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Issuing District</div>
+                    <div class="col-lg-9 col-md-8">{{ record['issuing_district'] }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Issuing Authority</div>
+                    <div class="col-lg-9 col-md-8">{{ record['caste_issuing_authority'] }}</div>
+                  </div>
+
+                  <h5 class="card-title">
+                    Parent's-Guardian's Details Details / पालकांचे-पालकांचे तपशील तपशील
+                  </h5>
+
+
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Father's Name</div>
+                    <div class="col-lg-9 col-md-8">{{ record['father_name'] }}</div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Mother's Name</div>
+                    <div class="col-lg-9 col-md-8">{{ record['mother_name'] }}</div>
+                  </div>
+
+
+                  <!-- Family Overview Ends -->
+
+                </div>
+
+                <div class="tab-pane fade profile-overview pt-3" id="profile-change-password">
+                  <h5 class="card-title">Attached Documents</h5>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Identity Proof</div>
+                    <div class="col-lg-9 col-md-8">
+
+                        <a href="{{ records['documentfile1'] }}" target="_blank">View</a>
+
+                      <span><i class="ri-eye-fill"></i></span></a> </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Address Proof</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ record.docuemntfile2 }}" target="_blank"
+                        class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View address Proof"><span><i class="ri-eye-fill"></i></span></a> </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Qualification Certificate</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href=""
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Qualification Certificate"><span><i
+                            class="ri-eye-fill"></i></span></a> </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Domicile Certificate</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ url_for('static', filename='pdf_file_uploads/DOMICILE_CERTIFICATE.pdf')}}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Domicile Certificate"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 label ">Income Certificate</div>
+                    <div class="col-lg-9 col-md-8"><a
+                        href="{{ url_for('static', filename='pdf_file_uploads/INCOME_CERTIFICATE.pdf')}}"
+                        target="_blank" class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-original-title="View Income Certificate"><span><i class="ri-eye-fill"></i></span></a>
+                    </div>
+                  </div>
+
+                    <div class="row align-items-center">
+                      <div class="col-lg-3 col-md-4 label ">Caste Certificate</div>
+                      <div class="col-lg-9 col-md-8"><a
+                          href="{{ record['documentfile6'] }}" target="_blank"
+                          class="btn btn-theme btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                          data-bs-original-title="View Caste Certificate"><span><i class="ri-eye-fill"></i></span></a>
+                      </div>
+                    </div>
+                  </div>
+
+              </div><!-- End Bordered Tabs -->
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% if(session['user_type'] == 'User' ) %}
+  {% include 'user_templates/footer.html' %}
+  {% else %}
+  {% include 'admin_templates/footer.html' %}
+  {% endif %}
+
+  <!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='admin_assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/chart.js/chart.umd.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/echarts/echarts.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/quill/quill.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/tinymce/tinymce.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='admin_assets/vendor/php-email-form/validate.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='admin_assets/js/main.js')}}"></script>
+
+</body>
+
+</html>
