@@ -147,15 +147,15 @@ multilingual_content = {
 
         # -----------------------Leaders ----------------------
         'eknath_shinde': 'Shri. Eknath Shinde',
-        'eknath_shinde_desgn': "Hon'ble Chief Minister, Maharashtra State",
+        'eknath_shinde_desgn': "Hon'ble Deputy Chief Minister, Maharashtra State",
         'dev_phad':'Shri. Devendra Fadnavis',
-        'dev_phad_desgn':"'Hon'ble Deputy Chief Minister, Maharashtra State",
+        'dev_phad_desgn':"Hon'ble Chief Minister, Maharashtra State",
         'ajit_pawar':'Shri. Ajit Pawar',
         'ajit_pawar_desgn':"Hon'ble Deputy Chief Minister, Maharashtra State",
         'vijay_gavit':'Dr. Vijaykumar Gavit',
         'vijay_gavit_desgn':"Hon'ble Minister, Tribal Development Department",
-        'vijay_waghmare':"Mr. Vijay Waghmare I.A.S.",
-        'vijay_waghmare_desgn':"Honb'le Secretary, Social Justice and Special Assistance Department",
+        'vijay_waghmare':"Dr. Harshdeep Kamble, I.A.S.",
+        'vijay_waghmare_desgn':"Honb'le Principal secretary, Social Justice and Special Assistance Department",
         'sanjay_shirsat':"Mr. Sanjay Shirsat ",
         'sanjay_shirsat_design':"Hon'ble Minister of Social Justice, Government of Maharashtra",
         'madhuri_misal': "Mrs. Madhuri Misal",
@@ -1308,7 +1308,7 @@ def signup():                                               # ------------------
             print('Sending SMS')
             # send_sms(mobile_number, otp)
             insert_user_data(registration_data)
-            flash('Your email is verified and registration is successful.')
+            flash('Your email is verified and registration is successful.', 'success')
             # return render_template('email_verify.html', email=email)
             return redirect(url_for('login'))
     error = ('This email is already registered. Please use a different email or log in with an existing one.',
