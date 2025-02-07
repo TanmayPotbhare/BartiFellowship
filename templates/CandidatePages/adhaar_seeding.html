@@ -1,0 +1,106 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="col-auto mt-3">
+               <a href="#" class="btn btn-primary btn-sm text-white">Generate PDF Form</a>
+            </div>
+            <div class="card-header justify-content-center">
+                  <!-- Center Content -->
+                  <div class="text-center">
+                      <div class="profile-avata">
+                          {% for row in records %}
+                          {% set fullname = row['first_name'] + ' ' + row['middle_name'] + ' ' + row['last_name'] %}
+                              {% if row['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ row['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block" style="text-transform: none;">{{ row['email'] }}</span>
+                          {% endfor %}
+                      </div>
+                  </div>
+            </div>
+
+
+        <div class="card-footer card-profile-footer">
+          <ul class="nav nav-border-top justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/candidate_dashboard">My Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/adhaar_seeding">Aadhaar Seeding</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/manage_profile">Manage Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="user-profile-settings.html">Raise Issue</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+              <div class="applicant-cards">
+                  <h6 class="mb-3">Adhaar Seeding Document</h6>
+                  <!-- Repeat for more applicants -->
+                  <h6 class="text-danger">
+                      The Aadhaar Seeding Document serves as proof that your Aadhaar number is linked to your bank account.
+                      It verifies the connection between your Aadhaar and the specified bank account,
+                      ensuring seamless access to Aadhaar-enabled banking services.
+                  </h6>
+                  {% for row in records %}
+                  <div class="row mt-5">
+                        <div class="col-md-2">
+                            <label>Bank Account:</label>
+                        </div>
+                        <div class="col-md-10">
+                            <span>{{ row['bank_name'] }}</span>
+                        </div>
+                  </div>
+                  <div class="row mt-5">
+                        <div class="col-md-2">
+                            <label>IFSC Code:</label>
+                        </div>
+                        <div class="col-md-10">
+                            <span>{{ row['ifsc_code'] }}</span>
+                        </div>
+                  </div>
+                      {% if not row['adhaar_seeding_doc'] %}
+                          <div class="row mt-5">
+                                <div class="col-md-2">
+                                    <label for="adhaar_seeding_doc" class="form-label">Aadhaar Seeding Document:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="file" name="adhaar_seeding_doc" id="adhaar_seeding_doc"
+                                           class="form-control" required>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <a href="#" alt="Aadhaar Document" class="btn btn-primary btn-sm">Submit</a>
+                                </div>
+                          </div>
+                      {% else %}
+                          <div class="row mt-5">
+                                <div class="col-md-2">
+                                    <label>Adhaar Seeding Document:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <a href="{{ row['adhaar_seeding_doc'] }}" target="_blank"
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="mdi mdi-eye"></i>
+                                    </a>
+                                </div>
+                          </div>
+                      {% endif %}
+                  {% endfor %}
+              </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

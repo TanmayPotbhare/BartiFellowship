@@ -1,0 +1,434 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+{% include 'CandidatePages/layout/steps.html' %}
+
+<div class="container mt-5">
+    <!-- Section 1: Personal Details Form -->
+    <div class="card">
+        <div class="card-body">
+
+             <form action="/section3_submit" method="POST" enctype="multipart/form-data" class="personal-details-form">
+
+                <h4 class="mb-4 text-center">Certificate Details</h4>
+
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Income Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="family_annual_income">Family Annual Income
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">₹ {{ record['family_annual_income'] }} (INR)</span>
+                                {% else %}
+                                    <input type="text" name="family_annual_income" id="family_annual_income"
+                                       placeholder="Enter your Family Income (Per year)" class="form-control"
+                                        onblur="validateIncome()" maxlength="10" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="income_certificate_number">Income Certificate Number
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['income_certificate_number'] }}</span>
+                                {% else %}
+                                    <input type="text" name="income_certificate_number" id="income_certificate_number"
+                                       placeholder="Enter your Income Cert. Number" class="form-control"
+                                        oninput="validateIncomeCertificateNumber()" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="issuing_authority">Issuing Authority
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['issuing_authority'] }}</span>
+                                {% else %}
+                                    <input type="text" name="issuing_authority" id="issuing_authority"
+                                       class="form-control" value="Tehsildar" readonly>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="income_issuing_district">Issuing District
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['income_issuing_district'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="income_issuing_district"
+                                            id="income_issuing_district" required>
+                                        <option value="" selected disabled>-- Select District --</option>
+                                        {% for uni in districts %}
+                                            <option data-hidden="{{ uni['district_id'] }}"
+                                                    value="{{ uni['district'] }}">
+                                                {{ uni['district'] }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="income_issuing_taluka">Issuing Taluka
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['income_issuing_taluka'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="income_issuing_taluka" id="income_issuing_taluka"
+                                            required>
+                                            <option value="">-- Select Taluka --</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Domicile Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="domicile">Domicile of Maharashtra Available?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['domicile'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="domicile" id="domicile" required>
+                                            <option value="">-- Select Option --</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="domicile_number">Domicile Certificate Number
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['domicile_number'] }}</span>
+                                {% else %}
+                                    <input type="text" name="domicile_number" id="domicile_number"
+                                       placeholder="Enter Domicile Cert. Number" class="form-control"
+                                        oninput="validateDomicileCertificateNumber()" disabled required>
+                                {% endif %}
+                            </div>
+                        </div>
+                         <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="domicile_issuing_authority">Domicile Issuing Authority
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['domicile_issuing_authority'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="domicile_issuing_authority"
+                                        id="domicile_issuing_authority" disabled required>
+                                            <option value="">-- Select Option --</option>
+                                            <option value="Sub-Divisional Officer (SDO)">Sub-Divisional Officer (SDO)</option>
+                                            <option value="Tehsildar">Tehsildar</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                         <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="domicile_issuing_district">Issuing District
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['domicile_issuing_district'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="domicile_issuing_district"
+                                        id="domicile_issuing_district" disabled required>
+                                            <option value="" selected disabled>-- Select District --</option>
+                                        {% for uni in districts %}
+                                            <option data-hidden="{{ uni['district_id'] }}"
+                                                    value="{{ uni['district'] }}">
+                                                {{ uni['district'] }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                         <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="domicile_issuing_taluka">Issuing Taluka
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['domicile_issuing_taluka'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="domicile_issuing_taluka"
+                                            id="domicile_issuing_taluka" disabled required>
+                                            <option value="">-- Select Taluka --</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Caste/Tribe Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="caste_certf">Caste/Tribe Certificate Available?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['caste_certf'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="caste_certf" id="caste_certf" required>
+                                            <option value="">-- Select Option --</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="caste_certf_number">Caste Certificate Number
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['caste_certf_number'] }}</span>
+                                {% else %}
+                                    <input type="text" name="caste_certf_number" id="caste_certf_number"
+                                       placeholder="Enter Caste Cert. Number" class="form-control"
+                                        oninput="validateCasteCertificateNumber()" disabled required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="caste_issuing_authority">Issuing Authority
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['caste_issuing_authority'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="caste_issuing_authority"
+                                            id="caste_issuing_authority" disabled required>
+                                            <option value="">-- Select Option --</option>
+                                            <option value="Sub-Divisional Officer (SDO)">Sub-Divisional Officer (SDO)</option>
+                                            <option value="Deputy Collector">Deputy Collector</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="issuing_district">Issuing District
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['issuing_district'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="issuing_district"
+                                            id="issuing_district" disabled required>
+                                            <option value="" selected disabled>-- Select District --</option>
+                                        {% for uni in districts %}
+                                            <option data-hidden="{{ uni['district_id'] }}"
+                                                    value="{{ uni['district'] }}">
+                                                {{ uni['district'] }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="caste_issuing_taluka">Issuing Taluka
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['caste_issuing_taluka'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="caste_issuing_taluka"
+                                            id="caste_issuing_taluka" disabled required>
+                                            <option value="">-- Select Taluka --</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Validity Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="validity_certificate">Validity Certificate Available?
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['validity_certificate'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="validity_certificate" id="validity_certificate" required>
+                                            <option value="">-- Select Option --</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="validity_cert_number">Validity Certificate Number
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['validity_cert_number'] }}</span>
+                                {% else %}
+                                    <input type="text" name="validity_cert_number" id="validity_cert_number"
+                                       placeholder="Enter Validity Cert. Number" class="form-control"
+                                        oninput="validateValidityCertificateNumber()" minlength="20" disabled>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="validity_issuing_authority">Issuing Authority
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['validity_issuing_authority'] }}</span>
+                                {% else %}
+                                    <select name="validity_issuing_authority" id="validity_issuing_authority"
+                                            class="form-control" disabled>
+                                        <option value="" selected>-- Select Authority --</option>
+                                        {% for auth in validity %}
+                                            <option value="{{ auth['authority_name'] }}">
+                                                {{ auth['authority_name'] }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="validity_issuing_district">Issuing District
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['validity_issuing_district'] }}</span>
+                                {% else %}
+                                     <select class="form-control" name="validity_issuing_district"
+                                            id="validity_issuing_district" disabled>
+                                            <option value="" selected disabled>-- Select District --</option>
+                                        {% for uni in districts %}
+                                            <option data-hidden="{{ uni['district_id'] }}"
+                                                    value="{{ uni['district'] }}">
+                                                {{ uni['district'] }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="validity_issuing_taluka">Issuing Taluka
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['validity_issuing_taluka'] }}</span>
+                                {% else %}
+                                     <select class="form-control" name="validity_issuing_taluka"
+                                            id="validity_issuing_taluka" disabled>
+                                            <option value="">-- Select Taluka --</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+
+                {% if record['section3'] == 'filled' %}
+                {% else %}
+                   <div class="form-check ms-2" style="padding:2rem;">
+                        <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
+                            <label class="form-check-label" for="verifyDetails">
+                                Please verify that the details entered in the Third Section are correct before submitting. You will not be able to make any edits once submitted.
+                            </label>
+
+                        <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
+                            <label class="form-check-label" for="verifyDetailsHindi">
+                                कृपया तिसऱ्या विभागातील तपशील सबमिट करण्यापूर्वी योग्य असल्याची खात्री करा. एकदा सबमिट केल्यानंतर, तुम्ही त्यात कोणतेही सुधारणा करू शकणार नाही.
+                            </label>
+                    </div>
+                {% endif %}
+
+                  <div class="m-0 text-center">
+                    {% if record['section3'] == 'filled' %}
+                        <a href="/section2" class="btn btn-primary btn-sm ms-2">Previous</a>
+                        <a href="/section4" class="btn btn-primary btn-sm ms-2">Next</a>
+                    {% else %}
+<!--                        <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields()">Save and Next</button>-->
+                        {% if not record['section3']|default(None) %}
+                            <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields3()" disabled>Save and Next</button>
+                        {% else %}
+                            <a href="/section4" class="btn btn-primary btn-sm ms-2">Next</a>
+                        {% endif %}
+                    {% endif %}
+                  </div>
+
+
+             </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

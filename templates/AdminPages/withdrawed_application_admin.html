@@ -1,0 +1,186 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-home"></i>
+      </span> Withdrawed Fellowships
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="card">
+      <div class="card-body">
+        <!-- Table to display student applications -->
+        <div class="pagetitle text-center">
+          <h3>Withdrawed Applications 2023</h3>
+            {% if result2023 %}
+                  <div class="table-responsive">
+                      <table class="table datatable shadow table-bordered">
+                        <thead>
+
+                          <tr>
+                            <th> Applicant ID </th>
+                            <th>Email</th>
+                            <th>Student Name</th>
+                            <th>Faculty</th>
+                            <th>Date of PHD Registration</th>
+                            <th>Ticket Rasied Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for row in result2023 %}
+                          <tr>
+                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['email'] }}</td>
+                              <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
+                              <td>{{ row['faculty'] }}</td>
+                              <td>{{ row['phd_registration_date'] }}</td>
+                              <td>{% if row['request_withdrawal'] %} Withdrawal Requested {% endif %}</td>
+                              <td><a href="#">Date Remaining</a></td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+            {% else %}
+                  <div class="pagetitle text-danger" style="font-size:20px">
+                      NO RECORDS AVAILABLE FOR 2023
+                  </div>
+            {% endif %}
+        </div><hr><br>
+
+
+        <div class="pagetitle text-center">
+          <h3>Withdrawed Applications 2022</h3>
+            {% if result2022 %}
+                  <div class="table-responsive">
+                      <table class="table datatable shadow table-bordered">
+                        <thead>
+
+                          <tr>
+                            <th> Applicant ID </th>
+                            <th>Email</th>
+                            <th>Student Name</th>
+                            <th>Faculty</th>
+                            <th>Date of PHD Registration</th>
+                            <th>Ticket Rasied Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for row in result2022 %}
+                          <tr>
+                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['email'] }}</td>
+                              <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
+                              <td>{{ row['faculty'] }}</td>
+                              <td>{{ row['phd_registration_date'] }}</td>
+                              <td>{% if row['request_withdrawal'] %} Withdrawal Requested {% endif %}</td>
+                              <td><a href="#">Date Remaining</a></td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+            {% else %}
+                  <div class="pagetitle text-danger" style="font-size:20px">
+                      NO RECORDS AVAILABLE FOR 2022
+                  </div>
+            {% endif %}
+        </div><hr><br>
+
+
+        <div class="pagetitle text-center">
+          <h3>Withdrawed Applications 2021</h3>
+            {% if result2021 %}
+                  <div class="table-responsive">
+                      <table class="table datatable shadow table-bordered">
+                        <thead>
+
+                          <tr>
+                            <th> Applicant ID </th>
+                            <th>Email</th>
+                            <th>Student Name</th>
+                            <th>Faculty</th>
+                            <th>Date of PHD Registration</th>
+                            <th>Ticket Rasied Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for row in result2021 %}
+                          <tr>
+                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['email'] }}</td>
+                              <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
+                              <td>{{ row['faculty'] }}</td>
+                              <td>{{ row['phd_registration_date'] }}</td>
+                              <td>{% if row['request_withdrawal'] %} Withdrawal Requested {% endif %}</td>
+                              <td><a href="#">Date Remaining</a></td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+            {% else %}
+                  <div class="pagetitle text-danger" style="font-size:20px">
+                      NO RECORDS AVAILABLE FOR 2021
+                  </div>
+            {% endif %}
+        </div><hr><br>
+
+        <div class="pagetitle text-center">
+          <h3>Withdrawed Applications 2020</h3>
+            {% if result2020 %}
+                  <div class="table-responsive">
+                      <table class="table datatable shadow table-bordered">
+                        <thead>
+
+                          <tr>
+                            <th> Applicant ID </th>
+                            <th>Email</th>
+                            <th>Student Name</th>
+                            <th>Faculty</th>
+                            <th>Date of PHD Registration</th>
+                            <th>Ticket Rasied Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for row in result2020 %}
+                          <tr>
+                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['email'] }}</td>
+                              <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
+                              <td>{{ row['faculty'] }}</td>
+                              <td>{{ row['phd_registration_date'] }}</td>
+                              <td>{% if row['request_withdrawal'] %} Withdrawal Requested {% endif %}</td>
+                              <td><a href="#">Date Remaining</a></td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+            {% else %}
+                  <div class="pagetitle text-danger" style="font-size:20px">
+                      NO RECORDS AVAILABLE FOR 2020
+                  </div>
+            {% endif %}
+        </div>
+      </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-home"></i>
+      </span> Issue Raised by Students
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="card">
+      <div class="card-body">
+        <h3 class="form-label text-center mb-4">All Issues Raised till Date</h3>
+         <!-- Table with stripped rows -->
+        <div class="table-responsive">
+            <table class="table table-bordered datatable">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Ticket Raised ID</th>
+              <th scope="col">Full Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Subject of Issue</th>
+              <th scope="col">Description of Issue</th>
+              <th scope="col">Document Uploaded - Image</th>
+              <th scope="col">Issue Raised Date</th>
+              <th scope="col">Issue Raised Time</th>
+              <th scope="col">Status</th>
+              <th Scope="col">Replied Medium</th>
+              <th Scope="col">Replied By</th>
+              <th Scope="col">Replied Date</th>
+              <th Scope="col">Replied Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in records  %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ record['ticket'] }}</td>
+              <td>{{ record['fullname'] }}</td>
+              <td>{{ record['email'] }}</td>
+              <td>{{ record['issue_subject'] }}</td>
+              <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ record['id'] }}">
+                  View
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="descriptionModal{{ record['id'] }}" tabindex="-1" aria-labelledby="descriptionModalLabel{{ record['id'] }}" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="descriptionModalLabel{{ record['id'] }}">Description</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <h6 class="text-primary fw-bold">Issue:</h6>
+                          {{ record['description'] }}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td><a href="{{ record['document'] }}" target="_blank">Link to Image</td>
+              <td>{{ record['date'] }}</td>
+              <td>{{ record['time'] }}</td>
+              <td>
+                <a href="#" class="btn btn-success btn-sm tooltip-trigger"
+                  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Issue Resolved"><i
+                    class="mdi mdi-check-all"></i></a>
+                <a href="#" class="btn btn-danger btn-sm tooltip-trigger"
+                  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Pending"><i
+                    class="mdi mdi-close-octagon"></i></a>
+              </td>
+              <td>{{ record['issue_replied_medium'] }}</td>
+              <td>{{ record['issue_replied_by'] }}</td>
+              <td>{{ record['issue_replied_date'] }}</td>
+              <td>{{ record['issue_replied_time'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+        <!-- End Table with stripped rows -->
+      </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,951 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">
+          <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-file-document-multiple-outline"></i>
+          </span> Document Repository
+        </h3>
+        <nav aria-label="breadcrumb">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+              <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+          </ul>
+        </nav>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table datatable">
+                  <thead>
+                    <tr>
+                      <th>Sr. No.</th>
+                      <th>Applicant ID</th>
+                      <th>Full Name </th>
+                      <th>Email</th>
+                      <th>Gender</th>
+                      <th>Application Status</th>
+                      <th>View Documents</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for row in results %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ row['applicant_id'] }}</td>
+                        <td>{{ row['first_name'] }} {{ row['middle_name'] }} {{ row['last_name'] }}</td>
+                        <td>{{ row['email'] }}</td>
+                        <td>{{ row['gender'] }}</td>
+                        <td>
+                            {% if row.final_approval == 'accepted' %}
+                              <label class="badge badge-gradient-success text-dark">Accepted</label>
+                            {% elif row.final_approval == 'rejected' %}
+                              <label class="badge badge-gradient-danger text-dark">Rejected</label>
+                            {% elif row.final_approval == 'pending' %}
+                              <label class="badge badge-gradient-warning text-dark">Pending</label>
+                            {% else %}
+                              <label>N/A</label>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-outline-primary btn-sm"
+                               data-bs-toggle="modal"
+                               data-bs-target="#detailsModal{{ loop.index }}"
+                               data-id="{{ row['email'] }}">
+                                <i class="mdi mdi-eye-outline"></i>
+                            </a>
+                        </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- Modal -->
+                {% for row in results %}
+                <div class="modal fade" id="detailsModal{{ loop.index }}" tabindex="-1" aria-labelledby="detailsModalLabel{{ loop.index }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="detailsModalLabel{{ loop.index }}">Details for {{ row['first_name'] }} {{ row['last_name'] }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Nav Tabs -->
+                                    <ul class="nav nav-tabs" id="myTab{{ loop.index }}" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="general-tab{{ loop.index }}" data-bs-toggle="tab"
+                                                    data-bs-target="#general{{ loop.index }}" type="button" role="tab" aria-controls="general"
+                                                    aria-selected="true">Basic Documents</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="contact-tab{{ loop.index }}" data-bs-toggle="tab"
+                                                    data-bs-target="#contact{{ loop.index }}" type="button" role="tab" aria-controls="contact"
+                                                    aria-selected="false">Joining & Undertaking Report</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="approval-tab{{ loop.index }}" data-bs-toggle="tab"
+                                                    data-bs-target="#approval{{ loop.index }}" type="button" role="tab" aria-controls="approval"
+                                                    aria-selected="false">Presenty Reports</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="halfyear-tab{{ loop.index }}" data-bs-toggle="tab"
+                                                    data-bs-target="#halfyear{{ loop.index }}" type="button" role="tab" aria-controls="halfyear"
+                                                    aria-selected="false">Half Yearly Reports</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="hra-tab{{ loop.index }}" data-bs-toggle="tab"
+                                                    data-bs-target="#hra{{ loop.index }}" type="button" role="tab" aria-controls="hra"
+                                                    aria-selected="false">H.R.A Reports</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="other-tab{{ loop.index }}" data-bs-toggle="tab"
+                                                    data-bs-target="#other{{ loop.index }}" type="button" role="tab" aria-controls="hra"
+                                                    aria-selected="false">Other Documents & Reports</button>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Tab Content -->
+                                    <div class="tab-content" id="myTabContent{{ loop.index }}">
+                                        <!-- General Info Tab -->
+                                        <div class="tab-pane fade show active" id="general{{ loop.index }}" role="tabpanel" aria-labelledby="general-tab{{ loop.index }}">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                      <thead>
+                                                          <tr>
+                                                              <th>Serial Number</th>
+                                                              <th>Document Name</th>
+                                                              <th>Status</th>
+                                                              <th>View Document</th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                            <tr>
+                                                              <td>1</td>
+                                                              <td>Adhaar Card</td>
+                                                              <td>
+                                                                  {% if row['documentfile1'] %}
+                                                                        <span class="text-success fw-bold">Document Uploaded</span>
+                                                                  {% else %}
+                                                                         <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                  {% endif %}
+                                                              </td>
+                                                              <td>
+                                                                  {% if row['documentfile1'] %}
+                                                                     <a href="{{ row['documentfile1'] }}" target="_blank"
+                                                                        class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                        data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                    </a>
+                                                                  {% else %}
+                                                                    <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                  {% endif %}
+                                                              </td>
+                                                          </tr>
+                                                            <tr>
+                                                                  <td>2</td>
+                                                                  <td>Pan Card</td>
+                                                                  <td>
+                                                                      {% if row['documentfile2'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile2'] %}
+                                                                         <a href="{{ row['documentfile2'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>3</td>
+                                                                  <td>Domicile Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile3'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile3'] %}
+                                                                         <a href="{{ row['documentfile3'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>4</td>
+                                                                  <td>Caste Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile4'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile4'] %}
+                                                                         <a href="{{ row['documentfile4'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>5</td>
+                                                                  <td>Caste Validity Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile5'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile5'] %}
+                                                                         <a href="{{ row['documentfile5'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>6</td>
+                                                                  <td>Income Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile6'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile6'] %}
+                                                                         <a href="{{ row['documentfile6'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>7</td>
+                                                                  <td>10th Marksheet & Passing Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile7'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile7'] %}
+                                                                         <a href="{{ row['documentfile7'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>8</td>
+                                                                  <td>12th Marksheet & Passing Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile8'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile8'] %}
+                                                                         <a href="{{ row['documentfile8'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>9</td>
+                                                                  <td>Graduation Marksheet & Passing Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile10'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile10'] %}
+                                                                         <a href="{{ row['documentfile10'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>10</td>
+                                                                  <td>Post-Graduation Marksheet & Passing Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile11'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile11'] %}
+                                                                         <a href="{{ row['documentfile11'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>11</td>
+                                                                  <td>PET/CET/GATE/SET Marksheet & Passing Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile12'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile12'] %}
+                                                                         <a href="{{ row['documentfile12'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>12</td>
+                                                                  <td>Ph.D Admission Reciept</td>
+                                                                  <td>
+                                                                      {% if row['documentfile13'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile13'] %}
+                                                                         <a href="{{ row['documentfile13'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>13</td>
+                                                                  <td>Guide Allotment Letter</td>
+                                                                  <td>
+                                                                      {% if row['documentfile14'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile14'] %}
+                                                                         <a href="{{ row['documentfile14'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>14</td>
+                                                                  <td>Guide Acceptance Letter</td>
+                                                                  <td>
+                                                                      {% if row['documentfile15'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile15'] %}
+                                                                         <a href="{{ row['documentfile15'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>15</td>
+                                                                  <td>Letter of Accpetance from RAC/RRC</td>
+                                                                  <td>
+                                                                      {% if row['documentfile16'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile16'] %}
+                                                                         <a href="{{ row['documentfile16'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>16</td>
+                                                                  <td>Confirmation Letter</td>
+                                                                  <td>
+                                                                      {% if row['documentfile17'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile17'] %}
+                                                                         <a href="{{ row['documentfile17'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>17</td>
+                                                                  <td>Research Center Joining Report</td>
+                                                                  <td>
+                                                                      {% if row['documentfile18'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile18'] %}
+                                                                         <a href="{{ row['documentfile18'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>18</td>
+                                                                  <td>Annexure A & Annexure C</td>
+                                                                  <td>
+                                                                      {% if row['documentfile24'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile24'] %}
+                                                                         <a href="{{ row['documentfile24'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>19</td>
+                                                                  <td>Guide & H.O.D Research Common letter (Annexure B)</td>
+                                                                  <td>
+                                                                      {% if row['documentfile19'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile19'] %}
+                                                                         <a href="{{ row['documentfile19'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>19</td>
+                                                                  <td>Annexure D</td>
+                                                                  <td>
+                                                                      {% if row['documentfile26'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile26'] %}
+                                                                         <a href="{{ row['documentfile26'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>20</td>
+                                                                  <td>If Disabled - Disability Certificate</td>
+                                                                  <td>
+                                                                      {% if row['documentfile20'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile20'] %}
+                                                                         <a href="{{ row['documentfile20'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>21</td>
+                                                                  <td>Change in Name - Gazzette</td>
+                                                                  <td>
+                                                                      {% if row['documentfile21'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile21'] %}
+                                                                         <a href="{{ row['documentfile21'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>22</td>
+                                                                  <td>Self Written Certificate of not getting scholarship from anywhere</td>
+                                                                  <td>
+                                                                      {% if row['documentfile22'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile22'] %}
+                                                                         <a href="{{ row['documentfile22'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>23</td>
+                                                                  <td>Research Synopsis/ Research Center Allotment letter</td>
+                                                                  <td>
+                                                                      {% if row['documentfile23'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile23'] %}
+                                                                         <a href="{{ row['documentfile23'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>24</td>
+                                                                  <td>Adhaar Seeding Document</td>
+                                                                  <td>
+                                                                      {% if row['documentfile19'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['documentfile19'] %}
+                                                                         <a href="{{ row['documentfile19'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                      </tbody>
+                                                  </table>
+                                            </div>
+                                        </div>
+
+                                        <!-- Contact Tab -->
+                                        <div class="tab-pane fade" id="contact{{ loop.index }}" role="tabpanel" aria-labelledby="contact-tab{{ loop.index }}">
+                                              <div class="row">
+                                                  <div class="col-md-4">
+                                                      <h5 class="text-primary mt-4 mb-4">Joining Report</h5>
+                                                      <div class="row">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Applicantion Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['application_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Application Time </div>
+                                                        <div class="col-md-5 text-dark8">{{ row['application_time'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Joining Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['joining_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Joining Report</div>
+                                                        <div class="col-md-5 text-dark"><a
+                                                            href="{{ row['joining_report'] }}"
+                                                            target="_blank" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                            data-bs-original-title="View Joining Report"><span><i class="mdi mdi-eye-outline"></i></span></a>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <h5 class="text-primary mt-4 mb-4">Undertaking Report</h5>
+                                                      <div class="row">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Applicantion Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['application_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Application Time </div>
+                                                        <div class="col-md-5 text-dark8">{{ row['application_time'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Undertaking Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['undertaking_doc_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Undertaking Report</div>
+                                                        <div class="col-md-5 text-dark"><a
+                                                            href="{{ row['undertaking_doc'] }}"
+                                                            target="_blank" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                            data-bs-original-title="View Joining Report"><span><i class="mdi mdi-eye-outline"></i></span></a>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <h5 class="text-primary mt-4 mb-4">Adhaar Seeding Document</h5>
+                                                      <div class="row">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Applicantion Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['application_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Application Time </div>
+                                                        <div class="col-md-5 text-dark8">{{ row['application_time'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Adhaar Seeding Document</div>
+                                                        <div class="col-md-5 text-dark"><a
+                                                            href="{{ row['adhaar_seeding_doc'] }}"
+                                                            target="_blank" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                            data-bs-original-title="View Joining Report"><span><i class="mdi mdi-eye-outline"></i></span></a>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+
+                                              </div>
+                                        </div>
+
+                                        <!-- Approval Status Tab -->
+                                        <div class="tab-pane fade" id="approval{{ loop.index }}" role="tabpanel" aria-labelledby="approval-tab{{ loop.index }}">
+                                            <h5 class="ms-5 mt-3">Work in Progress</h5>
+                                        </div>
+
+                                        <!-- Half Year Tab -->
+                                        <div class="tab-pane fade" id="halfyear{{ loop.index }}" role="tabpanel" aria-labelledby="halfyear-tab{{ loop.index }}">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Serial Number</th>
+                                                          <th>Document Name</th>
+                                                          <th>Status</th>
+                                                          <th>View Document</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                        {% for i in range(1, 11) %}
+                                                            <tr>
+                                                                <td>{{ i }}</td>
+                                                                <td>Half Yearly Report {{ i }}</td>
+                                                                <td>
+                                                                    {% if row['half_yearly_report' ~ i] %}
+                                                                        <span class="text-success fw-bold">Document Uploaded</span>
+                                                                    {% else %}
+                                                                        <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if row['half_yearly_report' ~ i] %}
+                                                                        <a href="{{ row['half_yearly_report' ~ i] }}" target="_blank"
+                                                                           class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                           data-bs-original-title="View Half Yearly Report"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                  </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <!-- Half Year Tab -->
+                                        <div class="tab-pane fade" id="hra{{ loop.index }}" role="tabpanel" aria-labelledby="hra-tab{{ loop.index }}">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Serial Number</th>
+                                                          <th>Document Name</th>
+                                                          <th>Status</th>
+                                                          <th>View Document</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                        {% for i in range(1, 6) %}
+                                                            <tr>
+                                                                <td>{{ i }}</td>
+                                                                <td>House Rent Allowance Report {{ i }}</td>
+                                                                <td>
+                                                                    {% if row['rent_agreement' ~ i] %}
+                                                                        <span class="text-success fw-bold">Document Uploaded</span>
+                                                                    {% else %}
+                                                                        <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if row['rent_agreement' ~ i] %}
+                                                                        <a href="{{ row['rent_agreement' ~ i] }}" target="_blank"
+                                                                           class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                           data-bs-original-title="View Half Yearly Report"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                  </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <!-- Half Year Tab -->
+                                        <div class="tab-pane fade" id="other{{ loop.index }}" role="tabpanel" aria-labelledby="other-tab{{ loop.index }}">
+                                             <div class="row">
+                                                  <div class="col-md-4 mt-3">
+                                                      <h5 class="text-primary mt-4 mb-4">Assessment Report</h5>
+                                                      <div class="row">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Applicantion Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['application_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Application Time </div>
+                                                        <div class="col-md-5 text-dark8">{{ row['application_time'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Assessment Report</div>
+                                                        <div class="col-md-5 text-dark"><a
+                                                            href="{{ row['assessment_report'] }}"
+                                                            target="_blank" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                            data-bs-original-title="View Joining Report"><span><i class="mdi mdi-eye-outline"></i></span></a>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4 mt-3">
+                                                      <h5 class="text-primary mt-4 mb-4">P.H.D Award</h5>
+                                                      <div class="row">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Applicantion Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['application_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Application Time </div>
+                                                        <div class="col-md-5 text-dark8">{{ row['application_time'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">P.H.D Award</div>
+                                                        <div class="col-md-5 text-dark"><a
+                                                            href="{{ row['phd_award'] }}"
+                                                            target="_blank" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                            data-bs-original-title="View Joining Report"><span><i class="mdi mdi-eye-outline"></i></span></a>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4 mt-3">
+                                                      <h5 class="text-primary mt-4 mb-4">P.H.D Thesis</h5>
+                                                      <div class="row">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Applicantion Date</div>
+                                                        <div class="col-md-5 text-dark">{{ row['application_date'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">Application Time </div>
+                                                        <div class="col-md-5 text-dark8">{{ row['application_time'] }}</div>
+                                                      </div>
+                                                      <div class="row mt-2">
+                                                        <div class="col-md-6 text-dark fw-bold label ">P.H.D Thesis</div>
+                                                        <div class="col-md-5 text-dark"><a
+                                                            href="{{ row['phd_thesis'] }}"
+                                                            target="_blank" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                            data-bs-original-title="View Joining Report"><span><i class="mdi mdi-eye-outline"></i></span></a>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
+
+{% endblock %}

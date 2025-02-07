@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fellowship | Copyright Policy</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/assets/img/fellow_logo_1.png" rel="icon">
+  <link href="/static/assets/img/fellow_logo_1.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  {% include 'Homepage/layout/header.html' %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="index.html">{{
+            multilingual_content[language]['home'] }}</a></li>
+          <li>{{
+            multilingual_content[language]['copyright_policy'] }}</li>
+        </ol>
+        <h2>{{
+          multilingual_content[language]['copyright_policy'] }}</h2>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+        <!-- ======= Contact Section ======= -->
+        <section id="hyperlink_policy" class="hyperlink_policy pt-3">
+
+          <div class="container" data-aos="fade-up">
+            <div class="container p-0">
+              <p class="text-justify para">
+                {% if(language == 'english') %}
+                Material featured on this portal may be reproduced free of charge in any format or media without
+                requiring specific permission. This is subject to the material being reproduced accurately and not being
+                used in a derogatory manner or in a misleading context. Where the material is being published or issued
+                to others, the source must be prominently acknowledged. However, the permission to reproduce this
+                material does not extend to any material on this site which is identified as being the copyright of the
+                third party. Authorisation to reproduce such material is obtained from the copyright holders concerned.
+                {% else %}
+                या पोर्टलवर वैशिष्ट्यीकृत सामग्री विशिष्ट परवानगीची आवश्यकता न घेता कोणत्याही स्वरूपात किंवा
+                माध्यमांमध्ये विनामूल्य पुनरुत्पादित केली जाऊ शकते. हे सामग्रीचे अचूक पुनरुत्पादन केले जात आहे आणि
+                अपमानास्पद रीतीने किंवा दिशाभूल करणाऱ्या संदर्भात वापरले जात नाही. जेथे सामग्री प्रकाशित केली जात आहे
+                किंवा इतरांना जारी केली जात आहे, तेथे स्त्रोत ठळकपणे मान्य करणे आवश्यक आहे. तथापि, या सामग्रीचे
+                पुनरुत्पादन करण्याची परवानगी या साइटवरील कोणत्याही सामग्रीपर्यंत विस्तारित नाही जी तृतीय पक्षाचा
+                कॉपीराइट म्हणून ओळखली जाते. अशा सामग्रीचे पुनरुत्पादन करण्याची अधिकृतता संबंधित कॉपीराइट धारकांकडून
+                प्राप्त केली जाते.
+                {% endif %}
+              </p>
+            </div>
+
+          </div>
+
+        </section><!-- End Contact Section -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  {% include 'Homepage/layout/footer.html' %}
+
+</body>
+
+</html>

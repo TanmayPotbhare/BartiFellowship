@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Fellowship | Login/Signup</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/static/assets/img/fellow_logo_1.png" rel="icon">
+    <link href="/static/assets/img/fellow_logo_1.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
+    <!-- Template Main CSS File -->
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+    <link href="/static/sweetAlert.js" rel="js">
+
+
+</head>
+
+<body>
+
+    <!-- Flask flash message handling with SweetAlert -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    {% for category, message in messages %}
+                        Swal.fire({
+                            title: "{{ 'Success!' if category == 'success' else 'Error!' }}",
+                            text: "{{ message }}",
+                            icon: "{{ category }}",
+                            confirmButtonText: 'OK'
+                        });
+                    {% endfor %}
+                });
+            </script>
+        {% endif %}
+    {% endwith %}
+
+    <main id="main">
+        <section class="h-100 gradient-form bg-theme" >
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-xl-12 ">
+                        <div class="card rounded-3 text-black shadow bg-theme-1">
+                            <div class="row g-0">
+                                <div class="col-lg-6">
+                                    <div class="card-body p-md-5 mx-md-4">
+                                        <div class="text-start ">
+                                                <a href="/" class="mt-1 text-white btn border"><i class="ri-home-4-line font-25 text-white"></i> Home</a>
+                                        </div>
+                                        <div class="text-center">
+                                            <img src="/static/assets/img/fellow_logo_1.png" style="width: 100px;" alt="logo">
+                                            <h4 class="mt-1 mb-5 pb-1 text-white">Admin Fellowship</h4>
+                                        </div>
+
+                                        <form action="/adminlogin" class="adminlogin" method="POST" autocomplete="off">
+
+                                            <div class="form-group mb-3 text-white">
+                                                <label for="username">Select Role</label>
+                                                <select name="role" id="role" class="form-select">
+                                                    <option value="" selected disabled>-- Select Role --</option>
+                                                    <option value="Super Admin">Director General</option>
+                                                    <option value="Project Officer">Project Officer</option>
+                                                    <option value="Project Manager">Project Manager</option>
+                                                    <option value="Office Superintendent">Office Superintendent</option>
+                                                    <option value="Head of Department">Head of Department</option>
+                                                    <option value="Account Officer">Account Officer</option>
+                                                    <option value="Assistant Account Officer">Assistant Account Officer</option>
+                                                    <option value="Registrar">Registrar</option>
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="Auditor">Auditor</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-3 text-white">
+                                                <label for="username">Username</label>
+                                                <input type="username" class="form-control" name="username"
+                                                    id="username" aria-describedby="emailHelp"
+                                                    placeholder="Enter Username">
+                                            </div>
+                                            <div class="form-group  mb-3 text-white">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" name="password"
+                                                    id="password" placeholder="Password">
+                                            </div>
+
+<!--                                            <div class="form-group form-check">-->
+<!--                                                <input type="checkbox" class="form-check-input" id="rememberMe">-->
+<!--                                                <label class="form-check-label text-white" for="rememberMe">Remember me</label>-->
+<!--                                            </div>-->
+                                           <div class="text-center">
+                                            <button type="submit" class="btn btn-login  btn-block text-white">Login</button>
+                                               <br>
+                                                   <p style="color: white;">
+                                                        {% if error %}
+                                                                <strong>{{ error }}</strong>
+                                                        {% endif %}
+                                                    </p>
+                                           </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                    <img src="" class="w-100"  alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/static/assets/vendor/aos/aos.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Template Main JS File -->
+    <script src="/static/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+
+</html>

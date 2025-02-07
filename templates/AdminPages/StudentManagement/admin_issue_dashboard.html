@@ -1,0 +1,94 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-account-edit-outline"></i>
+      </span> Edit/Update Record of Students
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <a href="/student_manage_dashbaord">
+              <button class="btn btn-primary btn-fw">Back to Student Management Dashboard</button>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!-- END NAV BAR -->
+
+  <!-- SEARCH BAR -->
+  <div class="card p-3">
+    <div class="card-body py-3 px-0">
+      <h4 class="form-label text-center mb-4">Edit | View | Delete</h4>
+      <div class="table-responsive">
+          <!-- Table with stripped rows -->
+          <table class="table table-bordered datatable">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col"> Applicant ID</th>
+                <th scope="col"> First Name</th>
+                <th scope="col"> Middle Name</th>
+                <th scope="col"> Last Name</th>
+                <th scope="col"> Email</th>
+                <th scope="col"> PHD Registration Date</th>
+                <th scope="col">Application Date</th>
+                <th scope="col">View Record</th>
+                <th scope="col">Update/Edit Record</th>
+                <th scope="col">Delete Record</th>
+                <th>Reason for Editing or Deleting</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in result  %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ record['applicant_id'] }}</td>
+                <td>{{ record['first_name'] }}</td>
+                <td>{{ record['middle_name'] }}</td>
+                <td>{{ record['last_name'] }}</td>
+                <td>{{ record['email'] }}</td>
+                <td>{{ record['phd_registration_date'] }}</td>
+                <td>{{ record['application_date'] }}</td>
+                <td>
+                  <a href="/viewStudentRecord/{{record['id']}}" class="btn btn-primary btn-sm tooltip-trigger"
+                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form"><i
+                      class="mdi mdi-eye-circle"></i></a>
+                </td>
+                <td>
+                  <a href="/edit_student_admin_management/{{ record['id'] }}" class="btn  btn-success btn-sm tooltip-trigger"
+                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Update Form"><i
+                      class="mdi mdi-check-all"></i></a>
+                </td>
+                <td>
+                 <a href="/delete_student_management/{{record['id']}}" class="btn btn-danger btn-sm tooltip-trigger"
+                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Delete Form"><i
+                      class="mdi mdi-close-octagon"></i></a>
+                </td>
+                <td>
+                    <form class="row g-3">
+                      <div class="col-auto">
+                        <label for="inputPassword2" class="visually-hidden">Mention Reason</label>
+                        <input type="password" class="form-control" id="inputPassword2" placeholder="Mention Reason">
+                      </div>
+                      <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-primary btn-fw mb-3">Submit</button>
+                      </div>
+                    </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+      </div>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

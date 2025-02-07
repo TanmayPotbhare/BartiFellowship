@@ -1,0 +1,242 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-contactless-payment menu-icon"></i>
+      </span> Track Payments
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            {% if session['user'] == 'Auditor' %}
+                <h5 class="pagetitle fw-bold text-center">View Records</h5>
+            {% else %}
+            <form action="/payment_tracking" method="POST">
+                <div class="row g-3 justify-content-center">
+                    <h3 class="form-label text-center mb-4"><strong>Search by Filters</strong></h3>
+
+                    <div class="col-md-2">
+                        <label for="" class="fw-bold">Start Date<span
+                            class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-original-title="Enter a Date to start with and then enter the End date - You will be able to view all the records betweent this dates.">
+                            <i class="ri-information-fill"></i>
+                        </label><br>
+                        <input type="date" name="start_date" class="form-control" id="start_date">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="" class="fw-bold">End Date<span
+                            class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-original-title="Enter a Date to start with and then enter the End date - You will be able to view all the records betweent this dates.">
+                            <i class="ri-information-fill"></i>
+                        </label><br>
+                        <input type="date" name="end_date" class="form-control" id="end_date">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="" class="fw-bold">Year<span
+                            class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-original-title="This is the Year from which students have started their fellowships.">
+                            <i class="ri-information-fill"></i>
+                        </label><br>
+                        <select id="year" name="year" class="form-select">
+                            <option value="">Default</option>
+                            <option value="2021">2021 - 2022</option>
+                            <option value="2022">2022 - 2023</option>
+                            <option value="2023">2023 - 2024</option>
+                            <option value="2024">2024 - 2025</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="" class="fw-bold">Month<span
+                            class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-original-title="This is the Month of the Due date of Students. All the records displayed will have due date in that particular month. ">
+                            <i class="ri-information-fill"></i>
+                        </label><br>
+                        <select id="month" name="month" class="form-select">
+                            <option value="">Default</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="" class="fw-bold">Select Quarter<span
+                            class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-original-title="Select a quarter of which the records you want to see.">
+                            <i class="ri-information-fill"></i>
+                        </label><br>
+                        <select id="quarters" name="quarters" class="form-select">
+                            <option value="">Default</option>
+                            <option value="1">1st Quarter Payment</option>
+                            <option value="2">2nd Quarter Payment</option>
+                            <option value="3">3rd Quarter Payment</option>
+                        </select>
+                    </div>
+
+
+                      <div class="col-sm-10  text-center">
+                        <button type="submit" class="btn btn-primary">Submit Form</button>
+                      </div>
+
+
+                </div>
+                <div class="col-md-12">
+                  <div class="text-end">
+                      <a href ="/export_track_payments" class="btn btn-outline-primary btn-fw btn-rounded" data-bs-toggle="tooltip"
+                         data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+                  </div>
+                </div>
+            </form>
+            {% endif %}
+
+            <br>
+            <br>
+
+            {% if records_display %}
+                <!-- Display payment data if available -->
+                <table class="table datatable" style="font-size:13px">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sr No</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Faculty</th>
+                            <th scope="col">JRF/SRF</th>
+                            <th scope="col">Date of PhD Registration</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Total Months</th>
+                            <th scope="col">Fellowship</th>
+                            <th scope="col">Total Fellowship</th>
+                            <th scope="col">H.R.A Rate</th>
+                            <th scope="col">H.R.A Amount</th>
+                            <th scope="col">Months</th>
+                            <th scope="col">Total H.R.A</th>
+                            <th scope="col">Cont. Yearly</th>
+                            <th scope="col">Difference</th>
+                            <th scope="col">PWD</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records_display %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>
+                                <a href="/fellowship_details/{{ record['email'] }}">{{ record['full_name'] }}</a>
+                            </td>
+                            <td>{{ record['faculty'] }}</td>
+                            <td>{{ record['jrf_srf'] }}</td>
+                            <td>{{ record['duration_date_from'] }}</td>
+                            <td>{{ record['duration_date_from'] }} <strong>to</strong> {{ record['duration_date_to'] }}</td>
+                            <td>{{ record['total_months'] }}</td>
+                            <td>{{ record['fellowship'] }}</td>
+                            <td>{{ record['to_fellowship'] }}</td>
+                            <td>{{ record['rate'] }}</td>
+                            <td>{{ record['amount'] }}</td>
+                            <td>{{ record['months'] }}</td>
+                            <td>{{ record['total_hra'] }}</td>
+                            <td>{{ record['count'] }}</td>
+                            <td>N/A</td>
+                            <td>{{ record['pwd'] }}</td>
+                            <td>{{ record['total'] }}</td>
+                            <td>{{ record['city'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- End Display payment data -->
+            {% else %}
+                <div class="table-responsive">
+                    <h4 class="text-center text-theme">2023-2024 Records</h4>
+                    <!-- Display payment data if available -->
+                    <table class="table datatable" style="font-size:13px">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sr No</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Faculty</th>
+                                <th scope="col">JRF/SRF</th>
+                                <th scope="col">Date of PhD Registration</th>
+                                <th scope="col">Fellowship Awarded Date</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Total Months</th>
+                                <th scope="col">Fellowship</th>
+                                <th scope="col">Total Fellowship</th>
+                                <th scope="col">H.R.A Rate</th>
+                                <th scope="col">H.R.A Amount</th>
+                                <th scope="col">Months</th>
+                                <th scope="col">Total H.R.A</th>
+                                <th scope="col">Cont. Yearly</th>
+                                <th scope="col">Difference</th>
+                                <th scope="col">PWD</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">City</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in payment_records %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>
+                                    <a href="/fellowship_details/{{ record['email'] }}">{{ record['full_name'] }}</a>
+                                </td>
+                                <td>{{ record['faculty'] }}</td>
+                                <td>{{ record['jrf_srf'] }}</td>
+                                <td>{{ record['date'] }}</td>
+                                <td>{{ record['duration_date_from'] }}</td>
+                                <td>{{ record['duration_date_from'] }} <strong>to</strong> {{ record['duration_date_to'] }}</td>
+                                <td>{{ record['total_months'] }}</td>
+                                <td>{{ record['fellowship'] }}</td>
+                                <td>{{ record['to_fellowship'] }}</td>
+                                <td>{{ record['rate'] }}</td>
+                                <td>{{ record['amount'] }}</td>
+                                <td>{{ record['months'] }}</td>
+                                <td>{{ record['total_hra'] }}</td>
+                                <td>{{ record['count'] }}</td>
+                                <td>N/A</td>
+                                <td>{{ record['pwd'] }}</td>
+                                <td>{{ record['total'] }}</td>
+                                <td>{{ record['city'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- End Display payment data -->
+                </div>
+            {% endif %}
+
+
+
+
+        </div>
+    </div>
+
+{% endblock %}

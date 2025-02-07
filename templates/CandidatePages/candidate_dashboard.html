@@ -1,0 +1,1111 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+        <!-- Table Product -->
+        <div class="row">
+              <div class="col-12">
+                <div class="card card-default">
+                  <div class="col-auto mt-3">
+                     <a href="/generate_pdf" class="btn btn-primary btn-sm text-white" target="_blank">
+                       Generate PDF Form
+                     </a>
+                  </div>
+                  <div class="card-header justify-content-center">
+                        <!-- Center Content -->
+                        <div class="text-center">
+                            <div class="profile-avata">
+                                {% for row in records %}
+                                {% set fullname = row['first_name'] + ' ' + row['middle_name'] + ' ' + row['last_name'] %}
+                                    {% if row['applicant_photo'] %}
+                                        <img class="rounded-circle" src="{{ row['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                                    {% else %}
+                                        <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                                    {% endif %}
+                                    <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                                    <span class="d-block" style="text-transform: none;">{{ row['email'] }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                  </div>
+
+
+                  <div class="card-footer card-profile-footer">
+                        <ul class="nav nav-border-top justify-content-center">
+                          <li class="nav-item">
+                            <a class="nav-link active" href="/candidate_dashboard">My Profile</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="/adhaar_seeding">Aadhaar Seeding</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="/manage_profile">Manage Profile</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Raise Issue</a>
+                          </li>
+                        </ul>
+                  </div>
+                  <div class="card-body">
+                        <section class="section profile">
+                            <div class="row">
+                                  <div class="col-xl-4">
+                                        {% for record in records %}
+                                        <div class="card">
+
+                                          <div class="card-body col-md-11">
+                                            <div class="row align-items-center">
+                                              <div class="col-md-7">
+                                                <h6 class="card-title">Application ID : </h6>
+                                              </div>
+                                              <div class="col-md-5 text-start">
+                                                <span>{{ record['applicant_id'] }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row align-items-center">
+                                              <div class="col-md-7">
+                                                <h6 class="card-title ">Adhaar Card Number : </h6>
+                                              </div>
+                                              <div class="col-md-5 text-start">
+                                                <span> {{ record['adhaar_number'] }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row align-items-center">
+                                              <div class="col-md-7">
+                                                <h6 class="card-title ">Application Date : </h6>
+                                              </div>
+                                              <div class="col-md-5 text-start">
+                                                <span> {{ formatted_application_date }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row align-items-center">
+                                              <div class="col-md-7">
+                                                <h6 class="card-title ">Application Time : </h6>
+                                              </div>
+                                              <div class="col-md-5 text-start">
+                                                <span> {{ record['application_time'] }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row align-items-center">
+                                              <div class="col-md-12">
+                                                <h6 class="card-title ">Application Status : </h6>
+                                              </div>
+                                              <div class="col-md-12 text-start">
+                                                <div class="row">
+                                                  <div class="col-md-7 label ">Pre Scrutiny Status:</div>
+                                                  <div class="col-md-5">
+                                                    {% if(record['status'] == 'accepted') %}
+                                                    <span class="text-success fw-bold text-capitalize"> {{ record['status'] }}</span>
+                                                    {% elif(record['status'] =='pending') %}
+                                                    <span class="text-warning fw-bold text-capitalize"> {{ record['status'] }}</span>
+                                                    {% else %}
+                                                    <span class="text-danger fw-bold text-capitalize"> {{ record['status'] }}</span>
+                                                    {% endif %}
+
+
+                                                  </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                  <div class="col-md-7 label ">Scrutiny Status:</div>
+                                                  <div class="col-md-5">
+                                                    {% if(record['scrutiny_status'] == 'accepted') %}
+                                                    <span class="text-success fw-bold text-capitalize"> {{ record['scrutiny_status'] }}</span>
+                                                    {% elif(record['scrutiny_status'] =='pending') %}
+                                                    <span class="text-warning fw-bold text-capitalize"> {{ record['scrutiny_status'] }}</span>
+                                                    {% else %}
+                                                    <span class="text-danger fw-bold text-capitalize"> {{ record['scrutiny_status'] }}</span>
+                                                    {% endif %}
+
+
+                                                  </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                  <div class="col-md-7 label ">Final Approval Status:</div>
+                                                  <div class="col-md-5">
+                                                    {% if(record['final_approval'] == 'accepted') %}
+                                                    <span class="text-success fw-bold text-capitalize"> {{ record['final_approval'] }}</span>
+                                                    {% elif(record['final_approval'] =='pending') %}
+                                                    <span class="text-warning fw-bold text-capitalize"> {{ record['final_approval'] }}</span>
+                                                    {% else %}
+                                                    <span class="text-danger fw-bold text-capitalize"> {{ record['final_approval'] }}</span>
+                                                    {% endif %}
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        {% endfor %}
+
+                                      </div>
+
+
+                                      <div class="col-xl-8">
+
+                                        <div class="card">
+                                          <div class="card-body pt-3">
+                                            <!-- Bordered Tabs -->
+                                            <ul class="nav nav-tabs nav-tabs-bordered">
+
+                                              <li class="nav-item">
+                                                <button class="nav-link active" data-bs-toggle="tab"
+                                                  data-bs-target="#profile-overview">Overview</button>
+                                              </li>
+
+                                              <li class="nav-item">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-qual">Qualification Details</button>
+                                              </li>
+
+                                              <li class="nav-item">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-phd">Ph.D Details</button>
+                                              </li>
+
+                                              <li class="nav-item">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Caste Details</button>
+                                              </li>
+
+                                               <li class="nav-item">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#bank">Parents and Bank Details</button>
+                                              </li>
+
+                                              <li class="nav-item">
+                                                <button class="nav-link" data-bs-toggle="tab"
+                                                  data-bs-target="#profile-change-password">Attachment</button>
+                                              </li>
+
+                                            </ul>
+                                            <div class="tab-content pt-2">
+                                              {% for record in records %}
+                                              <div class="tab-pane fade show active" id="profile-overview">
+
+                                                <h6 class="card-title mt-2">Personal Details / वैयक्तिक माहिती</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label">Full Name</div>
+                                                  <div class="col-md-8">{{ record['first_name'] }} {{ record['middle_name'] }} {{ record['last_name'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Mobile Number</div>
+                                                  <div class="col-md-8">{{ record['mobile_number'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Email</div>
+                                                  <div class="col-md-8">{{ record['email'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Date of Birth</div>
+                                                  <div class="col-md-8">{{ formatted_date_of_birth }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Gender</div>
+                                                  <div class="col-md-8">{{ record['gender'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Age</div>
+                                                  <div class="col-md-8">{{ record['age'] }} Years</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Category</div>
+                                                  <div class="col-md-8">{{ record['caste'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Caste/Tribe</div>
+                                                  <div class="col-md-8">{{ record['your_caste'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Sub Caste/Tribe</div>
+                                                  <div class="col-md-8">{{ record['subcaste'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Marital Status</div>
+                                                  <div class="col-md-8">{{ record['marital_status'] }}</div>
+                                                </div>
+
+                                                <hr>
+
+                                                <h6 class="card-title mt-2">Personal Address Details / वैयक्तिक पत्त्याचे तपशील</h6>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                      <div class="mt-2 mb-2 text-dark">Permanent Address</div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Main Address</div>
+                                                        <div class="col-md-8">{{ record['add_1'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Pincode</div>
+                                                        <div class="col-md-8">{{ record['pincode'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Village</div>
+                                                        <div class="col-md-8">{{ record['village'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Taluka</div>
+                                                        <div class="col-md-8">{{ record['taluka'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">District</div>
+                                                        <div class="col-md-8">{{ record['district'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">City</div>
+                                                        <div class="col-md-8">{{ record['city'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">State</div>
+                                                        <div class="col-md-8">{{ record['state'] }}</div>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                      <div class="mt-2 mb-2 text-dark">Communication Address</div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Main Address</div>
+                                                        <div class="col-md-8">{{ record['comm_add_1'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Pincode</div>
+                                                        <div class="col-md-8">{{ record['comm_pincode'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Village</div>
+                                                        <div class="col-md-8">{{ record['comm_village'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">Taluka</div>
+                                                        <div class="col-md-8">{{ record['comm_taluka'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">District</div>
+                                                        <div class="col-md-8">{{ record['comm_district'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">City</div>
+                                                        <div class="col-md-8">{{ record['comm_city'] }}</div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4 label">State</div>
+                                                        <div class="col-md-8">{{ record['comm_state'] }}</div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
+
+                                              </div>
+
+                                              <div class="tab-pane fade" id="profile-qual">
+
+                                                <h6 class="text-dark mb-2 mt-2">Secondary School Certificate (10th) Details</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">SSC Passing Year</div>
+                                                  <div class="col-md-8"> {{ record['ssc_passing_year'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">SSC Percentage</div>
+                                                  <div class="col-md-8"> {{ record['ssc_percentage'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">SSC School Name</div>
+                                                  <div class="col-md-8"> {{ record['ssc_school_name'] }}</div>
+                                                </div>
+                                                {% if record['phd_registration_year'] >= 2023 %}
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">SSC Stream</div>
+                                                  <div class="col-md-8"> {{ record['ssc_stream'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">SSC Attempts</div>
+                                                  <div class="col-md-8"> {{ record['ssc_attempts'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">SSC Total</div>
+                                                  <div class="col-md-8"> {{ record['ssc_total'] }}</div>
+                                                </div>
+                                                {% endif %}
+
+                                                <hr>
+
+                                                <h6 class="text-dark mb-2 mt-2">Higher Secondary Certificate (12th) Details</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label">HSC Passing Year</div>
+                                                  <div class="col-md-8"> {{ record['hsc_passing_year'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">HSC Percentage</div>
+                                                  <div class="col-md-8"> {{ record['hsc_percentage'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">HSC School Name</div>
+                                                  <div class="col-md-8"> {{ record['hsc_school_name'] }}</div>
+                                                </div>
+                                                {% if record['phd_registration_year'] >= 2023 %}
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">HSC Stream</div>
+                                                  <div class="col-md-8"> {{ record['hsc_stream'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">HSC Attempts</div>
+                                                  <div class="col-md-8"> {{ record['hsc_attempts'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">HSC Total</div>
+                                                  <div class="col-md-8"> {{ record['hsc_total'] }}</div>
+                                                </div>
+                                                {% endif %}
+
+                                                <hr>
+
+                                                <h6 class="text-dark mb-2 mt-2">Graduation Details</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Graduation Passing Year</div>
+                                                  <div class="col-md-8"> {{ record['graduation_passing_year'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Graduation Percentage</div>
+                                                  <div class="col-md-8"> {{ record['graduation_percentage'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Graduation College Name</div>
+                                                  <div class="col-md-8"> {{ record['graduation_school_name'] }}</div>
+                                                </div>
+                                                {% if record['phd_registration_year'] >= 2023 %}
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Graduation Stream</div>
+                                                  <div class="col-md-8"> {{ record['grad_stream'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Graduation Attempts</div>
+                                                  <div class="col-md-8"> {{ record['grad_attempts'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Graduation Total</div>
+                                                  <div class="col-md-8"> {{ record['grad_total'] }}</div>
+                                                </div>
+                                                {% endif %}
+
+                                                <hr>
+
+                                                <h6 class="text-dark mb-2 mt-2">Post Graduation Details</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Post Graduation Passing Year</div>
+                                                  <div class="col-md-8"> {{ record['phd_passing_year'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Post Graduation Percentage</div>
+                                                  <div class="col-md-8"> {{ record['phd_percentage'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Post Graduation College Name</div>
+                                                  <div class="col-md-8"> {{ record['phd_school_name'] }}</div>
+                                                </div>
+                                                {% if record['phd_registration_year'] >= 2023 %}
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Post Graduation Stream</div>
+                                                  <div class="col-md-8"> {{ record['pg_stream'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Post Graduation Attempts</div>
+                                                  <div class="col-md-8"> {{ record['pg_attempts'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Post Graduation Total</div>
+                                                  <div class="col-md-8"> {{ record['pg_total'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Have you Qualified</div>
+                                                  <div class="col-md-8"> {{ record['have_you_qualified'] }}</div>
+                                                </div>
+                                                {% endif %}
+                                              </div>
+
+                                              <div class="tab-pane fade" id="profile-phd">
+
+                                                  <h6 class="card-title mt-2">Ph.D Details</h6>
+
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Ph.D Registration Date</div>
+                                                    <div class="col-md-8"> {{ formatted_PHD_reg_date }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Ph.D Registration Year</div>
+                                                    <div class="col-md-8">{{ record['phd_registration_year'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">University Name</div>
+                                                      {% if record['concerned_university'] == "Other" %}
+                                                        <div class="col-md-8">{{ record['other_university'] }}</div>
+                                                      {% else %}
+                                                        <div class="col-md-8">{{ record['concerned_university'] }}</div>
+                                                      {% endif %}
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Name of College</div>
+                                                      {% if record['name_of_college'] == "Other" %}
+                                                        <div class="col-md-8">{{ record['other_college_name'] }}</div>
+                                                      {% else %}
+                                                        <div class="col-md-8">{{ record['name_of_college'] }}</div>
+                                                      {% endif %}
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Department Name</div>
+                                                    <div class="col-md-8">{{ record['department_name'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Topic of Ph.D</div>
+                                                    <div class="col-md-8">{{ record['topic_of_phd'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Name of Guide</div>
+                                                    <div class="col-md-8">{{ record['name_of_guide'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Faculty / Stream</div>
+                                                      {% if record['faculty'] == "Other" %}
+                                                        <div class="col-md-8">{{ record['other_faculty'] }}</div>
+                                                      {% else %}
+                                                        <div class="col-md-8">{{ record['faculty'] }}</div>
+                                                      {% endif %}
+                                                  </div>
+
+                                                  <hr>
+
+                                                  <h6 class="card-title mt-2">Income Details</h6>
+
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Family Annual Income</div>
+                                                    <div class="col-md-8"> {{ record['family_annual_income'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Income Certificate Number</div>
+                                                    <div class="col-md-8">{{ record['income_certificate_number'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Income certificate Issuing Authority</div>
+                                                    <div class="col-md-8">{{ record['issuing_authority'] }}</div>
+                                                  </div>
+                                                  {% if record['phd_registration_year'] >= 2023 %}
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Income certificate Issuing District</div>
+                                                    <div class="col-md-8">{{ record['income_issuing_district'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Income certificate Issuing Taluka</div>
+                                                    <div class="col-md-8">{{ record['income_issuing_taluka'] }}</div>
+                                                  </div>
+                                                  {% endif %}
+                                              </div>
+
+                                              <div class="tab-pane fade" id="profile-edit">
+
+                                                <!-- Family Overview -->
+                                                <h6 class="card-title mt-2">Domicile Details</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Are you Domicile of Maharashtra?</div>
+                                                  <div class="col-md-8"> {{ record['domicile'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label">Domicile Certificate Number</div>
+                                                  <div class="col-md-8">{{ record['domicile_number'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label">Domicile Issuing Authority</div>
+                                                  <div class="col-md-8">{{ record['domicile_issuing_authority'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label">Domicile Certificate Issuing District</div>
+                                                  <div class="col-md-8">{{ record['domicile_issuing_district'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label">Domicile Certificate Issuing Taluka</div>
+                                                  <div class="col-md-8">{{ record['domicile_issuing_taluka'] }}</div>
+                                                </div>
+                                                <hr>
+
+                                                <h6 class="card-title mt-2">Caste Details</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Do you have Caste/Tribe Certificate?</div>
+                                                  <div class="col-md-8"> {{ record['caste_certf'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Category</div>
+                                                  <div class="col-md-8">{{ record['caste'] }} </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Caste/Tribe</div>
+                                                  <div class="col-md-8">{{ record['your_caste'] }} </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Sub Caste/Tribe</div>
+                                                  <div class="col-md-8">{{ record['subcaste'] }} </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Caste Certificate Number</div>
+                                                  <div class="col-md-8">{{ record['caste_certf_number'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Caste Certificate Issuing District</div>
+                                                  <div class="col-md-8">{{ record['issuing_district'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Caste Certificate Issuing Authority</div>
+                                                  <div class="col-md-8">{{ record['caste_issuing_authority'] }}</div>
+                                                </div>
+
+                                                <hr>
+
+                                                <h6 class="card-title mt-2">Validity Details</h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Do you have Validity Certificate?</div>
+                                                  <div class="col-md-8">{{ record['validity_certificate'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Validity Certificate Number</div>
+                                                  <div class="col-md-8">{{ record['validity_cert_number'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Validity Certificate Issuing District</div>
+                                                  <div class="col-md-8">{{ record['validity_issuing_district'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Validity Certificate Issuing Authority</div>
+                                                  <div class="col-md-8">{{ record['validity_issuing_authority'] }}</div>
+                                                </div>
+
+                                                <hr>
+
+                                                <h6 class="card-title mt-2">
+                                                  Personal Eligibility Details
+                                                </h6>
+
+                                                <div class="row">
+                                                  <div class="col-md-4 label ">Are you Salaried ?</div>
+                                                  <div class="col-md-8">{{ record['salaried'] }}</div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col-md-4 label "> Do you have any Disability?</div>
+                                                  <div class="col-md-8">{{ record['disability'] }}</div>
+                                                </div>
+                                                {% if record['disability']  == "Yes"%}
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Type of Disability (If Any)</div>
+                                                    <div class="col-md-8">{{ record['type_of_disability'] }}</div>
+                                                  </div>
+                                                {% endif %}
+
+                                              </div>
+
+                                               <div class="tab-pane fade" id="bank">
+
+                                                  <h6 class="card-title mt-2">Parents Details</h6>
+
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Father's Full Name</div>
+                                                    <div class="col-md-8">{{ record['father_name'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Mother's Full Name</div>
+                                                    <div class="col-md-8">{{ record['mother_name'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Government Employee</div>
+                                                    <div class="col-md-8">{{ record['work_in_government'] }}</div>
+                                                  </div>
+
+                                                  {% if record['work_in_government'] =="Yes" %}
+                                                    <div class="row">
+                                                      <div class="col-md-4 label ">Department in Government (If Any)</div>
+                                                      <div class="col-md-8">{{ record['gov_department'] }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                      <div class="col-md-4 label ">Post/Role in Government (If Any)</div>
+                                                      <div class="col-md-8">{{ record['gov_position'] }}</div>
+                                                    </div>
+                                                  {% endif %}
+
+                                                  <hr>
+
+                                                  <h6 class="card-title mt-2">Bank Details</h6>
+
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">IFSC Code</div>
+                                                    <div class="col-md-8">{{ record['ifsc_code'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Account Number</div>
+                                                    <div class="col-md-8">{{ record['account_number'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Bank Name</div>
+                                                    <div class="col-md-8">{{ record['bank_name'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Account Holder Name</div>
+                                                    <div class="col-md-8">{{ record['account_holder_name'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">MICR Code</div>
+                                                    <div class="col-md-8">{{ record['micr'] }}</div>
+                                                  </div>
+
+                                               </div>
+
+                                              <div class="tab-pane fade" id="profile-change-password">
+                                                <h5 class="card-title">Attached Documents</h5>
+
+                                                      <div class="row align-items-center">
+                                                        <div class="col-md-8 label "><span class="text-dark">Adhaar Card</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['adhaar_card_doc'] %}
+                                                            <a
+                                                              href="{{ record['adhaar_card_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Adhaar Card"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Documentassa Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">PAN Card</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['pan_card_doc'] %}
+                                                            <a
+                                                              href="{{ record['pan_card_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Adhaar Card"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Domicile Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['domicile_doc'] %}
+                                                            <a
+                                                              href="{{ record['domicile_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Adhaar Card"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Caste Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['caste_doc'] %}
+                                                            <a
+                                                              href="{{ record['caste_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Caste Certificate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Caste Validity Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['validity_doc'] %}
+                                                            <a
+                                                              href="{{ record['validity_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Validity Certificate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Income Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['income_doc'] %}
+                                                            <a
+                                                              href="{{ record['income_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Income Certificate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">10th Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['ssc_doc'] %}
+                                                            <a
+                                                              href="{{ record['ssc_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View 10th Marksheet & Passing Certifcate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                     <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">12th Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['hsc_doc'] %}
+                                                            <a
+                                                              href="{{ record['hsc_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View 12th Marksheet & Passing Certifcate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Graduation Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['grad_doc'] %}
+                                                            <a
+                                                              href="{{ record['grad_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Graduation Marksheet & Passing Certifcate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Post-Graduation Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['post_grad_doc'] %}
+                                                            <a
+                                                              href="{{ record['post_grad_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Post Graduation Marksheet & Passing Certifcate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark"><span style="font-weight: bold">{{ record['have_you_qualified'] }}</span> Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['entrance_doc'] %}
+                                                            <a
+                                                              href="{{ record['entrance_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View NET/SET/PET/M.Phil Marksheet & Passing Certifcate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm " data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                       <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Ph.D Admission Reciept</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['phd_reciept_doc'] %}
+                                                            <a
+                                                              href="{{ record['phd_reciept_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Ph.D Admission Reciept"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm " data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Guide Allotment Letter</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['guideAllotment_doc'] %}
+                                                            <a
+                                                              href="{{ record['guideAllotment_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Guide Allotment Letter"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Guide Acceptance Letter</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['guideAccept_doc'] %}
+                                                            <a
+                                                              href="{{ record['guideAccept_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Guide Acceptance Letter"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                       <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Letter of Accpetance from RAC/RRC</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['rac_doc'] %}
+                                                            <a
+                                                              href="{{ record['rac_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Letter of Acceptance from RAC/RRC"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Confirmation Letter</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['confirmation_doc'] %}
+                                                            <a
+                                                              href="{{ record['confirmation_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Confirmation Letter"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Research Center Joining Report</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['joining_doc'] %}
+                                                            <a
+                                                              href="{{ record['joining_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Confirmation Letter"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Annexure <span class="text-danger">A</span> (on INR 100 Stamp Paper) & Annexure <span class="text-danger">C</span></span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['annexureAC_doc'] %}
+                                                            <a
+                                                              href="{{ record['annexureAC_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Kendra Pramukh"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Guide & H.O.D Research Common letter (Annexure <span class="text-danger">B</span>)</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['annexureB_doc'] %}
+                                                            <a
+                                                              href="{{ record['annexureB_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Kendra Pramukh"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "> <span class="text-dark">Annexure <span class="text-danger">D</span></span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['annexureD_doc'] %}
+                                                            <a
+                                                              href="{{ record['annexureD_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Kendra Pramukh"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class=" col-md-8 label "><span class="text-dark">If Disabled - Disability Certificate</span></div>
+                                                        <div class=" col-md-4">
+                                                          {% if record['disable_doc'] %}
+                                                            <a
+                                                              href="{{ record['disable_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Disability Certificate"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Change in Name - Gazzette</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['gazete_doc'] %}
+                                                            <a
+                                                              href="{{ record['gazete_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Confirmation Letter"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Self Written Certificate of not getting scholarship from anywhere</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['selfWritten_doc'] %}
+                                                            <a
+                                                              href="{{ record['selfWritten_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Acknowledgement of not getting scholarship from anywhere"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Research Synopsis/ Research Center Allotment letter</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['research_letter_doc'] %}
+                                                            <a
+                                                              href="{{ record['research_letter_doc'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View Confirmation Letter"><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm bordered" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span class="fw-bold text-danger">No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+
+                                                </div>
+
+                                            </div><!-- End Bordered Tabs -->
+                                            {% endfor %}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </section>
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+{% endblock %}

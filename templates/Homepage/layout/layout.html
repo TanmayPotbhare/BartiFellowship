@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>{{ multilingual_content[language]['fellowship'] }}</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="/static/assets/img/fellow_logo_1.png" rel="icon" />
+    <link href="/static/assets/img/fellow_logo_1.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+    <!-- Template Main CSS File -->
+    <link href="/static/sweetAlert.js" rel="js">
+    <link href="/static/assets/css/style.css" rel="stylesheet" />
+    <link href="/static/Homepage/homepage_style.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <!-- ======= Header ======= -->
+    {% include 'Homepage/layout/header.html' %}
+    <!-- End Header -->
+
+    <!-- ======= Sweet Alert ======= -->
+    {% include 'sweetalert.html' %}
+    <!-- End Sweet Alert -->
+
+    {% block content %}{% endblock %}
+
+    <!-- ======= Header ======= -->
+    {% include 'Homepage/layout/footer.html' %}
+    <!-- End Header -->
+
+    <script src="/static/Homepage/homepage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>

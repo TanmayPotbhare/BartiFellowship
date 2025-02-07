@@ -1,0 +1,305 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+        <!-- Table Product -->
+        <div class="row">
+              <div class="col-12">
+                <div class="card card-default">
+
+                  <div class="card-header justify-content-center">
+                        <!-- Center Content -->
+                        <div class="text-center">
+                            <div class="profile-avata">
+                                {% for row in records %}
+                                {% set fullname = row['first_name'] + ' ' + row['middle_name'] + ' ' + row['last_name'] %}
+                                    {% if row['applicant_photo'] %}
+                                        <img class="rounded-circle" src="{{ row['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                                    {% else %}
+                                        <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                                    {% endif %}
+                                    <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                                    <span class="d-block" style="text-transform: none;">{{ row['email'] }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                  </div>
+
+
+                          <div class="card-footer card-profile-footer">
+                            <ul class="nav nav-border-top justify-content-center">
+                              <li class="nav-item">
+                                <a class="nav-link" href="/candidate_dashboard">My Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/adhaar_seeding">Aadhaar Seeding</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link active" href="/manage_profile">Manage Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="user-profile-settings.html">Raise Issue</a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="card-body">
+                                <div class="applicant-cards">
+                                    {% for row in records %}
+                                      <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ row['application_date'] }}</span></h6>
+                                    {% endfor %}
+                                    <div class="card mb-3">
+                                        <div class="card-body col-md-12">
+
+                                            <div class="mt-5">
+                                                <!-- Navigation Tabs -->
+                                                <ul class="nav nav-tabs nav-tabs-bordered">
+                                                    <li class="nav-item border-start">
+                                                        <button class="nav-link active text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                                                    </li>
+                                                    <li class="nav-item border-start">
+                                                        <button class="nav-link text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#profile-qual">Change Password</button>
+                                                    </li>
+                                                    <li class="nav-item border-start">
+                                                        <button class="nav-link text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#update-details">Update Details</button>
+                                                    </li>
+                                                </ul>
+
+
+                                                <!-- Tab Content -->
+                                                <div class="tab-content pt-3">
+                                                    <!-- Overview Tab -->
+                                                    <div class="tab-pane fade show active" id="profile-overview">
+                                                        {% for row in records %}
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                 <div class="row mt-1">
+                                                                    <div class="col-md-4">
+                                                                        <label>Applicant ID:</label>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <span>{{ row['applicant_id'] }}</span>
+                                                                    </div>
+                                                                 </div>
+                                                                 <div class="row mt-1">
+                                                                    <div class="col-md-4">
+                                                                        <label>Application Date:</label>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <span>{{ row['application_date'] }}</span>
+                                                                    </div>
+                                                                 </div>
+                                                                 <div class="row mt-1">
+                                                                    <div class="col-md-4">
+                                                                        <label>Application Status:</label>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <span>
+                                                                            {% if row['final_approval'] == 'accepted' %}
+                                                                                <span class="text-success">Accepted</span>
+                                                                            {% elif row['final_approval'] == 'pending' %}
+                                                                                <span class="text-warning">Pending</span>
+                                                                            {% else %}
+                                                                                <span class="text-danger">Rejected</span>
+                                                                            {% endif %}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row mt-1">
+                                                                    <div class="col-md-4">
+                                                                        <label>Full Name:</label>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <span>{{ row['first_name'] }} {{ row['middle_name'] }} {{ row['last_name'] }}</span>
+                                                                    </div>
+                                                                 </div>
+                                                                 <div class="row mt-1">
+                                                                    <div class="col-md-4">
+                                                                        <label>Email:</label>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <span>{{ row['email'] }}</span>
+                                                                    </div>
+                                                                 </div>
+                                                                 <div class="row mt-1">
+                                                                    <div class="col-md-4">
+                                                                        <label>Mobile Number:</label>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <span>{{ row['mobile_number'] }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-1">
+                                                            <div class="col-md-8 mt-2">
+                                                                <label>Address</label> <br>
+                                                                    <span class="mdi mdi-map-marker text-dark">
+                                                                        Taluka: {{ row['taluka'] }}, Village: {{ row['village'] }},
+                                                                        {{ row['city'] }}, {{ row['state'] }} - {{ row['pincode'] }}
+                                                                    </span>
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Change Password Tab -->
+                                                    <div class="tab-pane fade" id="profile-qual">
+
+                                                        <form>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label>Current Password:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <input type="password" class="form-control" id="current-password" placeholder="Enter current password" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label>New Password:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <input type="password" class="form-control" id="new-password" placeholder="Enter new password" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label>Confirm Password:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <input type="password" class="form-control" id="confirm-password" placeholder="Confirm new password" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center mt-4">
+                                                                <button type="submit" class="btn btn-primary btn-sm">Change Password</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                    <!-- Update Details Tab -->
+                                                    <div class="tab-pane fade" id="update-details">
+                                                        <form>
+                                                            <div class="row mb-3">
+                                                              <label class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                                                              <div class="col-md-8 col-lg-9">
+                                                                {% for row in records %}
+                                                                    {% if row['applicant_photo'] %}
+                                                                        <img class="rounded-circle" src="{{ row['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                                                                    {% else %}
+                                                                        <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image" style="height: 120px;width: 120px;">
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                <div class="pt-2">
+                                                                  <input type="file" class="d-none" id="edit_profile">
+                                                                    <label for="edit_profile"
+                                                                            class="btn btn-outline-primary btn-sm">
+                                                                        <i class="mdi mdi-progress-upload"></i>
+                                                                    </label>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="first_name">Email:</label>
+                                                                </div>
+                                                                {% for row in records %}
+                                                                <div class="col-md-10">
+                                                                    <input type="text" class="form-control"
+                                                                           id="email" name="email" disabled
+                                                                           value="{{ row['email'] }}">
+                                                                </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="first_name">Fullname:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="first_name" name="first_name"
+                                                                                   placeholder="First Name" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="second_name" name="second_name"
+                                                                                   placeholder="Second Name" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="third_name" name="third_name"
+                                                                                   placeholder="Third Name" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="first_name">Address:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="taluka" name="taluka"
+                                                                                   placeholder="Enter Taluka" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="district" name="district"
+                                                                                   placeholder="Enter District" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="state" name="state"
+                                                                                   placeholder="Enter State" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="pincode" name="pincode"
+                                                                                   placeholder="Pincode" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="first_name">Phone Number:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <input type="text" class="form-control"
+                                                                           id="mobile_number" name="mobile_number"
+                                                                           placeholder="Enter Phone Number" required
+                                                                           oninput="validateMobileNumber(this)">
+                                                                </div>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary">Update Details</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- Repeat for more applicants -->
+                                </div>
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+{% endblock %}

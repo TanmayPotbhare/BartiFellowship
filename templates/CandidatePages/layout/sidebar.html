@@ -1,0 +1,226 @@
+<!-- ====================================
+          ——— LEFT SIDEBAR WITH OUT FOOTER
+        ===================================== -->
+        <aside class="left-sidebar sidebar-dark" id="left-sidebar">
+          <div id="sidebar" class="sidebar sidebar-with-footer">
+            <!-- Aplication Brand -->
+            <div class="app-brand bg-white">
+              <a href="/index.html">
+                <img src="/static/assets/img/logo/satyamev-logo.png" alt="Mono" style="height:60px; margin-left: -20px;">
+                <span class="text-dark fw-bold" style="font-size:30px; margin-left: 13px; font-family:sans-serif">अधिछात्रवृत्ती</span>
+              </a>
+            </div>
+            <!-- begin sidebar scrollbar -->
+            <div class="sidebar-left" data-simplebar style="height: 100%;">
+              <!-- sidebar menu -->
+              <ul class="nav sidebar-inner" id="sidebar-menu">
+
+                  <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#email"
+                      aria-expanded="false" aria-controls="email">
+                      <i class="mdi mdi-briefcase-account-outline"></i>
+                      <span class="nav-text">My Application</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="email"
+                      data-parent="#sidebar-menu">
+                      <div class="sub-menu">
+                            {% set paths = ['/section1', '/section2', '/section3', '/section4', '/section5', '/completed_application'] %}
+                            {% if request.path in paths %}
+                                <li>
+                                  <a class="sidenav-item-link active" href="#">
+                                    <span class="nav-text">Profile Page</span>
+                                  </a>
+                                </li>
+
+                                <li>
+                                  <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">Qualification Page</span>
+                                  </a>
+                                </li>
+
+                                <li>
+                                  <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">Caste Details</span>
+                                  </a>
+                                </li>
+
+                                <li>
+                                  <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">Bank Details</span>
+                                  </a>
+                                </li>
+
+                                <li>
+                                  <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">Documents</span>
+                                  </a>
+                                </li>
+                            {% else %}
+                                <li>
+                                  <a class="sidenav-item-link" href="/candidate_dashboard">
+                                    <span class="nav-text">View Profile</span>
+                                  </a>
+                                </li>
+
+                                <li>
+                                  <a class="sidenav-item-link" href="/adhaar_seeding">
+                                    <span class="nav-text">Aadhaar Seeding</span>
+                                  </a>
+                                </li>
+
+                                <li>
+                                  <a class="sidenav-item-link" href="/manage_profile">
+                                    <span class="nav-text">Manage Profile</span>
+                                  </a>
+                                </li>
+
+                                <li>
+                                  <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">Raise Issue</span>
+                                  </a>
+                                </li>
+                            {% endif %}
+
+                      </div>
+                    </ul>
+                  </li>
+
+<!--                  <li class="active">-->
+<!--                    <a class="sidenav-item-link" href="candidate_dashboard.html">-->
+<!--                      <i class="mdi mdi-briefcase-account-outline"></i>-->
+<!--                      <span class="nav-text">My Application</span>-->
+<!--                    </a>-->
+<!--                  </li>-->
+                  {% if finally_approved == 'approved' %}
+                      <li>
+                        <a class="sidenav-item-link " href="/installments">
+                          <i class="mdi mdi-finance"></i>
+                          <span class="nav-text">Installment Details</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/award_letter">
+                          <i class="mdi mdi-seal"></i>
+                          <span class="nav-text">View Award Letter</span>
+                        </a>
+                      </li>
+
+                      <li class="section-title text-white">
+                        Upload Reports
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/joining_report">
+                          <i class="mdi mdi-clipboard-outline"></i>
+                          <span class="nav-text">Joining Report</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/undertaking_report">
+                          <i class="mdi mdi-format-underline"></i>
+                          <span class="nav-text">Undertaking Report</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/presenty">
+                          <i class="mdi mdi-file-chart"></i>
+                          <span class="nav-text">Presenty Report</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/halfyearly">
+                          <i class="mdi mdi-file-replace-outline"></i>
+                          <span class="nav-text">Half Yearly Report</span>
+                        </a>
+                      </li>
+
+                       <li>
+                        <a class="sidenav-item-link" href="/hra_reports">
+                          <i class="mdi mdi-office-building"></i>
+                          <span class="nav-text">H.R.A Report</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/assessment_report">
+                          <i class="mdi mdi-file-download-outline"></i>
+                          <span class="nav-text">Utilization Reports</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/affidavit">
+                          <i class="mdi mdi-progress-upload"></i>
+                          <span class="nav-text">Upload Affidavit</span>
+                        </a>
+                      </li>
+
+                      <li class="section-title text-white">
+                        P.H.D Details
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/withdraw_fellowship">
+                          <i class="mdi mdi-sword-cross"></i>
+                          <span class="nav-text">Withdraw Fellowship</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/change_guide">
+                          <i class="mdi mdi-teach"></i>
+                          <span class="nav-text">Change Guide</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/change_center">
+                          <i class="mdi mdi-format-align-center"></i>
+                          <span class="nav-text">Change Research Center</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/upload_phd">
+                          <i class="mdi mdi-trophy-award"></i>
+                          <span class="nav-text">Upload P.H.D Award</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/upload_thesis">
+                          <i class="mdi mdi-cloud-upload"></i>
+                          <span class="nav-text">Upload Thesis</span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a class="sidenav-item-link" href="/feedback">
+                          <i class="mdi mdi-message-alert-outline"></i>
+                          <span class="nav-text">Give Feedback</span>
+                        </a>
+                      </li>
+                  {% else %}
+                  {% endif %}
+
+              </ul>
+
+            </div>
+
+            <div class="sidebar-footer">
+              <div class="sidebar-footer-content">
+                <ul class="d-flex">
+                  <li>
+                    <a href="#" data-toggle="tooltip" title="Profile settings"><i class="mdi mdi-settings"></i></a></li>
+                  <li>
+                    <a href="#" data-toggle="tooltip" title="No chat messages"><i class="mdi mdi-chat-processing"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </aside>

@@ -1,0 +1,115 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+
+          <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        {% if records %}
+                            {% set fullname = records['first_name'] + ' ' + records['middle_name'] + ' ' + records['last_name'] %}
+                              {% if records['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ records['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block">{{ records['email'] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+          </div>
+          <div class="card-footer card-profile-footer text-center">
+                <h5 class="text-dark fw-bold">Change Center Details</h5>
+          </div>
+            <div class="card-body">
+            <div class="applicant-cards">
+                {% if records %}
+                  <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ records['application_date'] }}</span></h6>
+                {% endif %}
+            <div class="card mb-3">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <div class="col-md-12">
+                      {% if records %}
+                          <div class="row mt-4">
+                              <div class="col-md-3">
+                                  <label><span class="text-danger">Present Center's Name</span>:</label>
+                              </div>
+                              <div class="col-md-9">
+                                  <span class="text-capitalize text-dark">
+                                      {% if records['name_of_college'] == '-- Select College --' %}
+                                            {{ records['other_college_name'] }}
+                                      {% elif records['name_of_college'] == 'None' %}
+                                            {{ records['other_college_name'] }}
+                                      {% elif records['name_of_college'] == 'Loading ....' %}
+                                            Not Filled
+                                      {% else %}
+                                            {{ records['name_of_college'] }}
+                                      {% endif %}
+                                  </span>
+                              </div>
+                          </div>
+                          <hr>
+                          {% if records['name_of_college_old_value'] %}
+                            <div class="row mt-4">
+                              <div class="col-md-3">
+                                  <label>Old Center's Name:</label>
+                              </div>
+                              <div class="col-md-9">
+                                  <span class="text-capitalize text-dark">{{ records['name_of_college_old_value'] }}</span>
+                              </div>
+                            </div>
+                            <div class="row mt-4">
+                              <div class="col-md-3">
+                                  <label>Center's Name Changed Date:</label>
+                              </div>
+                              <div class="col-md-9">
+                                  <span class="text-capitalize text-dark">{{ records['name_of_college_changed_date'] }}</span> (Format YYYY-MM-DD)
+                              </div>
+                            </div>
+                            <div class="row mt-4">
+                              <div class="col-md-3">
+                                  <label>Center's Name Changed Time:</label>
+                              </div>
+                              <div class="col-md-9">
+                                  <span class="text-capitalize text-dark">{{ records['name_of_college_changed_time'] }}</span> (Format HH:MM:SS)
+                              </div>
+                            </div>
+                          {% endif %}
+                          <hr>
+                          <form action="/change_center_submit" method="POST" enctype="multipart/form-data" class="mt-3">
+                              <div class="row mb-3">
+                                  <div class="col-md-3">
+                                      <label for="name_of_college" class="form-label">Change Guide:</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                      <div class="input-group">
+                                          <input type="text" class="form-control" placeholder="New Guide's Name"
+                                              aria-label="New Guide's Name" aria-describedby="button-addon2"
+                                              name="name_of_college" id="name_of_college">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-9 text-end">
+                                      <button type="submit" class="btn btn-primary btn-sm">Change Guide</button>
+                                  </div>
+                              </div>
+                          </form>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more applicants -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

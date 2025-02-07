@@ -1,0 +1,73 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+        <!-- Table Product -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-default">
+
+              <div class="card-header justify-content-center">
+                    <!-- Center Content -->
+                    <div class="text-center">
+                        <div class="profile-avata">
+                           {% if records %}
+                                {% set fullname = records['first_name'] + ' ' + records['middle_name'] + ' ' + records['last_name'] %}
+                                  {% if records['applicant_photo'] %}
+                                      <img class="rounded-circle" src="{{ records['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                                  {% else %}
+                                      <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                                  {% endif %}
+                                  <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                                  <span class="d-block">{{ records['email'] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+              </div>
+
+
+              <div class="card-footer card-profile-footer">
+                <ul class="nav nav-border-top justify-content-center">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/candidate_dashboard">My Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/installment_details">Installment Details</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/adhaar_seeding">Aadhaar Seeding</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/manage_profile">Manage Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="user-profile-settings.html">Raise Issue</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                    <div class="applicant-cards">
+                        {% if records %}
+                          <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ records['application_date'] }}</span></h6>
+                        {% endif %}
+                        <div class="card mb-3">
+                            <div class="card-body d-flex flex-column align-items-start">
+                                <div class="col-md-12">
+
+                                    <h4 class="text-dark fw-bold">Note:</h4><br>
+                                    <h5 class="text-danger">This page is disabled as of right now,
+                                        when we get instruction from BARTI Officials to display it,
+                                        we will show your installment records on the page.
+                                    </h5>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat for more applicants -->
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-account-edit-outline"></i>
+      </span> User Created
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <a href="/student_manage_dashbaord">
+              <button class="btn btn-primary btn-fw">Back to Student Management Dashboard</button>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>  <!-- END NAV BAR -->
+
+
+  <div class="card p-4">
+      <!-- Table with stripped rows -->
+            <table class="table table-bordered datatable">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col"> First Name</th>
+                  <th scope="col"> Middle Name</th>
+                  <th scope="col"> Last Name</th>
+                  <th scope="col"> Email</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Confirm Password</th>
+                  <th scope="col">Year</th>
+                  <th scope="col">Added By</th>
+                  <th scope="col">Added Date</th>
+                  <th scope="col">Added Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in record  %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ row['first_name'] }}</td>
+                  <td>{{ row['middle_name'] }}</td>
+                  <td>{{ row['last_name'] }}</td>
+                  <td>{{ row['email'] }}</td>
+                  <td>{{ row['password'] }}</td>
+                  <td>{{ row['confirm_password'] }}</td>
+                  <td>{{ row['year'] }}</td>
+                  <td>{{ row['added_by'] }}</td>
+                  <td>{{ row['added_date'] }}</td>
+                  <td>{{ row['added_time'] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+  </div>
+
+
+</div>
+{% endblock %}

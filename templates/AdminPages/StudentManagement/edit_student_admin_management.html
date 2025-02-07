@@ -1,0 +1,1323 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-account-edit-outline"></i>
+      </span> View Application
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <a href="/student_manage_dashbaord">
+              <button class="btn btn-primary btn-fw">Back to Student Management Dashboard</button>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- SEARCH BAR -->
+  <div class="card p-3">
+    <div class="card-body py-3 px-0">
+
+            <!-- Table with stripped rows -->
+            <table class="table table-bordered">
+            {% for record in records  %}
+              <thead>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                        Personal Details
+                    </th>
+                </tr>
+                <tr>
+                    <th class="fw-bold text-danger text-center">Fields</th>
+                    <th class="fw-bold text-danger text-center">Record</th>
+                    <th class="fw-bold text-danger text-center">Update/Edit Record</th>
+                    <th class="fw-bold text-danger text-center">Delete Record</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="col">Applicant ID</th>
+                  <td>{{ record['applicant_id'] }}</td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">First Name</th>
+                  <td>{{ record['first_name'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='first_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-secondary">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                    <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='first_name') }}" method="POST">
+                        <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col">Middle Name</th>
+                  <td>{{ record['middle_name'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='middle_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                    <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='middle_name') }}" method="POST">
+                        <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col">Last Name</th>
+                  <td>{{ record['last_name'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='last_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                    <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='last_name') }}" method="POST">
+                        <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col">Email</th>
+                  <td>{{ record['email'] }}</td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Date of Birth</th>
+                  <td>{{ record['date_of_birth'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='date_of_birth') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                    <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='date_of_birth') }}" method="POST">
+                        <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <tr>
+                  <th scope="col">Gender</th>
+                  <td>{{ record['gender'] }}</td>
+                <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='gender') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                 <td>
+                    <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='date_of_birth') }}" method="POST">
+                        <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                    </form>
+                  </td>
+              </tr>
+              <tr>
+                  <th scope="col">Age</th>
+                  <td>{{ record['age'] }}</td>
+                <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='age') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                   <td>
+                    <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='age') }}" method="POST">
+                        <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                    </form>
+                  </td>
+              </tr>
+                <tr>
+                  <th scope="col">Category</th>
+                  <td>{{ record['caste'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='caste') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                       <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='caste') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                      </td>
+                </tr>
+
+                <tr>
+                  <th scope="col">Caste/Tribe</th>
+                  <td>{{ record['your_caste'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='your_caste') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='your_caste') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr>
+                  <th scope="col">Sub Caste/Tribe</th>
+                  <td>{{ record['subcaste'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='subcaste') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                       <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='subcaste') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                      </td>
+                </tr>
+
+                <tr>
+                  <th scope="col">Marital Status</th>
+                  <td>{{ record['marital_status'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='marital_status') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='marital_status') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                        Address Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">Pincode</th>
+                  <td>{{ record['pincode'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='pincode') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                   <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='pincode') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Main Address</th>
+                  <td>{{ record['add_1'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='add_1') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                   <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='add_1') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Postal Address</th>
+                  <td>{{ record['add_2'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='add_2') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='add_2') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Village</th>
+                  <td>{{ record['village'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='village') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='village') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Taluka</th>
+                  <td>{{ record['taluka'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='taluka') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                   <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='taluka') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">District</th>
+                  <td>{{ record['district'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='district') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                   <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='district') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">City</th>
+                  <td>{{ record['city'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='city') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='city') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">State</th>
+                  <td>{{ record['state'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='state') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                   <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='state') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                        Qualification Details
+                    </th>
+                </tr>
+                <tr>
+                   <th colspan="4" class="text-center text-dark">
+                        SSC Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">SSC Passing Year</th>
+                  <td>{{ record['ssc_passing_year'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='ssc_passing_year') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='ssc_passing_year') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">SSC School Name</th>
+                  <td>{{ record['ssc_school_name'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='ssc_school_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='ssc_school_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">SSC Stream</th>
+                  <td>{{ record['ssc_stream'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='ssc_stream') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='ssc_stream') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">SSC Attempts</th>
+                  <td>{{ record['ssc_attempts'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='ssc_attempts') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='ssc_attempts') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">SSC Total Marks</th>
+                  <td>{{ record['ssc_total'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='ssc_total') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='ssc_total') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">SSC Percentage</th>
+                  <td>{{ record['ssc_percentage'] }}%</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='ssc_percentage') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='ssc_percentage') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                   <th colspan="4" class="text-center text-dark">
+                        HSC Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">HSC Passing Year</th>
+                  <td>{{ record['hsc_passing_year'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='hsc_passing_year') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                  <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='hsc_passing_year') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">HSC College Name</th>
+                  <td>{{ record['hsc_school_name'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='hsc_school_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='hsc_school_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">HSC Stream</th>
+                  <td>{{ record['hsc_stream'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='hsc_stream') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='hsc_stream') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">HSC Attempts</th>
+                  <td>{{ record['hsc_attempts'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='hsc_attempts') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='hsc_attempts') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">HSC Total Marks</th>
+                  <td>{{ record['hsc_total'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='hsc_total') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='hsc_total') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">HSC Percentage</th>
+                  <td>{{ record['hsc_percentage'] }}%</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='hsc_percentage') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='hsc_percentage') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+              <tr>
+                   <th colspan="4" class="text-center text-dark">
+                        Graduation Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">Graduation Passing Year</th>
+                  <td>{{ record['graduation_passing_year'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='graduation_passing_year') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                     <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='graduation_passing_year') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Graduation College Name</th>
+                  <td>{{ record['graduation_school_name'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='graduation_school_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='graduation_school_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Graduation Stream</th>
+                  <td>{{ record['grad_stream'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='grad_stream') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='grad_stream') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Graduation Attempts</th>
+                  <td>{{ record['grad_attempts'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='grad_attempts') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+<td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='grad_attempts') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Graduation Total Marks</th>
+                  <td>{{ record['grad_total'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='grad_total') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='grad_total') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Graduation Percentage</th>
+                  <td>{{ record['graduation_percentage'] }}%</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='graduation_percentage') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='graduation_percentage') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                   <th colspan="4" class="text-center text-dark">
+                        Post-Graduation Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">Post-Graduation Passing Year</th>
+                  <td>{{ record['phd_passing_year'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='phd_passing_year') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='phd_passing_year') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Post-Graduation Univeristy Name</th>
+                  <td>{{ record['phd_school_name'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='phd_school_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='phd_school_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Post-Graduation Stream</th>
+                  <td>{{ record['pg_stream'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='pg_stream') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='pg_stream') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Post-Graduation Attempts</th>
+                  <td>{{ record['pg_attempts'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='pg_attempts') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='pg_attempts') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Post-Graduation Total Marks</th>
+                  <td>{{ record['pg_total'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='pg_total') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='pg_total') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Post-Graduation Percentage</th>
+                  <td>{{ record['phd_percentage'] }}%</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='phd_percentage') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='phd_percentage') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                        Ph.D. Details
+                    </th>
+                </tr>
+              <tr>
+                  <th scope="col">Ph.D. Registration Date</th>
+                  <td>{{ record['phd_registration_date'] }}</td>
+                  <td class="fw-bold text-secondary">Cannot Update</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+              </tr>
+              <tr>
+                  <th scope="col">Ph.D. Registration Year</th>
+                  <td>{{ record['phd_registration_year'] }}</td>
+                  <td class="fw-bold text-secondary">Cannot Update</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+              </tr>
+              <tr>
+                  <th scope="col">Faculty</th>
+                  <td>{{ record['faculty'] }}</td>
+                   <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='faculty') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='faculty') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Name of College</th>
+                  <td>{{ record['name_of_college'] }}</td>
+                   <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='name_of_college') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='name_of_college') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Name of University</th>
+                  <td>{{ record['concerned_university'] }}</td>
+                   <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='concerned_university') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='concerned_university') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Name of Guide</th>
+                  <td>{{ record['name_of_guide'] }}</td>
+                   <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='name_of_guide') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='name_of_guide') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Name of Department (If Any)</th>
+                  <td>{{ record['department_name'] }}</td>
+                   <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='department_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='department_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+                <tr>
+                  <th scope="col">Topic of Ph.D.</th>
+                  <td>{{ record['topic_of_phd'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='topic_of_phd') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='topic_of_phd') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                         Income Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">Family Annual Income</th>
+                  <td><strong>⟨₹⟩</strong> {{ record['family_annual_income'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='family_annual_income') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='family_annual_income') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                  <th scope="col">Income Certificate Number</th>
+                  <td>{{ record['income_certificate_number'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Family Annual Income - Issuing Authority</th>
+                  <td>{{ record['issuing_authority'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Family Annual Income - Issuing District</th>
+                  <td>{{ record['income_issuing_district'] }}</td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+              </tr>
+              <tr>
+                  <th scope="col">Family Annual Income - Issuing Taluka</th>
+                  <td>{{ record['income_issuing_taluka'] }}</td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+              </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                         Domicile Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">Are you Domicile of Maharashtra?</th>
+                  <td>{{ record['domicile'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Do you have Domicile Certificate?</th>
+                  <td>{{ record['domicile_certificate'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Domicile Certificate Number</th>
+                  <td>{{ record['domicile_number'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                         Caste/Tribe & Validity Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col"> Do you have Validity Certificate?</th>
+                  <td>{{ record['validity_certificate'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Validity Certificate Number</th>
+                  <td>{{ record['validity_cert_number'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Validity Certificate - Issuing Authority</th>
+                  <td>{{ record['validity_issuing_authority'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Validity Certificate - Issuing District</th>
+                  <td>{{ record['validity_issuing_district'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Validity Certificate - Issuing Taluka</th>
+                  <td>{{ record['validity_issuing_taluka'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col"> Do you have Caste Certificate?</th>
+                  <td>{{ record['caste_certf'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Caste Certificate Number</th>
+                  <td>{{ record['caste_cert_number'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Caste Certificate - Issuing Authority</th>
+                  <td>{{ record['caste_issuing_authority'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Caste Certificate - Issuing District</th>
+                  <td>{{ record['issuing_district'] }}</td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                         Salary Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">Are you Salaried?</th>
+                  <td>{{ record['salaried'] }}</td>
+                    <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='salaried') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='salaried') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+              <tr>
+                  <th scope="col">Are you Disabled?</th>
+                  <td>{{ record['disability'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='disability') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='disability') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Type of Disability (If Disabled)</th>
+                  <td>{{ record['type_of_disability'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='type_of_disability') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='type_of_disability') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Father's Name</th>
+                  <td>{{ record['father_name'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='father_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='father_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Mother's Name</th>
+                  <td>{{ record['mother_name'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='mother_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                   <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='mother_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+                <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                         Bank Details
+                    </th>
+                </tr>
+              <tr>
+                  <th scope="col">IFSC Code</th>
+                  <td>{{ record['ifsc_code'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='ifsc_code') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='ifsc_code') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Bank Name</th>
+                  <td>{{ record['bank_name'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='bank_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='bank_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Account Number</th>
+                  <td>{{ record['account_number'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='account_number') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='account_number') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">Account Holder Name</th>
+                  <td>{{ record['account_holder_name'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='account_holder_name') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='account_holder_name') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                  <th scope="col">MICR Code</th>
+                  <td>{{ record['micr'] }}</td>
+                  <td>
+                      <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='micr') }}" method="POST">
+                            <label for="new_value" class="fw-bold text-dark">New Value:</label>
+                            <input type="text" id="new_value" name="new_value">
+                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        </form>
+                  </td>
+                    <td>
+                        <form action="{{ url_for('managestudents.delete_field',id=record['id'], field_value='micr') }}" method="POST">
+                            <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                        </form>
+                    </td>
+              </tr>
+              <tr>
+                    <th colspan="4" class="text-center bg-theme text-white">
+                         Documents Uploaded Details
+                    </th>
+                </tr>
+                <tr>
+                  <th scope="col">Signature</th>
+                  <td><a href="{{ record['signature'] }}">View Signature</a></td>
+                   <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                   <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Adhaar Card</th>
+                  <td><a href="{{ record['documentfile1'] }}">View Document</a></td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Pan Card</th>
+                  <td><a href="{{ record['documentfile2'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Domicile Certificate</th>
+                  <td><a href="{{ record['documentfile3'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Caste Certificate</th>
+                  <td><a href="{{ record['documentfile4'] }}">View Document</a></td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Validity Certificate</th>
+                  <td><a href="{{ record['documentfile5'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Income Certificate</th>
+                  <td><a href="{{ record['documentfile6'] }}">View Document</a></td>
+                 <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">10th Qualification Document</th>
+                  <td><a href="{{ record['documentfile7'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">12th Qualification Document</th>
+                  <td><a href="{{ record['documentfile8'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Graduation Qualification Document</th>
+                  <td><a href="{{ record['documentfile10'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Post-Graduation Qualification Document</th>
+                  <td><a href="{{ record['documentfile11'] }}">View Document</a></td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">MPhil/PET/SET/NET Qualification Document</th>
+                  <td><a href="{{ record['documentfile12'] }}">View Document</a></td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Ph.D. Admission Reciept</th>
+                  <td><a href="{{ record['documentfile13'] }}">View Document</a></td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Guide Allotment Letter</th>
+                  <td><a href="{{ record['documentfile14'] }}">View Document</a></td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Guide Acceptance Letter</th>
+                  <td><a href="{{ record['documentfile15'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Letter of Acceptance from RAC/RRC</th>
+                  <td><a href="{{ record['documentfile16'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Confirmation Letter</th>
+                  <td><a href="{{ record['documentfile17'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr><tr>
+                  <th scope="col">Research Center Joining Report</th>
+                  <td><a href="{{ record['documentfile18'] }}">View Document</a></td>
+                    <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+                <tr>
+                  <th scope="col">Guide & Head of Department Research Letter</th>
+                  <td><a href="{{ record['documentfile19'] }}">View Document</a></td>
+                   <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                    <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Disability Certificate (If Disabled)</th>
+                  <td><a href="{{ record['documentfile20'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Change in Name - Gazzette</th>
+                  <td><a href="{{ record['documentfile21'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Aknowledgement - Not recieved Scholarship</th>
+                  <td><a href="{{ record['documentfile22'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+              <tr>
+                  <th scope="col">Research Synopsis allotment letter</th>
+                  <td><a href="{{ record['documentfile23'] }}">View Document</a></td>
+                  <td class="fw-bold text-secondary">Cannot Update/Edit</td>
+                  <td class="fw-bold text-secondary">Cannot Delete</td>
+                </tr>
+
+              </tbody>
+                {% endfor %}
+            </table>
+            <!-- End Table with stripped rows -->
+          </div>
+  </div>
+
+
+</div>
+
+{% endblock %}

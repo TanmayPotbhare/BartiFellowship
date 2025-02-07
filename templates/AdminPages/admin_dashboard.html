@@ -1,0 +1,702 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-chart-bar menu-icon"></i>
+      </span> Dashboard
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb d-flex align-items-center">
+        <li class="breadcrumb-item active" aria-current="page">
+            <div class="btn-group">
+              <select id="yearSelector" name="selected_year" class="btn btn-danger btn-fw text-dark" style="width: auto;">
+                <option selected disabled>Select Year</option>
+                <option value="2020">2020 - 2021</option>
+                <option value="2021">2021 - 2022</option>
+                <option value="2022">2022 - 2023</option>
+                <option value="2023">2023 - 2024</option>
+                <option value="2024">2024 - 2025</option>
+              </select>
+            </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="row">
+    <!-- START Total Applications -->
+    <div class="col-md-2 stretch-card grid-margin">
+      <a href="/total_application_report" class="text-decoration-none" target="_blank">
+          <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+                <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                <h4 class="font-weight-normal text-dark fw-bold mb-3">Total Applications <span class="yearChange">(2023 - 2024)</span></h4>
+                <!-- Admin Dashboard .py file contains this count name defined-->
+                <h2 class="mb-3" id="total_appl_count">{{ data['total_appl_count'] }}</h2>
+                <h6 class="text-white fw-bold">View Applications</h6>
+            </div>
+          </div>
+      </a>
+    </div>
+    <!-- END Total Applications -->
+
+    <!-- START Complete Form Applications -->
+    <div class="col-md-2 stretch-card grid-margin">
+      <a href="/completed_form" class="text-decoration-none" target="_blank">
+          <div class="card bg-gradient-danger card-img-holder text-white">
+            <div class="card-body">
+              <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+              <h4 class="font-weight-normal text-dark fw-bold mb-3">Completed Forms <span class="yearChange">(2023 - 2024)</span></h4>
+              <h2 class="mb-3" id="completed_form_count">{{ data['completed_form_count'] }}</h2>
+              <h6 class="text-white fw-bold">View Applications</h6>
+            </div>
+          </div>
+      </a>
+    </div>
+    <!-- END Complete Form Applications -->
+
+    <!-- START Incomplete Form Applications -->
+    <div class="col-md-2 stretch-card grid-margin">
+      <a href="/incompleted_form" class="text-decoration-none" target="_blank">
+          <div class="card bg-gradient-info card-img-holder text-white">
+            <div class="card-body">
+              <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+              <h4 class="font-weight-normal text-dark fw-bold mb-3">Incompleted Forms <span class="yearChange">(2023 - 2024)</span></h4>
+              <h2 class="mb-3" id="incomplete_form_count">{{ data['incomplete_form_count'] }}</h2>
+              <h6 class="text-white fw-bold">View Applications</h6>
+            </div>
+          </div>
+      </a>
+    </div>
+    <!-- END Incomplete Form Applications -->
+
+    <!-- START Accepted Applications -->
+    <div class="col-md-2 stretch-card grid-margin">
+      <a href="/total_accepted_report" class="text-decoration-none" target="_blank">
+          <div class="card bg-gradient-success card-img-holder text-white">
+            <div class="card-body">
+              <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+              <h4 class="font-weight-normal text-dark fw-bold mb-3">Accepted Applications <span class="yearChange">(2023 - 2024)</span></h4>
+              <h2 class="mb-3" id="accepted_appl_count">{{ data['accepted_appl_count'] }}</h2>
+              <h6 class="text-white fw-bold">View Applications</h6>
+            </div>
+          </div>
+      </a>
+    </div>
+    <!-- END Accepted Applications -->
+
+    <!-- START Rejected Applications -->
+    <div class="col-md-2 stretch-card grid-margin">
+      <a href="/total_rejected_report" class="text-decoration-none" target="_blank">
+          <div class="card bg-gradient-warning card-img-holder text-white">
+            <div class="card-body">
+              <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+              <h4 class="font-weight-normal text-dark fw-bold mb-3">Rejected Applications <span class="yearChange">(2023 - 2024)</span></h4>
+              <h2 class="mb-3" id="rejected_appl_count">{{ data['rejected_appl_count'] }}</h2>
+              <h6 class="text-white fw-bold">View Applications</h6>
+            </div>
+          </div>
+      </a>
+    </div>
+    <!-- END Rejected Applications -->
+  </div>
+
+  <div class="row">
+    <!-- START District Wise Student Chart-->
+    <div class="col-md-7 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="clearfix">
+            <h4 class="card-title float-start">District-wise Student Count: <span class="yearChange">2023 - 2024</span></h4>
+            <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-end"></div>
+          </div>
+          <div class="card">
+              <div id="map" class="form-control col-md-12" style="height: 500px;"></div> <!-- Added height for the map -->
+          </div>
+          <script>
+                    // Function to initialize the map
+                    function initializeMap() {
+                        map = L.map('map').setView([20.5937, 78.9629], 7); // Centering on Maharashtra
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '© OpenStreetMap'
+                        }).addTo(map);
+                    }
+
+                   function addDistrictMarkers(districtData) {
+
+                       // Clear existing markers
+                        // markers.forEach(marker => map.removeLayer(marker));
+                        markers = []; // Reset markers array
+
+
+                        const districtCoordinates = {
+                            "Ahmednagar": [19.0952, 74.7496],
+                            "Akola": [20.7096, 76.9987],
+                            "Amravati": [20.9374, 77.7796],
+                            "Aurangabad": [19.8762, 75.3433],
+                            "Beed": [18.9927, 75.7600],
+                            "Bhandara": [21.1702, 79.6552],
+                            "Buldhana": [20.5333, 76.1833],
+                            "Chandrapur": [19.9507, 79.2952],
+                            "Dhule": [20.9042, 74.7749],
+                            "Gadchiroli": [20.1011, 80.2319],
+                            "Gondia": [21.4545, 80.1925],
+                            "Hingoli": [19.7148, 77.1040],
+                            "Jalgaon": [21.0077, 75.5626],
+                            "Jalna": [19.8410, 75.8800],
+                            "Kolhapur": [16.7050, 74.2433],
+                            "Latur": [18.4088, 76.5604],
+                            "Mumbai City": [18.9388, 72.8354],
+                            "Mumbai Suburban": [19.1754, 72.8740],
+                            "Nagpur": [21.1458, 79.0882],
+                            "Nanded": [19.1383, 77.3205],
+                            "Nandurbar": [21.3783, 74.2406],
+                            "Nashik": [19.9975, 73.7898],
+                            "Osmanabad": [18.1862, 76.0411],
+                            "Palghar": [19.6966, 72.7655],
+                            "Parbhani": [19.2620, 76.7767],
+                            "Pune": [18.5204, 73.8567],
+                            "Raigad": [18.6364, 73.8645],
+                            "Ratnagiri": [16.9915, 73.3104],
+                            "Sangli": [16.8524, 74.5815],
+                            "Satara": [17.6927, 73.9933],
+                            "Sindhudurg": [16.1002, 73.6607],
+                            "Solapur": [17.6599, 75.9064],
+                            "Thane": [19.2183, 72.9781],
+                            "Wardha": [20.7453, 78.6022],
+                            "Washim": [20.1117, 77.1338],
+                            "Yavatmal": [20.3964, 78.1300]
+                        };
+
+
+                        for (const [district, count] of Object.entries(districtData)) {
+                            const coords = districtCoordinates[district];
+                            if (coords) {
+                                console.log(`Adding marker for ${district} with count: ${count}`); // Debugging line
+                                const marker = L.marker(coords).addTo(map);
+                                marker.bindTooltip(`<strong>${district}</strong><br>Students: ${count}`, {
+                                    permanent: true,
+                                    direction: 'top',
+                                    className: 'tooltip-custom'
+                                }).openTooltip();
+                                markers.push(marker); // Add marker to the array for later removal
+                            } else {
+                                console.warn(`No coordinates found for district: ${district}`);
+                            }
+                        }
+                    }
+
+                    // Document ready function
+                    document.addEventListener("DOMContentLoaded", () => {
+                        initializeMap(); // Initialize the map
+                        // Set default year to 2023 in the year selector
+                        $('#yearSelector').val('2023');
+                        // Fetch district data from the server
+                        $('#yearSelector').on('change', function () {
+                            let year = $(this).val();
+                            $.ajax({
+                                type: 'POST',
+                                url: '/get_district_data',
+                                data: { selected_year: year },
+                                success: function (data) {
+                                    addDistrictMarkers(data.district_data); // Add markers based on the fetched data
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                        });
+
+                        // Optional: Initial call to add markers for the default year
+                        let initialYear = $('#yearSelector').val();
+                        if (initialYear) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/get_district_data',
+                                data: { selected_year: initialYear },
+                                success: function (data) {
+                                    addDistrictMarkers(data.district_data);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                        }
+                    });
+                </script>
+        </div>
+      </div>
+    </div>
+    <!-- END District Wise Student Chart-->
+
+    <!-- START Gender Chart-->
+    <div class="col-md-5 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Gender Counts: <span class="yearChange">2023 - 2024</span></h4>
+          <div class="doughnutjs-wrapper d-flex justify-content-center">
+              <div id="gender"></div>
+          </div>
+
+          <!-- <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>-->
+          <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+
+          <!-- To display the count cards-->
+          <div class="row mt-4 justify-content-center">
+              <div class="col-md-4 stretch-card grid-margin">
+                  <a href="/male_report" class="text-decoration-none" target="_blank">
+                      <div class="card bg-gradient-info card-img-holder text-white">
+                        <div class="card-body">
+                          <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                          <h4 class="font-weight-normal text-dark fw-bold mb-3">Male</h4>
+                          <h2 class="mb-3" id="maleCount">{{ data['male_count'] }}</h2>
+                          <h6 class="text-white fw-bold">View Applications</h6>
+                        </div>
+                      </div>
+                  </a>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                  <a href="/female_report" class="text-decoration-none" target="_blank">
+                      <div class="card bg-gradient-danger card-img-holder text-white">
+                        <div class="card-body">
+                          <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                          <h4 class="font-weight-normal text-dark fw-bold mb-3">Female</h4>
+                          <h2 class="mb-3" id="femaleCount">{{ data['female_count'] }}</h2>
+                          <h6 class="text-white fw-bold">View Applications</h6>
+                        </div>
+                      </div>
+                  </a>
+              </div>
+              {% if data['trans_count'] %}
+                <div class="col-md-4 stretch-card grid-margin">
+                  <a href="#" class="text-decoration-none">
+                      <div class="card bg-gradient-dark card-img-holder text-white">
+                        <div class="card-body">
+                          <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                          <h4 class="font-weight-normal text-white fw-bold mb-3">Other Count <span class="yearChange">(2023 - 2024)</span></h4>
+                          <h2 class="mb-3" id="transCount">
+                            {% if data['trans_count'] %}
+                              {{ data['trans_count'] }}
+                            {% else %}
+                              0
+                            {% endif %}
+                          </h2>
+                          <h6 class="text-white fw-bold">View Applications</h6>
+                        </div>
+                      </div>
+                  </a>
+              </div>
+              {% else %}
+              {% endif %}
+            </div>
+          <!-- END the count cards-->
+
+          <script>
+               document.addEventListener("DOMContentLoaded", () => {
+                  const yearSelector = document.getElementById('yearSelector');
+                  let chart = null; // To store the current chart instance
+
+                  // Function to update the pie chart data based on the selected year
+                  function updatePieChartData(data, dataYear) {
+                      const maleData = data.male_count[dataYear] || 0; // Default to 0 if undefined
+                      const femaleData = data.female_count[dataYear] || 0;
+
+                      // Clean up the existing chart instance
+                      if (chart) {
+                          chart.destroy();
+                      }
+
+                      // Render the new chart
+                      chart = new ApexCharts(document.querySelector("#gender"), {
+                          series: [maleData, femaleData, 0],
+                          chart: {
+                              type: 'pie',
+                              height: '280px'
+                          },
+                          labels: ['Male Students', 'Female Students', 'Transgender Students'],
+                          colors: ['#77CDFF', '#FF8C9E', '#FFD700'], // Update with Purple theme colors
+                          legend: {
+                              position: 'bottom',
+                              horizontalAlign: 'center',
+                              markers: {
+                                  radius: 12
+                              }
+                          }
+                      });
+
+                      chart.render();
+                  }
+
+                  // Fetch application data from the server
+                  fetch('/get_gender_data')
+                      .then(response => response.json())
+                      .then(data => {
+                          // Set default year
+                          const defaultYear = '2023';
+                          yearSelector.value = defaultYear;
+
+                          // Initial rendering of the pie chart
+                          updatePieChartData(data, defaultYear);
+
+                          // Event listener for year selector change
+                          yearSelector.addEventListener('change', function () {
+                              const selectedYear = this.value;
+                              updatePieChartData(data, selectedYear);
+                          });
+                      })
+                      .catch(error => {
+                          console.error('Error fetching data:', error);
+                      });
+                  });
+              </script>
+        </div>
+      </div>
+    </div>
+    <!-- END Gender Chart-->
+  </div>
+
+  <div class="row">
+    <!-- START All PVTG Applications Records-->
+    <div class="col-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-2">All PVTG Applications</h4>
+          <!-- Count Boxes Section -->
+          <div class="row mb-4">
+            <div class="col-md-4">
+              <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Katkari Tribe Students</h5>
+                  <h4 class="card-text text-white">{{ counts['katkari'] }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Madia Tribe Students</h5>
+                  <h4 class="card-text text-white">{{ counts['madia'] }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Kolam Tribe Students</h5>
+                  <h4 class="card-text text-white">{{ counts['kolam'] }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Count Boxes Section -->
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Sr. No.</th>
+                  <th> Full Name </th>
+                  <th> Application ID </th>
+                  <th> Email </th>
+                  <th> Gender </th>
+                  <th> Caste/Tribe </th>
+                  <th> Application Status </th>
+                  <th> State </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for row in data['pvtg_applications'] %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>
+                    <img src="{{ row.applicant_photo or '/static/assets/img/default_user.png' }}" class="me-2" alt="image">
+                    {{ row.first_name or "Unknown" }} {{ row.last_name or "" }}
+                  </td>
+                  <td>{{ row.applicant_id or "N/A" }}</td>
+                  <td>{{ row.email or "N/A" }}</td>
+                  <td>{{ row.gender or "N/A" }}</td>
+                  <td>
+                    {% if row.pvtg_caste == 'Madia' %}
+                      <label class="badge badge-gradient-success text-dark">{{ row.pvtg_caste or "N/A" }}</label>
+                    {% elif row.pvtg_caste == 'Kolam' %}
+                      <label class="badge badge-gradient-info text-dark">{{ row.pvtg_caste or "N/A" }}</label>
+                    {% elif row.pvtg_caste == 'Katkari' %}
+                      <label class="badge badge-gradient-danger text-dark">{{ row.pvtg_caste or "N/A" }}</label>
+                    {% else %}
+                      <label>N/A</label>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if row.final_approval == 'accepted' %}
+                      <label class="badge badge-gradient-success text-dark">Accepted</label>
+                    {% elif row.final_approval == 'rejected' %}
+                      <label class="badge badge-gradient-danger text-dark">Rejected</label>
+                    {% elif row.final_approval == 'pending' %}
+                      <label class="badge badge-gradient-warning text-dark">Pending</label>
+                    {% else %}
+                      <label>N/A</label>
+                    {% endif %}
+                  </td>
+                  <td>{{ row.state or "N/A" }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END All PVTG Applications Records-->
+  </div>
+
+  <div class="row">
+    <!-- START Disability Chart-->
+    <div class="col-md-5 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Disability Counts: <span class="yearChange">2023 - 2024</span></h4>
+          <div class="doughnutjs-wrapper d-flex justify-content-center">
+              <div id="disability"></div>
+          </div>
+
+          <!-- <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>-->
+          <div id="trafficc-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+
+          <!-- To display the count cards-->
+          <div class="row mt-4 justify-content-center">
+              <div class="col-md-4 stretch-card grid-margin">
+                  <a href="/disabled_report" class="text-decoration-none" target="_blank">
+                      <div class="card bg-gradient-info card-img-holder text-white">
+                        <div class="card-body">
+                          <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                          <h4 class="font-weight-normal text-dark fw-bold mb-3">Disabled</h4>
+                          <h2 class="mb-3" id="disabled">{{ data['disabled_count'] }}</h2>
+                          <h6 class="text-white fw-bold">View Applications</h6>
+                        </div>
+                      </div>
+                  </a>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                  <a href="/not_disabled_report" class="text-decoration-none" target="_blank">
+                      <div class="card bg-gradient-danger card-img-holder text-white">
+                        <div class="card-body">
+                          <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                          <h4 class="font-weight-normal text-dark fw-bold mb-3">Not Disabled</h4>
+                          <h2 class="mb-3" id="not_disabled">{{ data['not_disabled_count'] }}</h2>
+                          <h6 class="text-white fw-bold">View Applications</h6>
+                        </div>
+                      </div>
+                  </a>
+              </div>
+
+            </div>
+          <!-- END the count cards-->
+
+          <script>
+               document.addEventListener("DOMContentLoaded", () => {
+                  const yearSelector = document.getElementById('yearSelector');
+                  let chart = null; // To store the current chart instance
+
+                  // Function to update the pie chart data based on the selected year
+                  function updateDonutChartData(data, dataYear) {
+                      // Access the correct structure of the data
+                      const disabledData = data.disabled_count[dataYear] || 0; // Default to 0 if undefined
+                      const notDisabledData = data.not_disabled_count[dataYear] || 0;
+
+                      // Clean up the existing chart instance
+                      if (chart) {
+                          chart.destroy();
+                      }
+
+                      // Render the new chart
+                      chart = new ApexCharts(document.querySelector("#disability"), {
+                          series: [disabledData, notDisabledData],
+                          chart: {
+                              type: 'donut',
+                              height: '280px'
+                          },
+                          labels: ['Disabled Students', 'Not Disabled Students'],
+                          colors: ['#77CDFF', '#FF8C9E'], // Update with Purple theme colors
+                          legend: {
+                              position: 'bottom',
+                              horizontalAlign: 'center',
+                              markers: {
+                                  radius: 12
+                              }
+                          }
+                      });
+
+                      chart.render();
+                  }
+
+                  // Fetch application data from the server
+                  fetch('/get_disabled_data')
+                      .then(response => response.json())
+                      .then(data => {
+                          // Set default year
+                          const defaultYear = '2023';
+                          yearSelector.value = defaultYear;
+
+                          // Initial rendering of the pie chart
+                          updateDonutChartData(data, defaultYear);
+
+                          // Event listener for year selector change
+                          yearSelector.addEventListener('change', function () {
+                              const selectedYear = this.value;
+                              updateDonutChartData(data, selectedYear);
+                          });
+                      })
+                      .catch(error => {
+                          console.error('Error fetching data:', error);
+                      });
+                  });
+              </script>
+        </div>
+      </div>
+    </div>
+    <!-- END Disability Chart-->
+
+    <!-- START Faculty/Stream Wise Student Chart-->
+    <div class="col-lg-7 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Faculty/Stream Wise Student Count: <span class="yearChange">2023 - 2024</span></h4>
+          <div class="chartjs-render-monitor d-flex justify-content-center mt-3">
+              <div id="facultyBarChart" style="width: 90%; height: 100%;"></div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-3">
+              <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Science Students</h5>
+                  <h4 class="card-text text-white" id="science">{{ faculty_counts['science'] }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Arts Students</h5>
+                  <h4 class="card-text text-white" id="arts">{{ faculty_counts['arts'] }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Comm. Students</h5>
+                  <h4 class="card-text text-white" id="commerce">{{ faculty_counts['commerce'] }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Other Students</h5>
+                  <h4 class="card-text text-white" id="other">{{ faculty_counts['other'] }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                  const yearSelector = document.getElementById('yearSelector');
+                  let chart = null; // To store the current chart instance
+
+                  // Function to update the bar chart data based on the selected year
+                  function updateBarChartData(data, dataYear) {
+                      // Validate data structure
+                      const facultyData = data[dataYear] || { science: 0, arts: 0, commerce: 0, other: 0 };
+                      console.log(facultyData);
+                      // Extract data for the chart
+                      const seriesData = [facultyData.science, facultyData.arts, facultyData.commerce, facultyData.other];
+                      const categories = ['Science', 'Arts', 'Commerce', 'Other'];
+
+                      // Clean up the existing chart instance
+                      if (chart) {
+                          chart.destroy();
+                      }
+
+                      // Render the new chart
+                      chart = new ApexCharts(document.querySelector("#facultyBarChart"), {
+                          chart: {
+                              type: 'bar',
+                              height: 350
+                          },
+                          series: [{
+                              name: 'Student Count',
+                              data: seriesData
+                          }],
+                          xaxis: {
+                              categories: categories,
+                              title: {
+                                  text: 'Faculty'
+                              }
+                          },
+                          yaxis: {
+                              title: {
+                                  text: 'Student Count'
+                              }
+                          },
+                          fill: {
+                              type: "gradient", // Enable gradient fill
+                              gradient: {
+                                  shade: "dark", // Change to "dark" for a more dramatic effect
+                                  type: "vertical", // Can be "horizontal" or "vertical"
+                                  gradientToColors: ["#8A2BE2", "#00CED1"], // Multiple colors for a smoother gradient
+                                  stops: [0, 40, 60, 100], // Gradual stops for more smoothness
+                              },
+                          },
+                          colors: ['#6A5ACD'], // Purple theme
+                          title: {
+                              text: `Student Counts for ${dataYear}`,
+                              align: 'center'
+                          },
+                          plotOptions: {
+                              bar: {
+                                  borderRadius: 4,
+                                  horizontal: false
+                              }
+                          },
+                          legend: {
+                              show: false // Hide legend for simplicity
+                          }
+                      });
+
+                      chart.render();
+                  }
+
+                  // Fetch application data from the server
+                  fetch('/get_faculty_data')
+                      .then(response => response.json())
+                      .then(data => {
+                          // Set default year
+                          const defaultYear = '2023';
+                          yearSelector.value = defaultYear;
+
+                          // Initial rendering of the bar chart
+                          updateBarChartData(data, defaultYear);
+
+                          // Event listener for year selector change
+                          yearSelector.addEventListener('change', function () {
+                              const selectedYear = this.value;
+                              updateBarChartData(data, selectedYear);
+                          });
+                      })
+                      .catch(error => {
+                          console.error('Error fetching data:', error);
+                      });
+              });
+          </script>
+        </div>
+      </div>
+    </div>
+    <!-- END Faculty/Stream Wise Student Chart-->
+  </div>
+
+</div>
+
+{% endblock %}

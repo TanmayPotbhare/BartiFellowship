@@ -1,0 +1,143 @@
+{% extends "Homepage/layout/layout.html" %}
+
+{% block content %}
+
+<main id="main">
+      <div class="p-5">
+      <div class="row">
+        <!-- Year Wise -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title year-report">{{multilingual_content[language]['year_wise_total']  }}</h5>
+
+              <!-- Column Chart -->
+              <div id="columnChart"></div>
+
+              <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#columnChart"), {
+                        series: [{
+                          name: '2021',
+                          data: [{{ twentyone_count }}, 0, 0, 0, 0, 0, 0, 0, 0],
+                          color: '#82ccdd'
+                      }, {
+                        name: '2022',
+                        data: [{{ twentytwo_count }}, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#FC427B'
+                    }, {
+                      name: '2023',
+                      data: [{{ twentythree_count }}, 0, 0, 0, 0, 0, 0, 0, 0],
+                      color: '#9c88ff'
+                    }],
+                      chart: {
+                      type: 'bar',
+                      height: 350
+                    },
+                      plotOptions: {
+                      bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                      },
+                    },
+                      dataLabels: {
+                      enabled: false
+                    },
+                      stroke: {
+                      show: true,
+                      width: 2,
+                      colors: ['Transperent']
+                    },
+                      xaxis: {
+                      categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    },
+                      yaxis: {
+                      title: {
+                        text: ' (Students)'
+                      }
+                    },
+                      fill: {
+                      opacity: 1,
+                      colors: ['#82ccdd', '#FC427B' , '#9c88ff']
+                    },
+                      tooltip: {
+                      y: {
+                        formatter: function (val) {
+                          return val + " Students"
+                        }
+                      }
+                    }
+                  }).render();
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+        <!-- End Column Chart -->
+      
+
+      <!-- Website Traffic -->
+      <div class="col-md-4">
+        <div class="card">
+         
+
+          <div class="card-body pb-4 text-center">
+            <h5 class="card-title year-report">{{multilingual_content[language]['gender_ratio']  }}</h5>
+
+            <div id="pieChart" class="echart"></div>
+
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                new ApexCharts(document.querySelector("#pieChart"), {
+                  series: [{{ male_count }}, {{ female_count }}, {{ trans_count }}],
+                chart: {
+                height: 350,
+                type: 'pie',
+                toolbar: {
+                  show: true
+                }
+              },
+                labels: ['Male Students', 'Female Students', 'Transgender Students'],
+                colors: ['#2C3A47', '#FC427B', '#FFC300']
+                }).render();
+              });
+            </script>
+          </div>
+        </div>
+        <!-- End Sex Ration Traffic -->
+      </div>
+      <!-- DONUT CHART -->
+      <div class="col-md-4">
+        <div class="card-body pb-0 text-center">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title year-report">{{multilingual_content[language]['disability_count']  }}</h5>
+
+              <!-- Donut Chart -->
+              <div id="donutChart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#donutChart"), {
+                    series: [{{disability_yes}}, {{disability_no}}],
+                    chart: {
+                      height: 350,
+                      type: 'donut',
+                      toolbar: {
+                        show: true
+                      }
+                    },
+                    labels: ['Disabled', 'Not Disabled'],
+                  }).render();
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+        <!-- End Donut Chart -->
+      </div>
+    </div>
+    </main>
+
+{% endblock %}

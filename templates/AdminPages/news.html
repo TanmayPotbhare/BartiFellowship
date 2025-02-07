@@ -1,0 +1,107 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-home"></i>
+      </span> Add and View News
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        <h3 class="form-label text-center mb-4">Add News</h3>
+        <!-- Horizontal Form -->
+        <form method= "POST" action="/news_submit" enctype="multipart/form-data">
+                <div class="row mb-3 ms-3">
+                  <label class="col-sm-2 col-form-label p-0">Added By</label>
+                  <div class="col-sm-6">
+                     <select name="user" id="user" class="form-control">
+                        <option value="">-- Select User --</option>
+                        <option value="TRTI Umesh Sir">Umesh Sir</option>
+                        <option value="TRTI Jadhav Sir">Jadhav Sir</option>
+                        <option value="TRTI ABC Sir">ABC Sir</option>
+                        <option value="TRTI XYZ Sir">XYZ Sir</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3 ms-3">
+                  <label class="col-sm-2 col-form-label p-0">Title</label>
+                  <div class="col-sm-6">
+                    <input type="text" name="title" class="form-control" id="inputEmail">
+                  </div>
+                </div>
+                <div class="row mb-3 ms-3">
+                  <label class="col-sm-2 col-form-label p-0">Subtitle</label>
+                  <div class="col-sm-6">
+                    <input type="text" name="subtitle" class="form-control" id="inputPassword">
+                  </div>
+                </div>
+                <div class="row mb-3 ms-3">
+                  <label class="col-sm-2 col-form-label p-0">Upload Document</label>
+                  <div class="col-sm-6">
+                    <input type="file" name="doc" class="form-control" id="doc">
+                  </div>
+                </div>
+                <div class="text-center">
+                  {% if session['user'] == 'Auditor' %}
+                      <form action="#" method="POST">
+                          <button type="submit" class="btn bar-active shadow next-btn-5 export-excel" data-bs-toggle="tooltip"
+                              data-bs-title="Next">Submit</button>
+                      </form>
+                  {% else %}
+                      <form action="/index" method="POST">
+                          <button type="submit" class="btn btn-outline-primary btn-fw btn-rounded" data-bs-toggle="tooltip"
+                              data-bs-title="Next">Submit</button>
+                      </form>
+                  {% endif %}
+                </div>
+              </form><!-- End Horizontal Form -->
+    </div><hr>
+    <div class="card-body">
+        <h3 class="form-label text-center mb-4">News & Updates</h3>
+        <div class="table-responsive">
+            <!-- Table with stripped rows -->
+            <table class="table table-striped datatable">
+            <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Sub Title</th>
+                    <th scope="col">Document Uploaded</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in result %}
+                  <tr>
+                    <th scope="row"><a href="#">{{ row['id'] }}</a></th>
+                    <td>{{ row['title'] }} </td>
+                    <td><a href="#" class="text-primary">{{ row['user'] }}</a></td>
+                    <td>{{ row['subtitle'] }}</td>
+                    <td>
+                        <a href="{{ row['doc'] }}" target="_blank" class="btn btn-primary btn-sm">View</a>
+                    </td>
+                    <td>{{ row['date'] }}</td>
+                    <td>{{ row['time'] }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

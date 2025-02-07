@@ -1,0 +1,97 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+
+          <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        {% if records %}
+                            {% set fullname = records['first_name'] + ' ' + records['middle_name'] + ' ' + records['last_name'] %}
+                              {% if records['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ records['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block">{{ records['email'] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+          </div>
+          <div class="card-footer card-profile-footer text-center">
+                <h5 class="text-dark fw-bold">Upload Thesis</h5>
+          </div>
+          <div class="card-body">
+            <div class="applicant-cards">
+                {% if records %}
+                  <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ records['application_date'] }}</span></h6>
+                {% endif %}
+                <div class="card mb-3">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <div class="col-md-12">
+                          {% if records %}
+                                {% set phd_thesis = records['phd_thesis'] %}
+
+                                {% if phd_thesis %}
+                                    <div class="row mt-5">
+                                        <div class="col-md-3">
+                                            <label>PHD Award Uploaded Date</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <span class="text-dark">{{ records['phd_thesis_uploaded_date'] }}</span> (Format YYYY-MM-DD)
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-md-3">
+                                            <label>PHD Award Uploaded Time</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <span class="text-dark">{{ records['phd_thesis_uploaded_time'] }}</span> (Format Hours:Minutes:Seconds)
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-md-3">
+                                            <label>PHD Award</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <span>
+                                                <a href="{{ phd_thesis }}" target="_blank"
+                                                   class="btn btn-primary btn-sm">View Award</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <form action="/upload_thesis_submit" method="POST" enctype="multipart/form-data">
+                                        <div class="row mt-5">
+                                            <div class="col-md-2">
+                                                <label>PHD Thesis</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="file" name="phd_thesis" id="phd_thesis"
+                                                       class="form-control"
+                                                       placeholder="Enter your Date of Birth">
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-sm mt-3">Submit PHD Award</button>
+                                        </div>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat for more applicants -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-home"></i>
+      </span> Track Payments
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="card">
+      <div class="card-body">
+        <h3 class="form-label text-center mb-4">Fellowships Awarded</h3>
+            <div>
+                  <div class="container-fluid px-0 mt-4">
+                      <form action="/sendbulkEmails" method="POST">
+                          <div class="row g-3 justify-content-center">
+                              <!-- Search by Name -->
+                              <div class="row col-md-12 align-items-end">
+                                  <div class="col-md-3">
+                                      <label for="search_name" class="form-label"><strong>Select Mail
+                                              Type</strong></label>
+                                      <select name="mail_type" id="mail_type" class="form-control">
+                                          <option value="">-- Select Type --</option>
+                                          <option value="custom">Custom Email</option>
+                                          <option value="bulk">Bulk Email</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-6 row align-items-end d-none" id="search_option">
+                                      <div class="col-md-6">
+                                          <label for="search_name" class="form-label"><strong>Search by
+                                                  Year</strong></label>
+                                          <input type="text" name="year" class="form-control" id="search_name"
+                                              placeholder="Enter Year">
+                                      </div>
+
+                                      <!-- Submit Button -->
+                                      <div class="col-md-6">
+                                          <button type="submit" class="btn btn-primary">Submit Form</button>
+                                      </div>
+                                  </div>
+                              </div>
+
+
+                              <!-- Email Recipients Section -->
+                              <div class="row mt-4">
+
+                                  <div class="col-md-12 d-none" id="bulk_section" style="height: 50vh; overflow-y: scroll;">
+                                      <h2>Email Form</h2>
+                                      <label for="emailRecipients" class="form-label"><strong>Email
+                                              Recipients:</strong></label>
+                                      <table class="table table-bordered" id="sendBulkEmail">
+                                          <thead>
+                                              <tr>
+                                                  <th>
+                                                      <input type="checkbox" class="select-all"
+                                                          name="emailRecipients[]">
+                                                  </th>
+                                                  <th>S.No.</th>
+                                                  <th>Email</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              {% if email_list is not none %}
+                                              {% for email in email_list %}
+                                              <tr>
+                                                  <td><input type="checkbox" class="email-input"
+                                                          name="emailRecipients[]" value="{{ email }}" id=""></td>
+                                                  <td>{{ loop.index }}</td>
+                                                  <td>{{ email }}</td>
+                                              </tr>
+                                              {% endfor %}
+                                              {% endif %}
+                                          </tbody>
+
+                                      </table>
+                                  </div>
+                                  <div id="custom_section" class="d-none">
+                                      <div class="row" id="custom_email_wrapper">
+                                          <div class="col-md-3">
+                                              <label for="">Enter Email</label>
+                                              <input type="text" name="custom_email[]" class="form-control custom_email" placeholder="Enter Email">
+                                          </div>
+                                      </div>
+                                      <div class="mt-3">
+                                          <a href="#" id="add_email_input" class="btn btn-theme rounded-circle btn-sm " data-toggle="tooltip" data-placement="right" data-original-title="Add option">
+                                              <i class="ri-add-line "></i>
+                                          </a>
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                          </div>
+                      </form>
+                  </div>
+              </div>
+            <div class="container-fluid mt-4">
+                    <div class="row g-5">
+                        <!-- Left Column: Email Composition Form -->
+                        <div class="col-md-6 border-end border-4 pagetitle">
+
+                            <form action="/send_bulk_email" method="POST" enctype="multipart/form-data">
+                                <!-- {% if email_list is not none %}
+                                {% for email in email_list %}
+                                <input type="hidden" name="email_list[]" value="{{email}}">
+                                {% endfor %}
+                                {% endif %} -->
+                                <div class="email-list">
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subject">Subject:</label>
+                                    <input type="text" class="form-control" id="subject" name="subject" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="body">Body:</label>
+                                    <textarea class="form-control" id="body" name="message" rows="4"
+                                        required></textarea>
+                                </div>
+
+                                    <div class="mb-3">
+                                        <label for="attachment" class="form-label">Attachment</label>
+                                        <input class="form-control" type="file" id="attachment" name="attachment">
+                                    </div>
+
+                                <br>
+                                {% if session['user'] == 'Auditor' %}
+                                    <button class="btn btn-primary export-excel">Send Email</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-primary">Send Email</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                        <!-- Right Column: Dynamic Email Preview -->
+                        <div class="col-md-6 pagetitle">
+                            <h4>Email Preview</h4>
+                            <div id="emailPreview" class="card">
+                                <div class="card-body py-3">
+                                    <h5 class="fw-bold my-3" id="previewSubject">
+                                        <h5 class='fw-bold  card-title h5'>Subject: </h5>
+                                        <p class='subject_text'></p>
+                                    </h5>
+                                    <p class="card-text fw-bold my-3" id="previewBody">
+                                    <h5 class='fw-bold card-title h5'>Message: </h5>
+
+                                    <p class="msg_text"></p>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+      </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+
+<div class="container py-5">
+    <div class="card shadow-sm">
+        <div class="card-header text-center">
+            <img src="/static/assets/img/accepted.gif" width="80px" alt="">
+        </div>
+        <div class="card-body py-3 bg-dark text-center">
+            {% if record %}
+                <section class="section contact">
+                    <div class="mb-4">
+                        {% if record['first_name'] and record['last_name'] %}
+                            <p class="h4 text-white">Hello, {{ record['first_name'] + " " + record['last_name'] }}</p>
+                        {% else %}
+                            <p class="h4 text-success">Hello, User</p>
+                        {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        <p><strong class="text-white">The Application form has been successfully submitted & you won't be able to edit it now.</strong></p>
+                    </div>
+                    <div class="mb-4">
+                        <p><span class="text-white">Your Applicant ID: </span><strong class="text-white">{{ record['applicant_id'] }}</strong></p>
+                    </div>
+                    <form method="GET" action="/generate_pdf" target="_blank">
+                        <button type="submit" class="btn btn-primary btn-sm"
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top"
+                        title="Download PDF">Download Application PDF</button>
+                    </form>
+                </section>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

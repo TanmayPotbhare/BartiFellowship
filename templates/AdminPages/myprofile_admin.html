@@ -1,0 +1,250 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">
+          <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-face-man-profile"></i>
+          </span> My Profile
+        </h3>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        <img class="rounded-circle" src="/static/assets/img/default_user.png" alt="Avatar Image"
+                            style="height:150px; width:150px">
+                        <span class="h5 d-block mt-3 mb-2">{{ result['first_name'] }} {{ result['surname'] }}</span>
+                        <span class="d-block">{{ result['role'] }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body col-md-12">
+                    <div class="mt-5">
+                        <!-- Navigation Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+                            <li class="nav-item border-start">
+                                <button class="nav-link active text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                            </li>
+                            <li class="nav-item border-start">
+                                <button class="nav-link text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#profile-qual">Change Password</button>
+                            </li>
+                            <li class="nav-item border-start">
+                                <button class="nav-link text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#update-details">Update Details</button>
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+            <!-- Tab Content -->
+            <div class="tab-content pt-3">
+                <!-- Overview Tab -->
+                <div class="tab-pane fade show active" id="profile-overview">
+                    <div class="row">
+                        <div class="col-md-6">
+                             <div class="row mt-2 ms-2">
+                                <div class="col-md-6">
+                                    <label>Full Name:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>{{ result['first_name'] }} {{ result['middle_name'] }} {{ result['surname'] }}</span>
+                                </div>
+                            </div>
+                            <div class="row mt-2 ms-2">
+                                <div class="col-md-6">
+                                    <label>Login Created Date:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>{{ result['added_date'] }}</span>
+                                </div>
+                            </div>
+                            <div class="row mt-2 ms-2">
+                                <div class="col-md-6">
+                                    <label>Login Created Time:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>{{ result['added_time'] }}</span>
+                                </div>
+                            </div>
+                            <div class="row mt-2 ms-2">
+                                <div class="col-md-6">
+                                    <label>Username:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>{{ result['username'] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <label>Gender:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <span>{{ result['gender'] }}</span>
+                                </div>
+                             </div>
+                             <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <label>Email:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <span>{{ result['email'] }}</span>
+                                </div>
+                             </div>
+                             <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <label>Mobile Number:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <span>{{ result['mobile_number'] }}</span>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <label>Password:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <span>{{ result['password'] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1 ms-2">
+                        <div class="col-md-8 mt-2">
+                            <label>Authentication Role:</label> <br>
+                            <span class="mdi mdi-railroad-light">
+                                {{ result['role'] }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile-qual">
+                    <form>
+                        <div class="row mt-2 ms-2">
+                            <div class="col-md-2">
+                                <label>Current Password:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" id="current-password" placeholder="Enter current password" required>
+                            </div>
+                        </div>
+                        <div class="row mt-2 ms-2">
+                            <div class="col-md-2">
+                                <label>New Password:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" id="new-password" placeholder="Enter new password" required>
+                            </div>
+                        </div>
+                        <div class="row mt-2 ms-2">
+                            <div class="col-md-2">
+                                <label>Confirm Password:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm new password" required>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-sm">Change Password</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="update-details">
+                    <form>
+                        <div class="row mt-2 ms-2">
+                            <div class="col-md-2">
+                                <label for="first_name">Email:</label>
+                            </div>
+                            {% if result['email'] %}
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       id="email" name="email" disabled
+                                       value="{{ result['email'] }}">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="row mt-3 ms-2">
+                            <div class="col-md-2">
+                                <label for="first_name">Fullname:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control"
+                                               id="first_name" name="first_name"
+                                               placeholder="First Name" required
+                                               oninput="validateName(this)">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control"
+                                               id="second_name" name="second_name"
+                                               placeholder="Second Name" required
+                                               oninput="validateName(this)">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control"
+                                               id="third_name" name="third_name"
+                                               placeholder="Third Name" required
+                                               oninput="validateName(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 ms-2">
+                            <div class="col-md-2">
+                                <label for="first_name">Address:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control"
+                                               id="taluka" name="taluka"
+                                               placeholder="Enter Taluka" required
+                                               oninput="validateName(this)">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control"
+                                               id="district" name="district"
+                                               placeholder="Enter District" required
+                                               oninput="validateName(this)">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control"
+                                               id="state" name="state"
+                                               placeholder="Enter State" required
+                                               oninput="validateName(this)">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control"
+                                               id="pincode" name="pincode"
+                                               placeholder="Pincode" required
+                                               oninput="validateName(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4 text-center">
+                            <div class="col-md-2">
+                                <label for="first_name">Mobile Number:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       id="mobile_number" name="mobile_number"
+                                       placeholder="Enter Phone Number" required
+                                       oninput="validateMobileNumber(this)">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Details</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

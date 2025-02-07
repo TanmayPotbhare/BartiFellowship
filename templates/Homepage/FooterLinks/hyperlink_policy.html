@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fellowship | Hyperlink Policy</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/assets/img/fellow_logo_1.png" rel="icon">
+  <link href="/static/assets/img/fellow_logo_1.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  {% include 'Homepage/layout/header.html' %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="index.html">{{
+            multilingual_content[language]['home'] }}</a></li>
+          <li>{{
+            multilingual_content[language]['hyperlink_policy'] }}</li>
+        </ol>
+        <h2 class="text-theme-sec fw-600">{{
+          multilingual_content[language]['hyperlink_policy'] }}</h2>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page p-3">
+      <div class="container">
+        <!-- ======= Contact Section ======= -->
+        <section id="hyperlink_policy" class="hyperlink_policy pt-3">
+
+          <div class="container" data-aos="fade-up">
+            <div class="container p-0">
+              <p class="text-justify para text-justify">
+                {% if(language == 'english') %}
+                We do not object to you linking directly to the information that is hosted on our site and no prior permission is required for the same. However, we would like you to inform us about any links provided to our site so that you can be informed of any changes therein. Also, we do not permit our pages to be loaded into frames on your site. Our website's pages must load into a newly opened browser window of the user.
+                
+                {% else %}
+
+                आमच्या साइटवर होस्ट केलेल्या माहितीशी थेट लिंक करण्यावर आमचा आक्षेप नाही आणि त्यासाठी कोणतीही पूर्व परवानगी आवश्यक नाही. तथापि, आम्ही आम्हाला आमच्या साइटवर प्रदान केलेल्या कोणत्याही लिंक्सबद्दल आम्हाला माहिती देऊ इच्छितो जेणेकरून तुम्हाला त्यातील कोणत्याही बदलांची माहिती मिळू शकेल. तसेच, आम्ही आमच्या पृष्ठांना आपल्या साइटवरील फ्रेममध्ये लोड करण्याची परवानगी देत नाही. आमच्या वेबसाइटची पृष्ठे वापरकर्त्याच्या नव्याने उघडलेल्या ब्राउझर विंडोमध्ये लोड करणे आवश्यक आहे.
+                {% endif %}
+              </p>
+            </div>
+
+          </div>
+
+        </section><!-- End Contact Section -->
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  {% include 'Homepage/layout/footer.html' %}
+
+</body>
+
+</html>

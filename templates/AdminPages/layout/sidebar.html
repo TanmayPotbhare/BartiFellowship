@@ -1,0 +1,125 @@
+<!-- partial:partials/_sidebar.html -->
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <a href="#" class="nav-link">
+        <div class="nav-profile-image">
+          <img src="/static/admin_assets/images/adminn.png" alt="profile" />
+          <span class="login-status online"></span>
+          <!--change to offline or busy as needed-->
+        </div>
+        <div class="nav-profile-text d-flex flex-column">
+          <span class="font-weight-bold mb-2">
+            {% if session['user'] == 'Super Admin' %}
+                Super Admin
+            {% else %}
+                Admin
+            {% endif %}
+          </span>
+          <span class="text-secondary text-small">
+            {% if session['user'] == 'Super Admin' %}
+                Super Admin Account
+            {% else %}
+                Admin Account
+            {% endif %}
+          </span>
+        </div>
+        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin_dashboard">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-chart-bar menu-icon"></i>
+      </a>
+    </li>
+    {% if session['user'] == 'Super Admin' %}
+    <li class="nav-item">
+      <a class="nav-link" href="/addAdmin">
+        <span class="menu-title">Add Admin</span>
+        <i class="mdi mdi-plus-thick menu-icon"></i>
+      </a>
+    </li>
+    {% endif %}
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <span class="menu-title">Fellowship Approval</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-check-decagram menu-icon"></i>
+      </a>
+      <div class="collapse" id="ui-basic">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" href="/adminPage">Preliminary Review</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/level_two_admin">Eligibility Check</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/level_three_admin">Final Approval</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/payment_sheet">
+        <span class="menu-title">Payment Sheet</span>
+        <i class="mdi mdi-cash-clock menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/payment_tracking">
+        <span class="menu-title">Track Payments</span>
+        <i class="mdi mdi-contactless-payment menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/document_repo">
+        <span class="menu-title">Document Repository</span>
+        <i class="mdi mdi-book menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/fellowship_awarded">
+        <span class="menu-title">Award Fellowships</span>
+        <i class="mdi mdi-medal menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/withdrawed_application_admin">
+        <span class="menu-title">Withdrawed Fellowships</span>
+        <i class="mdi mdi-cancel menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/sendbulkEmails">
+        <span class="menu-title">Send Bulk Emails</span>
+        <i class="mdi mdi-email-check-outline menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/student_manage_dashbaord">
+        <span class="menu-title">Management Dashboard</span>
+        <i class="mdi mdi-monitor-dashboard menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="admin_issue_raised_by_students">
+        <span class="menu-title">Issues Raised</span>
+        <i class="mdi mdi-help-rhombus menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/news">
+        <span class="menu-title">News Section</span>
+        <i class="mdi mdi-newspaper-variant-multiple-outline menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin_logout">
+        <span class="menu-title">Logout</span>
+        <i class="mdi mdi-logout menu-icon"></i>
+      </a>
+    </li>
+  </ul>
+</nav>

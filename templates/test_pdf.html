@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="header">
+    </div>
+    <div class="footer font-13">
+        Page No: <span class="pagenum"></span>
+    </div>
+
+
+    <main class="" style="padding-block:0px;">
+        <table style="width:100%;  border-collapse: collapse;">
+            <tr>
+                <th style="width:20%; border-bottom:1px solid black; border-right:1px solid black;">
+                    <img src="assets/img/logo/barti.png" alt="Barti" style="width:60px">
+                </th>
+                <th style="width:60%; border-bottom:1px solid black; border-right:1px solid black; padding:5px;">
+                    <div>
+                        <img src="assets/img/logo/b-r-ambedkar.png" alt="Baba Saheb" style="width:60px">
+                    </div>
+                    <p style="margin-bottom:2px; font-size:15px">Dr. Babasaheb Ambedkar Research and Training Institute (BARTI), Pune</p>
+                    <p style="font-size:11px;">
+                        (An Autonomous Institute of the Department of Social Justice and Special Assistance, Government of Maharashtra)</p>
+                </th>
+                <th style="width:20%; border-bottom:1px solid black; font-weight:normal;">
+                    <div>
+                        <img src="assets/img/logo/maha_logo.jpeg" alt="Maha Logo" style="width:60px;">
+                    </div>
+
+                </th>
+            </tr>
+        </table>
+        <div class="head text-center rounded-top text-white" style="margin:0px !important;">
+            <p class="text-white competative-heading mt-0 " style="margin:0px !important; padding:10px; color:white;  background-color:#010439;">Competitive Pre-Examination Training</p>
+            <p class="competative-application-form" style="font-size:16px; text-align:center;">Application Form</p>
+        </div>
+       <!-- PRN and heading -->
+
+        <table class="" border="1" style="width:100%;">
+            <tr>
+                <td class="font-13 border  p-2 text-center" align="center">Application Id : {{ $candidateDetail->appl_number }} </td>
+                <th class="font-13 border  p-2 text-center" style="letter-spacing: 0; white-space:wrap;">Application Date : <br>{{ $formatted_enrollment_date }} </th>
+               <th class="border text-center"> <img src="data:image/png;base64,{{ $qrCode }}" class="w-50" alt="Applicant QR Code"></th>
+            </tr>
+        </table>
+
+        <div class="table-container">
+            <table class="table mb-0" style="width:100%; border-collapse: collapse; margin-top:15px;">
+
+                <tr>
+                    <td colspan="2" class="text-center" style="font-size:16px; font-weight:500px; border-bottom:1px solid #010439;font-weight:500; text-align:center; background-color:#010439; color:white; padding:10px;">Personal Details</td>
+                </tr>
+                <tr>
+                    <th style="width:80%;"></th>
+                    <th style="width:20%; border:1px solid #010439; border-top:0px">
+                        <!-- <img src="assets/img/default_img.png" alt="Applicant Photo" style="width:100px; height:100px; object-fit:contain; "> -->
+                         @php
+                         if($candidateDetail->applicant_photo){
+                            $applicant_photo = $candidateDetail->applicant_photo;
+                         }else{
+                            $applicant_photo = "assets/img/default_img.png";
+                         }
+
+
+                         @endphp
+                        <img src="{{  $applicant_photo }}" alt="Applicant Photo" style="width:100px; height:100px; object-fit:contain;">
+                    </th>
+                </tr>
+            </table>
+            <table style="width:100%; margin-top:15px; border-collapse: collapse;" class="table-border">
+                <tr>
+                    <th class="text-center" style="font-size:14px;">First Name</th>
+                    <th class="text-center" style="font-size:14px;">Middle Name</th>
+                    <th class="text-center" style="font-size:14px;">Last Name</th>
+                    <th class="text-center" style="font-size:14px;">Mobile</th>
+                </tr>
+                <tr>
+                    <td class="text-center" style="font-size:14px;">{{ $candidateDetail->first_name }}</td>
+                    <td class="text-center" style="font-size:14px;">{{ $candidateDetail->middle_name }}</td>
+                    <td class="text-center" style="font-size:14px;">{{ $candidateDetail->last_name }}</td>
+                    <td class="text-center" style="font-size:14px;"> {{ substr_replace($candidateDetail->mobile_no,'XXXXXXXX',0,8) }} </td>
+                </tr>
+
+            </table>
+            <table style="width:100%;  border-collapse: collapse; margin-top:5px;" class="table-border">
+                <tr>
+                    <th style="font-size:13px; text-align:right;">Email</th>
+                    <td style="font-size:13px;"> {{ $candidateDetail->email_id }}</td>
+                    <th class="font-13 px-2 " style="text-align:right;">Mobile No.</th>
+                    <td class="font-13 px-2 "> {{ substr_replace($candidateDetail->mobile_no,'XXXXXXXX',0,8) }}</td>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2">Aadhaar No</th>
+                    <td class="font-13 px-2">: {{ substr_replace(base64_decode($candidateDetail->aadhar_number), 'XXXXXXXX', 0, 8) }}</td>
+                    <th class="font-13 px-2">Alternate Mobile No</th>
+                    <td class="font-13 px-2 ">: {{ $candidateDetail->alternate_mobile_no }}</td>
+                </tr>
+
+                <tr>
+                    <th class="font-13 px-2">Date Of Birth</th>
+                    <td class="font-13 px-2">: {{ $formattedDoB }}</td>
+                    <th class="font-13 px-2">Age</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->age_year }}(years) {{ $candidateDetail->age_month }}(months) {{ $candidateDetail->age_days }}(days)</td>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2">Gender</th>
+                    <td class="font-13 px-2">: {{ ucfirst($candidateDetail->gender) }}</td>
+                    <th class="font-13 px-2">Female Reservation</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->gender == 'female' ? ucfirst($candidateDetail->female_reservation) : "NA" }}</td>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2">Category</th>
+                    <td class="font-13 px-2">: {{ Helper::getCategoryName($candidateDetail->category); }}</td>
+                    <th class="font-13 px-2">Caste</th>
+                    <td class="font-13 px-2">: {{ Helper::getCasteName($candidateDetail->caste_id) }} </td>
+                </tr>
+
+                <tr>
+                    <th class="font-13 px-2">Sub Caste</th>
+                    <td class="font-13 px-2">: {{ ($candidateDetail->sub_caste || $candidateDetail->sub_caste != "") ?  $candidateDetail->sub_caste : 'NA' }}</td>
+                    <th class="font-13 px-2">Marital Status</th>
+                    <td>
+                    @if($candidateDetail->marital_status == "Single")
+                    <div class="font-13 px-2">: Unmarried</div>
+                    @else
+                    <div class="font-13 px-2">: {{ $candidateDetail->marital_status }}</div>
+                    @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2">Have you ever changed your name?</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->changed_name }}</td>
+                    <th class="font-13 px-2">New Name</th>
+                    <td class="font-13 px-2">:@if($candidateDetail->changed_name == "Yes") {{ $candidateDetail->new_first_name }} {{ $candidateDetail->new_middle_name }} {{ $candidateDetail->new_last_name }} @else NA @endif</td>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2">Father's Name</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->father_firstname }}</td>
+                    <th class="font-13 px-2">Mother's Name</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->mother_firstname }}</td>
+                </tr>
+
+                <tr>
+                    <th class="font-13 px-2">Are you an Orphan?</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->orphan }}</td>
+                    <th class="font-13 px-2">Orphan type</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->orphan_type ? ($candidateDetail->orphan_type == 'non_institutional_care' ? 'Non-Institutional Care' : 'Institutional Care') : 'NA' }}</td>
+                </tr>
+                @if($candidateDetail->enroll_scheme != "10" && $candidateDetail->enroll_scheme != "9" )
+                <tr>
+                    <th class="font-13 px-2">Do you have any Disability?</th>
+                    <td class="font-13 px-2">: {{ $candidateDetail->disability }}</td>
+                    <th class="font-13 px-2">Disability Type</th>
+                    <td class="font-13 px-2">: {{ ($candidateDetail->disability == "Yes") ?  Helper::getDisabilityName($candidateDetail->disability_type): "NA" }}</td>
+
+                </tr>
+                @endif
+
+                @if($candidateDetail->approved_schema == "10" || $candidateDetail->approved_schema == "9" )
+                    <tr>
+                        <th class="font-13 px-2">Height (Centi Meter)</th>
+                        <td class="font-13 px-2">
+                            @if(isset($candidateDetail->height)) {{ $candidateDetail->height }} cm. @else NA  @endif
+                        </td>
+                        <th class="font-13 px-2">Chest Unexpanded(Centi Meter)</th>
+
+                        <td class="font-13 px-2">:  @if(isset($candidateDetail->chest_unexpanded)) {{ $candidateDetail->chest_unexpanded }} cm. @else NA  @endif</td>
+
+
+                    </tr>
+                    <tr>
+                        <th class="font-13 px-2">Chest Expanded(Centi Meter)</th>
+                        <td class="font-13 px-2">: @if(isset($candidateDetail->chest_expanded)) {{ $candidateDetail->chest_expanded }} cm. @else NA @endif</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                @endif
+
+            </table>
+            <table width="100%" class="mt-3">
+                <tr>
+                    <th colspan="4" class="text-center border font-14">Selected Scheme</th>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2 border">Sr. No.</th>
+                    <th class="font-13 px-2 border">Application No </th>
+                    <th class="font-13 px-2 border">Scheme Name</th>
+                    <th class="font-13 px-2 border">Scheme Priority</th>
+                </tr>
+
+                <tr>
+                    <td class="font-13 px-2 border">1</td>
+                    <td class="font-13 px-2 border">{{ $candidateDetail->appl_number }}</td>
+                    <td class="font-13 px-2 border">{{  Helper::getSchemeName($candidateDetail->enroll_scheme) }}</td>
+                    <td class="font-13 px-2 border">Selected</td>
+                </tr>
+
+            </table>
+            <table width="100%" class="mt-3">
+                <tr>
+                    <th colspan="4" class="text-center border font-14">Allocated Training Institute</th>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2 border">Sr. No. </th>
+                    <th class="font-13 px-2 border">Institute Id</th>
+                    <th class="font-13 px-2 border">Institute Name</th>
+                    <th class="font-13 px-2 border">Institute District</th>
+
+                </tr>
+                <tr>
+                    <td class="font-13 px-2 border">1</td>
+                    <td class="font-13 px-2 border">{{ Helper::getTSPCode($candidateDetail->allocated_tsp_id)}}</td>
+                    <td class="font-13 px-2 border">{{ Helper::getTSPName($candidateDetail->allocated_tsp_id)}}</td>
+                    <td class="font-13 px-2 border">{{ Helper::getTSPDistrict($candidateDetail->allocated_tsp_id)}}</td>
+
+                </tr>
+            </table>
+
+            <table width="100%" class="mt-3">
+                <tr>
+                    <th colspan="4" class="text-center border font-14">Assigned Training Center</th>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2 border">Sr. No. </th>
+                    <th class="font-13 px-2 border">Training Center Id</th>
+                    <th class="font-13 px-2 border">Training Center Name</th>
+                    <th class="font-13 px-2 border">Training Center District</th>
+
+                </tr>
+                <tr>
+                    <td class="font-13 px-2 border">1</td>
+                    <td class="font-13 px-2 border">{{ Helper::gettcCode($candidateDetail->allocated_tc_id)}}</td>
+                    <td class="font-13 px-2 border">{{ Helper::gettcName($candidateDetail->allocated_tc_id)}}</td>
+                    <td class="font-13 px-2 border">{{ Helper::gettcDistrict($candidateDetail->allocated_tc_id)}}</td>
+                </tr>
+            </table>
+
+
+
+
+
+
+
+
+            <div class="page-break"></div>
+            <table class="table">
+                <tr>
+                    <td colspan="4" class="text-center bg-primary-dark text-white">Address Details</td>
+                </tr>
+                <tr>
+                    <th class="font-15 text-center my-2 border-bottom font-14" colspan="4">Permanent Address Details</th>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2 w-25">Village</th>
+                    <td class="font-13 px-2 w-25">: {{ Helper::getVillageName($candidateDetail->village) }}</td>
+                    <th class="font-13 px-2 w-25">Taluka </th>
+                    <td class="font-13 px-2 w-25">: {{ $candidateDetail->taluka }}</td>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2 w-25">District</th>
+                    <td class="font-13 px-2 w-25">: {{ $candidateDetail->district }}</td>
+                    <th class="font-13 px-2 w-25">Pincode</th>
+                    <td class="font-13 px-2 w-25">: {{ $candidateDetail->pincode }}</td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="font-13 px-2 w-25">Address:</th>
+
+                </tr>
+                <tr>
+                    <td colspan="4" class="font-13 px-2"> {{ $candidateDetail->permanant_address }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2" class="font-13 px-2">Is Communication Address same as Permanent Address?</th>
+                    <td colspan="2" class="font-13 px-2">@if($candidateDetail->sameAddress === 'yes') Yes @else No @endif</td>
+                </tr>
+                <tr>
+                    <th class="font-15 text-center my-2 border font-14" colspan="4">Communication Address Details</th>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2 w-25">Village</th>
+                    <td class="font-13 px-2 w-25">: {{ Helper::getVillageName($candidateDetail->com_village) }}</td>
+                    <th class="font-13 px-2 w-25">Taluka </th>
+                    <td class="font-13 px-2 w-25">: {{ $candidateDetail->com_taluka }}</td>
+                </tr>
+                <tr>
+                    <th class="font-13 px-2 w-25">District</th>
+                    <td class="font-13 px-2 w-25">: {{ $candidateDetail->com_district }}</td>
+                    <th class="font-13 px-2 w-25">Pincode</th>
+                    <td class="font-13 px-2 w-25">: {{ $candidateDetail->com_pincode }}</td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="font-13 px-2 w-25">Address:</th>
+                </tr>
+                <tr>
+                    <td colspan="4" class="font-13 px-2"> {{ $candidateDetail->communication_address }}</td>
+                </tr>
+            </table>
+        </div>
+        <!-- <div class="page-break"></div> -->
+        <!-- Qualification Details -->
+        <table class="table">
+            <tr>
+                <td colspan="4" class="text-center bg-primary-dark text-white ">Qualification Details</td>
+            </tr>
+            @foreach($qualifications as $qualification)
+            <tr>
+                <th colspan="4" class="font-14 text-center border">{{ Helper::getEducationName($qualification['qualification']); }}</th>
+            </tr>
+            <tr>
+                <th class="w-25 px-2 font-13 border">Qualification</th>
+                <td class="w-25 px-2 font-13 border">: {{ Helper::getEducationName($qualification['qualification']); }}</td>
+                <th class="w-25 px-2 font-13 border">@if(in_array($qualification['qualification'], ['5',6,7])) University Name @else Board of Education @endif</th>
+                <td class="w-25 px-2 font-13 border">: @if($qualification['board_of_education'] == 'other') {{ $qualification['other_board_of_education'] }} @else {{ $qualification['board_of_education'] }} @endif</td>
+            </tr>
+            <tr>
+                <th class="w-25 px-2 font-13 border">Passing Year</th>
+                <td class="w-25 px-2 font-13 border">: {{ $qualification['passingYear'] }}</td>
+                <th class="w-25 px-2 font-13 border">School/College Name</th>
+                <td class="w-25 px-2 font-13 border">: {{ $qualification['schoolName'] }}</td>
+            </tr>
+            @if($qualification['evaluationMethod'] == "percentage" )
+            <tr>
+                <th class="w-25 px-2 font-13 border">Method of Evaluation</th>
+                <td class="w-25 px-2 font-13 border">: {{ ucfirst($qualification['evaluationMethod']); }}</td>
+                <th class="w-25 px-2 font-13 border">Total Marks</th>
+                <td class="w-25 px-2 font-13 border">: {{ $qualification['totalMarks'] }}</td>
+            </tr>
+            <tr>
+                <th class="w-25 px-2 font-13 border">Obtained Marks</th>
+                <td class="w-25 px-2 font-13 border">: {{ $qualification['obtainedMarks'] }}</td>
+                <th class="w-25 px-2 font-13 border">Percentage</th>
+                <td class="w-25 px-2 font-13 border">: {{ $qualification['result'] }}</td>
+            </tr>
+            @elseif($qualification['evaluationMethod'] == "CGPA" )
+            <tr>
+                <th class="w-25 px-2 font-13 border">Method of Evaluation</th>
+                <td class="w-25 px-2 font-13 border">: {{ ucfirst($qualification['evaluationMethod']); }}</td>
+                <th class="w-25 px-2 font-13 border">CGPA</th>
+                <td class="w-25 px-2 font-13 border">: {{ $qualification['cgpa'] }}</td>
+            </tr>
+            @elseif($qualification['evaluationMethod'] == "other" )
+            <tr>
+                <th class="w-25 px-2 font-13 border">Method of Evaluation</th>
+                <td class="w-25 px-2 font-13 border">: {{ ucfirst($qualification['evaluationMethod']); }}</td>
+                <th class="w-25 px-2 font-13 border">Grade</th>
+                <td class="w-25 px-2 font-13 border">: {{ $qualification['otherEvaluationMethod'] }}</td>
+            </tr>
+
+            @endif
+            @endforeach
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- Certificate Related Details -->
+        <div id="certificate-details">
+            <table class="table">
+                <tr>
+                    <td colspan="4" class="text-center bg-primary-dark text-white">Other Details</td>
+                </tr>
+                <tr>
+                    <th colspan="4" class="text-center border-bottom mt-3 font-14">Domicile Details</th>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Domicile of Maharashtra</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->domicile ?? 'Yes' }} </td>
+                    <th class="w-25 px-2 font-13 border">Domicile Cert. Available?</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->domicile_certificate ?? 'Yes' }} </td>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Domicile Cert. Number (Barcode No.)</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->domicile_number }}</td>
+                    <th class="w-25 px-2 font-13 border">Issuing District</th>
+                    <td class="w-25 px-2 font-13 border">: {{ Helper::getDistrictName($candidateDetail->domecile_issuing_district); }}</td>
+                </tr>
+                <!-- <tr>
+                    <th class="w-25 px-2 font-13 border">Applied for Domicile Certificate?</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->applied_domocile_certificate ?? 'Yes' }} </td>
+                    <th class="w-25 px-2 font-13 border">Domicile Application Reciept Number</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->domocile_recp }} </td>
+                </tr> -->
+                <!-- Caste Certificate Number -->
+                <tr>
+                    <th colspan="4" class="text-center border mt-3 font-14">Caste Details</th>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Caste Certificate Available</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->caste_certf ?? "Yes" }}</td>
+                    <th class="w-25 px-2 font-13 border">Caste Certificate Number (Barcode No.)</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->caste_cert_number }}</td>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Issuing District</th>
+                    <td class="w-25 px-2 font-13 border">: {{ Helper::getDistrictName($candidateDetail->caste_issuing_district); }}</td>
+                    <th class="w-25 px-2 font-13 border">Issuing Taluka</th>
+                    <td class="w-25 px-2 font-13 border">: {{ Helper::getTalukaName($candidateDetail->taluka_caste); }}</td>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Issuing Authority</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->caste_issuing_authority }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <!-- Caste Validity Certificate Number -->
+                 @if(isset($candidateDetail->validity_num))
+                <tr>
+                    <th colspan="4" class="text-center border mt-3 font-14">Caste Validity Certificate Details</th>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Validity Certificate Number(Barcode No.)</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->validity_num }} </td>
+                    <th class="w-25 px-2 font-13 border">Issuing Authority</th>
+                    <td class="w-25 px-2 font-13 border">: {{ Helper::getValidityIssuingAuthority($candidateDetail->validity_issuing_authority) }}</td>
+                </tr>
+                @endif
+                <!-- Income Details -->
+                <tr>
+                    <th colspan="4" class="text-center border-bottom border-top mt-3 font-14">Income Details</th>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Family Annual Income (₹)</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->family_annual_income }}/-</td>
+                    <th class="w-25 px-2 font-13 border">Income Cert. Number(Barcode No.)</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->income_certificate_number }}</td>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Issuing District</th>
+                    <td class="w-25 px-2 font-13 border">: {{ Helper::getDistrictName($candidateDetail->income_issuing_district); }}</td>
+                    <th class="w-25 px-2 font-13 border">Issuing Taluka</th>
+                    <td class="w-25 px-2 font-13 border">: {{ Helper::getTalukaName($candidateDetail->income_issuing_taluka); }}</td>
+                </tr>
+                <tr>
+                    <th class="w-25 px-2 font-13 border">Issuing Authority</th>
+                    <td class="w-25 px-2 font-13 border">: {{ $candidateDetail->issuing_authority }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="page-break"></div>
+
+    </main>
+</body>
+</html>

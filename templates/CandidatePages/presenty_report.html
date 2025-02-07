@@ -1,0 +1,132 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+
+          <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        {% if records %}
+                            {% set fullname = records['first_name'] + ' ' + records['middle_name'] + ' ' + records['last_name'] %}
+                              {% if records['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ records['applicant_photo'] }}" alt="Avatar Image"
+                                       style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block">{{ records['email'] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+          </div>
+          <div class="card-footer card-profile-footer text-center">
+                <h5 class="text-dark fw-bold">Please upload your Presenty/Attendance Report</h5>
+          </div>
+          <div class="card-body">
+            <div class="applicant-cards">
+                {% if records %}
+                  <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ records['application_date'] }}</span></h6>
+                {% endif %}
+                <span class="text-danger">
+                Please make sure you upload the correct document. Once uploaded it will not be changed under any circumstances.<br>
+                <strong>Moreover, the format of this documents can be found on Homepage under Circulars/Orders.</strong>
+            </span>
+                <div class="card mb-3">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <div class="col-md-12">
+
+                                {% if records['phd_registration_date'] %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                             <table class="table table-bordered datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr No</th>
+                                                            <th>Start Date</th>
+                                                            <th>End Date</th>
+                                                            <th>Monthly Document Name</th>
+                                                            <th>Submitted Date</th>
+                                                            <th>Submitted Day</th>
+                                                            <th>Submitted Time</th>
+                                                            <th>Upload Report <span class="text-danger">*</span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for start_date, end_date in zipped_dates %}
+                                                        <tr>
+                                                            <td>{{ loop.index }}</td>
+                                                            <td>{{ start_date.strftime('%d-%m-%Y') }}</td>
+                                                            <td>{{ end_date.strftime('%d-%m-%Y') }}</td>
+                                                            <td>Monthly Report {{ loop.index }}</td>
+                                                            <td>
+                                                                {% if loop.index <= submitted_count %}
+                                                                    {{ dates["submission_date_report" ~ loop.index] | default("NA") }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {% if loop.index <= submitted_count %}
+                                                                    {{ days["submission_day_report" ~ loop.index] | default("NA") }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {% if loop.index <= submitted_count %}
+                                                                    {{ time["submission_time_" ~ loop.index] | default("NA") }}
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {% if loop.index <= submitted_count %} <a
+                                                                    href="{{ reports[submitted_documents[loop.index - 1]] }}" target="_blank"
+                                                                    class="btn btn-primary btn-sm tooltip-trigger enable" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" data-bs-original-title="View Document">
+                                                                    <i class="mdi mdi-eye"></i>
+                                                                    </a>
+                                                                    {% else %}
+                                                                    <form action="/submit_presenty" method="post" enctype="multipart/form-data">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <input type="file" id="monthly_report{{ loop.index }}" name="monthly_report{{ loop.index }}"
+                                                                                    class="form-control file_validation" required
+                                                                                   {% if submitted_documents|length + 1 != loop.index %}
+                                                                                        disabled="true"
+                                                                                    {% endif %}
+                                                                                >
+                                                                                 <div id="fileError" style="color: red;"></div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <button type="submit" class="btn btn-primary tooltip-trigger"
+                                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                                    data-bs-original-title="View Document">Upload</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                    {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <p>Joining date not available.</p>
+                                {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat for more applicants -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

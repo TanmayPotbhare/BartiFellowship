@@ -1,6 +1,7 @@
 import functools
 from flask import session, redirect
 
+
 # Middle Ware Authentication
 def auth(view_fun):
     @functools.wraps(view_fun)
@@ -9,6 +10,7 @@ def auth(view_fun):
             return redirect('/login')
         return view_fun(*args, **kwargs)
     return decorated
+
 
 def auth_admin(view_fun):
     @functools.wraps(view_fun)

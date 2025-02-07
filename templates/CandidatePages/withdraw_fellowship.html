@@ -1,0 +1,86 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+
+          <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        {% for row in records %}
+                            {% set fullname = row['first_name'] + ' ' + row['middle_name'] + ' ' + row['last_name'] %}
+                              {% if row['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ row['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block">{{ row['email'] }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+          </div>
+          <div class="card-footer card-profile-footer text-center">
+                <h5 class="text-dark fw-bold">Request for withdrawal</h5>
+          </div>
+          <div class="card-body">
+            <div class="applicant-cards">
+                {% for row in records %}
+                  <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ row['application_date'] }}</span></h6>
+                {% endfor %}
+                <div class="card mb-3">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <div class="col-md-12">
+                                <h4 class="text-dark fw-bold">Note:</h4><br>
+                                <h5 class="text-danger text-center">
+                                    "Please make sure before you click the request for withdrawal button,
+                                    as this action cannot be undone and you will not be able to login again."
+                                </h5>
+                                <div class="text-center mt-3">
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#withdrawModal">
+                                        Request for Withdrawal
+                                    </button>
+                                </div>
+                                <!-- Modal structure -->
+                                  <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="withdrawModalLabel">Confirm Withdrawal Request</h5>
+                                          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-center text-theme fw-bold">You are submitting a request for withdrawal. This action cannot be undone.
+                                            </p>
+                                            <p class="text-center text-danger">
+                                                  If you confirm your withdrawal from Fellowship you will have to visit the TRTI Office in the next 10 days to complete the formalitites. <br>
+                                                  If you are unable to visit in the given time period, you will have to call the Office and let them know.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                          <!-- Submit button within the modal -->
+                                          <form method="POST" action="#" class="d-inline">
+                                            <button type="submit" class="btn btn-danger">Confirm Withdrawal</button>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat for more applicants -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

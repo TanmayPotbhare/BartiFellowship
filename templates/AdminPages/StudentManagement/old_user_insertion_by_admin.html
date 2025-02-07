@@ -1,0 +1,68 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-plus"></i>
+      </span> Add Student
+    </h3>
+  </div>
+  <!-- END NAV BAR -->
+
+  <div class="card p-4">
+      <h4 class="text-center mb-3">Enter the details to generate Username and Password</h4>
+      <form class="row g-3 mt-3" action="/old_user_insertion_by_admin" method="POST">
+          <div class="col-md-4">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="first_name" name="first_name" class="form-control" id="first_name">
+          </div>
+          <div class="col-md-4">
+            <label for="middle_name" class="form-label">Middle Name</label>
+            <input type="middle_name" name="middle_name" class="form-control" id="middle_name">
+          </div>
+          <div class="col-md-4">
+            <label for="last_name" class="form-label">Surname</label>
+            <input type="last_name" name="last_name" class="form-control" id="last_name">
+          </div>
+          <div class="col-md-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email">
+          </div>
+          <div class="col-4">
+            <label for="changedyear" class="form-label">Year</label>
+            <select class="form-select" id="changedyear" name="year" aria-label="Default select example">
+              <option selected>--Select Year--</option>
+              <option value="2020">2020 - 2021</option>
+              <option value="2021">2021 - 2022</option>
+              <option value="2022">2022 - 2023</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="phd_registration_date" class="form-label">Ph.D. Registration Year</label>
+            <input type="text" class="form-control" id="phd_registration_year" name="phd_registration_year" readonly>
+          </div>
+          <div class="col-4">
+            <label for="phd_registration_date" class="form-label">Ph.D. Registration Date</label>
+            <input type="date" class="form-control" id="phd_registration_date" name="phd_registration_date">
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+  </div>
+
+  <div class="text-center mt-4">
+      <a href="/student_manage_dashbaord">
+          <button class="btn btn-warning btn-fw text-dark">Back to Student Management Dashboard</button>
+      </a>
+  </div>
+
+
+</div>
+
+
+{% endblock %}
+
+

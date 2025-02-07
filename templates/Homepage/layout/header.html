@@ -1,0 +1,233 @@
+
+<!-- ======= Header ======= -->
+<div class="container-fluid p-0 bg-light warli-bg">
+  <div class="top-header row justify-content-between align-items-center px-5">
+    <div class="col-md-4 col-sm-12 col-12 w-sm-100 d-flex justify-content-around">
+      <div class="font-14 trti-mail">helpdesk@barti.in</div>
+      <div class="font-14 mob-no">{{ multilingual_content[language]['mobile-no'] }}</div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-12 w-sm-100 d-flex justify-content-around align-items-center">
+      <div class="text-white font-14 d-mob-none header-menu"> <a href="#main" class="text-white">{{ multilingual_content[language]['skip-to-main-content'] }}</a></div>
+      <div class="border-left d-mob-none"></div>
+      <div class="text-white font-14"><a href="javascript:void(0);" class="text-white header-menu" id="jfontsize-m" aria-label="Text-minus" onclick="fontDecrease();" title="Text-minus">{{ multilingual_content[language]['a-'] }}</a></div>
+      <div class="border-left"></div>
+      <div class="text-white font-14"><a href="javascript:void(0);" class="text-white header-menu" id="jfontsize-d" aria-label="Text-normal" onclick="fontNormal();" title="Text-normal">{{ multilingual_content[language]['a'] }}</a></div>
+      <div class="border-left"></div>
+
+      <div class="text-white font-14"><a href="javascript:void(0);" class="text-white header-menu" id="jfontsize-p" aria-label="Text-plus" onclick="fontIncrease();" title="Text-plus">{{ multilingual_content[language]['a+'] }}</a></div>
+      <div class="border-left"></div>
+
+      <div class="text-white font-14 header-menu"><a href="{{ url_for('set_session', value='english') }}" class="text-white">{{ multilingual_content[language]['english'] }} </a></div>
+      <div class="border-left"></div>
+
+      <div class="text-white font-14 header-menu"><a href="{{ url_for('set_session', value='marathi') }}" class="text-white">{{ multilingual_content[language]['marathi'] }}</a></div>
+      <div class="border-left"></div>
+
+      <div class="admin-login-container">
+        <a href="/adminlogin" class="admin-login-btn">{{ multilingual_content[language]['admin_login_btn'] }}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-logo-section container py-3 display-head">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-md-4 d-flex align-items-center trti-logo-container">
+        <img src="/static/assets/img/logo/satyamev-logo.png" class="w-100px" alt="satyamev Logo" />
+        <img src="/static/assets/img/logo/barti2.png" class="w-100px" alt="TRTI Logo" />
+        <div>
+          <p class="font-13 mb-0 font-bold trti-text ms-1 trti-title">{{ multilingual_content[language]['trti_header'] }}</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 text-center">
+<!--        <h5 class="fellowship-text">-->
+<!--          {% if multilingual_content[language]['fellowship'] == 'Fellowship' %}-->
+<!--              <img src="/static/Images/name.png" class="w-150px" style="max-width: 90%;" alt="TRTI Logo" />-->
+<!--          {% else %}-->
+<!--              <img src="/static/Images/mar_name.png" class="w-150px" style="max-width: 90%;" alt="TRTI Logo" />-->
+<!--          {% endif %}-->
+<!--        </h5>-->
+        <h5 class="fellowship-text trti-title">{{ multilingual_content[language]['fellowship'] }}</h5>
+      </div>
+
+      <div class="col-md-4 text-end">
+        <img src="/static/assets/img/logo/diya.png" class="w-100px" alt="Maharashtra logo" />
+        <img src="https://barti.in/assets/barti/header_logo/675a864ad5dae.jpeg" class="w-100px" alt="National Embleme" />
+      </div>
+    </div>
+  </div>
+  <div class="header-logo-section container py-3 mobile-head">
+    <div class="d-flex align-items-center justify-content-between flex-column">
+      <div class="d-flex justify-content-between">
+        <img src="/static/assets/img/logo/logo-new.png" class="w-80px" alt="TRTI Logo" />
+        <img src="/static/assets/img/logo/satyamev-logo.png" class="w-80px" alt="National Embleme" />
+        <img src="/static/assets/img/logo/maharashtra-shasan.png" class="w-80px" alt="Maharashtra logo" />
+      </div>
+
+      <div class="text-center">
+        <h5 class="fw-bold trti-text  trti-title">{{ multilingual_content[language]['trti_header'] }}</h5>
+      </div>
+      <div class="text-center">
+        <h5 class="fellowship-text">{{ multilingual_content[language]['fellowship'] }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid p-3">
+  <div class="clients-slider swiper">
+    <div class="swiper-wrapper align-items-center">
+          <div class="swiper-slide">
+            <div class="bg-light p-3 shadow rounded" data-aos="fade-down" data-aos-delay="700">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-md-3 col-3 text-center">
+                  <img src="/static/assets/img/leaders/devpha.png" class="w-60px rounded-circle shadow" alt="Devendra Fadnavis" />
+                </div>
+                <div class="col-md-9 col-9">
+                  <h5 class="text-leader font-16">{{ multilingual_content[language]['dev_phad'] }}</h5>
+                  <h6 class="desgn-leader">{{ multilingual_content[language]['dev_phad_desgn'] }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="bg-light p-3 shadow rounded" data-aos="fade-up" data-aos-delay="700">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-md-3 col-3 text-center">
+                  <img src="/static/assets/img/leaders/ekshi.png" class="w-60px rounded-circle shadow" alt="Eknath Shinde" />
+                </div>
+                <div class="col-md-9 col-9">
+                  <h5 class="text-leader font-16">{{ multilingual_content[language]['eknath_shinde'] }}</h5>
+                  <h6 class="desgn-leader">{{ multilingual_content[language]['eknath_shinde_desgn'] }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="bg-light p-3 shadow rounded" data-aos="fade-up" data-aos-delay="700">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-md-3 col-3 text-center">
+                  <img src="/static/assets/img/leaders/ajitpawar.jpg" class="w-60px rounded-circle shadow" alt="Ajit Pawar" />
+                </div>
+                <div class="col-md-9 col-9">
+                  <h5 class="text-leader font-16">{{ multilingual_content[language]['ajit_pawar'] }}</h5>
+                  <h6 class="desgn-leader">{{ multilingual_content[language]['ajit_pawar_desgn'] }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+<!--      <div class="swiper-slide">-->
+<!--        <div class="bg-light p-3 shadow rounded" data-aos="fade-down" data-aos-delay="700">-->
+<!--          <div class="row justify-content-between align-items-center">-->
+<!--            <div class="col-md-3 col-3 text-center">-->
+<!--              <img src="/static/assets/img/leaders/viga.png" class="w-60px rounded-circle shadow" alt="Dr. Vijaykumar Gavit" />-->
+<!--            </div>-->
+<!--            <div class="col-md-9 col-9">-->
+<!--              <h5 class="text-leader font-16">{{ multilingual_content[language]['vijay_gavit'] }}</h5>-->
+<!--              <h6 class="desgn-leader">{{ multilingual_content[language]['vijay_gavit_desgn'] }}</h6>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="swiper-slide">
+        <div class="bg-light p-3 shadow rounded" data-aos="fade-up" data-aos-delay="700">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-md-3 col-3 text-center">
+              <img src="https://barti.in/assets/barti/members/6767ea76310e8.jpg" class="w-60px h-60px rounded-circle shadow same-size-image" alt="Dr. Rajendra Bharud" />
+            </div>
+            <div class="col-md-9 col-9">
+              <h5 class="text-leader font-16">{{ multilingual_content[language]['sanjay_shirsat'] }}</h5>
+              <h6 class="desgn-leader">{{ multilingual_content[language]['sanjay_shirsat_design'] }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg-light p-3 shadow rounded" data-aos="fade-up" data-aos-delay="700">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-md-3 col-3 text-center">
+              <img src="https://barti.in/assets/barti/members/6767ed65de550.jpg" class="w-60px rounded-circle shadow same-size-image" alt="Chanchala Patil" />
+            </div>
+            <div class="col-md-9 col-9">
+              <h5 class="text-leader font-16">{{ multilingual_content[language]['madhuri_misal'] }}</h5>
+              <h6 class="desgn-leader">{{ multilingual_content[language]['madhuri_misal_design'] }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg-light p-3 shadow rounded" data-aos="fade-up" data-aos-delay="700">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-md-3 col-3 text-center">
+              <img src="/static/assets/img/leaders/HarshdeepKamble.jpeg" class="w-60px h-60px rounded-circle shadow" alt="Shri. Vijay-Waghmare" />
+            </div>
+            <div class="col-md-9 col-9">
+              <h5 class="text-leader font-16">{{ multilingual_content[language]['vijay_waghmare'] }}</h5>
+              <h6 class="desgn-leader">{{ multilingual_content[language]['vijay_waghmare_desgn'] }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg-light p-3 shadow rounded" data-aos="fade-down" data-aos-delay="700">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-md-3 col-3 text-center">
+              <img src="https://barti.in/assets/barti/members/6767eebd61294.png" class="w-60px rounded-circle shadow same-size-image" alt="Hansdhwaj Sonawane" />
+            </div>
+            <div class="col-md-9 col-9">
+              <h5 class="text-leader font-16">{{ multilingual_content[language]['sunil_ware'] }}</h5>
+              <h6 class="desgn-leader">{{ multilingual_content[language]['sunil_ware_design'] }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      <div class="swiper-slide">-->
+<!--        <div class="bg-light p-3 shadow rounded" data-aos="fade-down" data-aos-delay="700">-->
+<!--          <div class="row justify-content-between align-items-center">-->
+<!--            <div class="col-md-3 col-3 text-center">-->
+<!--              <img src="/static/assets/img/leaders/viga.png" class="w-60px rounded-circle shadow" alt="Dr. Vijaykumar Gavit" />-->
+<!--            </div>-->
+<!--            <div class="col-md-9 col-9">-->
+<!--              <h5 class="text-leader font-16">{{ multilingual_content[language]['vijay_gavit'] }}</h5>-->
+<!--              <h6 class="desgn-leader">{{ multilingual_content[language]['vijay_gavit_desgn'] }}</h6>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+  </div>
+</div>
+<header id="header" class="header sticky-top bg-new-theme-dark p-0">
+  <div class="container-fluid container-xl d-md-flex align-items-center justify-content-around">
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li>
+          <a class="nav-link scrollto home_active navigation" href="/">{{ multilingual_content[language]['home'] }}</a>
+        </li>
+        <li>
+          <a class="nav-link scrollto navigation" href="/aboutus">{{ multilingual_content[language]['about'] }}</a>
+        </li>
+        <li>
+          <a class="nav-link scrollto navigation" href="/gr_page">{{ multilingual_content[language]['government_regulation'] }}</a>
+        </li>
+        <li>
+          <a class="nav-link scrollto navigation" href="/contact">{{ multilingual_content[language]['contact_us'] }}</a>
+        </li>
+        <li>
+          <a class="nav-link scrollto navigation" href="/charts">{{ multilingual_content[language]['charts'] }}</a>
+        </li>
+
+        <li>
+          <a class="nav-link scrollto navigation" href="/faq">{{ multilingual_content[language]['video'] }}</a>
+        </li>
+
+        <li>
+          <a class="getstarted scrollto navigation" href="/login">{{ multilingual_content[language]['login_sign_btn'] }}</a>
+        </li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle text-white"></i>
+    </nav>
+    <!-- .navbar -->
+  </div>
+</header>
+<!-- End Header -->

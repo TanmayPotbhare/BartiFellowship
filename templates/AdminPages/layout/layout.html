@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard - Fellowship</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/static/admin_assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/static/admin_assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/static/admin_assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/static/admin_assets/vendors/font-awesome/css/font-awesome.min.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/static/admin_assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/admin_assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="/static/admin_assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="/static/admin_assets/images/favicon.png" />
+    <!-- Bootstrap Datatable Integration -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+
+    <!-- Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- Optional: For map tiles (OpenStreetMap) -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Include ApexCharts from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      {% include 'AdminPages/layout/header.html' %}
+      {% include 'sweetalert.html' %}
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+
+        <!--Sidebar-->
+        {% include 'AdminPages/layout/sidebar.html' %}
+
+        <div class="main-panel">
+          {% block content %}
+              <!-- Your Code-->
+          {% endblock %}
+          <!-- content-wrapper ends -->
+          <!-- partial -->
+          <!-- partial:partials/_footer.html -->
+          {% include 'AdminPages/layout/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+
+
+
+  <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/static/admin_assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/static/admin_assets/vendors/chart.js/chart.umd.js"></script>
+    <script src="/static/admin_assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/static/admin_assets/js/off-canvas.js"></script>
+    <script src="/static/admin_assets/js/misc.js"></script>
+    <script src="/static/admin_assets/js/settings.js"></script>
+    <script src="/static/admin_assets/js/todolist.js"></script>
+    <script src="/static/admin_assets/js/jquery.cookie.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/static/admin_assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <!-- Manually created JS for Admin Pages -->
+    <script src="/static/admin.js"></script>
+    <script src="/static/admin_assets/vendors/chart.js"></script> <!-- Purple theme chart script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      new DataTable('.datatable');
+    </script>
+  </body>
+</html>

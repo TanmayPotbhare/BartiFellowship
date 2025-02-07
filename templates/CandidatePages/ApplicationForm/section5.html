@@ -1,0 +1,1094 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+{% include 'CandidatePages/layout/steps.html' %}
+
+<div class="container mt-5">
+    <!-- Section 1: Personal Details Form -->
+    <div class="card">
+        <div class="card-body">
+
+             <form action="/section5_submit" method="POST" enctype="multipart/form-data" class="personal-details-form">
+
+                <h4 class="mb-4 text-center">Documents</h4>
+
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Basic Documents</h6>
+                     </div>
+                     <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead class="text-center">
+                                <th>Sr. No.</th>
+                                <th style="width: 550px">Name of Document</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label for="signature">
+                                            Your Signature<span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Make sure the image is 50KB to 100KB in Size and a JPG, PNG, JPEG before uploading.">
+                                            (<span class="mdi mdi-image-area text-primary">IMG</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['signature'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['signature'] }}" class="btn btn-outline-primary btn-sm"
+                                                   target="_blank">
+                                                    <i class="mdi mdi-eye ms-1"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="signature" id="signature" class="form-control accept_img" required
+                                                    onchange="toggleViewImageButton(this, 'view_signature_btn')">
+                                                <button id="view_signature_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openImage('signature')" 
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Image">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label>
+                                            Aadhaar Card<span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['adhaar_card_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['adhaar_card_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="adhaar_card_doc" id="adhaar_card_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_adhaar_btn')">
+                                                <button id="view_adhaar_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('adhaar_card_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <label>
+                                            PAN Card<span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['pan_card_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['pan_card_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="pan_card_doc" id="pan_card_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_PAN_btn')">
+                                                <button id="view_PAN_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('pan_card_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <label>
+                                            Domicile Certificate<span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['domicile_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['domicile_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="domicile_doc" id="domicile_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_domicile_btn')">
+                                                <button id="view_domicile_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('domicile_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <label>
+                                            Caste/Tribe Certificate<span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['caste_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['caste_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="caste_doc" id="caste_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_caste_btn')">
+                                                <button id="view_caste_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('caste_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <label>
+                                            Validity Certificate
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['validity_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['validity_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="validity_doc" id="validity_doc" class="form-control accept_pdf" 
+                                                {% if record['validity_certificate'] == 'Yes' %}required{% endif %}
+                                                    onchange="toggleViewDocumentButton(this, 'view_validity_btn')">
+                                                <button id="view_validity_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('validity_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <label>
+                                            Income Certificate
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['income_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['income_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="income_doc" id="income_doc" class="form-control accept_pdf"
+                                                    onchange="toggleViewDocumentButton(this, 'view_income_btn')">
+                                                <button id="view_income_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('income_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                          </table>
+                     </div>
+                 </div>
+
+                  <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Qualification Documents</h6>
+                     </div>
+                     <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead class="text-center">
+                                <th>Sr. No.</th>
+                                <th style="width: 550px">Name of Document</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label>10th Marksheet & Passing Certificate
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['ssc_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['ssc_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="ssc_doc" id="ssc_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_ssc_btn')">
+                                                <button id="view_ssc_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('ssc_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label>12th Marksheet & Passing Certificate
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['hsc_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['hsc_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="hsc_doc" id="hsc_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_hsc_doc_btn')">
+                                                <button id="view_hsc_doc_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('hsc_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <label>Graduation Marksheet & Passing Certificate
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['grad_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['grad_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="grad_doc" id="grad_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_graduation_btn')">
+                                                <button id="view_graduation_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('grad_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <label>Post-Graduation Marksheet & Passing Certificate
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['post_grad_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['post_grad_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="post_grad_doc" id="post_grad_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_post_graduation_btn')">
+                                                <button id="view_post_graduation_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('post_grad_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <label>SET/GATE/CET Marksheet & Passing Certificate
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['entrance_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['entrance_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="entrance_doc" id="entrance_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_entrance_doc_btn')">
+                                                <button id="view_entrance_doc_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('entrance_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                          </table>
+                     </div>
+                 </div>
+
+                  <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Ph.D Documents</h6>
+                     </div>
+                     <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead class="text-center">
+                                <th>Sr. No.</th>
+                                <th style="width: 550px">Name of Document</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label>Ph.D Admission Reciept
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['phd_reciept_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['phd_reciept_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="phd_reciept_doc" id="phd_reciept_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_phd_reciept_btn')">
+                                                <button id="view_phd_reciept_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('phd_reciept_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label>Guide Allotment Letter
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['guideAllotment_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['guideAllotment_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="guideAllotment_doc" id="guideAllotment_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_guideAllotment_btn')">
+                                                <button id="view_guideAllotment_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('guideAllotment_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <label>Guide Acceptance Letter
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['guideAccept_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['guideAccept_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="guideAccept_doc" id="guideAccept_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_guideAccept_btn')">
+                                                <button id="view_guideAccept_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('guideAccept_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <label>Letter of Accpetance from RAC/RRC
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['rac_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['rac_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="rac_doc" id="rac_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_rac_btn')">
+                                                <button id="view_rac_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('rac_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <label>Confirmation Letter
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['confirmation_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['confirmation_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="confirmation_doc" id="confirmation_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_confirmation_btn')">
+                                                <button id="view_confirmation_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('confirmation_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <label>Research Center Joining Report
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['joining_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['joining_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="joining_doc" id="joining_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_joining_btn')">
+                                                <button id="view_joining_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('joining_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <label>Annexure A (on INR 100 Stamp Paper) & Annexure C
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['annexureAC_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['annexureAC_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="annexureAC_doc" id="annexureAC_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_annexureAC_btn')">
+                                                <button id="view_annexureAC_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('annexureAC_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <label>Guide & H.O.D Research Common letter (Annexure B)
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['annexureB_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['annexureB_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="annexureB_doc" id="annexureB_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_annexureB_btn')">
+                                                <button id="view_annexureB_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('annexureB_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        <label>Annexure D
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['annexureD_doc'] %}
+                                            <td class="text-center">
+                                                <a href="{{ record['annexureD_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="annexureD_doc" id="annexureD_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_annexureD_btn')">
+                                                <button id="view_annexureD_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('annexureD_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>
+                                        <label>Disability Certificate</label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['disable_doc'] != 'Save File' %}
+                                            <td class="text-center">
+                                                <a href="{{ record['disable_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="disable_doc" id="disable_doc" class="form-control accept_pdf"
+                                                {% if record['disability'] == 'Yes' %}required{% endif %}
+                                                    onchange="toggleViewDocumentButton(this, 'view_disable_btn')">
+                                                <button id="view_disable_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('disable_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>
+                                        <label>Change in Name - Gazzette</label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['gazete_doc'] != 'Save File' %}
+                                            <td class="text-center">
+                                                <a href="{{ record['gazete_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="gazete_doc" id="gazete_doc" class="form-control accept_pdf"
+                                                    onchange="toggleViewDocumentButton(this, 'view_gazette_btn')">
+                                                <button id="view_gazette_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('gazete_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>
+                                        <label>Self Written Certificate of not getting scholarship from anywhere
+                                            <span class="text-danger">*</span>
+                                        </label><br>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['selfWritten_doc'] != 'Save File' %}
+                                            <td class="text-center">
+                                                <a href="{{ record['selfWritten_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="selfWritten_doc" id="selfWritten_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_selfWritten_doc_btn')">
+                                                <button id="view_selfWritten_doc_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('selfWritten_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>13</td>
+                                    <td>
+                                        <label>Research Synopsis/ Research Center Allotment letter
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                            (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </span>
+                                    </td>
+                                    {% if record['section5'] == 'filled' %}
+                                        {% if record['research_letter_doc'] != 'Save File' %}
+                                            <td class="text-center">
+                                                <a href="{{ record['research_letter_doc'] }}" class="btn btn-outline-primary btn-sm"
+                                                    target="_blank">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <span class="text-danger">No Document Added</span>
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <input type="file" name="research_letter_doc" id="research_letter_doc" class="form-control accept_pdf" required
+                                                    onchange="toggleViewDocumentButton(this, 'view_research_letter_doc_btn')">
+                                                <button id="view_research_letter_doc_btn" class="btn btn-outline-primary btn-sm ms-2" style="display: none;"
+                                                    onclick="openDocument('research_letter_doc')"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top"
+                                                    title="View Document">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                          </table>
+                          {% if record['section5'] == 'filled' %}
+                                {% else %}
+                                <div class="form-check ms-2" style="padding:2rem;">
+                                        <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
+                                            <label class="form-check-label" for="verifyDetails">
+                                                Please verify that the details entered in the Last Section are correct before submitting. You will not be able to make any edits once submitted.
+                                            </label>
+
+                                        <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
+                                            <label class="form-check-label" for="verifyDetailsHindi">
+                                                शेवटचा विभाग सबमिट करण्यापूर्वी आपली दिलेली माहिती तपासा. एकदा सबमिट केल्यानंतर तुम्ही त्यात बदल करू शकणार नाही.
+                                            </label>
+                                    </div>
+                                {% endif %}
+                     </div>
+                 </div>
+
+
+                  <div class="m-0 text-center">
+                    <a href="/section4" class="btn btn-primary btn-sm ms-2">Previous</a>
+                    <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2">Submit Application Form</button>
+                  </div>
+
+
+             </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

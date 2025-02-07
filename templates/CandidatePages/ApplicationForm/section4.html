@@ -1,0 +1,371 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+{% include 'CandidatePages/layout/steps.html' %}
+
+<div class="container mt-5">
+    <!-- Section 1: Personal Details Form -->
+    <div class="card">
+        <div class="card-body">
+
+             <form action="/section4_submit" method="POST" enctype="multipart/form-data" class="personal-details-form">
+
+                <h4 class="mb-4 text-center">Parents and Bank Details</h4>
+
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Other Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="father_name">Are you Salaried?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['salaried'] }}</span>
+                                {% else %}
+                                    <select name="salaried" id="salaried" class="form-control" required>
+                                        <option value="" selected>-- Select Option --</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="father_name">Are you Disabled?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['disability'] }}</span>
+                                {% else %}
+                                    <select name="disability" id="disability" class="form-control"
+                                        onchange="toggleDisabilityField(this)" required>
+                                        <option value="" selected>-- Select Option --</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="disability_type_div">
+                            <div class="form-group">
+                                <label for="type_of_disability" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="Select the Type of Disability">
+                                        Type of Disability
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['type_of_disability'] }}</span>
+                                {% else %}
+                                    <select name="type_of_disability" id="type_of_disability" class="form-control">
+                                        <option value="" selected>-- Select Option --</option>
+                                        <option value="Visual Disability">Visual Disability</option>
+                                        <option value="Hearing Disability">Hearing Disability</option>
+                                        <option value="Speech and Language Disability">Speech and Language Disability</option>
+                                        <option value="Locomotor Disability">Locomotor Disability</option>
+                                        <option value="Intellectual Disability">Intellectual Disability</option>
+                                        <option value="Mental Illness">Mental Illness</option>
+                                        <option value="Autism Spectrum Disorder">Autism Spectrum Disorder</option>
+                                        <option value="Cerebral Palsy">Cerebral Palsy</option>
+                                        <option value="Muscular Dystrophy">Muscular Dystrophy</option>
+                                        <option value="Chronic Neurological Conditions">Chronic Neurological Conditions</option>
+                                        <option value="Multiple Sclerosis">Multiple Sclerosis</option>
+                                        <option value="Thalassemia">Thalassemia</option>
+                                        <option value="Hemophilia">Hemophilia</option>
+                                        <option value="Sickle Cell Disease">Sickle Cell Disease</option>
+                                        <option value="Multiple Disabilities">Multiple Disabilities</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if record.section4 == 'filled' and record.disability == 'Yes' %}
+                            <div class="col-md-4 mt-2">
+                                <div class="form-group">
+                                    <label for="type_of_disability">
+                                            Type of Disability
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                        <br>
+                                        <span class="text-dark">{{ record['type_of_disability'] }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-md-4 mt-2 d-none" id="disability_perc_div">
+                            <div class="form-group">
+                                <label for="perc_of_disability" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="Select 'Yes' only if your disability is greater than or equal to 40%">
+                                        Is your disability greater than or equal to 40% ?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <select name="perc_of_disability" id="perc_of_disability" class="form-control" required>
+                                        <option value="" selected>-- Select Option --</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                            </div>
+                        </div>
+                        {% if record.section4 == 'filled' and record.disability == 'Yes' %}
+                            <div class="col-md-4 mt-2">
+                                <div class="form-group">
+                                    <label for="perc_of_disability">
+                                        Is your disability greater than or equal to 40% ?
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                        <br>
+                                        <span class="text-dark">{{ record['perc_of_disability'] }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                     </div>
+                 </div>
+                 {% if record['section4'] == 'filled' %}
+
+                        {% else %}
+
+                        <div class="form-check ms-2" style="padding:2rem;">
+                            <input class="form-check-input" type="checkbox" value="" id="verifySalaryDeclaration">
+                                <label class="form-check-label" for="verifySalaryDeclaration">
+                                    I hereby declare that I am not a salaried person and do not have any source of income.
+                                </label>
+                                <br>
+                            <input class="form-check-input" type="checkbox" value="" id="verifySalaryDeclarationMarathi">
+                                <label class="form-check-label" for="verifySalaryDeclarationMarathi">
+                                    मी याद्वारे घोषित करतो/करते की मी पगारदार व्यक्ती नाही आणि माझ्याकडे उत्पन्नाचा कोणताही स्रोत नाही.
+                                </label>
+                        </div>
+                        {% endif %}
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Parents/Guardian's Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="father_name">Father's Full name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['father_name'] }}</span>
+                                {% else %}
+                                <input type="text" name="father_name" id="father_name" required
+                                       placeholder="Firstname Middlename Surname" class="form-control"
+                                       oninput="validateName(this)">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="mother_name">Mother's Full name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['mother_name'] }}</span>
+                                {% else %}
+                                <input type="text" name="mother_name" id="mother_name" required
+                                       placeholder="Firstname Middlename Surname" class="form-control"
+                                       oninput="validateName(this)">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="work_in_government" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="Select yes only if someone from your family works in the Government.">
+                                    Any Government Employee in Family?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['work_in_government'] }}</span>
+                                {% else %}
+                                <select name="work_in_government" id="work_in_government" class="form-control"
+                                        onchange="toggleGovField(this)" required>
+                                    <option value="" selected>-- Select Option --</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                         <div class="col-md-4 mt-2 d-none" id="open_gov">
+                            <div class="form-group">
+                                <label for="gov_department">Name of Government Employee
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['gov_department'] }}</span>
+                                {% else %}
+                                    <input type="text" class="form-control" name="gov_department" id="gov_department"
+                                            placeholder="Enter Name of Government Employee" oninput="validateName(this)">
+                                {% endif %}
+                            </div>
+                        </div>
+                         <div class="col-md-4 mt-2 d-none" id="open_gov1">
+                            <div class="form-group">
+                                <label for="gov_position">Position in Government
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['gov_position'] }}</span>
+                                {% else %}
+                                <input type="text" class="form-control" name="gov_position" id="gov_position"
+                                        placeholder="Enter Position in the Government" oninput="validateName(this)">
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if record.section4 == 'filled' and record.work_in_government == 'Yes' %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="gov_department">Name of Government Employee
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <br>
+                                    <span class="text-dark">{{ record['gov_department'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="gov_position">Position in Government
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <br>
+                                    <span class="text-dark">{{ record['gov_position'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                     </div>
+                 </div>
+                 <div class="card shadow-sm mb-4">
+                     <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Bank Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-12 mt-2">
+                            Note: 
+                            <span class="text-danger">Please enter the Bank Details carefully. The account details entered here will be frozen for 5 years, 
+                                and you will not be able to make any further edits. The fellowship amount will be credited to the same account for the next 5 years.
+                            </span>
+                        </div></div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="account_number">Account Number
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['account_number'] }}</span>
+                                {% else %}
+                                <input type="text" name="account_number" id="account_number" class="form-control"
+                                        placeholder="Enter Bank Account Number" maxlength="20"
+                                        oninput="validateAccountNumber()" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="account_holder_name">Account Holder Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['account_holder_name'] }}</span>
+                                {% else %}
+                                <input type="text" name="account_holder_name" id="account_holder_name"
+                                       placeholder="First Middle Surname" class="form-control"
+                                        onchange="validateAccountHolderName()" oninput="validateName(this)" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                     <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="ifsc_code">IFSC Code
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['ifsc_code'] }}</span>
+                                {% else %}
+                                    <input type="text" name="ifsc_code" id="ifsc_code" class="form-control"
+                                            placeholder="11 digit Alphanumeric" onchange="validateIFSC()" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="bank_name">Bank Name<span class="text-danger">*</span></label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['bank_name'] }}</span>
+                                {% else %}
+                                    <input type="text" name="bank_name" id="bank_name"
+                                        placeholder="Enter IFSC Code" class="form-control" readonly required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="micr">MICR Code<span class="text-danger">*</span></label>
+                                {% if record['section4'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['micr'] }}</span>
+                                {% else %}
+                                    <input type="text" name="micr" id="micr"
+                                        placeholder="Enter IFSC Code" class="form-control" readonly required>
+                                {% endif %}
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+
+                {% if record['section4'] == 'filled' %}
+
+                {% else %}
+                   <div class="form-check ms-2" style="padding:2rem;">
+                        <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
+                            <label class="form-check-label" for="verifyDetails">
+                                Please verify that the details entered in the Fourth Section are correct before submitting. You will not be able to make any edits once submitted.
+                            </label>
+
+                        <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
+                            <label class="form-check-label" for="verifyDetailsHindi">
+                                कृपया चौथा विभाग सबमिट करण्यापूर्वी आपली दिलेली माहिती तपासा. एकदा सबमिट केल्यानंतर तुम्ही त्यात बदल करू शकणार नाही.
+                            </label>
+                    </div>
+                {% endif %}
+
+                <div class="m-0 text-center">
+                    {% if record['section4'] == 'filled' %}
+                        <a href="/section3" class="btn btn-primary btn-sm ms-2">Previous</a>
+                        <a href="/section5" class="btn btn-primary btn-sm ms-2">Next</a>
+                    {% else %}
+<!--                        <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields4()">Save and Next</button>-->
+                        {% if not record['section5']|default(None) %}
+                            <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields4()" disabled>Save and Next</button>
+                        {% else %}
+                            <a href="/section5" class="btn btn-primary btn-sm ms-2">Next</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+             </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

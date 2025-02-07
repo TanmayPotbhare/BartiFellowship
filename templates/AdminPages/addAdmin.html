@@ -1,0 +1,208 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">
+          <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-eye-arrow-right"></i>
+          </span> View Admin Login
+        </h3>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-end">
+                <!-- Add Admin Button to Open Modal -->
+                <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+                    <i class="mdi mdi-plus-thick"></i> Add User
+                </a>
+            </div>
+
+            <!-- Add Admin Modal -->
+            <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="addAdminModalLabel">Add User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Card Form Starts Here -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/addAdmin_submit" method="POST">
+                                        <div class="card shadow-sm mb-4">
+                                            <div class="btn btn-dark btn-lg text-center">
+                                                <h6 class="text-white fw-bold">Admin Details</h6>
+                                            </div>
+                                            <div class="row m-0 mt-3">
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Select Role
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select name="role" id="role" class="form-select">
+                                                            <option value="" selected disabled>-- Select Role --</option>
+                                                            <option value="Project Officer">Project Officer</option>
+                                                            <option value="Project Manager">Project Manager</option>
+                                                            <option value="Office Superintendent">Office Superintendent</option>
+                                                            <option value="Head of Department">Head of Department</option>
+                                                            <option value="Account Officer">Account Officer</option>
+                                                            <option value="Assistant Account Officer">Assistant Account Officer</option>
+                                                            <option value="Registrar">Registrar</option>
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="Auditor">Auditor</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="first_name">First Name
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="first_name" id="first_name"
+                                                               placeholder="Enter your First Name" class="form-control"
+                                                               oninput="validateName(this)" maxlength="15" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="middle_name">Middle Name
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="middle_name" id="middle_name"
+                                                               placeholder="Enter your Middle Name" class="form-control"
+                                                               oninput="validateName(this)" maxlength="15" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="last_name">Surname
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="last_name" id="last_name"
+                                                               placeholder="Enter your Surname" class="form-control"
+                                                               oninput="validateName(this)" maxlength="15" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row m-0">
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="mobile_number">Mobile Number
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="mobile_number" id="mobile_number"
+                                                               placeholder="XXXXXXXXXX" class="form-control"
+                                                               maxlength="10" oninput="validateMobileNumber(this)"
+                                                               minlength="10" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="age">Age
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="age" id="age"
+                                                               placeholder="Enter your Age" class="form-control"
+                                                               maxlength="2" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="date_of_birth">Date of Birth
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="date" name="date_of_birth" id="date_of_birth"
+                                                               class="form-control"
+                                                               maxlength="15" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row m-0">
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="email">Email ID
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="email" name="email" id="email" class="form-control"
+                                                               required placeholder="Enter your Email ID">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="password">Password
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="password" name="password" id="password"
+                                                               placeholder="Enter your Password" class="form-control"
+                                                               required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Gender
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select name="gender" class="form-select">
+                                                            <option value="" selected disabled>-- Select Gender --</option>
+                                                            <option value="Male">Male</option>
+                                                            <option value="Female">Female</option>
+                                                            <option value="Other">Other</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center ms-2 mb-2">
+                                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Card Form Ends Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-bordered datatable">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Mobile Number</th>
+                            <th>Role</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Added Date</th>
+                            <th>Added By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in record %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row['first_name'] }} {{ row['middle_name'] }} {{ row['surname'] }}</td>
+                            <td>{{ row['email'] }}</td>
+                            <td>{{ row['mobile_number'] }}</td>
+                            <td>{{ row['role'] }}</td>
+                            <td>{{ row['username'] }}</td>
+                            <td>{{ row['password'] }}</td>
+                            <td>{{ row['added_date'] }}</td>
+                            <td>{{ row['added_by'] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

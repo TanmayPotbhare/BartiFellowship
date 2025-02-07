@@ -1,0 +1,237 @@
+{% extends "Homepage/layout/layout.html" %}
+
+{% block content %}
+
+
+<!-- main Content is here -->
+ <main id="aboutus">
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+          <div class="container">
+              <div class="card mt-4 mb-4">
+                  <div class="card-body" style="background: linear-gradient(to bottom, #1A325B -1.64%, rgba(139, 19, 56, 0.00) 99.45%);">
+                     <div class="container mt-4">
+                            <!-- Tab Navigation -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="gov-tab" data-bs-toggle="tab" data-bs-target="#gov" type="button" role="tab" aria-controls="gov" aria-selected="true">{{ multilingual_content[language]['government_decision'] }}</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="circular-tab" data-bs-toggle="tab" data-bs-target="#circular" type="button" role="tab" aria-controls="circular" aria-selected="false">{{ multilingual_content[language]['circulars'] }}</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="scholar-tab" data-bs-toggle="tab" data-bs-target="#scholar" type="button" role="tab" aria-controls="scholar" aria-selected="false">{{ multilingual_content[language]['shcolarship_regulations'] }}</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="guide-tab" data-bs-toggle="tab" data-bs-target="#guide" type="button" role="tab" aria-controls="guide" aria-selected="false">{{ multilingual_content[language]['margadarshak'] }}</button>
+                                </li>
+                            </ul>
+
+                            <!-- Tab Content -->
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="gov" role="tabpanel" aria-labelledby="gov-tab">
+
+                                    <!-- Card for GR -->
+                                    <div class="card shadow-sm border-0 mb-4 mt-2">
+                                        <div class="card-body d-flex align-items-center">
+                                            <div class="icon-container text-white bg-primary rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 50px; height: 50px;">
+                                                <i class="bi bi-file-earmark-text" style="font-size: 1.5rem;"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1"><a class="text-decoration-none text-primary fw-bold" href="#" target="_blank">Government Resolution (GR)</a></h5>
+                                                <p class="text-muted mb-0">Click to view the official government resolution document.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="circular" role="tabpanel" aria-labelledby="circular-tab">
+                                    <div class="my-4">
+                                        <h5 class="mt-3 text-muted">No Information Available</h5>
+                                        <p class="text-secondary">Currently, there is nothing to view here. Once content is uploaded, it will appear on this page.</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="scholar" role="tabpanel" aria-labelledby="scholar-tab">
+                                    <h5 class="text-center mt-3">Documents Needed for application form submission.</h5>
+                                    <div class="table-responsive mt-4">
+                                        <table class="table table-bordered table-hover table-striped align-middle">
+                                            <thead class="table-dark text-center">
+                                                <tr>
+                                                    <th class="text-dark" scope="col" style="width: 5%;">No.</th>
+                                                    <th class="text-dark" scope="col">Document</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td>
+                                                        <strong>Adhaar Card</strong>
+                                                        <span class="text-primary d-block small">आधार कार्ड</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">2</td>
+                                                    <td>
+                                                        <strong>PAN Card</strong>
+                                                        <span class="text-primary d-block small">पॅन कार्ड</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">3</td>
+                                                    <td>
+                                                        <strong>Domicile Certificate</strong>
+                                                        <span class="text-primary d-block small">अधिवास प्रमाणपत्र</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">4</td>
+                                                    <td>
+                                                        <strong>Caste Certificate</strong>
+                                                        <span class="text-primary d-block small">जातीचा दाखला</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">5</td>
+                                                    <td>
+                                                        <strong>Caste Validity Certificate</strong>
+                                                        <span class="text-primary d-block small">जात वैधता प्रमाणपत्र</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">6</td>
+                                                    <td>
+                                                        <strong>Income Certificate</strong>
+                                                        <span class="text-primary d-block small">उत्पन्नाचा दाखला</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">7</td>
+                                                    <td><strong>10th Marksheet & Passing Certificate</strong><br><span class="text-primary small">10वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">8</td>
+                                                    <td><strong>12th Marksheet & Passing Certificate</strong><br><span class="text-primary small">12वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">9</td>
+                                                    <td><strong>Diploma Marksheet & Passing Certificate</strong><br><span class="text-primary small">डिप्लोमा मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">10</td>
+                                                    <td><strong>Graduation Marksheet & Passing Certificate</strong><br><span class="text-primary small">पदवी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">11</td>
+                                                    <td><strong>Post-Graduation Marksheet & Passing Certificate</strong><br><span class="text-primary small">पदव्युत्तर मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">12</td>
+                                                    <td><strong>NET/SET/PET/M.Phil Marksheet & Passing Certificate</strong><br><span class="text-primary small">नेट/सेट/पीईटी/एम.फिल मार्कशीट आणि उत्तीर्ण प्रमाणपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">13</td>
+                                                    <td><strong>Ph.D Admission Receipt</strong><br><span class="text-primary small">पीएच.डी प्रवेशाची पावती</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">14</td>
+                                                    <td><strong>Guide Allotment Letter</strong><br><span class="text-primary small">मार्गदर्शक वाटप पत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">15</td>
+                                                    <td><strong>Guide Acceptance Letter</strong><br><span class="text-primary small">मार्गदर्शक स्वीकृती पत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">16</td>
+                                                    <td><strong>Letter of Acceptance from RAC/RRC</strong><br><span class="text-primary small">RAC/RRC कडून मान्यतेचे पत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">17</td>
+                                                    <td><strong>Confirmation Letter</strong><br><span class="text-primary small">पुष्टीकरण पत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">18</td>
+                                                    <td><strong>Research Center Joining Report</strong><br><span class="text-primary small">संशोधन केंद्र जॉईनिंग रिपोर्ट</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">19</td>
+                                                    <td><strong>Kendra Pramukh - Sanyukta Pramanpatra</strong><br><span class="text-primary small">केंद्रप्रमुख - संयुक्त प्रमानपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">20</td>
+                                                    <td><strong>If Disabled - Disability Certificate</strong><br><span class="text-primary small">अक्षम असल्यास - अपंगत्व प्रमाणपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">21</td>
+                                                    <td><strong>Change in Name - Gazette</strong><br><span class="text-primary small">नावात बदल - राजपत्र</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">22</td>
+                                                    <td><strong>Acknowledgement of not getting scholarship from anywhere</strong><br><span class="text-primary small">कुठूनही शिष्यवृत्ती न मिळाल्याची पावती</span></td>
+                                                </tr>
+                                                <!-- Add similar structure for the remaining rows -->
+                                                <tr>
+                                                    <td class="text-center">23</td>
+                                                    <td>
+                                                        <strong>Research Synopsis/ Research Center Allotment letter</strong>
+                                                        <span class="text-primary d-block small">संशोधन सारांश/ संशोधन केंद्र वाटप पत्र</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="guide" role="tabpanel" aria-labelledby="guide-tab">
+                                    <div class="row mt-4">
+                                        <div class="col-md-12">
+                                            <h3 class="text-center mb-4">Important Documents</h3>
+                                            <div class="row">
+                                                <!-- Column 1 -->
+                                                <div class="col-md-7">
+                                                     <!-- Card for GR -->
+                                                    <div class="card shadow-sm border-0 mb-4 mt-2">
+                                                        <div class="card-body d-flex align-items-center">
+                                                            <div class="icon-container text-white bg-primary rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 50px; height: 50px;">
+                                                                <i class="bi bi-file-earmark-text" style="font-size: 1.5rem;"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h5 class="card-title mb-1"><a class="text-decoration-none text-primary fw-bold" href="/static/gr_page_docs/BARTI report format.docx" target="_blank">Link - All BARTI Reports (For Candidates)</a></h5>
+                                                                <p class="text-muted mb-0">
+                                                                    This documents conist of following reports:<br><br>
+                                                                    1. Joining Certificate: - Annexure –I (A) <br>
+                                                                    2. Joining Certificate: - Annexure –I (B) <br>
+                                                                    3.	Half Yearly Progress Report- Annexure -II<br>
+                                                                    4.	House Rent Allowance (HRA) - Annexure - III<br>
+                                                                    5.	Utilization Certificate for Contingency Amount - Annexure -IV<br>
+                                                                    6.	Up-gradation Certificate- Annexure V<br>
+                                                                    7.	Extension Certificate - Annexure VI<br>
+                                                                    8.	Attendance Certificate - Annexure VII<br>
+                                                                    9.	Fellowship/ House Rent Allowance Utilization Certificate - Annexure VIII<br>
+                                                                    10.	Research proposal /Synopsis - Annexure IX<br>
+                                                                    11.	Continuation certificate - Annexure X<br>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+          </div>
+        </section><!-- End Breadcrumbs -->
+
+    </main>
+
+
+{% endblock %}
+    <script>
+
+    </script>

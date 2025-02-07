@@ -1,0 +1,889 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+{% include 'CandidatePages/layout/steps.html' %}
+
+<div class="container mt-5">
+    <!-- Section 1: Personal Details Form -->
+    <div class="card">
+        <div class="card-body">
+
+            <form action="/section2_submit" method="POST" enctype="multipart/form-data" class="personal-details-form">
+
+                <h4 class="mb-4 text-center">Qualification Details</h4>
+
+                <div class="card shadow border-0 mb-5">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="bg-dark text-white text-center">
+                                    <tr>
+                                        <th class="text-center text-white">Qualification</th>
+                                        <th class="text-center text-white">Inputs</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- SSC Details -->
+                                    <tr>
+                                        <td class="text-center align-middle">
+                                            <strong>Secondary School Certificate (10th)<span
+                                                    class="text-danger">*</span></strong>
+                                        </td>
+                                        <td>
+                                            <div class="row g-3">
+                                                <div class="col-md-3">
+                                                    <label for="ssc_passing_year" class="form-label">Passing Year
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['ssc_passing_year'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="ssc_passing_year"
+                                                        name="ssc_passing_year" placeholder="YYYY"
+                                                        onblur="validateYear(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="stream" class="form-label">Stream<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['ssc_stream'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="stream" name="stream"
+                                                        value="General" readonly>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="ssc_school_name" class="form-label">School Name<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['ssc_school_name'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="ssc_school_name"
+                                                        name="ssc_school_name" oninput="validateName(this)" required
+                                                        placeholder="Enter School Name">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mt-3">
+                                                <div class="col-md-4">
+                                                    <label for="ssc_attempts" class="form-label">Attempts<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['ssc_attempts'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="ssc_attempts"
+                                                        name="ssc_attempts" oninput="validateAttempts(this)" required
+                                                        placeholder="Enter No. of attempts">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="ssc_total" class="form-label">Total Marks<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['ssc_total'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="ssc_total"
+                                                        name="ssc_total" placeholder="Ex. 500"
+                                                        oninput="validateTotalMarks(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="ssc_percentage" class="form-label"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="If the Marks are in Grades, please convert and enter Percentage">
+                                                        Percentage
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['ssc_percentage'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="ssc_percentage"
+                                                        name="ssc_percentage" placeholder="Enter Percentage"
+                                                        oninput="validatePercentage(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- HSC Details -->
+                                    <tr>
+                                        <td class="text-center align-middle">
+                                            <strong>Higher Secondary Certificate (12th) <br>OR<br> ITI Course <br>OR<br>
+                                                Technical Diploma<span class="text-danger">*</span></strong>
+                                        </td>
+                                        <td>
+                                            <div class="row g-3">
+                                                <div class="col-md-3">
+                                                    <label for="hsc_passing_year" class="form-label">Passing Year
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['hsc_passing_year'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="hsc_passing_year"
+                                                        name="hsc_passing_year" onblur="validateYear(this)" required
+                                                        placeholder="YYYY">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="hsc_stream" class="form-label">Stream<span
+                                                            class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['hsc_stream'] }}</span>
+                                                    {% else %}
+                                                    <select id="hsc_stream" name="hsc_stream" class="form-control"
+                                                        required>
+                                                        <option value="" selected>-- Select --</option>
+                                                        <option value="Science">Science</option>
+                                                        <option value="Commerce">Commerce</option>
+                                                        <option value="Arts">Arts</option>
+                                                        <option value="Diploma">Diploma</option>
+                                                        <option value="ITI">ITI</option>
+                                                    </select>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="hsc_school_name" class="form-label">School Name
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['hsc_school_name'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="hsc_school_name"
+                                                        name="hsc_school_name" oninput="validateName(this)"
+                                                        placeholder="Enter School Name" required>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mt-3">
+                                                <div class="col-md-4">
+                                                    <label for="hsc_attempts" class="form-label">Attempts<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['hsc_attempts'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="hsc_attempts"
+                                                        name="hsc_attempts" oninput="validateAttempts(this)" required
+                                                        placeholder="Enter No. of attempts">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="hsc_total" class="form-label">Total Marks<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['hsc_total'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="hsc_total"
+                                                        name="hsc_total" placeholder="Ex. 500"
+                                                        oninput="validateTotalMarks(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="hsc_percentage" class="form-label"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="If the Marks are in Grades, please convert and enter Percentage">
+                                                        Percentage
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['hsc_percentage'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="hsc_percentage"
+                                                        name="hsc_percentage" placeholder="Enter Percentage"
+                                                        oninput="validatePercentage(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Graduation Details -->
+                                    <tr>
+                                        <td class="text-center align-middle">
+                                            <strong>Graduation (Bachelor's Degree)<span
+                                                    class="text-danger">*</span></strong>
+                                        </td>
+                                        <td>
+                                            <div class="row g-3">
+                                                <div class="col-md-3">
+                                                    <label for="graduation_passing_year" class="form-label">
+                                                        Passing Year
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['graduation_passing_year']
+                                                        }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="graduation_passing_year"
+                                                        name="graduation_passing_year" onblur="validateYear(this)"
+                                                        placeholder="YYYY" required>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="grad_stream" class="form-label">
+                                                        Stream
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['grad_stream'] }}</span>
+                                                    {% else %}
+                                                    <select class="form-control" id="grad_stream" name="grad_stream"
+                                                        required>
+                                                        <option value="">-- Select --</option>
+                                                        <option value="Science">Science</option>
+                                                        <option value="Commerce">Commerce</option>
+                                                        <option value="Law">Law</option>
+                                                        <option value="Arts">Arts</option>
+                                                        <option value="Humanities">Humanities</option>
+                                                        <option value="Medical">Medical</option>
+                                                        <option value="Engineering and Tech">Engineering and Technology
+                                                        </option>
+                                                        <option value="Management">Management</option>
+                                                        <option value="Agriculture">Agriculture and Environmental
+                                                            Science</option>
+                                                        <option value="Fine Arts">Fine Arts and Performing Arts</option>
+                                                        <option value="Hospitality">Hospitality and Tourism</option>
+                                                        <option value="Vocational">Vocational</option>
+                                                    </select>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="graduation_school_name" class="form-label">
+                                                        College / University Name
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['graduation_school_name']
+                                                        }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="graduation_school_name"
+                                                        name="graduation_school_name" oninput="validateName(this)"
+                                                        placeholder="Enter College/University Name" required>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mt-3">
+                                                <div class="col-md-4">
+                                                    <label for="grad_attempts" class="form-label">Attempts<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['grad_attempts'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="grad_attempts"
+                                                        name="grad_attempts" oninput="validateAttempts(this)" required
+                                                        placeholder="Enter No. of attempts">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="grad_total" class="form-label">Total Marks<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['grad_total'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="grad_total"
+                                                        name="grad_total" placeholder="Ex. 500"
+                                                        oninput="validateTotalMarks(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="graduation_percentage" class="form-label"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="If the Marks are in Grades, please convert and enter Percentage">
+                                                        Percentage / CGPA
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['graduation_percentage'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="graduation_percentage"
+                                                        name="graduation_percentage" placeholder="Enter Percentage"
+                                                        oninput="validatePercentage(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Post Graduation Details -->
+                                    <tr>
+                                        <td class="text-center align-middle">
+                                            <strong>Post Graduation (Master's Degree)<span
+                                                    class="text-danger">*</span></strong>
+                                        </td>
+                                        <td>
+                                            <div class="row g-3">
+                                                <div class="col-md-3">
+                                                    <label for="phd_passing_year" class="form-label">
+                                                        Passing Year
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['phd_passing_year'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="phd_passing_year"
+                                                        name="phd_passing_year" placeholder="YYYY"
+                                                        onblur="validateYear(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="pg_stream" class="form-label">
+                                                        Stream
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['pg_stream'] }}</span>
+                                                    {% else %}
+                                                    <select class="form-control" id="pg_stream" name="pg_stream"
+                                                        required>
+                                                        <option value="">-- Select --</option>
+                                                        <option value="Science">Science</option>
+                                                        <option value="Commerce">Commerce</option>
+                                                        <option value="Law">Law</option>
+                                                        <option value="Arts">Arts</option>
+                                                        <option value="Humanities">Humanities</option>
+                                                        <option value="Medical">Medical</option>
+                                                        <option value="Engineering and Tech">Engineering and Technology
+                                                        </option>
+                                                        <option value="Management">Management</option>
+                                                        <option value="Agriculture">Agriculture and Environmental
+                                                            Science</option>
+                                                        <option value="Fine Arts">Fine Arts and Performing Arts</option>
+                                                        <option value="Hospitality">Hospitality and Tourism</option>
+                                                        <option value="Vocational">Vocational</option>
+                                                    </select>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="phd_school_name" class="form-label">
+                                                        University Name
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['phd_school_name'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="phd_school_name"
+                                                        name="phd_school_name" oninput="validateName(this)"
+                                                        placeholder="Enter University Name" required>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mt-3">
+                                                <div class="col-md-4">
+                                                    <label for="pg_attempts" class="form-label">Attempts<span
+                                                            class="text-danger">*</span></label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['pg_attempts'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="pg_attempts"
+                                                        name="pg_attempts" oninput="validateAttempts(this)" required
+                                                        placeholder="Enter No. of attempts">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="pg_total" class="form-label">
+                                                        Total Marks
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['pg_total'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="pg_total"
+                                                        name="pg_total" placeholder="Ex. 500"
+                                                        oninput="validateTotalMarks(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="phd_percentage" class="form-label"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="If the Marks are in Grades, please convert and enter Percentage">
+                                                        Percentage / CGPA
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    {% if record['section2'] == 'filled' %}
+                                                    <br>
+                                                    <span class="text-dark">{{ record['phd_percentage'] }}</span>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" id="phd_percentage"
+                                                        name="phd_percentage" placeholder="Enter Percentage"
+                                                        oninput="validatePercentage(this)" required>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card shadow-sm mb-4">
+                    <div class="btn btn-dark btn-lg text-center">
+                        <h6 class="text-white fw-bold">Advanced Qualification Details</h6>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="qualified_exams">Select Qualification:
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                {% set selected_qualifications = record['have_you_qualified'].split(',') if
+                                record['have_you_qualified'] else [] %}
+                                {% for exam in selected_qualifications %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="qualified_exams[]"
+                                        value="{{ exam }}" checked disabled>
+                                    <label class="form-check-label">{{ exam }}</label>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="qualified_exams[]"
+                                            value="M.Phil" onchange="toggleOtherQualification()">
+                                        <label class="form-check-label" for="M.Phil">M.Phil</label>
+                                    </div>
+                                    <div class="form-check" >
+                                        <input class="form-check-input" type="checkbox" name="qualified_exams[]"
+                                            value="PET" onchange="toggleOtherQualification()">
+                                        <label class="form-check-label" for="PET">PET</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="qualified_exams[]"
+                                            value="SET" onchange="toggleOtherQualification()">
+                                        <label class="form-check-label" for="SET">SET</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="qualified_exams[]"
+                                            value="NET" onchange="toggleOtherQualification()">
+                                        <label class="form-check-label" for="NET">NET</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="qualified_exams[]"
+                                            value="GATE" onchange="toggleOtherQualification()">
+                                        <label class="form-check-label" for="GATE">GATE</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="otherCheckbox" name="qualified_exams[]"
+                                            value="OTHER" onchange="toggleOtherQualification()">
+                                        <label class="form-check-label" for="OTHER">OTHER</label>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mt-2 d-none" id="additionalFieldSelectQualification">
+                            <div class="form-group">
+                                <label for="have_you_qualified_other" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Please Enter English Text only.">
+                                    Other Qualification
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input class="form-control" name="have_you_qualified_other" id="have_you_qualified_other"
+                                    oninput="validateName(this)" placeholder="Enter Your Qualification">
+                            </div>
+                        </div>
+
+                        {% if record.section2 == 'filled' and record.have_you_qualified_other %}
+                            <div class="col-md-4 mt-2">
+                                <div class="form-group">
+                                    <label for="have_you_qualified_other">Other Qualification
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <br>
+                                    <span class="text-dark">{{ record['have_you_qualified_other'] }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <input type="hidden" id="dob_year" value="{{ record['date_of_birth'] }}">
+                                <label for="phd_registration_date">Ph.D Registration Date
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ formatted_phd_reg_date }}</span>
+                                {% else %}
+                                <input type="date" name="phd_registration_date" id="phd_registration_date"
+                                    class="form-control" onblur="calculateAges()" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="phd_registration_year">Fellowship Applying Year
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['fellowship_application_year'] }}</span>
+                                {% else %}
+                                <select class="form-control" name="fellowship_applying_year"
+                                    id="fellowship_applying_year" required>
+                                    <option value="" selected disabled>-- Select Year --</option>
+                                    <option value="2021">BANRF 2021</option>
+                                    <option value="2022">BANRF 2022</option>
+                                </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-3 mt-2">
+                            <div class="form-group">
+                                <label for="phd_registration_date">Ph.D Registration Day
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['phd_registration_day'] }}</span>
+                                {% else %}
+                                <input type="text" name="phd_registration_day" id="phd_registration_day"
+                                    class="form-control" placeholder="Enter Ph.D. Registration Date" readonly>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <div class="form-group">
+                                <label for="phd_registration_year">Ph.D Registration Month
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['phd_registration_month'] }}</span>
+                                {% else %}
+                                <input type="text" name="phd_registration_month" id="phd_registration_month"
+                                    class="form-control" placeholder="Enter Ph.D. Registration Date" readonly>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <div class="form-group">
+                                <label for="phd_registration_year">Ph.D Registration Year
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['phd_registration_year'] }}</span>
+                                {% else %}
+                                <input type="text" name="phd_registration_year" id="phd_registration_year"
+                                    class="form-control" placeholder="Enter Ph.D. Registration Date" readonly>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <div class="form-group">
+                                <label for="phd_registration_age">Age at Ph.D Registration
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['phd_registration_age'] }}</span>
+                                {% else %}
+                                <input type="text" name="phd_registration_age" id="phd_registration_age"
+                                    class="form-control" placeholder="Enter Ph.D. Registration Date" readonly>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label for="concerned_university">Name of University
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['concerned_university'] }}</span>
+                                {% else %}
+                                <select name="concerned_university" id="concerned_university" required
+                                    class="form-control" onchange="toggleUniversityChange(this)">
+                                    <option value="">-- Select University --</option>
+                                    {% for uni in university_data %}
+                                    <option value="{{ uni['affiliated_universities'] }}"
+                                        data-hidden="{{ uni['u_id'] }}">{{ uni['affiliated_universities'] }}
+                                    </option>
+                                    {% endfor %}
+                                    <option value="Other">Other</option>
+                                </select>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-2 d-none" id="additionalFieldUniversity">
+                            <div class="form-group">
+                                <label for="other_university" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Please Enter English Text only.">
+                                    Other University Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['other_university'] }}</span>
+                                {% else %}
+                                <input class="form-control" name="other_university" id="other_university"
+                                    oninput="validateName(this)" placeholder="Enter Your University Name">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label for="name_of_college">Name of Research Center
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['name_of_college'] }}</span>
+                                {% else %}
+                                <select name="name_of_college" id="name_of_college" class="form-control select2"
+                                    onchange="toggleCollegeField(this)" required>
+                                    <option value="" selected disabled> -- Select College --</option>
+                                </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2 d-none" id="collegeField">
+                            <div class="form-group">
+                                <label for="name_of_college" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Please Enter English Text only.">Other College Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['other_college_name'] }}</span>
+                                {% else %}
+                                <input type="text" class="form-control" name="other_college_name"
+                                    id="other_college_name" oninput="validateName(this)"
+                                    placeholder="Enter Your College Name">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        {% if record.section2 == 'filled' and record.concerned_university == 'Other' %}
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label for="department_name">Other University Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['other_university'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if record.section2 == 'filled' and record.name_of_college == 'Other' %}
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label for="department_name">Other College Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['other_college_name'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+
+                    <div class="row m-0">
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="department_name">Name of Department
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['department_name'] }}</span>
+                                {% else %}
+                                <input type="text" name="department_name" id="department_name"
+                                    placeholder="Enter your Name of Department" class="form-control"
+                                    oninput="validateName(this)" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="topic_of_phd">Topic of Ph.D
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['topic_of_phd'] }}</span>
+                                {% else %}
+                                <input type="text" name="topic_of_phd" id="topic_of_phd"
+                                    placeholder="Enter your Topic of Ph.D in 'ENGLISH'" class="form-control"
+                                    oninput="validateName(this)" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="name_of_guide">Name of Guide
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['name_of_guide'] }}</span>
+                                {% else %}
+                                <input type="text" name="name_of_guide" id="name_of_guide"
+                                    placeholder="Enter your Name of Guide" class="form-control"
+                                    oninput="validateName(this)" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="faculty">Faculty/Stream
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['faculty'] }}</span>
+                                {% else %}
+                                    <select name="faculty" id="faculty" class="form-control"
+                                        onchange="toggleAdditionalFieldFaculty(this)" required>
+                                        <option value="" selected disabled>-- Select Faculty/Stream --</option>
+                                        <option value="Science">Science</option>
+                                        <option value="Commerce">Commerce</option>
+                                        <option value="Arts">Arts</option>
+                                        <option value="Law">Law</option>
+                                        <option value="Vocational">Vocational</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="additionalField">
+                            <div class="form-group">
+                                <label for="faculty" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Please Enter English Text only.">
+                                    Other Faculty/Stream
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['other_faculty'] }}</span>
+                                {% else %}
+                                <input class="form-control" name="other_faculty" id="other_faculty"
+                                    oninput="validateName(this)" placeholder="Enter Faculty/Stream">
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if record.section2 == 'filled' and record.faculty == 'Other' %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="faculty" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Please Enter English Text only.">
+                                    Other Faculty/Stream
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['other_faculty'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="research_center_district">City of your University
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section2'] == 'filled' %}
+                                <br>
+                                <span class="text-dark">{{ record['research_center_district'] }}</span>
+                                {% else %}
+                                    <select class="form-control" name="research_center_district"
+                                        id="research_center_district" required>
+                                        <option value="" selected disabled>-- Select District --</option>
+                                         {% for key in cities %}
+                                                <option data-hidden="{{ key.code }}" value="{{ key.city }}">
+                                                    {{ key.city }}
+                                                </option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        <!-- </div> -->
+
+        {% if record['section2'] == 'filled' %}
+        {% else %}
+        <div class="form-check ms-2" style="padding:2rem;">
+            <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
+            <label class="form-check-label" for="verifyDetails">
+                Please verify that the details entered in the Second Section are correct before submitting.
+                You will not be able to make any edits once submitted.
+            </label>
+
+            <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
+            <label class="form-check-label" for="verifyDetailsHindi">
+                कृपया सबमिट करण्यापूर्वी दुसऱ्या विभागामध्ये प्रविष्ट केलेली माहिती बरोबर आहे का ते तपासा.
+                सबमिट केल्यानंतर तुम्हाला कोणतीही संपादने करता येणार नाहीत.
+            </label>
+        </div>
+        {% endif %}
+
+        <div class="m-0 text-center">
+            {% if record['section2'] == 'filled' %}
+            <a href="/section1" class="btn btn-primary btn-sm ms-2">Previous</a>
+            <a href="/section3" class="btn btn-primary btn-sm ms-2">Next</a>
+            {% else %}
+            <!--                        <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields()">Save and Next</button>-->
+            {% if not record['section2']|default(None) %}
+            <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields2()"
+                disabled>Save and Next</button>
+            {% else %}
+            <a href="/section3" class="btn btn-primary btn-sm ms-2">Next</a>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+
+    </form>
+
+</div>
+</div>
+<!-- </div> -->
+
+
+
+
+{% endblock %}

@@ -1,0 +1,78 @@
+<div class="progress-form mb-3">
+    <div class="progress-container">
+        <!-- Step 1 -->
+        <a href="/section1" class="progress-step {% if request.path == '/section1' %}active{% endif %}"
+           data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Personal Details">
+            <span class="step-text" style="font-size:15px">Profile</span>
+        </a>
+
+        <!-- Progress Bar (connecting line) -->
+        <div class="progress-bar"></div>
+
+        <!-- Step 2 -->
+        {% if record['section1'] == 'filled' %}
+            <a href="/section2" class="progress-step {% if request.path == '/section2' %}active{% endif %}"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Qualification Details">
+                <span class="step-text" style="font-size:15px">Qualification</span>
+            </a>
+        {% else %}
+            <a href="#" class="progress-step {% if request.path == '/section2' %}active{% endif %}"
+               onclick="showAlert()"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Qualification Details">
+                <span class="step-text" style="font-size:15px">Qualification</span>
+            </a>
+        {% endif %}
+
+        <!-- Progress Bar (connecting line) -->
+        <div class="progress-bar"></div>
+
+        <!-- Step 3 -->
+        {% if record['section1'] == 'filled' and record['section2'] == 'filled' %}
+            <a href="/section3" class="progress-step {% if request.path == '/section3' %}active{% endif %}"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Caste Details">
+                <span class="step-text" style="font-size:15px">Certificates</span>
+            </a>
+        {% else %}
+            <a href="#" class="progress-step {% if request.path == '/section3' %}active{% endif %}"
+               onclick="showAlert()"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Caste Details">
+                <span class="step-text" style="font-size:15px">Certificates</span>
+            </a>
+        {% endif %}
+
+        <!-- Progress Bar (connecting line) -->
+        <div class="progress-bar"></div>
+
+        <!-- Step 4 -->
+        {% if record['section1'] == 'filled' and record['section2'] == 'filled' and record['section3'] == 'filled' %}
+            <a href="/section4" class="progress-step {% if request.path == '/section4' %}active{% endif %}"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Parent's/Guardian's | Bank Details">
+                <span class="step-text" style="font-size:15px">Bank Details</span>
+            </a>
+        {% else %}
+            <a href="#" class="progress-step {% if request.path == '/section4' %}active{% endif %}"
+               onclick="showAlert()"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Parent's/Guardian's | Bank Details">
+                <span class="step-text" style="font-size:15px">Bank Details</span>
+            </a>
+        {% endif %}
+
+
+        <!-- Progress Bar (connecting line) -->
+        <div class="progress-bar"></div>
+
+        <!-- Step 5 -->
+        {% if record['section1'] == 'filled' and record['section2'] == 'filled' and record['section3'] == 'filled' and record['section4'] == 'filled' %}
+            <a href="/section5" class="progress-step {% if request.path == '/section5' %}active{% endif %}"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Documents">
+                <span class="step-text" style="font-size:15px">Documents</span>
+            </a>
+        {% else %}
+            <a href="#" class="progress-step {% if request.path == '/section5' %}active{% endif %}"
+               onclick="showAlert()"
+               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Documents">
+                <span class="step-text" style="font-size:15px">Documents</span>
+            </a>
+        {% endif %}
+    </div>
+</div>

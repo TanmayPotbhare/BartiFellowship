@@ -1,0 +1,130 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-home"></i>
+      </span> Student Management Dashboard
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="card">
+      <div class="card-body">
+          <h3 class="form-label text-center mb-4">Add | Edit | Update | Delete - Students</h3>
+          <div class="row">
+            {% if session['user'] == 'Auditor' %}
+              <div class="col-md-3 stretch-card grid-margin">
+                <a href="#" class="text-decoration-none">
+                  <div class="card bg-gradient-primary card-img-holder text-white">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h4 class="font-weight-normal text-dark fw-bold mb-3">Update Information</h4>
+                      <h2 class="mb-5">Edit/Update</h2>
+                      <h6 class="card-text">Student Records</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <a href="#" class="text-decoration-none">
+                  <div class="card bg-gradient-danger card-img-holder text-white">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h4 class="font-weight-normal text-dark fw-bold mb-3">Delete Information</h4>
+                      <h2 class="mb-5">Delete</h2>
+                      <h6 class="card-text">Student Records</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <a href="#" class="text-decoration-none">
+                  <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h4 class="font-weight-normal text-dark fw-bold mb-3">View Applications</h4>
+                      <h2 class="mb-5">View</h2>
+                      <h6 class="card-text">Student Records</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-3 stretch-card grid-margin">
+                <a href="#" class="text-decoration-none">
+                  <div class="card bg-gradient-warning card-img-holder text-white">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h4 class="font-weight-normal text-dark fw-bold mb-3">Insert Information</h4>
+                      <h2 class="mb-5">Insert</h2>
+                      <h6 class="card-text">Student</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            {% else %}
+              <div class="col-md-6 stretch-card grid-margin">
+                <a href="/admin_issue_dashboard" class="text-decoration-none">
+                  <div class="card bg-gradient-primary card-img-holder text-white fixed-card-height">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h3 class="font-weight-normal text-dark fw-bold mb-3">Update Information</h3>
+                      <h5 class="mb-5">Edit/Update information of a specific student, and also any field can be edited of a particular student. </h5>
+                      <h6 class="card-text">Student Records</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 stretch-card grid-margin">
+                <a href="/admin_issue_dashboard" class="text-decoration-none">
+                  <div class="card bg-gradient-danger card-img-holder text-white fixed-card-height">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h3 class="font-weight-normal text-dark fw-bold mb-3">Delete Information</h3>
+                      <h5 class="mb-5">Delete information of a specific student, and also any field can be deleted of a particular student. </h5>
+                      <h6 class="card-text">Student Records</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 stretch-card grid-margin">
+                <a href="/admin_issue_dashboard" class="text-decoration-none">
+                  <div class="card bg-gradient-info card-img-holder text-white fixed-card-height">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h3 class="font-weight-normal text-dark fw-bold mb-3">View Applications</h3>
+                      <h5 class="mb-5">View of a specific student, and also all fields can be viwed of a particular student.</h5>
+                      <h6 class="card-text">Student Records</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 stretch-card grid-margin">
+                <a href="/old_user_insertion_by_admin" class="text-decoration-none">
+                  <div class="card bg-gradient-warning card-img-holder text-white fixed-card-height">
+                    <div class="card-body">
+                      <img src="static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                      <h3 class="font-weight-normal text-dark fw-bold mb-3">Insert a user</h3>
+                      <h5 class="mb-5">Create Username and Password for any user by inserting the fields given. </h5>
+                      <h6 class="card-text">Student</h6>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            {% endif %}
+          </div>
+
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}
+

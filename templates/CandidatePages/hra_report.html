@@ -1,0 +1,130 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+
+          <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        {% if records %}
+                            {% set fullname = records['first_name'] + ' ' + records['middle_name'] + ' ' + records['last_name'] %}
+                              {% if records['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ records['applicant_photo'] }}" alt="Avatar Image"
+                                       style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block">{{ records['email'] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+          </div>
+          <div class="card-footer card-profile-footer text-center">
+                <h5 class="text-dark fw-bold">House Rent Allowance Reports</h5>
+          </div>
+          <div class="card-body">
+            <div class="applicant-cards">
+                {% if records %}
+                  <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ records['application_date'] }}</span></h6>
+                {% endif %}
+            </div>
+            <span class="text-danger">
+                Please make sure you upload the correct document. Once uploaded it will not be changed under any circumstances.<br>
+                <strong>Moreover, the format of this documents can be found on Homepage under Circulars/Orders.</strong>
+            </span>
+              <hr>
+            <div class="card-body">
+                 <div class="applicant-cards">
+
+                          {% if records['phd_registration_date'] %}
+                          <table class="table table-bordered datatable">
+                            <thead>
+                              <tr>
+                                <th>Sr No</th>
+                                <th>Year</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Document Name</th>
+                                <th>Upload Report <span class="text-danger">*</span></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for i in range(5) %}
+                                <tr>
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ start_dates[i].year }}</td>
+                                    <td>{{ start_dates[i].strftime('%d-%m-%Y') }}</td>
+                                    <td>{{ end_dates[i].strftime('%d-%m-%Y') }}</td>
+                                    <td>Yearly Report {{ i + 1 }}</td>
+                                    <td>
+                                        {% if 'rent_agreement' ~ (i + 1) in submitted_documents and 'hostelier_report' ~ (i + 1) in submitted_documents %}
+                                            <p>
+                                                <strong>HRA Report {{ i + 1 }}:</strong>
+                                                <a href="{{ reports.get('rent_agreement' ~ (i + 1)) }}"
+                                                   class="badge badge-warning text-dark"
+                                                   target="_blank">
+                                                   View Document
+                                                </a>
+                                            </p>
+                                            <hr>
+                                            <p>
+                                                <strong>Hostelier Status {{ i + 1 }}:</strong>
+                                                <span>{{ reports.get('hostelier' ~ (i + 1)) }}</span>
+                                            </p>
+                                            <hr>
+                                            <p>
+                                                <strong>Hostelier Document {{ i + 1 }}:</strong>
+                                                <a href="{{ reports.get('hostelier_report' ~ (i + 1)) }}"
+                                                   class="badge badge-warning text-dark"
+                                                   target="_blank">
+                                                    View Document
+                                                </a>
+                                            </p>
+                                        {% else %}
+                                            <form action="/submit_rent_agreement" method="post" enctype="multipart/form-data">
+                                                <div class="mb-3">
+                                                    <label for="rent_agreement{{ i + 1 }}" class="form-label">H.R.A Report</label>
+                                                    <input type="file" name="rent_agreement{{ i + 1 }}" accept=".pdf" class="form-control file_validation" required
+                                                            {% if 'rent_agreement' ~ (i + 1) in submitted_documents %} disabled {% endif %}>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="hostelier{{ i + 1 }}" class="form-label">Are you a Hostelier or Non-Hostelier?</label>
+                                                    <select class="form-control" id="hostelier{{ i + 1 }}" name="hostelier{{ i + 1 }}" required
+                                                            {% if 'hostelier_report' ~ (i + 1) in submitted_documents %} disabled {% endif %}>
+                                                        <option value="">Select</option>
+                                                        <option value="Hostelier">Hostelier</option>
+                                                        <option value="Non-Hostelier">Non-Hostelier</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Hostelier or Non-Hostelier Report</label>
+                                                    <input type="file" name="hostelier_report{{ i + 1 }}" accept=".pdf" class="form-control file_validation" required
+                                                            {% if 'hostelier_report' ~ (i + 1) in submitted_documents %} disabled {% endif %}>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-dark text-center">Upload</button>
+                                                </div>
+
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                          {% else %}
+                            <p>Joining date not available.</p>
+                          {% endif %}
+
+                 </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

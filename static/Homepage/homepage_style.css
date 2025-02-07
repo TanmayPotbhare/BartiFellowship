@@ -1,0 +1,38 @@
+
+/* HOMEPAGE */
+.same-size-image {
+  width: 60px;
+  /* Adjust the width as per your requirement */
+  height: 60px;
+  /* Adjust the height as per your requirement */
+}
+
+.news-item {
+  padding-right: 50px; /* Adjust as needed to add space between news items */
+}
+
+
+.marquee_content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee_content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+/* GR PAGE  */
+.table > :not(caption) > * > *{
+            background-color: transparent !important;
+        }
