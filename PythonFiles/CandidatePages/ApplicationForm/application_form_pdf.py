@@ -5,8 +5,8 @@ import os
 from fpdf import FPDF
 import pdfkit
 from prompt_toolkit import HTML
-from Classes.caste import casteController
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.caste import casteController
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response, jsonify, \
     Response
 

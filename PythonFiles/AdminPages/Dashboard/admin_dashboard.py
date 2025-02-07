@@ -1,5 +1,5 @@
 from datetime import timedelta, date, datetime
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 from openpyxl import Workbook
 from io import BytesIO
 import io

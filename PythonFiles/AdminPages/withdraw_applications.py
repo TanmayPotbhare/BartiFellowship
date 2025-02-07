@@ -1,11 +1,11 @@
 from collections import defaultdict
 from datetime import date, timedelta, datetime
 import mysql.connector
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask_mail import Mail, Message
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash
-from Authentication.middleware import auth
+from authentication.middleware import auth
 
 withdraw_application_blueprint = Blueprint('withdraw_application', __name__)
 

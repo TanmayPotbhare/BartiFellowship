@@ -2,7 +2,7 @@ from datetime import date, timedelta, datetime
 from io import BytesIO
 from openpyxl.workbook import Workbook
 from openpyxl.styles import Font
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 from fpdf import FPDF
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
 

@@ -1,5 +1,5 @@
 from datetime import timedelta, date
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, jsonify
 
 document_repo_blueprint = Blueprint('document_repo', __name__)

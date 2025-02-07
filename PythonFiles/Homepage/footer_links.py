@@ -1,4 +1,4 @@
-from Classes.database import HostConfig, ConfigPaths
+from classes.database import HostConfig, ConfigPaths
 from flask import Blueprint, render_template, session, request, jsonify
 from PythonFiles.Homepage.multilingual_content import multilingual_content
 
