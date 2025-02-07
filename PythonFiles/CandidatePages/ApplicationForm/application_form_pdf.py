@@ -3,7 +3,7 @@ from datetime import datetime
 import requests
 import os
 from fpdf import FPDF
-import pdfkit
+# import pdfkit
 from prompt_toolkit import HTML
 from classes.caste import casteController
 from classes.database import HostConfig, ConfigPaths, ConnectParam
