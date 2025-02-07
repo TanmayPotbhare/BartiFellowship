@@ -5,7 +5,7 @@ class HostConfig:
     hostserver = '192.168.10.69'
     # preserver = '192.168.10.69:85'
     localserver = '127.0.0.1'
-    host = localserver
+    host = hostserver
 
 
 class ConnectParam:
