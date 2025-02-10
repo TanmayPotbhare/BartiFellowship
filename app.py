@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'FellowApp123@#$*&'
 # -----------------------------------------
 
+#Comment Added
 
 # ------- All configurations ----------------
 app.config['SESSION_TYPE'] = 'filesystem'
