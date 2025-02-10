@@ -2,7 +2,7 @@ import functools
 from flask import session, redirect
 
 
-# Middle Ware Authentication
+# Middle Ware authentication
 def auth(view_fun):
     @functools.wraps(view_fun)
     def decorated(*args, **kwargs):
