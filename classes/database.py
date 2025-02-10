@@ -5,7 +5,7 @@ class HostConfig:
     hostserver = '192.168.10.69'
     # preserver = '192.168.10.69:85'
     localserver = '127.0.0.1'
-    host = localserver
+    host = hostserver
 
 
 class ConnectParam:
@@ -25,7 +25,7 @@ class ConnectParam:
 
 class ConfigPaths:
     paths = {
-        HostConfig.hostserver: {
+        HostConfig.localserver: {
             'USER_DOC_SEC_FIVE': 'static/uploads/user_doc_secfive/',
             'RENT_AGREEMENT_REPORT': 'static/uploads/rent_agreement/',
             'HALF_YEARLY_REPORTS': 'static/uploads/half_yearly/',
@@ -44,7 +44,7 @@ class ConfigPaths:
             'RESEARCH_PAPER_FEEDBACK': 'static/uploads/research_paper_feedback/',
             # Add other paths here
         },
-        HostConfig.localserver: {
+        HostConfig.hostserver: {
             'USER_DOC_SEC_FIVE': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/user_doc_secfive/',
             'RENT_AGREEMENT_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/rent_agreement/',
             'HALF_YEARLY_REPORTS': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/half_yearly/',
