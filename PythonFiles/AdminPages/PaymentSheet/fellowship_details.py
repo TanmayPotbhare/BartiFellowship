@@ -4,7 +4,7 @@ from classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask_mail import Mail, Message
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash
-from Authentication.middleware import auth
+from authentication.middleware import auth
 
 
 fellowshipdetails_blueprint = Blueprint('fellowshipdetails', __name__)

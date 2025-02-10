@@ -4,7 +4,7 @@ from classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask import Flask, Blueprint, render_template, session, request, redirect, url_for, flash, jsonify
 from flask_mail import Mail, Message
-from Authentication.middleware import auth
+from authentication.middleware import auth
 
 adminlevelone_blueprint = Blueprint('adminlevelone', __name__)
 
