@@ -29,9 +29,15 @@
                 <div class="nav-profile-text">
                   <p class="mb-1 text-black">
                     {% if session['user'] == 'Super Admin' %}
-                        {{username}}
+                        Super Admin
+                    {% elif session['user'] == 'Head of Department' %}
+                        Head of Department
+                    {% elif session['user'] == 'Account Officer' %}
+                        Account Officer
+                    {% elif session['user'] == 'Registrar' %}
+                        Registrar
                     {% else %}
-                        {{username}}
+                        Admin
                     {% endif %}
                   </p>
                 </div>

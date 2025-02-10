@@ -1,9 +1,10 @@
+import datetime
 import mysql.connector
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask_mail import Mail, Message
-from flask import Blueprint, render_template, session, request, redirect, url_for, flash
-from authentication.middleware import auth
+from flask import Blueprint, render_template, session, request, redirect, url_for, flash, jsonify
+from Authentication.middleware import auth
 
 adminleveltwo_blueprint = Blueprint('adminleveltwo', __name__)
 
@@ -16,6 +17,42 @@ def adminleveltwo_auth(app, mail):
         for key, value in app_paths.items():
             app.config[key] = value
 
+    def get_admin_level_two_data(year):  # Separate function for data fetching
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        query = """
+                   SELECT * FROM application_page 
+                   WHERE form_filled='1' 
+                   AND fellowship_application_year=%s 
+                   AND status='accepted'
+                """
+        cursor.execute(query, (year,))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+        for row in data:
+            for key, value in row.items():
+                if isinstance(value, datetime.timedelta):
+                    row[key] = str(value)  # Or value.total_seconds()
+                elif isinstance(value, datetime.date):
+                    row[key] = value.strftime('%Y-%m-%d')
+                elif isinstance(value, datetime.datetime):
+                    row[key] = value.isoformat()
+
+        return data  # Return the data (list of dictionaries)
+
+    @adminleveltwo_blueprint.route('/get_approval_year_two', methods=['GET', 'POST'])
+    def get_approval_year_two():
+        year = request.args.get('year', '2024')
+        admin_level_two_data = get_admin_level_two_data(year)  # Call the data fetching function
+        # print(admin_level_one_data)
+        data = {
+            'admin_level_two_list': admin_level_two_data
+        }
+        return jsonify(data)
+
     @adminleveltwo_blueprint.route('/level_two_admin', methods=['GET', 'POST'])
     def level_two_admin():
         if not session.get('logged_in'):
@@ -24,36 +61,93 @@ def adminleveltwo_auth(app, mail):
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
-        if request.method == 'POST':
-            # Check if a form was submitted
-            if 'accept' in request.form:
-                # Handle accepting an application
-                applicant_id = request.form['accept']
-                update_scrutiny_admin(applicant_id, 'accepted')
-            elif 'reject' in request.form:
-                # Handle rejecting an application
-                applicant_id = request.form['reject']
-                update_scrutiny_admin(applicant_id, 'rejected')
-                cursor.execute(
-                    "SELECT email, first_name, last_name, scrutiny_status FROM application_page WHERE applicant_id = %s",
-                    (applicant_id,))
-                user_data = cursor.fetchone()
 
-                if user_data:
-                    email = user_data['email']
-                    full_name = user_data['first_name'] + ' ' + user_data['last_name']
+        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
+        data = get_admin_level_two_data(year)
 
-                    # Send an email to the user
-                    send_email_rejection(email, full_name, 'Rejected', applicant_id)
-            # Commit the changes to the database
-            cnx.commit()
+        return render_template('AdminPages/AdminLevels/LevelTwo/admin_level_two.html', data=data)
 
-        cursor.execute("SELECT * FROM application_page WHERE status='accepted' and phd_registration_year>='2023' ")
-        data = cursor.fetchall()
-        print(data)
+    @adminleveltwo_blueprint.route('/accept_at_level_2', methods=['GET', 'POST'])
+    def accept_at_level_2():
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        applicant_id = request.form['applicant_id']  # Use the correct field name
+        status = 'accepted'
+        print('User Data:', request.form)
+
+        update_query = "UPDATE application_page SET scrutiny_status = %s WHERE applicant_id = %s"  # Correct SQL syntax
+        cursor.execute(update_query, (status, applicant_id))
+        cnx.commit()  # Important: Commit the changes to the database
+
+        cursor.execute(
+            "SELECT email, first_name, last_name, status, status_rejected_reason, scrutiny_status, "
+            "scrutiny_rejected_reason FROM application_page WHERE applicant_id = %s",
+            (applicant_id,))  # Include last_name
+        user_data = cursor.fetchone()
+        print('User Data:', user_data)
+
+        if user_data:
+            email = user_data['email']
+            first_name = user_data['first_name']
+            last_name = user_data['last_name']  # Get last name
+            full_name = f"{first_name} {last_name}"  # Correct full name construction
+
+            # send_email_accept(email, full_name, 'Rejected', applicant_id)
+        # Commit the changes to the database
+        cnx.commit()
         cursor.close()
         cnx.close()
-        return render_template('AdminPages/AdminLevels/LevelTwo/admin_level_two.html', data=data)
+        return redirect(url_for('adminleveltwo.level_two_admin'))
+
+    @adminleveltwo_blueprint.route('/reject_at_level_2', methods=['GET', 'POST'])
+    def reject_at_level_2():
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        applicant_id = request.form['applicant_id']  # Use the correct field name
+        rejection_reason = request.form['rejectionReason']
+        status = 'rejected'
+        rejected_at = 'scrutiny'
+        scrutiny_status = 'rejected'
+        final_approval = 'rejected'
+        print('User Data:', request.form)
+
+        update_query = ("UPDATE application_page SET status = %s, scrutiny_rejected_reason = %s, "
+                        "rejected_at_level = %s, scrutiny_status = %s, final_approval = %s WHERE applicant_id = %s")
+        cursor.execute(update_query,
+                       (status, rejection_reason, rejected_at, scrutiny_status, final_approval, applicant_id))
+        cnx.commit()  # Important: Commit the changes to the database
+
+        cursor.execute(
+            "SELECT email, first_name, last_name, status, status_rejected_reason, scrutiny_status, "
+            "scrutiny_rejected_reason FROM application_page WHERE applicant_id = %s",
+            (applicant_id,))  # Include last_name
+        user_data = cursor.fetchone()
+        print('User Data:', user_data)
+
+        if user_data:
+            email = user_data['email']
+            first_name = user_data['first_name']
+            last_name = user_data['last_name']  # Get last name
+            full_name = f"{first_name} {last_name}"  # Correct full name construction
+
+            # send_email_rejection(email, full_name, 'Rejected', applicant_id)
+        # Commit the changes to the database
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+        return redirect(url_for('adminleveltwo.level_two_admin'))
 
     def update_scrutiny_admin(applicant_id, scrutiny_status):
         host = HostConfig.host
@@ -189,7 +283,7 @@ def adminleveltwo_auth(app, mail):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(" SELECT * FROM application_page WHERE phd_registration_year>='2023' and "
+        cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' and "
                        "scrutiny_status='accepted' and status='accepted' ")
         result = cursor.fetchall()
 
@@ -201,7 +295,7 @@ def adminleveltwo_auth(app, mail):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
         cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year>='2023' and scrutiny_status='pending' "
+            " SELECT * FROM application_page WHERE fellowship_application_year='2024' and scrutiny_status='pending' "
             "and status='accepted' ")
         result = cursor.fetchall()
         print('Pending', result)
@@ -212,7 +306,7 @@ def adminleveltwo_auth(app, mail):
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
-        cursor.execute(" SELECT * FROM application_page WHERE phd_registration_year>='2023' "
+        cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' "
                        "and scrutiny_status='rejected' and status='accepted' ")
         result = cursor.fetchall()
 
@@ -224,7 +318,7 @@ def adminleveltwo_auth(app, mail):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
         cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year>='2023' and"
+            " SELECT * FROM application_page WHERE fellowship_application_year='2024' and"
             " your_caste IN ('katkari', 'kolam', 'madia') "
         )
         result = cursor.fetchall()
@@ -236,7 +330,7 @@ def adminleveltwo_auth(app, mail):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
         cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year>='2023' and disability='Yes' "
+            " SELECT * FROM application_page WHERE fellowship_application_year='2024' and disability='Yes' "
         )
         result = cursor.fetchall()
         return render_template('AdminPages/AdminLevels/LevelTwo/disabled_students_level2.html', result=result)

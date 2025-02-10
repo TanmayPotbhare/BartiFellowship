@@ -1,10 +1,10 @@
 from datetime import date, timedelta
 import mysql.connector
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask_mail import Mail, Message
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash
-from authentication.middleware import auth
+from Authentication.middleware import auth
 
 bulkemails_blueprint = Blueprint('bulkemails', __name__)
 

@@ -1,26 +1,54 @@
 // This function is for PVTG Caste
 function toggleGovField(select) {
-    const gov_Field = document.getElementById('open_gov');
-    const position_Field = document.getElementById('open_gov1');
-    const inputField1 = document.getElementById('gov_department');
-    const inputField2 = document.getElementById('gov_position');
+    
+    const numberDiv = document.getElementById('open_no_of_gov_emp');
+    const numberField = document.getElementById('no_of_gov_employee');
 
     if (select.value === 'Yes') {
-        gov_Field.classList.remove('d-none'); // Show field
-        position_Field.classList.remove('d-none'); // Show field
-        inputField1.setAttribute('required', 'required');
-        inputField2.setAttribute('required', 'required');
+        
+        numberDiv.classList.remove('d-none'); // Show field
+        numberField.setAttribute('required', 'required');
 
     } else {
-        gov_Field.classList.add('d-none'); // Hide field
-        position_Field.classList.add('d-none'); // Hide field
-        inputField1.value = ''; // Clear input field
-        inputField2.value = ''; // Clear input field
-        inputField1.removeAttribute('required');
-        inputField2.removeAttribute('required');
+       
+        numberDiv.classList.add('d-none'); // Hide field
+        numberField.value = ''; // Clear input field
+        numberField.removeAttribute('required');
+
+        // Hide all employee details and remove required attributes
+        toggleEmployeeFields(0);
+
     }
 }
 // ----------------------------------------------------------------
+
+
+function toggleEmployeeFields(count) {
+    const fields = ['name_emp', 'position_emp', 'relation_emp'];
+
+    for (let i = 1; i <= 3; i++) {
+        fields.forEach(field => {
+            const element = document.getElementById(`${field}_${i}`);
+            const input = document.getElementById(`${field}_${i}`).querySelector('input');
+
+            if (i <= count) {
+                element.classList.remove('d-none'); // Show field
+                input.setAttribute('required', 'required'); // Set required
+            } else {
+                element.classList.add('d-none'); // Hide field
+                input.removeAttribute('required'); // Remove required
+                input.value = ''; // Clear input value
+            }
+        });
+    }
+}
+
+// Event listener for Number of Government Employees dropdown
+document.getElementById('no_of_gov_employee').addEventListener('change', function () {
+    const selectedValue = parseInt(this.value, 10) || 0;
+    toggleEmployeeFields(selectedValue);
+});
+
 
 
 // ----------- Account Number validation -------------------

@@ -3,11 +3,11 @@ from io import BytesIO
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, PatternFill
 import mysql.connector
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask_mail import Mail, Message
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
-from authentication.middleware import auth
+from Authentication.middleware import auth
 
 payment_tracking_blueprint = Blueprint('payment_tracking', __name__)
 

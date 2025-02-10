@@ -455,15 +455,14 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 {% if record['section2'] == 'filled' %}
-                                {% set selected_qualifications = record['have_you_qualified'].split(',') if
-                                record['have_you_qualified'] else [] %}
-                                {% for exam in selected_qualifications %}
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="qualified_exams[]"
-                                        value="{{ exam }}" checked disabled>
-                                    <label class="form-check-label">{{ exam }}</label>
-                                </div>
-                                {% endfor %}
+                                    {% set selected_qualifications = record['have_you_qualified'].split(',') if record['have_you_qualified'] else [] %}
+                                    {% for exam in selected_qualifications %}
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="qualified_exams[]" 
+                                                value="{{ exam }}" checked disabled>
+                                            <label class="form-check-label">{{ exam }}</label>
+                                        </div>
+                                    {% endfor %}
                                 {% else %}
                                 <div class="form-group">
                                     <div class="form-check">

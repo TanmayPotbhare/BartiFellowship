@@ -342,9 +342,9 @@ function validateAttempts(input) {
     // Remove any non-numeric characters
     input.value = input.value.replace(/[^0-9]/g, '');
 
-        // Limit the input to 2 digits
-        if (input.value.length > 2) {
-            input.value = input.value.slice(0, 2);
+        // Limit the input to 1 digits
+        if (input.value.length > 1) {
+            input.value = input.value.slice(0, 1);
         }     
 
         if (input.value === '0') {

@@ -1,8 +1,8 @@
 import mysql.connector
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash
-from authentication.middleware import auth
+from Authentication.middleware import auth
 
 adminlogin_blueprint = Blueprint('adminlogin', __name__)
 

@@ -1,4 +1,4 @@
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 
 
 def total_application_count(year):

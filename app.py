@@ -5,15 +5,14 @@ import mysql.connector
 from Blueprints.blueprints_homepage import homepage_blueprints
 from Blueprints.blueprints_admin import admin_blueprints
 from Blueprints.blueprints_candidate import candidate_blueprints
-from classes.caste import casteController
-from classes.university import universityController
+from Classes.caste import casteController
+from Classes.university import universityController
 
 # ----------- Flask Instance --------------
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'FellowApp123@#$*&'
 # -----------------------------------------
 
-#Comment Added
 
 # ------- All configurations ----------------
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -37,7 +36,7 @@ mail = Mail(app)
 # -----------------------------------------
 
 # ------------------ Database Configuration --------------------
-from classes.database import HostConfig, ConfigPaths
+from Classes.database import HostConfig, ConfigPaths
 
 host = HostConfig.host
 app_paths = ConfigPaths.paths.get(host)

@@ -1,6 +1,6 @@
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
-from authentication.middleware import auth
+from Authentication.middleware import auth
 
 manage_profile_blueprint = Blueprint('manage_profile', __name__)
 
@@ -42,5 +42,11 @@ def manage_profile_auth(app):
         else:
             user = "Admin"
             photo = '/static/assets/img/default_user.png'
+
+        # Convert the Date to standard Format
+        first_record = records[0]
+        Application_date = first_record['application_date'] # PHD Registration Date
+        formatted_Application_date = Application_date.strftime('%d-%b-%Y')
+
         return render_template('CandidatePages/manage_profile.html', title="Manage Profile", records=records,
-                               user=user, photo=photo, finally_approved=finally_approved)
+                               user=user, photo=photo, finally_approved=finally_approved, formatted_Application_date=formatted_Application_date)

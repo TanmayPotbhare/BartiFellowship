@@ -119,16 +119,14 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                         <br>
-                                        <span class="text-dark">{{ record['perc_of_disability'] }}</span>
+                                        <span class="text-dark">{{ record['disability_percentage'] }}</span>
                                 </div>
                             </div>
                         {% endif %}
                      </div>
                  </div>
-                 {% if record['section4'] == 'filled' %}
-
+                    {% if record['section4'] == 'filled' %}
                         {% else %}
-
                         <div class="form-check ms-2" style="padding:2rem;">
                             <input class="form-check-input" type="checkbox" value="" id="verifySalaryDeclaration">
                                 <label class="form-check-label" for="verifySalaryDeclaration">
@@ -140,7 +138,7 @@
                                     मी याद्वारे घोषित करतो/करते की मी पगारदार व्यक्ती नाही आणि माझ्याकडे उत्पन्नाचा कोणताही स्रोत नाही.
                                 </label>
                         </div>
-                        {% endif %}
+                    {% endif %}
                  <div class="card shadow-sm mb-4">
                      <div class="btn btn-dark btn-lg text-center">
                         <h6 class="text-white fw-bold">Parents/Guardian's Details</h6>
@@ -196,68 +194,204 @@
                                 {% endif %}
                             </div>
                         </div>
-                         <div class="col-md-4 mt-2 d-none" id="open_gov">
+                        <div class="col-md-4 mt-2 d-none" id="open_no_of_gov_emp">
                             <div class="form-group">
-                                <label for="gov_department">Name of Government Employee
+                                <label for="no_of_gov_employee" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="Select yes only if someone from your family works in the Government.">
+                                    Number of Government Employees
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
-                                    <br>
-                                    <span class="text-dark">{{ record['gov_department'] }}</span>
-                                {% else %}
-                                    <input type="text" class="form-control" name="gov_department" id="gov_department"
-                                            placeholder="Enter Name of Government Employee" oninput="validateName(this)">
-                                {% endif %}
+                                <select name="no_of_gov_employee" id="no_of_gov_employee" class="form-control">
+                                    <option value="" selected>-- Select Option --</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
                             </div>
                         </div>
-                         <div class="col-md-4 mt-2 d-none" id="open_gov1">
-                            <div class="form-group">
-                                <label for="gov_position">Position in Government
-                                    <span class="text-danger">*</span>
-                                </label>
-                                {% if record['section4'] == 'filled' %}
-                                    <br>
-                                    <span class="text-dark">{{ record['gov_position'] }}</span>
-                                {% else %}
-                                <input type="text" class="form-control" name="gov_position" id="gov_position"
-                                        placeholder="Enter Position in the Government" oninput="validateName(this)">
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% if record.section4 == 'filled' and record.work_in_government == 'Yes' %}
+                        {% if record['section4'] == 'filled' and record['no_of_gov_employee']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
-                                <label for="gov_department">Name of Government Employee
+                                <label for="no_of_gov_employee">
+                                    Number of Government Employees
                                     <span class="text-danger">*</span>
                                 </label>
-                                    <br>
-                                    <span class="text-dark">{{ record['gov_department'] }}</span>
+                                <br>
+                                <span class="text-dark">{{ record['no_of_gov_employee'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row m-0">
+
+                        <!-- Employee 1 Details -->
+                        <div class="col-md-4 mt-2 d-none" id="name_emp_1">
+                            <div class="form-group">
+                                <label for="emp1_name">Name of Employee 1
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp1_name" id="emp1_name"
+                                            placeholder="Enter Name of Employee 1" oninput="validateName(this)">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="position_emp_1">
+                            <div class="form-group">
+                                <label for="emp1_position">Position of Employee 1
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp1_position" id="emp1_position"
+                                            placeholder="Enter Position of Employee 1" oninput="validateName(this)">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="relation_emp_1">
+                            <div class="form-group">
+                                <label for="emp1_relation">Relation with candidate
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp1_relation" id="emp1_relation"
+                                            placeholder="1 Enter Relation with candidate" oninput="validateName(this)">
+                            </div>
+                        </div>
+                        <!-- View Employee 1 Details -->
+                        {% if record['section4'] == 'filled' and record['emp1_name']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp1_name">
+                                       Name of Employee 1
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp1_name'] }}</span>
                             </div>
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
-                                <label for="gov_position">Position in Government
+                                <label for="emp1_position">
+                                    Position of Employee 1
                                     <span class="text-danger">*</span>
                                 </label>
-                                    <br>
-                                    <span class="text-dark">{{ record['gov_position'] }}</span>
+                                <br>
+                                <span class="text-dark">{{ record['emp1_position'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp1_relation">
+                                    Relation with candidate
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp1_relation'] }}</span>
                             </div>
                         </div>
                         {% endif %}
 
+
+                        <!-- Employee 2 Details -->
+                        <div class="col-md-4 mt-2 d-none" id="name_emp_2">
+                            <div class="form-group">
+                                <label for="emp2_name">Name of Employee 2
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp2_name" id="emp2_name"
+                                            placeholder="Enter Name of Employee 2" oninput="validateName(this)">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="position_emp_2">
+                            <div class="form-group">
+                                <label for="emp2_position">Position of Employee 2
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp2_position" id="emp2_position"
+                                            placeholder="Enter Position of Employee 2" oninput="validateName(this)">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="relation_emp_2">
+                            <div class="form-group">
+                                <label for="emp2_relation">Relation with candidate
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp2_relation" id="emp2_relation"
+                                            placeholder="2 Enter Relation with candidate" oninput="validateName(this)">
+                            </div>
+                        </div>
+
+                        {% if record['section4'] == 'filled' and record['emp2_name']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp2_name">
+                                       Name of Employee 2
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp2_name'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp2_position">
+                                    Position of Employee 2
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp2_position'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp2_relation">
+                                    Relation with candidate
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp2_relation'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <!-- Employee 3 Details -->
+                        <div class="col-md-4 mt-2 d-none" id="name_emp_3">
+                            <div class="form-group">
+                                <label for="emp3_name">Name of Employee 3
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp3_name" id="emp3_name"
+                                            placeholder="Enter Name of Employee 3" oninput="validateName(this)">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="position_emp_3">
+                            <div class="form-group">
+                                <label for="emp3_position">Position of Employee 3
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp3_position" id="emp3_position"
+                                            placeholder="Enter Position of Employee 3" oninput="validateName(this)">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="relation_emp_3">
+                            <div class="form-group">
+                                <label for="emp3_relation">Relation with candidate
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" class="form-control" name="emp3_relation" id="emp3_relation"
+                                            placeholder="3 Enter Relation with candidate" oninput="validateName(this)">
+                            </div>
+                        </div>
                      </div>
                  </div>
                  <div class="card shadow-sm mb-4">
                      <div class="btn btn-dark btn-lg text-center">
                         <h6 class="text-white fw-bold">Bank Details</h6>
                      </div>
+                     {% if record.get('section4') != "filled" %}
                      <div class="row m-0">
                         <div class="col-md-12 mt-2">
                             Note: 
                             <span class="text-danger">Please enter the Bank Details carefully. The account details entered here will be frozen for 5 years, 
                                 and you will not be able to make any further edits. The fellowship amount will be credited to the same account for the next 5 years.
                             </span>
-                        </div></div>
+                        </div>
+                    </div>
+                    {% endif %}
                      <div class="row m-0">
                         <div class="col-md-4 mt-2">
                             <div class="form-group">

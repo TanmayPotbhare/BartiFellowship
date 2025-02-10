@@ -42,27 +42,77 @@
                                                         <label class="fw-bold">Select Role
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select name="role" id="role" class="form-select">
+                                                        <select name="role" id="role" class="form-select" required>
                                                             <option value="" selected disabled>-- Select Role --</option>
-                                                            <option value="Project Officer">Project Officer</option>
+                                                            <option value="Admin">Admin</option>
+                                                            <!-- <option value="Project Officer">Project Officer</option>
                                                             <option value="Project Manager">Project Manager</option>
                                                             <option value="Office Superintendent">Office Superintendent</option>
                                                             <option value="Head of Department">Head of Department</option>
                                                             <option value="Account Officer">Account Officer</option>
                                                             <option value="Assistant Account Officer">Assistant Account Officer</option>
                                                             <option value="Registrar">Registrar</option>
-                                                            <option value="Admin">Admin</option>
-                                                            <option value="Auditor">Auditor</option>
+                                                            <option value="Auditor">Auditor</option> -->
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Username
+                                                            <span class="text-danger">*</span>
+                                                            <span data-bs-toggle="tooltip" data-bs-placement="top" 
+                                                                 title="Admins will use this username to log in.">
+                                                            </span> 
+                                                        </label>
+                                                        <select name="username" id="username" class="form-select" required>
+                                                            <option value="" selected disabled>-- Select Username --</option>
+                                                        
+                                                            {% set available_usernames = ['Admin2021', 'Admin2022', 'Admin2023', 'Admin2024'] %}
+                                                        
+                                                            {% for username in available_usernames %}
+                                                                {% if username not in existing_usernames %}  {# Now it will compare properly #}
+                                                                    <option value="{{ username }}">{{ username }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="email">Email ID
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="email" name="email" id="email" class="form-control"
+                                                               required placeholder="Enter Email ID">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Assign Year to the Admin
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select name="year" id="year" class="form-select" required>
+                                                            <option value="" selected disabled>-- Select Year --</option>
+
+                                                        {% set available_years = ['BANRF 2021', 'BANRF 2022', 'BANRF 2023', 'BANRF 2024'] %}
+                                                        
+                                                            {% for year in available_years %}
+                                                                {% if year not in existing_years %}  {# Now it will compare properly #}
+                                                                    <option value="{{ year }}">{{ year }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row m-0 mt-3">
                                                 <div class="col-md-3 mt-2">
                                                     <div class="form-group">
                                                         <label class="fw-bold" for="first_name">First Name
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <input type="text" name="first_name" id="first_name"
-                                                               placeholder="Enter your First Name" class="form-control"
+                                                               placeholder="Enter First Name" class="form-control"
                                                                oninput="validateName(this)" maxlength="15" required>
                                                     </div>
                                                 </div>
@@ -72,7 +122,7 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <input type="text" name="middle_name" id="middle_name"
-                                                               placeholder="Enter your Middle Name" class="form-control"
+                                                               placeholder="Enter Middle Name" class="form-control"
                                                                oninput="validateName(this)" maxlength="15" required>
                                                     </div>
                                                 </div>
@@ -82,21 +132,32 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <input type="text" name="last_name" id="last_name"
-                                                               placeholder="Enter your Surname" class="form-control"
+                                                               placeholder="Enter Surname" class="form-control"
                                                                oninput="validateName(this)" maxlength="15" required>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row m-0">
-                                                <div class="col-md-4 mt-2">
+                                                <div class="col-md-3 mt-2">
                                                     <div class="form-group">
                                                         <label class="fw-bold" for="mobile_number">Mobile Number
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <input type="text" name="mobile_number" id="mobile_number"
                                                                placeholder="XXXXXXXXXX" class="form-control"
-                                                               maxlength="10" oninput="validateMobileNumber(this)"
+                                                               maxlength="10" onblur="validateMobileNumber(this)"
                                                                minlength="10" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row m-0">
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" for="date_of_birth">Date of Birth
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="date" name="date_of_birth" id="date_of_birth"
+                                                               class="form-control"
+                                                               maxlength="15" onblur="ValidateDoB(this)" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mt-2">
@@ -105,39 +166,8 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <input type="text" name="age" id="age"
-                                                               placeholder="Enter your Age" class="form-control"
-                                                               maxlength="2" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 mt-2">
-                                                    <div class="form-group">
-                                                        <label class="fw-bold" for="date_of_birth">Date of Birth
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="date" name="date_of_birth" id="date_of_birth"
-                                                               class="form-control"
-                                                               maxlength="15" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row m-0">
-                                                <div class="col-md-4 mt-2">
-                                                    <div class="form-group">
-                                                        <label class="fw-bold" for="email">Email ID
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="email" name="email" id="email" class="form-control"
-                                                               required placeholder="Enter your Email ID">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 mt-2">
-                                                    <div class="form-group">
-                                                        <label class="fw-bold" for="password">Password
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="password" name="password" id="password"
-                                                               placeholder="Enter your Password" class="form-control"
-                                                               required>
+                                                               placeholder="Enter Age" class="form-control"
+                                                               maxlength="2" onblur="validateAge(this)" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mt-2">
@@ -145,12 +175,30 @@
                                                         <label class="fw-bold">Gender
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select name="gender" class="form-select">
+                                                        <select name="gender" class="form-select" required>
                                                             <option value="" selected disabled>-- Select Gender --</option>
                                                             <option value="Male">Male</option>
                                                             <option value="Female">Female</option>
                                                             <option value="Other">Other</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row m-0">
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Password</label><span class="text-danger">*</span>
+                                                        <input type="password" class="form-control" name="password" id="password" 
+                                                            placeholder="Password" required="" onblur="validatePasswords()"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Confirm Password</label><span class="text-danger">*</span>
+                                                        <input type="password" class="form-control"
+                                                            name="confirm_password" id="confirm_password"
+                                                            placeholder="Confirm password" required="" onblur="validatePasswords()"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,11 +223,11 @@
                             <th>Sr. No.</th>
                             <th>Full Name</th>
                             <th>Email</th>
-                            <th>Mobile Number</th>
-                            <th>Role</th>
                             <th>Username</th>
+                            <th>Role</th>
+                            <th>Year</th>
+                            <th>Mobile Number</th>
                             <th>Password</th>
-                            <th>Added Date</th>
                             <th>Added By</th>
                         </tr>
                     </thead>
@@ -189,11 +237,11 @@
                             <td>{{ loop.index }}</td>
                             <td>{{ row['first_name'] }} {{ row['middle_name'] }} {{ row['surname'] }}</td>
                             <td>{{ row['email'] }}</td>
-                            <td>{{ row['mobile_number'] }}</td>
-                            <td>{{ row['role'] }}</td>
                             <td>{{ row['username'] }}</td>
+                            <td>{{ row['role'] }}</td>
+                            <td>{{ row['year'] }}</td>
+                            <td>{{ row['mobile_number'] }}</td>
                             <td>{{ row['password'] }}</td>
-                            <td>{{ row['added_date'] }}</td>
                             <td>{{ row['added_by'] }}</td>
                         </tr>
                     {% endfor %}

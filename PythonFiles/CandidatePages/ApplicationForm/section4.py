@@ -1,8 +1,8 @@
 import datetime
 import requests
 import os
-from classes.caste import casteController
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.caste import casteController
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response, jsonify
 
 
@@ -109,11 +109,25 @@ def section4_auth(app):
             salaried = request.form['salaried']
             disability = request.form['disability']
             type_of_disability = request.form['type_of_disability']
+            perc_of_disability = request.form['perc_of_disability']
             father_name = request.form['father_name']
             mother_name = request.form['mother_name']
             work_in_government = request.form['work_in_government']
-            # gov_department = request.form['gov_department']
-            # gov_position = request.form['gov_position']
+
+            no_of_gov_employee = request.form['no_of_gov_employee']
+
+            emp1_name = request.form['emp1_name']
+            emp1_position = request.form['emp1_position']
+            emp1_relation = request.form['emp1_relation']
+
+            emp2_name = request.form['emp2_name']
+            emp2_position = request.form['emp2_position']
+            emp2_relation = request.form['emp2_relation']
+
+            emp3_name = request.form['emp3_name']
+            emp3_position = request.form['emp3_position']
+            emp3_relation = request.form['emp3_relation']
+
             bank_name = request.form['bank_name']
             account_number = request.form['account_number']
             ifsc_code = request.form['ifsc_code']
@@ -126,14 +140,20 @@ def section4_auth(app):
                 sql = """
                         UPDATE application_page
                         SET
-                            salaried = %s, disability = %s, type_of_disability = %s,
-                            father_name = %s, mother_name = %s, work_in_government = %s,
+                            salaried = %s, disability = %s, type_of_disability = %s, disability_percentage= %s,
+                            father_name = %s, mother_name = %s, work_in_government = %s, no_of_gov_employee = %s,
+                            emp1_name =  %s, emp1_position = %s, emp1_relation = %s,
+                            emp2_name =  %s, emp2_position = %s, emp2_relation = %s,
+                            emp3_name =  %s, emp3_position = %s, emp3_relation = %s,
                             bank_name = %s,account_number = %s,ifsc_code = %s, account_holder_name = %s, micr = %s, section4 = %s
                         WHERE email = %s
                     """
                 values = (
-                    salaried, disability, type_of_disability,
-                    father_name, mother_name, work_in_government,
+                    salaried, disability, type_of_disability, perc_of_disability,
+                    father_name, mother_name, work_in_government, no_of_gov_employee,
+                    emp1_name, emp1_position, emp1_relation,
+                    emp2_name, emp2_position, emp2_relation,
+                    emp3_name, emp3_position, emp3_relation,
                     bank_name, account_number, ifsc_code, account_holder_name, micr, section4, email
                 )
 

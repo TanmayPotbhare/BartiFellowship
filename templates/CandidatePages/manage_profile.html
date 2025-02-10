@@ -44,7 +44,7 @@
                           <div class="card-body">
                                 <div class="applicant-cards">
                                     {% for row in records %}
-                                      <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ row['application_date'] }}</span></h6>
+                                      <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ formatted_Application_date }}</span></h6>
                                     {% endfor %}
                                     <div class="card mb-3">
                                         <div class="card-body col-md-12">
@@ -85,7 +85,7 @@
                                                                         <label>Application Date:</label>
                                                                     </div>
                                                                     <div class="col-md-8">
-                                                                        <span>{{ row['application_date'] }}</span>
+                                                                        <span>{{ formatted_Application_date }}</span>
                                                                     </div>
                                                                  </div>
                                                                  <div class="row mt-1">

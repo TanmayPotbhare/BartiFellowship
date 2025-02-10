@@ -1,4 +1,4 @@
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, Response
 from PythonFiles.AdminPages.PDFfile import *
 import datetime

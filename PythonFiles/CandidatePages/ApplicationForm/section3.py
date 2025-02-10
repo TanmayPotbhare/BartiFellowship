@@ -1,11 +1,11 @@
 import datetime
 import requests
 import os
-from classes.caste import casteController
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.caste import casteController
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response, jsonify
 
-from classes.university import universityController
+from Classes.university import universityController
 
 section3_blueprint = Blueprint('section3', __name__)
 

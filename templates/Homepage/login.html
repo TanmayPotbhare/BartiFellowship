@@ -94,29 +94,29 @@
                                     <h2 class="login_logo_name text-center">Sign Up</h2>
                                     <div class="form-group row col-md-10 m-auto">
                                         <div class="col-md-4 mb-3">
-                                            <label class="text-white">First Name</label>
+                                            <label class="text-white">First Name</label><span class="text-danger">*</span>
                                             <input type="text" class="form-control login-input" name="first_name"
-                                                placeholder="First Name" required="">
+                                                placeholder="First Name" oninput="validateSignupName(this)" maxlength="15" required="">
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label class="text-white">Middle Name</label>
+                                            <label class="text-white">Middle Name</label><span class="text-danger">*</span>
                                             <input type="text" class="form-control login-input" name="middle_name"
-                                                placeholder="Middle Name" required="">
+                                                placeholder="Middle Name" oninput="validateSignupName(this)" maxlength="15" required="">
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label class="text-white">Last Name</label>
+                                            <label class="text-white">Last Name</label><span class="text-danger">*</span>
                                             <input type="text" class="form-control login-input" name="last_name"
-                                                placeholder="Last Name" required="">
+                                                placeholder="Last Name" oninput="validateSignupName(this)" maxlength="15" required="">
                                         </div>
                                     </div>
                                     <div class="form-group row col-md-10 m-auto">
                                         <div class="col-md-6 mb-3">
-                                            <label class="text-white">Email</label>
+                                            <label class="text-white">Email</label><span class="text-danger">*</span>
                                             <input type="text" class="form-control login-input" name="email"
-                                                placeholder="Email Address" required="">
+                                                placeholder="Email Address" required="" onblur="validateEmailInput(this)">
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label class="text-white">Registration year</label>
+                                            <label class="text-white">Registration year</label><span class="text-danger">*</span>
                                             <select name="year" id="year" class="form-control login-input" required>
                                                 <option value="">--- Select Registration Year ---</option>
                                                 {% if value in ['2021', '2022'] %}
@@ -132,21 +132,23 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label class="text-white">Mobile Number</label>
+                                            <label class="text-white">Mobile Number</label><span class="text-danger">*</span>
                                             <input type="text" class="form-control login-input" name="mobile_number"
-                                                placeholder="Mobile Number" maxlength="10" required="" minlength="10">
+                                                placeholder="Mobile Number" onchange="validateMobileNumber(this)"
+                                                minlength="10" maxlength="10" id="mobile_number" required>
                                         </div>
                                     </div>
                                     <div class="form-group row col-md-10 m-auto">
                                         <div class="col-md-6 mb-3">
-                                            <label class="text-white">Password</label>
-                                            <input type="password" class="form-control login-input" name="password"
-                                                placeholder="Password" required="">
+                                            <label class="text-white">Password</label><span class="text-danger">*</span>
+                                            <input type="password" class="form-control login-input" name="signup_password" id="password" 
+                                                placeholder="Password" required="" onblur="validatePasswords()"/>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label class="text-white">Confirm Password</label>
+                                            <label class="text-white">Confirm Password</label><span class="text-danger">*</span>
                                             <input type="password" class="form-control login-input"
-                                                name="confirm_password" placeholder="Confirm password" required="">
+                                                name="confirm_password" id="confirm_password"
+                                                placeholder="Confirm password" required="" onblur="validatePasswords()"/>
                                         </div>
                                         <p style="color: white;">
                                         {% if error %}

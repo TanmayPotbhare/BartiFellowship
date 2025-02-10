@@ -9,10 +9,21 @@
         <i class="mdi mdi-home"></i>
       </span> PRELIMINARY REVIEW
     </h3>
+
     <nav aria-label="breadcrumb">
-      <ul class="breadcrumb">
+      <ul class="breadcrumb d-flex align-items-center">
         <li class="breadcrumb-item active" aria-current="page">
-          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            <div class="btn-group">
+              <select id="approval_year_selector" name="approval_year_selector" class="btn btn-dark btn-fw text-white" style="width: auto;">
+                <option selected disabled>Select BANRF Year</option>
+                <option value="2020" {% if year == '2020' %}selected{% endif %}>BANRF 2020 - 2021</option>
+                <option value="2021" {% if year == '2021' %}selected{% endif %}>BANRF 2021 - 2022</option>
+                <option value="2022" {% if year == '2022' %}selected{% endif %}>BANRF 2022 - 2023</option>
+                <option value="2023" {% if year == '2023' %}selected{% endif %}>BANRF 2023 - 2024</option>
+                <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024 - 2025</option>
+              </select>
+            </div>
+
         </li>
       </ul>
     </nav>
@@ -22,27 +33,8 @@
   <div class="card">
     <div class="card-header">
       <div class="row justify-content-end">
-        <div class="col-md-6 text-end">
-          {% if session['user'] == 'Auditor' %}
-             <div class="text-end">
-                <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
-              </div>
-          {% else %}
-              <div class="col-md-12 d-flex justify-content-end">
-                  <a href="/export_level_one_applications"
-                     class="btn btn-outline-primary btn-fw btn-rounded"
-                     data-bs-toggle="tooltip"
-                     data-bs-placement="top"
-                     title="Export as Excel">Export to Excel</a>
-              </div>
-          {% endif %}
 
-        </div>
-        <div class="text-center mb-4">
-            <h4>LEVEL 1 - NEW APPLICATIONS</h4>
-        </div><br>
-      </div>
-      <div class="text-center">
+        <div class="col-md-6 text-start">
               {% if session['user'] == 'Auditor' %}
                       <a href="#" class="mx-2 export-excel">
                         <button class="btn btn-outline-primary btn-fw">Accepted Students</button>
@@ -88,13 +80,6 @@
                                   Rejected Students
                                 </a>
                               </li>
-                              <!-- PVTG Students -->
-                              <li>
-                                <a class="dropdown-item d-flex align-items-center py-2" href="/pvtg_students_level1">
-                                  <i class="bi bi-people-fill text-info me-2"></i>
-                                  PVTG Students (Katkari, Kolam, Madia)
-                                </a>
-                              </li>
                               <!-- Disabled Students -->
                               <li>
                                 <a class="dropdown-item d-flex align-items-center py-2" href="/disabled_students_level1">
@@ -107,19 +92,41 @@
                           </div>
                     </div>
               {% endif %}
-      </div><br>
+        </div>
+
+        <div class="col-md-6 text-end">
+          {% if session['user'] == 'Auditor' %}
+             <div class="text-end">
+                <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+              </div>
+          {% else %}
+              <div class="col-md-12 d-flex justify-content-end">
+                  <a href="/export_level_one_applications"
+                     class="btn btn-outline-primary btn-fw btn-rounded"
+                     data-bs-toggle="tooltip"
+                     data-bs-placement="top"
+                     title="Export as Excel">Export to Excel</a>
+              </div>
+          {% endif %}
+        </div>
+
+        <div class="text-center mb-4">
+            <h4>LEVEL 1 - NEW APPLICATIONS</h4>
+        </div><br>
+      </div>
+
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered datatable">
             <thead>
               <tr>
-                <th>SNo</th>
-                <th>Unique Applicant ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Sr.No.</th>
+                <th>Applicant ID</th>
+                <th>Full Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
                 <th>PhD Registration Date</th>
+                <th>Application Year</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -131,11 +138,11 @@
               <tr>
                 <td>{{loop.index}}</td>
                 <td>{{ row['applicant_id'] }}</td>
-                <td>{{ row['first_name'] }}</td>
-                <td>{{ row['last_name'] }}</td>
+                <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
                 <td>{{ row['email'] }}</td>
                 <td>{{ row['mobile_number'] }}</td>
-                <td>{{ row['phd_registration_date'].strftime('%d-%b-%Y') }}</td>
+                <td>{{ row['phd_registration_date'] }}</td>
+                <td>{{ row['fellowship_application_year'] }}</td>
                 <td>
                   {% if row['status'] == 'accepted' %}
                   <span class="badge badge-success bg-success text-capitalize">{{ row['status'] }}</span>
@@ -145,33 +152,101 @@
                   <span class="badge badge-danger bg-danger text-capitalize">{{ row['status'] }}</span>
                   {% endif %}
                 </td>
-                {% if session['user'] == 'Auditor' %}
-                 <td>
-                   <a href="/viewform/{{row['id']}}" class="btn btn-theme btn-sm tooltip-trigger"
-                      data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form"><i
-                        class="ri-eye-fill"></i></a>
-                 </td>
-                {% else %}
-                <td>
-                  <form method="POST">
-                    <input type="hidden" name="applicant_id" value="{{ row['applicant_id'] }}">
-                    {% if row['status'] == 'pending' %}
-                    <button class="btn btn-success btn-sm tooltip-trigger" name="accept"
-                      value="{{ row['applicant_id'] }}" type="submit" data-bs-toggle="tooltip" data-bs-placement="top"
-                      data-bs-original-title="Accept Applicant"><i class="mdi mdi-check-all"></i>
-                    </button>
-                    <button class="btn btn-danger btn-sm tooltip-trigger" name="reject"
-                      value="{{ row['applicant_id'] }}" type="submit" data-bs-toggle="tooltip" data-bs-placement="top"
-                      data-bs-original-title="Reject Applicant"><i class="mdi mdi-close-octagon"></i>
-                    </button>
-                    {% endif %}
-                    <a href="/view_candidate/{{row['id']}}" class="btn btn-info btn-sm btn-rounded tooltip-trigger"
-                      data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form"><i
-                        class="mdi mdi-eye-circle"></i></a>
-                  </form>
-                </td>
-                {% endif %}
+                  {% if session['user'] == 'Auditor' %}
+                     <td>
+                       <a href="/view_candidate/{{row['id']}}" class="btn btn-theme btn-sm tooltip-trigger"
+                          data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form"><i
+                            class="ri-eye-fill"></i></a>
+                     </td>
+                  {% else %}
+                      <td>
+                        <form method="POST">
+                          <input type="hidden" name="applicant_id" value="{{ row['applicant_id'] }}">
+                          {% if row['status'] == 'pending' %}
+                            <button class="btn btn-success btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#acceptModal"
+                                data-applicant-id="{{ row['applicant_id'] }}" data-bs-placement="top"
+                                data-bs-original-title="Accept Applicant">
+                                <i class="mdi mdi-check-all"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#rejectModal"
+                                data-applicant-id="{{ row['applicant_id'] }}" data-bs-placement="top"
+                                data-bs-original-title="Reject Applicant">
+                                <i class="mdi mdi-close-octagon"></i>
+                            </button>
+                          {% endif %}
+                          <a href="/view_candidate/{{row['id']}}" class="btn btn-info btn-sm btn-rounded tooltip-trigger"
+                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form"><i
+                              class="mdi mdi-eye-circle"></i></a>
+                        </form>
+                      </td>
+                  {% endif %}
               </tr>
+
+                <!-- Start Modal for Acceptance Reason -->
+                <div class="modal fade show" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="acceptModalLabel">Accept Applicant</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/accept_at_level_1" id="acceptForm" method="POST">
+                                    <input type="hidden" name="applicant_id" value="{{ row['applicant_id'] }}">
+                                    <input type="hidden" name="accept" value="accept">
+                                    <p>
+                                        Please make sure you want to <span class="text-success fw-bold">accept</span> the following candidate:
+                                        <br> <strong>Name:</strong> {{ row['first_name'] }} {{ row['last_name'] }}.
+                                        <br> <strong>Email:</strong> {{ row['email'] }}
+                                        <br><br>
+                                        After you accept the applicant this applicant will be pending review on the next stage.
+                                    </p>
+                                    <button type="submit" class="btn btn-success text-dark">Submit Acceptance</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal for Acceptance Reason -->
+
+                <!-- Start Modal for Rejection Reason -->
+                <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="rejectModalLabel">Reject Applicant</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/reject_at_level_1" id="rejectForm" method="POST">
+                                    <input type="hidden" name="applicant_id" value="{{ row['applicant_id'] }}">
+                                    <input type="hidden" name="reject" value="reject">
+                                    <div class="mb-3">
+<!--                                        <label for="rejectionReason" class="form-label">Rejection Reason</label>-->
+<!--                                        <textarea class="form-control" id="rejectionReason" name="rejectionReason" rows="3" required></textarea>-->
+                                        <select name="rejectionReason" id="rejectionReason" class="form-select">
+                                            <option value="" disabled>-- Select a Reason --</option>
+                                            <option value="Application is Incomplete">Application is Incomplete</option>
+                                            <option value="Age Criteria is not Met">Age Criteria is not Met</option>
+                                            <option value="Application Deadline Missed">Application Deadline Missed</option>
+                                            <option value="All Documents are not uploaded">All Documents are not uploaded</option>
+                                            <option value="Document not matched at Offline and Online Scrutiny">Document not matched at Offline and Online Scrutiny</option>
+                                            <option value="Insufficient Academic Merit">Insufficient Academic Merit</option>
+                                            <option value="Caste Certificate criteria not met">Caste Certificate criteria not met</option>
+                                            <option value="Income Certificate criteria not met">Income Certificate criteria not met</option>
+                                            <option value="Domicile Certificate criteria not met">Domicile Certificate criteria not met</option>
+                                            <option value="Validity Certificate criteria not met">Validity Certificate criteria not met</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Submit Rejection</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal for Rejection Reason -->
+
               {% endfor %}
             </tbody>
           </table>
@@ -181,5 +256,7 @@
   </div>
 
 </div>
+
+
 
 {% endblock %}

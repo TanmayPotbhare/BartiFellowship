@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for, jsonify
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from PythonFiles.Homepage.multilingual_content import *
 import folium
 import mysql.connector

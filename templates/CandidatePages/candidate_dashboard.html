@@ -162,7 +162,7 @@
                                               </li>
 
                                               <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Caste Details</button>
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Certificate Details</button>
                                               </li>
 
                                                <li class="nav-item">
@@ -213,10 +213,10 @@
                                                   <div class="col-md-4 label ">Caste/Tribe</div>
                                                   <div class="col-md-8">{{ record['your_caste'] }}</div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                   <div class="col-md-4 label ">Sub Caste/Tribe</div>
                                                   <div class="col-md-8">{{ record['subcaste'] }}</div>
-                                                </div>
+                                                </div> -->
                                                 <div class="row">
                                                   <div class="col-md-4 label ">Marital Status</div>
                                                   <div class="col-md-8">{{ record['marital_status'] }}</div>
@@ -224,7 +224,7 @@
 
                                                 <hr>
 
-                                                <h6 class="card-title mt-2">Personal Address Details / वैयक्तिक पत्त्याचे तपशील</h6>
+                                                <h6 class="card-title mt-2">Address Details / पत्त्याचे तपशील</h6>
 
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -249,10 +249,10 @@
                                                         <div class="col-md-4 label">District</div>
                                                         <div class="col-md-8">{{ record['district'] }}</div>
                                                       </div>
-                                                      <div class="row">
+                                                      <!-- <div class="row">
                                                         <div class="col-md-4 label">City</div>
                                                         <div class="col-md-8">{{ record['city'] }}</div>
-                                                      </div>
+                                                      </div> -->
                                                       <div class="row">
                                                         <div class="col-md-4 label">State</div>
                                                         <div class="col-md-8">{{ record['state'] }}</div>
@@ -281,10 +281,10 @@
                                                         <div class="col-md-4 label">District</div>
                                                         <div class="col-md-8">{{ record['comm_district'] }}</div>
                                                       </div>
-                                                      <div class="row">
+                                                      <!-- <div class="row">
                                                         <div class="col-md-4 label">City</div>
                                                         <div class="col-md-8">{{ record['comm_city'] }}</div>
-                                                      </div>
+                                                      </div> -->
                                                       <div class="row">
                                                         <div class="col-md-4 label">State</div>
                                                         <div class="col-md-8">{{ record['comm_state'] }}</div>
@@ -297,131 +297,123 @@
 
                                               <div class="tab-pane fade" id="profile-qual">
 
-                                                <h6 class="text-dark mb-2 mt-2">Secondary School Certificate (10th) Details</h6>
+                                                <h6 class="text-dark mb-2 mt-2">SSC - Secondary School Certificate (10th) Details</h6>
 
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">SSC Passing Year</div>
+                                                  <div class="col-md-4 label ">Passing Year</div>
                                                   <div class="col-md-8"> {{ record['ssc_passing_year'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">SSC Percentage</div>
+                                                  <div class="col-md-4 label ">Percentage</div>
                                                   <div class="col-md-8"> {{ record['ssc_percentage'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">SSC School Name</div>
+                                                  <div class="col-md-4 label ">School Name</div>
                                                   <div class="col-md-8"> {{ record['ssc_school_name'] }}</div>
                                                 </div>
-                                                {% if record['phd_registration_year'] >= 2023 %}
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">SSC Stream</div>
+                                                  <div class="col-md-4 label ">Stream</div>
                                                   <div class="col-md-8"> {{ record['ssc_stream'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">SSC Attempts</div>
+                                                  <div class="col-md-4 label ">Attempts</div>
                                                   <div class="col-md-8"> {{ record['ssc_attempts'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">SSC Total</div>
+                                                  <div class="col-md-4 label ">Total Marks</div>
                                                   <div class="col-md-8"> {{ record['ssc_total'] }}</div>
                                                 </div>
-                                                {% endif %}
 
                                                 <hr>
 
-                                                <h6 class="text-dark mb-2 mt-2">Higher Secondary Certificate (12th) Details</h6>
+                                                <h6 class="text-dark mb-2 mt-2">HSC - Higher Secondary Certificate (12th) Details</h6>
 
                                                 <div class="row">
-                                                  <div class="col-md-4 label">HSC Passing Year</div>
+                                                  <div class="col-md-4 label">Passing Year</div>
                                                   <div class="col-md-8"> {{ record['hsc_passing_year'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">HSC Percentage</div>
+                                                  <div class="col-md-4 label ">Percentage</div>
                                                   <div class="col-md-8"> {{ record['hsc_percentage'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">HSC School Name</div>
+                                                  <div class="col-md-4 label ">School Name</div>
                                                   <div class="col-md-8"> {{ record['hsc_school_name'] }}</div>
                                                 </div>
-                                                {% if record['phd_registration_year'] >= 2023 %}
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">HSC Stream</div>
+                                                  <div class="col-md-4 label ">Stream</div>
                                                   <div class="col-md-8"> {{ record['hsc_stream'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">HSC Attempts</div>
+                                                  <div class="col-md-4 label ">Attempts</div>
                                                   <div class="col-md-8"> {{ record['hsc_attempts'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">HSC Total</div>
+                                                  <div class="col-md-4 label ">Total Marks</div>
                                                   <div class="col-md-8"> {{ record['hsc_total'] }}</div>
                                                 </div>
-                                                {% endif %}
 
                                                 <hr>
 
                                                 <h6 class="text-dark mb-2 mt-2">Graduation Details</h6>
 
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Graduation Passing Year</div>
+                                                  <div class="col-md-4 label ">Passing Year</div>
                                                   <div class="col-md-8"> {{ record['graduation_passing_year'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Graduation Percentage</div>
+                                                  <div class="col-md-4 label ">Percentage</div>
                                                   <div class="col-md-8"> {{ record['graduation_percentage'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Graduation College Name</div>
+                                                  <div class="col-md-4 label ">College Name</div>
                                                   <div class="col-md-8"> {{ record['graduation_school_name'] }}</div>
                                                 </div>
-                                                {% if record['phd_registration_year'] >= 2023 %}
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Graduation Stream</div>
+                                                  <div class="col-md-4 label ">Stream</div>
                                                   <div class="col-md-8"> {{ record['grad_stream'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Graduation Attempts</div>
+                                                  <div class="col-md-4 label ">Attempts</div>
                                                   <div class="col-md-8"> {{ record['grad_attempts'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Graduation Total</div>
+                                                  <div class="col-md-4 label ">Total Marks</div>
                                                   <div class="col-md-8"> {{ record['grad_total'] }}</div>
                                                 </div>
-                                                {% endif %}
 
                                                 <hr>
 
                                                 <h6 class="text-dark mb-2 mt-2">Post Graduation Details</h6>
 
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Post Graduation Passing Year</div>
+                                                  <div class="col-md-4 label ">Passing Year</div>
                                                   <div class="col-md-8"> {{ record['phd_passing_year'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Post Graduation Percentage</div>
+                                                  <div class="col-md-4 label ">Percentage</div>
                                                   <div class="col-md-8"> {{ record['phd_percentage'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Post Graduation College Name</div>
+                                                  <div class="col-md-4 label ">College Name</div>
                                                   <div class="col-md-8"> {{ record['phd_school_name'] }}</div>
                                                 </div>
-                                                {% if record['phd_registration_year'] >= 2023 %}
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Post Graduation Stream</div>
+                                                  <div class="col-md-4 label ">Stream</div>
                                                   <div class="col-md-8"> {{ record['pg_stream'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Post Graduation Attempts</div>
+                                                  <div class="col-md-4 label ">Attempts</div>
                                                   <div class="col-md-8"> {{ record['pg_attempts'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Post Graduation Total</div>
+                                                  <div class="col-md-4 label ">Total Marks</div>
                                                   <div class="col-md-8"> {{ record['pg_total'] }}</div>
                                                 </div>
                                                 <div class="row">
                                                   <div class="col-md-4 label ">Have you Qualified</div>
                                                   <div class="col-md-8"> {{ record['have_you_qualified'] }}</div>
                                                 </div>
-                                                {% endif %}
                                               </div>
 
                                               <div class="tab-pane fade" id="profile-phd">
@@ -445,7 +437,7 @@
                                                       {% endif %}
                                                   </div>
                                                   <div class="row">
-                                                    <div class="col-md-4 label ">Name of College</div>
+                                                    <div class="col-md-4 label ">College Name</div>
                                                       {% if record['name_of_college'] == "Other" %}
                                                         <div class="col-md-8">{{ record['other_college_name'] }}</div>
                                                       {% else %}
@@ -473,30 +465,23 @@
                                                       {% endif %}
                                                   </div>
 
-                                                  <hr>
-
-                                                  <h6 class="card-title mt-2">Income Details</h6>
-
-                                                  <div class="row">
-                                                    <div class="col-md-4 label ">Family Annual Income</div>
-                                                    <div class="col-md-8"> {{ record['family_annual_income'] }}</div>
+                                                    <div class="row">
+                                                      <div class="col-md-4 label">Qualified Exams</div>
+                                                      <div class="col-md-8">
+                                                          {% if record['have_you_qualified'] %}
+                                                              {% set selected_qualifications = record['have_you_qualified'].split(',') if record['have_you_qualified'] else [] %}
+                                                              {% for exam in selected_qualifications %}
+                                                                  {{ exam }}{% if not loop.last %}, {% endif %}
+                                                              {% endfor %}
+                                                          {% else %}
+                                                              - 
+                                                          {% endif %}
+                                                      </div>
                                                   </div>
+                                                  {% if record['have_you_qualified_other']%}
                                                   <div class="row">
-                                                    <div class="col-md-4 label ">Income Certificate Number</div>
-                                                    <div class="col-md-8">{{ record['income_certificate_number'] }}</div>
-                                                  </div>
-                                                  <div class="row">
-                                                    <div class="col-md-4 label ">Income certificate Issuing Authority</div>
-                                                    <div class="col-md-8">{{ record['issuing_authority'] }}</div>
-                                                  </div>
-                                                  {% if record['phd_registration_year'] >= 2023 %}
-                                                  <div class="row">
-                                                    <div class="col-md-4 label ">Income certificate Issuing District</div>
-                                                    <div class="col-md-8">{{ record['income_issuing_district'] }}</div>
-                                                  </div>
-                                                  <div class="row">
-                                                    <div class="col-md-4 label ">Income certificate Issuing Taluka</div>
-                                                    <div class="col-md-8">{{ record['income_issuing_taluka'] }}</div>
+                                                    <div class="col-md-4 label ">Additional Qualified Exam</div>
+                                                    <div class="col-md-8">{{ record['have_you_qualified_other'] }}</div>
                                                   </div>
                                                   {% endif %}
                                               </div>
@@ -504,31 +489,31 @@
                                               <div class="tab-pane fade" id="profile-edit">
 
                                                 <!-- Family Overview -->
-                                                <h6 class="card-title mt-2">Domicile Details</h6>
+                                                <h6 class="card-title mt-2">Domicile Certificate Details</h6>
 
                                                 <div class="row">
                                                   <div class="col-md-4 label ">Are you Domicile of Maharashtra?</div>
                                                   <div class="col-md-8"> {{ record['domicile'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label">Domicile Certificate Number</div>
+                                                  <div class="col-md-4 label">Certificate Number</div>
                                                   <div class="col-md-8">{{ record['domicile_number'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label">Domicile Issuing Authority</div>
+                                                  <div class="col-md-4 label">Issuing Authority</div>
                                                   <div class="col-md-8">{{ record['domicile_issuing_authority'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label">Domicile Certificate Issuing District</div>
+                                                  <div class="col-md-4 label">Issuing District</div>
                                                   <div class="col-md-8">{{ record['domicile_issuing_district'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label">Domicile Certificate Issuing Taluka</div>
+                                                  <div class="col-md-4 label">Issuing Taluka</div>
                                                   <div class="col-md-8">{{ record['domicile_issuing_taluka'] }}</div>
                                                 </div>
                                                 <hr>
 
-                                                <h6 class="card-title mt-2">Caste Details</h6>
+                                                <h6 class="card-title mt-2">Caste Certificate Details</h6>
 
                                                 <div class="row">
                                                   <div class="col-md-4 label ">Do you have Caste/Tribe Certificate?</div>
@@ -542,31 +527,32 @@
                                                   <div class="col-md-4 label ">Caste/Tribe</div>
                                                   <div class="col-md-8">{{ record['your_caste'] }} </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                   <div class="col-md-4 label ">Sub Caste/Tribe</div>
                                                   <div class="col-md-8">{{ record['subcaste'] }} </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Caste Certificate Number</div>
+                                                  <div class="col-md-4 label ">Certificate Number</div>
                                                   <div class="col-md-8">{{ record['caste_certf_number'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Caste Certificate Issuing District</div>
+                                                  <div class="col-md-4 label ">Issuing District</div>
                                                   <div class="col-md-8">{{ record['issuing_district'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Caste Certificate Issuing Authority</div>
+                                                  <div class="col-md-4 label ">Issuing Authority</div>
                                                   <div class="col-md-8">{{ record['caste_issuing_authority'] }}</div>
                                                 </div>
 
                                                 <hr>
 
-                                                <h6 class="card-title mt-2">Validity Details</h6>
+                                                <h6 class="card-title mt-2">Validity Certificate Details</h6>
 
                                                 <div class="row">
                                                   <div class="col-md-4 label ">Do you have Validity Certificate?</div>
                                                   <div class="col-md-8">{{ record['validity_certificate'] }}</div>
                                                 </div>
+                                                {% if record['validity_certificate']  == "Yes"%}
                                                 <div class="row">
                                                   <div class="col-md-4 label ">Validity Certificate Number</div>
                                                   <div class="col-md-8">{{ record['validity_cert_number'] }}</div>
@@ -579,33 +565,36 @@
                                                   <div class="col-md-4 label ">Validity Certificate Issuing Authority</div>
                                                   <div class="col-md-8">{{ record['validity_issuing_authority'] }}</div>
                                                 </div>
-
-                                                <hr>
-
-                                                <h6 class="card-title mt-2">
-                                                  Personal Eligibility Details
-                                                </h6>
-
-                                                <div class="row">
-                                                  <div class="col-md-4 label ">Are you Salaried ?</div>
-                                                  <div class="col-md-8">{{ record['salaried'] }}</div>
-                                                </div>
-                                                <div class="row">
-                                                  <div class="col-md-4 label "> Do you have any Disability?</div>
-                                                  <div class="col-md-8">{{ record['disability'] }}</div>
-                                                </div>
-                                                {% if record['disability']  == "Yes"%}
-                                                  <div class="row">
-                                                    <div class="col-md-4 label ">Type of Disability (If Any)</div>
-                                                    <div class="col-md-8">{{ record['type_of_disability'] }}</div>
-                                                  </div>
                                                 {% endif %}
+                                                <hr>
+                                                <h6 class="card-title mt-2">Income Certificate Details</h6>
+
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Family Annual Income</div>
+                                                    <div class="col-md-8"> {{ record['family_annual_income'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Certificate Number</div>
+                                                    <div class="col-md-8">{{ record['income_certificate_number'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Issuing Authority</div>
+                                                    <div class="col-md-8">{{ record['issuing_authority'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Issuing District</div>
+                                                    <div class="col-md-8">{{ record['income_issuing_district'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Issuing Taluka</div>
+                                                    <div class="col-md-8">{{ record['income_issuing_taluka'] }}</div>
+                                                  </div>
 
                                               </div>
 
                                                <div class="tab-pane fade" id="bank">
 
-                                                  <h6 class="card-title mt-2">Parents Details</h6>
+                                                  <h6 class="card-title mt-2">Parent Details</h6>
 
                                                   <div class="row">
                                                     <div class="col-md-4 label ">Father's Full Name</div>
@@ -616,45 +605,104 @@
                                                     <div class="col-md-8">{{ record['mother_name'] }}</div>
                                                   </div>
                                                   <div class="row">
-                                                    <div class="col-md-4 label ">Government Employee</div>
+                                                    <div class="col-md-4 label ">Is there any Government Employee?</div>
                                                     <div class="col-md-8">{{ record['work_in_government'] }}</div>
                                                   </div>
 
                                                   {% if record['work_in_government'] =="Yes" %}
                                                     <div class="row">
-                                                      <div class="col-md-4 label ">Department in Government (If Any)</div>
-                                                      <div class="col-md-8">{{ record['gov_department'] }}</div>
+                                                      <div class="col-md-4 label ">Number of Employees</div>
+                                                      <div class="col-md-8">{{ record['no_of_gov_employee'] }}</div>
                                                     </div>
                                                     <div class="row">
-                                                      <div class="col-md-4 label ">Post/Role in Government (If Any)</div>
-                                                      <div class="col-md-8">{{ record['gov_position'] }}</div>
+                                                      <div class="col-md-4 label ">Employee Name</div>
+                                                      <div class="col-md-8">{{ record['emp1_name'] }}</div>
                                                     </div>
+                                                    <div class="row">
+                                                      <div class="col-md-4 label ">Position in Govt.</div>
+                                                      <div class="col-md-8">{{ record['emp1_position'] }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                      <div class="col-md-4 label ">Relation</div>
+                                                      <div class="col-md-8">{{ record['emp1_relation'] }}</div>
+                                                    </div>
+                                                  {% endif %}
+                                                  {% if record['no_of_gov_employee'] =="2" %}
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Employee Name</div>
+                                                    <div class="col-md-8">{{ record['emp2_name'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Position in Govt.</div>
+                                                    <div class="col-md-8">{{ record['emp2_position'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Relation</div>
+                                                    <div class="col-md-8">{{ record['emp2_relation'] }}</div>
+                                                  </div>
+                                                  {% endif %}
+                                                  {% if record['no_of_gov_employee'] =="3" %}
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Employee Name</div>
+                                                    <div class="col-md-8">{{ record['emp3_name'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Position in Govt.</div>
+                                                    <div class="col-md-8">{{ record['emp3_position'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Relation</div>
+                                                    <div class="col-md-8">{{ record['emp3_relation'] }}</div>
+                                                  </div>
                                                   {% endif %}
 
                                                   <hr>
 
                                                   <h6 class="card-title mt-2">Bank Details</h6>
-
                                                   <div class="row">
-                                                    <div class="col-md-4 label ">IFSC Code</div>
-                                                    <div class="col-md-8">{{ record['ifsc_code'] }}</div>
-                                                  </div>
-                                                  <div class="row">
-                                                    <div class="col-md-4 label ">Account Number</div>
-                                                    <div class="col-md-8">{{ record['account_number'] }}</div>
+                                                    <div class="col-md-4 label ">Account Holder Name</div>
+                                                    <div class="col-md-8">{{ record['account_holder_name'] }}</div>
                                                   </div>
                                                   <div class="row">
                                                     <div class="col-md-4 label ">Bank Name</div>
                                                     <div class="col-md-8">{{ record['bank_name'] }}</div>
                                                   </div>
                                                   <div class="row">
-                                                    <div class="col-md-4 label ">Account Holder Name</div>
-                                                    <div class="col-md-8">{{ record['account_holder_name'] }}</div>
+                                                    <div class="col-md-4 label ">Account Number</div>
+                                                    <div class="col-md-8">{{ record['account_number'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">IFSC Code</div>
+                                                    <div class="col-md-8">{{ record['ifsc_code'] }}</div>
                                                   </div>
                                                   <div class="row">
                                                     <div class="col-md-4 label ">MICR Code</div>
                                                     <div class="col-md-8">{{ record['micr'] }}</div>
                                                   </div>
+                                                  <hr>
+
+                                                  <h6 class="card-title mt-2">
+                                                    Personal Eligibility Details
+                                                  </h6>
+  
+                                                  <div class="row">
+                                                    <div class="col-md-4 label ">Are you Salaried ?</div>
+                                                    <div class="col-md-8">{{ record['salaried'] }}</div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-4 label "> Do you have any Disability?</div>
+                                                    <div class="col-md-8">{{ record['disability'] }}</div>
+                                                  </div>
+                                                  {% if record['disability']  == "Yes"%}
+                                                    <div class="row">
+                                                      <div class="col-md-4 label ">Type of Disability</div>
+                                                      <div class="col-md-8">{{ record['type_of_disability'] }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                      <div class="col-md-4 label ">Is percentage of disability greater than 40% ?</div>
+                                                      <div class="col-md-8">{{ record['disability_percentage'] }}</div>
+                                                    </div>
+                                                  {% endif %}
 
                                                </div>
 
@@ -842,7 +890,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark"><span style="font-weight: bold">{{ record['have_you_qualified'] }}</span> Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">M.Phil/PET/SET/NET/GATE Marksheet & Passing Certificate</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['entrance_doc'] %}
                                                             <a

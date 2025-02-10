@@ -1,6 +1,6 @@
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
-from authentication.middleware import auth
+from Authentication.middleware import auth
 
 candidate_dashboard_blueprint = Blueprint('candidate_dashboard', __name__)
 

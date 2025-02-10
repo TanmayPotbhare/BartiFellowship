@@ -24,7 +24,8 @@
                     <ul  class="collapse"  id="email"
                       data-parent="#sidebar-menu">
                       <div class="sub-menu">
-                            {% set paths = ['/section1', '/section2', '/section3', '/section4', '/section5', '/completed_application'] %}
+                            {% set paths = ['/section1', '/section2', '/section3', '/section4', '/section5'] %}
+                            {% set completed_paths = ['/completed_application'] %}
                             {% if request.path in paths %}
                                 <li>
                                   <a class="sidenav-item-link active" href="#">
@@ -55,6 +56,12 @@
                                     <span class="nav-text">Documents</span>
                                   </a>
                                 </li>
+                              {% elif request.path in completed_paths %}
+                              <li>
+                                <a class="sidenav-item-link" href="/candidate_dashboard">
+                                  <span class="nav-text">View Profile</span>
+                                </a>
+                              </li>
                             {% else %}
                                 <li>
                                   <a class="sidenav-item-link" href="/candidate_dashboard">

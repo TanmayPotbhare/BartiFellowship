@@ -1,8 +1,8 @@
 import datetime
 import os
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
-from authentication.middleware import auth
+from Authentication.middleware import auth
 
 joining_report_blueprint = Blueprint('joining_report', __name__)
 

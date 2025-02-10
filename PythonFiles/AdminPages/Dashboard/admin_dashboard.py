@@ -1,5 +1,5 @@
 from datetime import timedelta, date, datetime
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from openpyxl import Workbook
 from io import BytesIO
 import io
@@ -685,13 +685,22 @@ def admin_dashboard_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(" SELECT * FROM admin ")
+        cursor.execute("SELECT * FROM admin WHERE role = 'Admin'")
         record = cursor.fetchall()
+
+        cursor.execute("SELECT username FROM admin WHERE role = 'Admin'")
+        existing_usernames = [row['username'] for row in cursor.fetchall()]
+        print(existing_usernames)
+
+        cursor.execute("SELECT year FROM admin WHERE role = 'Admin'")
+        existing_years = [row['year'] for row in cursor.fetchall()]
+        print(existing_years)
 
         cnx.commit()
         cursor.close()
         cnx.close()
-        return render_template('AdminPages/addAdmin.html', record=record)
+        return render_template('AdminPages/addAdmin.html', record=record,existing_usernames=existing_usernames,
+                               existing_years=existing_years)
 
     @admin_dashboard_blueprint.route('/addAdmin_submit', methods=['GET', 'POST'])
     def addAdmin_submit():
@@ -717,9 +726,15 @@ def admin_dashboard_auth(app):
             password = request.form['password']
             gender = request.form['gender']
             role = request.form['role']
+            year = request.form['year']
+            username = request.form['username']
 
             cursor.execute("SELECT * FROM admin WHERE email = %s", (email,))
             record = cursor.fetchone()
+
+            if is_user_already_exist(username):
+                flash('An admin is already registered for this year. Please select a different year.', 'info')
+                return redirect(url_for('admin_dashboard.addAdmin'))
 
             if record:
                 flash('Admin already exists. Please update the details if necessary.', 'info')
@@ -727,15 +742,15 @@ def admin_dashboard_auth(app):
             else:
                 added_date = datetime.now().date()
                 added_time = datetime.now().time()
-                added_by = 'Super Admin'
+                added_by = 'HoD'
                 # role = 'Admin'
 
                 cursor.execute(
                     "INSERT INTO admin (first_name, middle_name, surname, mobile_number, age, dob, email, "
-                    " username, password, gender, added_date, added_time, added_by, role) "
-                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (first_name, middle_name, last_name, mobile_number, age, dob, email, email, password, gender,
-                     added_date, added_time, added_by, role))
+                    " username, password, gender, added_date, added_time, added_by, role, year) "
+                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    (first_name, middle_name, last_name, mobile_number, age, dob, email, username, password, gender,
+                     added_date, added_time, added_by, role, year))
                 cnx.commit()
 
                 flash('Admin Added successfully and Mail has been sent with the credentials', 'success')
@@ -791,4 +806,16 @@ def admin_dashboard_auth(app):
                                formatted_date_of_birth=formatted_date_of_birth,
                                formatted_application_date=formatted_application_date,
                                formatted_PHD_reg_date=formatted_PHD_reg_date)
+    
+    # ---------------------------- Check if Admin is already Registered ---------------------
+    def is_user_already_exist(username):  # ---------------- CHECK IF Username IS IN THE DATABASE
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect()
+        sql = "SELECT username FROM admin WHERE username = %s"
+        cursor.execute(sql, (username,))
+        result = cursor.fetchone()
+        cursor.close()
+        cnx.close()
+        return result
     

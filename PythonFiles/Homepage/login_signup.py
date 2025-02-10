@@ -4,7 +4,7 @@ import mysql.connector
 import os
 import requests
 import re
-from classes.database import HostConfig, ConfigPaths, ConnectParam
+from Classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash
 
 # MULTILINGUAL CONTENT - FROM HOMEPAGE_FILES FOLDER
@@ -337,7 +337,7 @@ def login_auth(app, mail):
             middle_name = request.form['middle_name']
             last_name = request.form['last_name']
             email = request.form['email']
-            password = request.form['password']
+            password = request.form['signup_password']
             confirm_password = request.form['confirm_password']
             year = request.form['year']
             mobile_number = request.form['mobile_number']

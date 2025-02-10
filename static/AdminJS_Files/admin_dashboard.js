@@ -78,6 +78,7 @@ $("#yearSelector").on("change", function () {
             $("#incomplete_form_count").text(data.incomplete_form_count);
             $("#accepted_appl_count").text(data.accepted_appl_count);
             $("#rejected_appl_count").text(data.rejected_appl_count);
+            $("#pending_appl_count").text(data.pending_appl_count);
             $("#maleCount").text(data.male_count);
             $("#femaleCount").text(data.female_count);
             $("#disabled").text(data.disabled_count);
@@ -187,7 +188,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -221,7 +222,7 @@ $('#export-to-excel-total').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -290,7 +291,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -324,7 +325,7 @@ $('#export-to-excel').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -394,7 +395,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -429,7 +430,7 @@ $('#export-to-excel-incomplete').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -498,7 +499,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -532,7 +533,7 @@ $('#export-to-excel-accepted').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -601,7 +602,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -635,7 +636,7 @@ $('#export-to-excel-rejected').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -646,6 +647,109 @@ $('#export-to-excel-rejected').on('click', function () {
 });
 // ----------------------------------------------
 // ------ END Code for Rejected Application Report Page -----
+
+
+// ----------------------------------------------
+// ------ Start Code for Pending Applications Report Page -----
+
+$(document).ready(function () {
+    /*
+      Path to HTML: "/templates/AdminPages/DashboardCountReports/total_accepted_report.html"
+      Path to Python Route: "/PythonFiles/AdminPages/Dashboard/admin_dashboard.py"
+      This code is responsible for handling the dynamic fetching of application report data based on the selected year.
+      It utilizes DataTables with row selection.
+      The AJAX call updates the DataTable based on the selected year and populates the table with new data.
+    */
+    // Initialize the DataTable
+    var dataTable = $('.datatable').DataTable();
+
+    // Listen for changes in the year selector
+    $('#selectedd_yearrrs').change(function () {
+        var selectedYear = $(this).val();
+
+        if (selectedYear) {
+            // Make an AJAX GET request
+            $.ajax({
+                url: '/total_pending_report',
+                type: 'GET',
+                data: { year: selectedYear },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Ensure the server recognizes it as an AJAX call
+                },
+                success: function (response) {
+                    // Destroy the existing DataTable
+                    dataTable.destroy();
+
+                    // Clear the table body
+                    $('.datatable tbody').empty();
+
+                    // Populate the table with the new data
+                    response.forEach(function (record) {
+                        var statusLabel = '';
+                        if (record.final_approval === 'accepted') {
+                            statusLabel = '<label class="badge badge-gradient-success text-dark">Accepted</label>';
+                        } else if (record.final_approval === 'rejected') {
+                            statusLabel = '<label class="badge badge-gradient-danger text-dark">Rejected</label>';
+                        } else if (record.final_approval === 'pending') {
+                            statusLabel = '<label class="badge badge-gradient-warning text-dark">Pending</label>';
+                        } else {
+                            statusLabel = '<label>N/A</label>';
+                        }
+
+                        $('.datatable tbody').append(`
+                            <tr>
+                                <td>${record.applicant_id}</td>
+                                <td>${record.first_name}</td>
+                                <td>${record.last_name}</td>
+                                <td>${record.email}</td>
+                                <td>${record.application_date}</td>
+                                <td>${statusLabel}</td>
+                                <td>
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
+                                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
+                                        <i class="mdi mdi-eye text-dark fw-bold"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        `);
+                    });
+
+                    // Reinitialize the DataTable with the updated data
+                    dataTable = $('.datatable').DataTable();
+                },
+                error: function () {
+                    alert('Failed to fetch data for the selected year. Please try again.');
+                }
+            });
+        }
+    });
+});
+
+$('#export-to-excel-pending').on('click', function () {
+    /*
+        Go to this path: templates/AdminPages/DashboardCountReports/total_rejected_report.html
+        On line 35, the ID is mentioned of the export to excel and the select_year id is on line 19.
+        These ID's are used to fetch data and hit the export to excel link.
+        Python code path: /PythonFiles/AdminPages/Dashboard/admin_dashboard.py on LINE 498.
+    */
+    // Get the selected year from the dropdown
+    let selectedYear = $('#selectedd_yearrr').val();
+    console.log('Selected year:', selectedYear);
+    const formType = $(this).data('form-type');  // Get the form type (e.g., "completed_form")
+
+    // If no year is selected, default to 2023
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    // Set the href of the export link dynamically with the selected year
+    // Dynamically build the export link using the selected year and form type
+    const exportHref = `/export_to_excel?year=${selectedYear}&form_type=${formType}`;
+
+    // Set the href of the export link dynamically
+    $(this).attr('href', exportHref);
+});
+// ----------------------------------------------
+// ------ END Code for Pending Application Report Page -----
 
 
 // ----------------------------------------------
@@ -704,7 +808,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -738,7 +842,7 @@ $('#export-to-excel-male').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -808,7 +912,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -841,7 +945,7 @@ $('#export-to-excel-female').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -910,7 +1014,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -943,7 +1047,7 @@ $('#export-to-excel-disabled').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -1012,7 +1116,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target='_blank'
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -1045,7 +1149,7 @@ $('#export-to-excel-not-disabled').on('click', function () {
 
     // If no year is selected, default to 2023
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // Set the href of the export link dynamically with the selected year
     // Dynamically build the export link using the selected year and form type
@@ -1058,154 +1162,3 @@ $('#export-to-excel-not-disabled').on('click', function () {
 // ------ END Code for Not Disabled Report Page -----
 
 
-//----------------------------------------------------------------
-//-------------Validations for Add Admin in HoD Login-------------
-
-function validateName(input) {
-    // Remove leading spaces
-    input.value = input.value.replace(/^\s+/g, '');
-
-    // Remove non-alphabetic characters (except spaces)
-    input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
-
-    // Ensure the first letter is capitalized and the rest are lowercase
-    input.value = input.value
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-        .join(' ');
-
-    const englishOnlyPattern = /^[A-Za-z0-9.,'"\s\-()]*$/;
-
-    if (!englishOnlyPattern.test(input.value)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Invalid Langauge Detected!',
-            text: 'Please enter the Topic of Ph.D in English only. If the topic is in Marathi, Please translate and then enter the text.'
-        });
-        $(this).val('')
-        input.value = input.value.replace(/[^A-Za-z0-9.,'"\s\-()]/g, ''); // Remove invalid characters
-    }
-}
-
-// --------- Mobile Number on Section 1 -------------------
-function validateMobileNumber(input) {
-    // Remove any non-numeric characters
-    input.value = input.value.replace(/[^0-9]/g, '');
-
-    // Allow integers only upto 10 digits
-    if (input.value.length > 10) {
-        input.value = input.value.slice(0, 10);
-    }
-    // Mobile Number should start with 7, 8, or 9.
-    if (input.value.length === 10) {
-        if (!/^[789]/.test(input.value)) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid Number Detected!',
-                text: 'Mobile Number should start with 7, 8, or 9.'
-            });
-            input.value = ''; 
-        }
-    } else if (input.value.length > 0 && input.value.length < 10) {
-        // If digits are less than 10
-        Swal.fire({
-            icon: 'error',
-            title: 'Incomplete Number!',
-            text: 'Mobile Number must be exactly 10 digits.'
-        });
-        input.value = ''; 
-    }
-}
-
-function validateAge(input) {
-    // Remove any non-numeric characters
-    input.value = input.value.replace(/[^0-9]/g, '');
-
-    // Allow integers only upto 10 digits
-    if (input.value.length > 2) {
-        input.value = input.value.slice(0, 2);
-    }
-
-    if (input.value === '0' || input.value === '00') {
-        Swal.fire({
-            icon: 'error',
-            title: 'Invalid Age!',
-            text: 'Please enter correct age.'
-        });
-        input.value = ''; 
-    } 
-}
-
-function ValidateDoB(input) {
-    const dobInput = input.value; // Get the value from the input field
-
-    // Ensure the input has a complete date in the format YYYY-MM-DD
-    if (!dobInput || dobInput.length < 10) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Incomplete Date!',
-            text: 'Please enter Complete Date of Birth.'
-        });
-        input.value = ''; // Clear the input if the date is invalid
-        return; // Exit the function
-    }
-
-    // Validate the entered date
-    const enteredDate = new Date(dobInput);
-    if (isNaN(enteredDate.getTime())) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Invalid Date Format!',
-            text: 'Please enter a valid date in the format YYYY-MM-DD.'
-        });
-        input.value = ''; // Clear the input if the date is invalid
-        return; // Exit the function
-    }
-    // Check if the entered date is not in the future
-    const today = new Date();
-    if (enteredDate > today) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Invalid Date!',
-            text: 'Date cannot be greater than today\'s date.'
-        });
-        input.value = ''; // Clear the input if the date is invalid
-        return; // Exit the function
-    }
-}
-
-// For Validating Password and Confirm Password in Add Admin Form
-function validatePasswords() {
-    const password = $('#password').val();
-    const confirmPassword = $('#confirm_password').val();
-
-    // Updated Regex for password validation
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-
-    // Stage 1: Check password complexity
-    if (password && !passwordRegex.test(password)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Invalid Password!',
-            text: 'Password must have 8-20 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.',
-        });
-        $('#password').val('');
-        $('#confirm_password').val('');
-        return false;  // Stop execution if password is invalid
-    }
-
-    // Stage 2: Check if passwords match
-    if (password && confirmPassword && password !== confirmPassword) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Password Mismatch!',
-            text: 'Password and Confirm Password do not match.',
-        });
-        $('#confirm_password').val('');  // Clear the confirm password field
-        return false;  // Stop execution if passwords do not match
-    }
-
-    return true;  // Both password and confirm password are valid and match
-}
-// ----------------------END Add Admin Validations---------------------------------
-// --------------------------------------------------------------------------------

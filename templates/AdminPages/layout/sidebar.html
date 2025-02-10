@@ -12,6 +12,12 @@
           <span class="font-weight-bold mb-2">
             {% if session['user'] == 'Super Admin' %}
                 Super Admin
+            {% elif session['user'] == 'Head of Department' %}
+                        Head of Department
+            {% elif session['user'] == 'Account Officer' %}
+                Account Officer
+            {% elif session['user'] == 'Registrar' %}
+                Registrar
             {% else %}
                 Admin
             {% endif %}
@@ -19,6 +25,12 @@
           <span class="text-secondary text-small">
             {% if session['user'] == 'Super Admin' %}
                 Super Admin Account
+            {% elif session['user'] == 'Head of Department' %}
+                H.o.D. Account
+            {% elif session['user'] == 'Account Officer' %}
+                A.O. Account
+            {% elif session['user'] == 'Registrar' %}
+                Registrar Account
             {% else %}
                 Admin Account
             {% endif %}
@@ -33,7 +45,7 @@
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>
     </li>
-    {% if session['user'] == 'Super Admin' %}
+    {% if session['user'] == 'Head of Department' %}
     <li class="nav-item">
       <a class="nav-link" href="/addAdmin">
         <span class="menu-title">Add Admin</span>
