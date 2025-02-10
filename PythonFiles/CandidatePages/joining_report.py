@@ -1,6 +1,6 @@
 import datetime
 import os
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
 from Authentication.middleware import auth
 

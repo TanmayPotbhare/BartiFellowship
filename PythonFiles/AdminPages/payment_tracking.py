@@ -3,7 +3,7 @@ from io import BytesIO
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, PatternFill
 import mysql.connector
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask_mail import Mail, Message
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response

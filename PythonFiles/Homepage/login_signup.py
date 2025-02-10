@@ -4,7 +4,7 @@ import mysql.connector
 import os
 import requests
 import re
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash
 
 # MULTILINGUAL CONTENT - FROM HOMEPAGE_FILES FOLDER

@@ -1,6 +1,6 @@
 import datetime
 import mysql.connector
-from Classes.database import HostConfig, ConfigPaths, ConnectParam
+from classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
 from flask import Flask, Blueprint, render_template, session, request, redirect, url_for, flash, jsonify
 from flask_mail import Mail, Message
