@@ -48,29 +48,6 @@ function loadPDF(pdfPath) {
 // --------------------------------------------------------
 
 $(document).ready(function () {
-    $('#year').on('change', function () {
-        var year = $('#year').val();
-
-        if (year === '2021' || year === '2022') {
-            Swal.fire({
-                icon: "info",
-                title: "IT SEEMS YOU ARE AN OLD USER....",
-                text: `LOGIN IS ALREADY CREATED FOR YOU. Please Login with the registered email ID and Password received via Email.`,
-            });
-
-            // Clear form inputs
-            $('#year').val('');
-            $('#first_name').val('');
-            $('#middle_name').val('');
-            $('#last_name').val('');
-            $('#email').val('');
-            $('#mobile_number').val('');
-        }
-    });
-});
-
-
-$(document).ready(function () {
     $('#signup_wrapper').hide()
     // Get the current page's URL
     var currentPageURL = window.location.href;
