@@ -3,8 +3,6 @@ from datetime import datetime
 import requests
 import os
 from fpdf import FPDF
-import pdfkit
-from prompt_toolkit import HTML
 from classes.caste import casteController
 from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response, jsonify, \
@@ -68,13 +66,12 @@ def app_pdf_auth(app):
                     # Add space by changing the second parameter (e.g., 20)
                     # Insert an image (symbol) at the center of the header
 
-                    self.image('static/assets/img/logo/barti_new.png', 10, 10, 23)
-                    # self.image('static/Images/satya.png', 175, 10, 20)
-                    self.image('static/assets/img/logo/diya.png', 175, 10, 23)
-                    self.image('static/admin_assets/images/b-r-ambedkar.png', 95, 10, 13)  # Center the image
-                    # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/trti.jpeg', 10, 10, 20)
-                    # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 155, 10, 20)
-                    # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/maharashtra_shasn.png', 175, 10, 20)
+                    # self.image('static/assets/img/logo/barti_new.png', 10, 10, 23)
+                    # self.image('static/assets/img/logo/diya.png', 175, 10, 23)
+                    # self.image('static/admin_assets/images/b-r-ambedkar.png', 95, 10, 13)  # Center the image
+                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti_new.png', 10, 10, 23)
+                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/diya.png', 175, 10, 23)
+                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/admin_assets/images/b-r-ambedkar.png', 95, 10, 13)  # Center the image
                     self.ln(8)
                     self.set_font("Arial", size=12)  # Larger font for the main heading
                     # self.cell(0, 20)
@@ -118,8 +115,8 @@ def app_pdf_auth(app):
                     image_x = 173  # Adjust this to place the image further to the right if needed
                     image_y = self.get_y()  # Current y-position of the cursor after the blue box
                     # Insert the image to the right
-                    # photo = '/var/www/fellowship/fellowship/FellowshipPreServer' + data['applicant_photo']
-                    photo = data['applicant_photo']
+                    photo = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['applicant_photo']
+                    # photo = data['applicant_photo']
                     modified_path = photo[1:] if photo.startswith("/") else photo
                     # Define image size (width, height)
                     image_width = 25
@@ -711,9 +708,9 @@ def app_pdf_auth(app):
             pdf.cell(key_width, key_value_spacing, key, align="L", ln=False)
 
             if value:
-                image_path = "static/assets/img/logo/check_mark.png"
+                image_path = "var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/check_mark.png"
             else:
-                image_path = "static/assets/img/logo/cross_icon.png"
+                image_path = "var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/cross_icon.png"
 
             try:
                 pdf.image(image_path, x=pdf.get_x() + key_width + image_offset_x, y=pdf.get_y() + image_offset_y,
@@ -762,7 +759,7 @@ def app_pdf_auth(app):
 
             pdf.rect(left_margin, pdf.get_y() + y_offset, checkbox_size, checkbox_size)
 
-            tick_image_path = "static/assets/img/logo/images_tick.png"
+            tick_image_path = "var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/images_tick.png"
             try:
                 pdf.image(tick_image_path, x=left_margin + 1, y=pdf.get_y() + y_offset + 1, w=checkbox_size,
                           h=checkbox_size)
@@ -784,7 +781,8 @@ def app_pdf_auth(app):
         signature_x = pdf.w - left_margin - 50  # Adjust 50 for signature width
 
         # Add Signature Image
-        signature_path = 'static/assets/img/logo/Signature.png'
+        # signature_path = 'static/assets/img/logo/Signature.png'
+        signature_path = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['signature']
         signature_width = 50  # Set your desired width
         signature_height = 20  # Set your desired height (or calculate it proportionally)
         try:
