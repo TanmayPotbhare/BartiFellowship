@@ -41,10 +41,12 @@
     <div class="scroller">
       <ul class="inner_scroller" onmouseover="this.stop()">
         {% for row in news_record %}
-        <li class="news-item">
-           <a href="/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship{{ row['doc'] }}" alt="Document" target="_blank">{{ row['title'] }}</a>
-          <img src="https://www.aactni.edu.in/iqac/images/animated/new_gif.gif" class="w-40px" alt="News Update">
-        </li>
+
+                <li class="news-item">
+                   <a href="/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship{{ row['doc'] }}" alt="Document" target="_blank">{{ row['title'] }}</a>
+                  <img src="https://www.aactni.edu.in/iqac/images/animated/new_gif.gif" class="w-40px" alt="News Update">
+                </li>
+
         {% endfor %}
       </ul>
     </div>
