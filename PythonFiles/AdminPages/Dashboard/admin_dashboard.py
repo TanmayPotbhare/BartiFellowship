@@ -173,7 +173,7 @@ def admin_dashboard_auth(app):
             year_selected = "2024"
 
         years = ["2020", "2021", "2022", "2023", "2024"]
-        year = request.get('year', year_selected)
+        year = request.args.get('year', year_selected)
         
         # print("The Dashboard is displayed for year " + year)
         # Try-catch to catch any errors while fetching data
