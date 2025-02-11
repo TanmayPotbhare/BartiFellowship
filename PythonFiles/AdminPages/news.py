@@ -26,11 +26,14 @@ def news_auth(app):
         cnx, cursor = connect_param.connect(use_dict=True)
         cursor.execute("SELECT * FROM news_and_updates")
         result = cursor.fetchall()
-        # print('result', result)
+
+        cursor.execute("SELECT DISTINCT role FROM admin")
+        user = cursor.fetchall()
+        print('User', user)
         # Close the cursor and connection
         cursor.close()
         cnx.close()
-        return render_template('AdminPages/news.html', result=result)
+        return render_template('AdminPages/news.html', result=result, user=user)
 
     @news_blueprint.route('/news_submit', methods=['GET', 'POST'])
     def news_submit():
