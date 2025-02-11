@@ -96,7 +96,7 @@ def homepage_auth(app):
         """
         host = HostConfig.host
         connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect()
+        cnx, cursor = connect_param.connect(use_dict=True)
         cursor.execute(" SELECT * FROM news_and_updates ORDER BY id DESC LIMIT 5 ")
         result = cursor.fetchall()
         return result

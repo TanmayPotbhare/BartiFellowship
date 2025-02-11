@@ -26,10 +26,9 @@
                   <div class="col-sm-6">
                      <select name="user" id="user" class="form-control">
                         <option value="">-- Select User --</option>
-                        <option value="TRTI Umesh Sir">Umesh Sir</option>
-                        <option value="TRTI Jadhav Sir">Jadhav Sir</option>
-                        <option value="TRTI ABC Sir">ABC Sir</option>
-                        <option value="TRTI XYZ Sir">XYZ Sir</option>
+                         {% for role in user %}
+                            <option value="{{ role['role'] }}">{{ role['role'] }}</option>
+                         {% endfor %}
                     </select>
                   </div>
                 </div>

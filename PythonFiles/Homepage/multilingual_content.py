@@ -54,7 +54,7 @@ multilingual_content = {
         'fellowship_awarded' : 'Fellowship Awarded',
         'fellowship_completed' : 'Fellowship Completed',
         'this_yrs_application' : 'This Year Applications',
-        'get_your_fellowship_now' : 'Get Your Fellowship Now',
+        'get_your_fellowship_now' : 'Dr. Babasaheb Ambedkar National Research Fellowship (BANRF)',
         'enroll_here' : 'Enroll Here',
 
         #------------------------ About --------------------------
@@ -168,7 +168,7 @@ multilingual_content = {
         'fellowship_completed' : 'अधिछात्रवृत्ती पूर्ण केलेले',
         'this_yrs_application' : 'या वर्षाचे अर्ज',
         'enroll_here' : 'येथे नावनोंदणी करा',
-        'get_your_fellowship_now' : 'आता आपली अधिछात्रवृत्ती मिळवा',
+        'get_your_fellowship_now' : 'डॉ. बाबासाहेब आंबेडकर राष्ट्रीय संशोधन अधिछात्रवृत्ती (BANRF)',
 
 
         # ----------------------------- About institute ---------------------
