@@ -43,7 +43,7 @@
         {% for row in news_record %}
 
                 <li class="news-item">
-                   <a href="/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship{{ row['doc'] }}" alt="Document" target="_blank">{{ row['title'] }}</a>
+                   <a href="{{ row['doc'] }}" alt="Document" target="_blank">{{ row['title'] }}</a>
                   <img src="https://www.aactni.edu.in/iqac/images/animated/new_gif.gif" class="w-40px" alt="News Update">
                 </li>
 
@@ -128,7 +128,7 @@
         </div>
         <div class="col-lg-5 hero-img" data-aos="zoom-out" data-aos-delay="200">
           <div class="text-center d-flex align-items-center justify-content-end text-lg-start flex-column h-100 mb-5">
-            <div class="bannertext">
+            <div class="bannertext text-center">
               <h2 data-aos="fade-up">{{ multilingual_content[language]['get_your_fellowship_now'] }}</h2>
             </div>
             <div>
