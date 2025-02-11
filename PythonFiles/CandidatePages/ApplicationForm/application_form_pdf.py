@@ -272,7 +272,8 @@ def app_pdf_auth(app):
             "Department Name:": data['department_name'],
             "Topic of Ph.D.:": data['topic_of_phd'],
             "Name of Guide:": data['name_of_guide'],
-            "Faculty/Stream:": data['faculty']
+            "Faculty/Stream:": data['faculty'],
+            "District of Research Center": data['research_center_district']
         }
 
         # Check if 'other_college_name' key exists in data before accessing

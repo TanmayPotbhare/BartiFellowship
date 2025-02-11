@@ -172,12 +172,29 @@ def section5_auth(app):
                 cursor.execute(sql, values)
                 cnx.commit()
 
-                print('email', email)
-                # Inserts three differnet flags with applicant ID.
-                enter_applicant_id(email)
+                cursor.execute("SELECT first_name, last_name, email, user, year FROM signup WHERE email = %s",
+                               (email,))
+                old_user = cursor.fetchone()
+                cnx.commit()
 
-                # Checks the email in Presenty and if not inserts it.
-                enter_presenty_record(email)
+                print(old_user)
+
+                year_check = str(old_user['year'])
+                print(year_check)
+                user_check = old_user['user']
+
+                if year_check in ['2021', '2022'] and user_check == 'Old User':
+                    print('Updating Old User Record')
+                    # Enter Old User Applicant ID
+                    enter_old_applicant_id(email)
+                    # Enter Old Presenty Record
+                    enter_presenty_record(email)
+                else:
+                    print('email', email)
+                    # Inserts three differnet flags with applicant ID.
+                    enter_applicant_id(email)
+                    # Checks the email in Presenty and if not inserts it.
+                    enter_presenty_record(email)
 
                 # Send Email of Completion
                 # send_email_of_completion(email)
@@ -226,6 +243,51 @@ def section5_auth(app):
                 WHERE email = %s
             """
             values = (applicant_id, form_filled, application_form_status, current_date, current_time, email)
+
+            cursor.execute(sql, values)
+            cnx.commit()
+            return 'Applicant ID inserted successfully'
+        else:
+            return 'Applicant not found'
+
+    def enter_old_applicant_id(email):
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        cursor.execute("SELECT id, fellowship_application_year FROM application_page WHERE email = %s", (email,))
+        applicant = cursor.fetchone()
+
+        if applicant:  # Check if applicant is found
+            unique_id = applicant['id']
+            year = applicant['fellowship_application_year']
+
+            applicant_id = 'BARTI' + '/' + 'BANRF' + '/' + str(year) + '/' + str(unique_id)
+            form_filled = '1'
+            application_form_status = 'submitted'
+            current_date = datetime.datetime.now().strftime('%Y-%m-%d')
+            current_time = datetime.datetime.now().strftime('%H:%M:%S')
+
+            print(current_date)
+            status = 'accepted'
+            scrutiny_status = 'accepted'
+            final_approval = 'accepted'
+            approved_for = year
+            final_approval_day = datetime.datetime.now().strftime('%d')
+            final_approval_month = datetime.datetime.now().strftime('%m')
+            final_approval_year = year
+
+            sql = """
+                UPDATE application_page 
+                SET 
+                    applicant_id = %s, form_filled = %s, application_form_status = %s, application_date = %s, 
+                    application_time = %s, status = %s, scrutiny_status = %s, final_approval = %s, final_approved_date = %s, 
+                    final_approval_day = %s, final_approval_month = %s, final_approval_year = %s, approved_for = %s
+                WHERE email = %s
+            """
+            values = (applicant_id, form_filled, application_form_status, current_date, current_time,
+                      status, scrutiny_status, final_approval, current_date, final_approval_day, final_approval_month,
+                      final_approval_year, approved_for, email)
 
             cursor.execute(sql, values)
             cnx.commit()
