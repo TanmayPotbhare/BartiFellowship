@@ -260,9 +260,9 @@ def login_auth(app, mail):
         cursor.close()
         cnx.close()
         if result:
-            flash('Please enter correct Email address', 'success')
+            flash('Please enter correct Email address', 'error')
         else:
-            flash('Successfully Logged in', 'Error')
+            flash('Successfully Logged in', 'success')
         return result is not None
 
     # ------------------ Check if the form is filled -------------------------

@@ -1062,20 +1062,20 @@
                                 </tr>
                             </tbody>
                           </table>
-                          {% if record['section5'] == 'filled' %}
-                                {% else %}
-                                <div class="form-check ms-2" style="padding:2rem;">
-                                        <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
-                                            <label class="form-check-label" for="verifyDetails">
-                                                Please verify that the details entered in the Last Section are correct before submitting. You will not be able to make any edits once submitted.
-                                            </label>
+                            {% if record['section5'] == 'filled' %}
+                            {% else %}
+                            <div class="form-check ms-2" style="padding:2rem;">
+                                    <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
+                                        <label class="form-check-label" for="verifyDetails">
+                                            Please verify that the details entered in the Last Section are correct before submitting. You will not be able to make any edits once submitted.
+                                        </label>
 
-                                        <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
-                                            <label class="form-check-label" for="verifyDetailsHindi">
-                                                शेवटचा विभाग सबमिट करण्यापूर्वी आपली दिलेली माहिती तपासा. एकदा सबमिट केल्यानंतर तुम्ही त्यात बदल करू शकणार नाही.
-                                            </label>
-                                    </div>
-                                {% endif %}
+                                    <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
+                                        <label class="form-check-label" for="verifyDetailsHindi">
+                                            शेवटचा विभाग सबमिट करण्यापूर्वी आपली दिलेली माहिती तपासा. एकदा सबमिट केल्यानंतर तुम्ही त्यात बदल करू शकणार नाही.
+                                        </label>
+                                </div>
+                            {% endif %}
                      </div>
                  </div>
 
