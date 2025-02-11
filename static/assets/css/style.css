@@ -2688,7 +2688,7 @@ section {
 }
 
 .warli-bg {
-  background: url('../imgages/bg_warli_header.png');
+  background: url('/static/assets/img/bg_warli_header.png');
   background-size: contain;
   z-index: -1;
 }
