@@ -42,6 +42,7 @@ class ConfigPaths:
             'UNDERTAKING_REPORT': 'static/uploads/undertaking_doc/',
             'AFFIDAVIT_REPORT': 'static/uploads/affidavit_report/',
             'RESEARCH_PAPER_FEEDBACK': 'static/uploads/research_paper_feedback/',
+            'SAVE_NEWS': 'static/uploads/save_news/',
             # Add other paths here
         },
         HostConfig.hostserver: {
@@ -61,6 +62,7 @@ class ConfigPaths:
             'UNDERTAKING_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/undertaking_doc/',
             'AFFIDAVIT_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/affidavit_report/',
             'RESEARCH_PAPER_FEEDBACK': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/research_paper_feedback/',
+            'SAVE_NEWS': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/save_news/',
             # Add other paths here
         }
     }
