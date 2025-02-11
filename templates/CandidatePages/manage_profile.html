@@ -37,7 +37,7 @@
                                 <a class="nav-link active" href="/manage_profile">Manage Profile</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="user-profile-settings.html">Raise Issue</a>
+                                <a class="nav-link" href="#">Raise Issue</a>
                               </li>
                             </ul>
                           </div>
@@ -147,13 +147,14 @@
                                                     <!-- Change Password Tab -->
                                                     <div class="tab-pane fade" id="profile-qual">
 
-                                                        <form>
+                                                        <form action="/change_password_user" method="POST">
                                                             <div class="row mt-5">
                                                                 <div class="col-md-2">
                                                                     <label>Current Password:</label>
                                                                 </div>
                                                                 <div class="col-md-10">
-                                                                    <input type="password" class="form-control" id="current-password" placeholder="Enter current password" required>
+                                                                    <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Enter current password" required 
+                                                                    onblur="checkCurrentPassword(this)">
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-5">
@@ -161,7 +162,8 @@
                                                                     <label>New Password:</label>
                                                                 </div>
                                                                 <div class="col-md-10">
-                                                                    <input type="password" class="form-control" id="new-password" placeholder="Enter new password" required>
+                                                                    <input type="password" class="form-control" name="new_password" id="new-password" placeholder="Enter new password" 
+                                                                    required onblur="validatePasswords()"/>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-5">
@@ -169,8 +171,8 @@
                                                                     <label>Confirm Password:</label>
                                                                 </div>
                                                                 <div class="col-md-10">
-                                                                    <input type="password" class="form-control" id="confirm-password" placeholder="Confirm new password" required>
-                                                                </div>
+                                                                    <input type="password" class="form-control" name="confirm_password" id="confirm-password" placeholder="Confirm new password" 
+                                                                    required onblur="validatePasswords()"/>
                                                             </div>
                                                             <div class="text-center mt-4">
                                                                 <button type="submit" class="btn btn-primary btn-sm">Change Password</button>
