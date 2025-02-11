@@ -211,19 +211,24 @@
               <h3 class="text-center elig">{{ multilingual_content[language]['scheme_benefits'] }}</h3>
               <p>
                 {% if(language == 'english') %}
-              <ul class="elig line-ul">
-                <li>Student can get ₹31,000/- per month</li>
-                <li>Incidental expenses Rs. 25,000/- Annual</li>
-                <li>Disabled candidates will get Rs. 2000/- Assistance Plan (Approx.. 10 candidate)</li>
-              </ul>
-              {% else %}
-              <ul class="elig line-ul">
-                <li>विद्यार्थ्यांना दरमहा ₹31,000/- मिळतात</li>
-                <li>आकस्मिक खर्च रु. 25,000/- वार्षिक</li>
-                <li>दिव्यांग उमेदवारांना रु. 2000/- सहाय्य अनुदान (अंशक 10 उमेदवार) </li>
-              </ul>
-
-              {% endif %}
+                  <ul class="elig line-ul">
+                    <li class="text-white">Junior Research Fellowhsip will get Rs. 31,000/- each Quarter for 2 Years.</li>
+                    <li class="text-white">Senior Research Fellowhsip will get Rs. 35,000/- each Quarter for 3 Years.</li>
+                    <li class="text-white">As per revised fellowship amount JRF is 37,000/- and SRF is 42,000/-</li>
+                    <li class="text-white">Contingency for JRF will be 10,000/- and 12,000/- for Social Science and Science Respectively.</li>
+                    <li class="text-white">Contingency for SRF will be 20,500/- and 25,000/- for Social Science and Science Respectively.</li>
+                    <li class="text-white">Escort Reader for Disabled candidate will be 2000/- per month.</li>
+                  </ul>
+                {% else %}
+                  <ul class="elig line-ul">
+                    <li class="text-white">कनिष्ठ संशोधन फेलोशिपला 2 वर्षांसाठी प्रत्येक तिमाहीत रु. 31,000/- मिळतील.</li>
+                    <li class="text-white">वरिष्ठ संशोधन फेलोशिपला 3 वर्षांसाठी प्रत्येक तिमाहीत रु. 35,000/- मिळतील.</li>
+                    <li class="text-white">सुधारित फेलोशिप रकमेनुसार, जेआरएफसाठी 37,000/- आणि एसआरएफसाठी 42,000/- आहेत.</li>
+                    <li class="text-white">जेआरएफसाठी आकस्मिकता 10,000/- आणि सामाजिक विज्ञान आणि विज्ञानसाठी अनुक्रमे 12,000/- असेल.</li>
+                    <li class="text-white">एसआरएफसाठी आकस्मिकता 20,500/- आणि सामाजिक विज्ञान आणि विज्ञानसाठी अनुक्रमे 25,000/- असेल.</li>
+                    <li class="text-white">दिव्यांग उमेदवारासाठी एस्कॉर्ट रीडरला प्रति महिना 2000/- मिळतील.</li>
+                  </ul>
+                {% endif %}
               <a class="scheme_btn">{{ multilingual_content[language]['read_more'] }} &#62;</a>
               </p>
             </div>
@@ -236,19 +241,16 @@
               {% if(language == 'english') %}
               <p class="text-start">
               <ol class="elig line-ul">
-                <li class="text-justify mb-2 elig">
+                <li class="text-justify mb-2 elig text-white">
                   The applicant should be a resident of the state of Maharashtra.
                 </li>
-                <li class="text-justify mb-2 elig">
-                  It is necessary for the community of the applicant to be included in the list of scheduled tribe in
+                <li class="text-justify mb-2 elig text-white">
+                  It is necessary for the community of the applicant to be included in the list of Scheduled Caste in
                   the state of Maharashtra.
                 </li>
-                <li class="text-justify mb-2 elig">
-                  For this scheme, it is mandatory for the applicant to have a valid caste certificate of scheduled
-                  tribe at the time of applying
-                </li>
-                <li class="text-justify mb-2 elig">
-                  To avail the benefits of this scheme, the maximum age of the applicant should be 45 years.
+                <li class="text-justify mb-2 elig text-white">
+                  For this scheme, it is mandatory for the applicant to have a valid Caste certificate and Validity Certificate of scheduled
+                  Caste at the time of applying.
                 </li>
               </ol>
               <div class="text-center">
@@ -258,17 +260,14 @@
               {% else %}
               <p class="text-start">
               <ol class="elig line-ul">
-                <li class="text-justify mb-2 elig">
-                  उमेदवार महाराष्ट्र राज्याचा रहिवाशी असावा.
+                <li class="text-justify mb-2 elig text-white">
+                  अर्जदार महाराष्ट्राचा रहिवासी असावा.
                 </li>
-                <li class="text-justify mb-2 elig">
-                  उमेदवाराची जमात ही महाराष्ट्र राज्यातील अनुसूचित जमातीच्या यादीमधील असणे आवश्यक आहे.
+                <li class="text-justify mb-2 elig text-white">
+                  अर्जदाराच्या समुदायाचा महाराष्ट्रातील अनुसूचित जातीच्या यादीत समावेश असणे आवश्यक आहे.
                 </li>
-                <li class="text-justify mb-2 elig">
-                  या योजनेसाठी अर्ज करते वेळेस उमेदवाराकडे अनुसूचित जमातीचे जात वैधता प्रमाणपत्र असणे बंधनकारक आहे.
-                </li>
-                <li class="text-justify mb-2 elig">
-                  सदर योजनेचा लाभ घेणेसाठी उमेदवाराची कमाल वयोमर्यादा ४५ वर्ष इतकी असेल.
+                <li class="text-justify mb-2 elig text-white">
+                  या योजनेसाठी, अर्जदाराकडे अर्ज करताना अनुसूचित जातीचे वैध जाती प्रमाणपत्र आणि वैधता प्रमाणपत्र असणे अनिवार्य आहे.
                 </li>
               </ol>
               <div class="text-center">
@@ -289,7 +288,7 @@
                 <!-- List group Numbered -->
                 <ol class="elig line-ul p-0">
                   {% for row in news_record %}
-                  <li class="text-justify mb-2 elig text-wrap"> {{ row['title'] }} </li>
+                  <li class="text-justify mb-2 elig text-wrap text-white"> {{ row['title'] }} </li>
                   <ul class="elig line-ul p-0">
                     <li><a href="{{ row['doc'] }}" target="_blank">{{ row['title'] }}</a></li>
                   </ul>
