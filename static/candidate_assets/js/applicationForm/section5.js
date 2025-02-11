@@ -147,3 +147,27 @@ $('.accept_pdf').on('change', function () {
         var fileURL = URL.createObjectURL(fileInput.files[0]);
         window.open(fileURL, '_blank'); // Open in a new tab
     }
+
+// Function to enable or disable the submit button
+function enableDisabledFields5() {
+    const checkbox1 = document.getElementById("verifyDetails");
+    const checkbox2 = document.getElementById("verifyDetailsHindi");
+    const submitBtn = document.getElementById("submit");
+
+    // Enable the button if both checkboxes are checked
+    if (checkbox1.checked && checkbox2.checked) {
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.disabled = true;
+    }
+}
+
+// Initialize event listeners
+window.onload = function() {
+    // Add event listeners for checkbox change events
+    document.getElementById("verifyDetails").addEventListener('change', enableDisabledFields3);
+    document.getElementById("verifyDetailsHindi").addEventListener('change', enableDisabledFields3);
+
+    // Call function initially to check if the button should be enabled or not
+    enableDisabledFields4();
+};
