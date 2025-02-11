@@ -46,7 +46,7 @@ def section2_auth(app):
         university_data = universityController(host)
         university_names = university_data.get_all_university()
 
-        cursor.execute("SELECT * FROM cities")
+        cursor.execute("SELECT * FROM cities ORDER BY city ASC")
         cities = cursor.fetchall()
 
         # Check if a record already exists for this user
