@@ -244,7 +244,8 @@ $('#concerned_university').on('change', function () {
         data: { 'u_id': universityId },
         success: function (html) {
             $('#name_of_college').empty();
-            $('#name_of_college').append('<option>-- Select College --</option>');
+            $('#name_of_college').prop('required', true);
+            $('#name_of_college').append('<option value="">-- Select College --</option>');
             $('#name_of_college').append('<option value="Other">Other</option>');
             html.forEach(function (item) {
                 $('#name_of_college').append(`<option value="${item.college_name}">${item.college_name}</option>`);

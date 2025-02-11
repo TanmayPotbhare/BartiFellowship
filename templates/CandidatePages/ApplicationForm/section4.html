@@ -249,7 +249,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp1_relation" id="emp1_relation"
-                                            placeholder="1 Enter Relation with candidate" oninput="validateName(this)">
+                                            placeholder="Enter Relation with candidate" oninput="validateName(this)">
                             </div>
                         </div>
                         <!-- View Employee 1 Details -->
@@ -312,7 +312,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp2_relation" id="emp2_relation"
-                                            placeholder="2 Enter Relation with candidate" oninput="validateName(this)">
+                                            placeholder="Enter Relation with candidate" oninput="validateName(this)">
                             </div>
                         </div>
 
@@ -373,9 +373,42 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp3_relation" id="emp3_relation"
-                                            placeholder="3 Enter Relation with candidate" oninput="validateName(this)">
+                                            placeholder="Enter Relation with candidate" oninput="validateName(this)">
                             </div>
                         </div>
+
+                        {% if record['section4'] == 'filled' and record['emp3_name']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp2_name">
+                                       Name of Employee 3
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp3_name'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp2_position">
+                                    Position of Employee 3
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp3_position'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="emp2_relation">
+                                    Relation with candidate
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['emp3_relation'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
                      </div>
                  </div>
                  <div class="card shadow-sm mb-4">
