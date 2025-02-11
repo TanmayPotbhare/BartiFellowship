@@ -145,8 +145,27 @@ def admin_dashboard_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', '2023')
-        # print(year)
+        cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+        admin_result = cursor.fetchone()
+        admin_year = admin_result['year']
+        admin_username = admin_result['username']
+        role = admin_result['role']
+
+        # year_selected = "2021" if (role == "Admin" and admin_username == "Admin2021" and admin_year == "BANRF 2021") else None
+
+        if (role == "Admin" and admin_username == "Admin2021" and admin_year == "BANRF 2021"):
+            year_selected = "2021"
+        elif (role == "Admin" and admin_username == "Admin2022" and admin_year == "BANRF 2022"):
+            year_selected = "2022"
+        elif (role == "Admin" and admin_username == "Admin2023" and admin_year == "BANRF 2023"):
+            year_selected = "2023"
+        elif (role == "Admin" and admin_username == "Admin2024" and admin_year == "BANRF 2024"):
+            year_selected = "2024"
+
+        years = ["2020", "2021", "2022", "2023", "2024"]
+        year = request.args.get('year', year_selected)
+        
+        # print("The Dashboard is displayed for year " + year)
         # Try-catch to catch any errors while fetching data
 
         data = {
@@ -167,16 +186,17 @@ def admin_dashboard_auth(app):
 
         science, arts, commerce, other = get_individual_counts_faculty(year)  # Use the function you created earlier
         faculty_counts = {'science': science, 'arts': arts, 'commerce': commerce, 'other': other}
-        # print(faculty_counts)
 
         cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
         result = cursor.fetchone()
-        print(result)
         cnx.commit()
         cursor.close()
         cnx.close()
 
+        admin_year = result['year']
+        admin_username = result['username']
         role = result['role']
+
         if role == 'Admin':
             first_name = result['first_name'] or ''
             surname = result['surname'] or ''
@@ -189,7 +209,9 @@ def admin_dashboard_auth(app):
             username = first_name + ' ' + surname
 
         return render_template('AdminPages/admin_dashboard.html', data=data, counts=counts,
-                               faculty_counts=faculty_counts, username=username)
+                               faculty_counts=faculty_counts, username=username, 
+                               admin_year=admin_year,year_selected=year_selected,admin_username=admin_username,
+                               years=years)
 
     # END Admin Dashboard
     # ----------------------------------------------------------------
