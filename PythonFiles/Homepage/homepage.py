@@ -3,6 +3,7 @@ from classes.database import HostConfig, ConfigPaths, ConnectParam
 from PythonFiles.Homepage.multilingual_content import *
 import folium
 import mysql.connector
+from datetime import datetime
 
 homepage_blueprint = Blueprint('homepage', __name__)
 
@@ -177,17 +178,25 @@ def homepage_auth(app):
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect()
+
+        now = datetime.now()
+        current_date = now.strftime("%Y-%m-%d") 
+        current_time = now.strftime("%H:%M:%S") 
+
         if request.method == 'POST':
             ticket = 'Contact Us'
             fullname = request.form['fullname']
             email = request.form['email']
             issue_subject = request.form['issue_subject']
             description = request.form['description']
+            date = current_date
+            time = current_time 
+            status = "pending"
 
-            sql = "INSERT INTO issue_raised (ticket, fullname, email, issue_subject, description) " \
+            sql = "INSERT INTO issue_raised (ticket, fullname, email, issue_subject, description, date, time, status) " \
                   "VALUES (%s, %s, %s, %s, %s)"
             # Execute the SQL statement with the data
-            cursor.execute(sql, (ticket, fullname, email, issue_subject, description))
+            cursor.execute(sql, (ticket, fullname, email, issue_subject, description, date, time, status))
             cnx.commit()
             cursor.close()
             cnx.close()

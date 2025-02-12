@@ -1,0 +1,233 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+        <!-- Table Product -->
+        <div class="row">
+              <div class="col-12">
+                <div class="card card-default">
+
+                    <div class="card-header justify-content-center">
+                        <!-- Center Content -->
+                        <div class="text-center">
+                            <div class="profile-avata">
+                                {% for row in application_records %}
+                                {% set fullname = row['first_name'] + ' ' + row['middle_name'] + ' ' + row['last_name'] %}
+                                    {% if row['applicant_photo'] %}
+                                        <img class="rounded-circle" src="{{ row['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                                    {% else %}
+                                        <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                                    {% endif %}
+                                    <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                                    <span class="d-block" style="text-transform: none;">{{ row['email'] }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                  </div>
+
+
+                          <div class="card-footer card-profile-footer">
+                            <ul class="nav nav-border-top justify-content-center">
+                              <li class="nav-item">
+                                <a class="nav-link" href="/candidate_dashboard">My Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/adhaar_seeding">Aadhaar Seeding</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link " href="/manage_profile">Manage Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link active" href="/raise_issue">Raise Issue</a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="card-body">
+                                <div class="applicant-cards">
+
+                                    <div class="card mb-3">
+                                        <div class="card-body col-md-12">
+
+                                            <div class="mt-5">
+                                                <!-- Navigation Tabs -->
+                                                <ul class="nav nav-tabs nav-tabs-bordered">
+                                                    <li class="nav-item border-start">
+                                                        <button class="nav-link active text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#raise-issue">Raise an Issue</button>
+                                                    </li>
+                                                    <li class="nav-item border-start">
+                                                        <button class="nav-link text-theme fw-bold" data-bs-toggle="tab" data-bs-target="#issue-list">Issues Raised</button>
+                                                    </li>
+                                                </ul>
+
+
+                                                <!-- Tab Content -->
+                                                <div class="tab-content pt-3">
+                                                    <!-- Overview Tab -->
+                                                    <div class="tab-pane fade show active" id="raise-issue">
+                                                        <form action="/submit_raise_issue" method="POST" enctype="multipart/form-data" >
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="first_name">Email:</label>
+                                                                </div>
+                                                                {% for row in application_records %}
+                                                                <div class="col-md-10">
+                                                                    <input type="text" class="form-control"
+                                                                           id="email" name="email" disabled
+                                                                           value="{{ row['email'] }}">
+                                                                </div>
+                                                                {% endfor %}
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="issue_subject">Subject:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <input type="text" class="form-control"
+                                                                                   id="issue_subject" name="issue_subject"
+                                                                                   placeholder="Enter your Subject" required
+                                                                                   oninput="validateName(this)">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="description">Description:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            <textarea name="description" id="description" class="form-control"
+                                                                                oninput="validateAddress(this)" placeholder="Enter your Issue in Detail" required>
+                                                                            </textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-5">
+                                                                <div class="col-md-2">
+                                                                    <label for="document">Upload Image:</label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <input type="file" class="form-control accept_img"
+                                                                                  id="document" name="document" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" id="submit" class="btn btn-primary mt-2">Submit Issue</button>
+                                                        </form>
+                                                    </div>
+
+                                                    <!-- Update Details Tab -->
+                                                    <div class="tab-pane fade" id="issue-list">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                              <h3 class="form-label text-center mb-4">All Issues Raised by me</h3>
+                                                               <!-- Table with stripped rows -->
+                                                              <div class="table-responsive">
+                                                                  <table class="table table-bordered datatable">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th scope="col">ID</th>
+                                                                    <th scope="col">Ticket ID</th>
+                                                                    <th scope="col">Subject</th>
+                                                                    <th scope="col">Description</th>
+                                                                    <th scope="col">Image Uploaded</th>
+                                                                    <th scope="col">Issue Raised Date</th>
+                                                                    <th scope="col">Issue Raised Time</th>
+                                                                    <th scope="col">Status</th>
+                                                                    <th scope="col">Admin's Reply</th>
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                  {% if records %}
+                                                                  {% for record in records  %}
+                                                                  <tr>
+                                                                    <td>{{ loop.index }}</td>
+                                                                    <td>{{ record['ticket'] }}</td>
+                                                                    <td>{{ record['issue_subject'] }}</td>
+                                                                    <td>
+                                                                      <a target="_blank"class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-placement="right"
+                                                                        data-bs-target="#descriptionModal{{ record['id'] }}"><span><i class="mdi mdi-eye"></i></span>
+                                                                      </a>
+                                                                      <!-- Modal -->
+                                                                      <div class="modal fade" id="descriptionModal{{ record['id'] }}" tabindex="-1" aria-labelledby="descriptionModalLabel{{ record['id'] }}" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                          <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                              <h5 class="modal-title" id="descriptionModalLabel{{ record['id'] }}">Description</h5>
+                                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <h6 class="text-primary fw-bold">Issue:</h6>
+                                                                                {{ record['description'] }}
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </td>
+                                                                    <td><a href="{{ record['document'] }}" target="_blank">Link to Image</td>
+                                                                    <td>{{ record['date'] }}</td>
+                                                                    <td>{{ record['time'] }}</td>
+                                                                    <td>{{ record['status'] }}</td>
+                                                                    <td>
+                                                                      <a target="_blank"class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-placement="right"
+                                                                        data-bs-target="#replyModal{{ record['id'] }}"><span><i class="mdi mdi-eye"></i></span>
+                                                                      </a>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="replyModal{{ record['id'] }}" tabindex="-1" aria-labelledby="replyModalLabel{{ record['id'] }}" aria-hidden="true">
+                                                                      <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                          <div class="modal-header">
+                                                                            <h5 class="modal-title" id="replyModalLabel{{ record['id'] }}">Admin's Reply</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                              <h6 class="text-primary fw-bold">Reply:</h6>
+                                                                              {{ record['reason'] }}
+                                                                          </div>
+                                                                          <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div></td>
+                                                                  </tr>
+                                                                  {% endfor %}
+                                                                  {% else %}
+                                                                  <tr>
+                                                                    <td colspan="9">You have not reported any issue yet.</td>
+                                                                  </tr>
+                                                                {% endif %}
+                                                                </tbody>
+                                                              </table>
+                                                              </div>
+                                                              <!-- End Table with stripped rows -->
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- Repeat for more applicants -->
+                                </div>
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+{% endblock %}
