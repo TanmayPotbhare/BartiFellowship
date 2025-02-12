@@ -34,6 +34,7 @@
               <th scope="col">Issue Raised Date</th>
               <th scope="col">Issue Raised Time</th>
               <th scope="col">Status</th>
+              <th scope="col">Reply</th>
               <th Scope="col">Replied Medium</th>
               <th Scope="col">Replied By</th>
               <th Scope="col">Replied Date</th>
@@ -62,7 +63,9 @@
                       </div>
                       <div class="modal-body">
                           <h6 class="text-primary fw-bold">Issue:</h6>
-                          {{ record['description'] }}
+                          <div class="overflow-auto" style="max-height: 200px;"> 
+                            {{ record['description'] }} 
+                          </div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -81,6 +84,62 @@
                 <a href="#" class="btn btn-danger btn-sm tooltip-trigger"
                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Pending"><i
                     class="mdi mdi-close-octagon"></i></a>
+
+                    </td>
+                    <td>
+                  <!-- <a target="_blank"class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-placement="right"
+                    data-bs-target="#adminReplyModal{{ record['id'] }}"><span><i class="mdi mdi-eye"></i></span>
+                  </a> -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminReplyModal{{ record['id'] }}">
+                    Reply
+                  </button> 
+                  <!-- Modal -->
+                  <div class="modal fade" id="adminReplyModal{{ record['id'] }}" tabindex="-1" aria-labelledby="adminReplyModalLabel{{ record['id'] }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="adminReplyModalLabel{{ record['id'] }}">Admin's reply</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                          <form action="/submit_admin_reply" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="email" value="{{ record['email'] }}">
+                            <input type="hidden" name="ticket_id" value="{{ record['ticket'] }}">
+                            <div class="row  modal-body">
+                              <div class="col-md-2 text-primary fw-bold">
+                                  <label for="issue_subject">Issue:</label>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="row">
+                                      <div class="col-md-10 text-wrap">
+                                        {{ record['description'] }}
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row  modal-body">
+                            <div class="col-md-2 text-primary fw-bold">
+                                <label for="reply_messsage">Message:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="textarea" class="form-control"
+                                              id="reply_messsage" name="reply_messsage"
+                                              placeholder="Enter your reply message" required
+                                              oninput="validateName(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="submit" id="submit" class="btn btn-primary mt-2">Submit Reply</button>
+                        </div>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+
               </td>
               <td>{{ record['issue_replied_medium'] }}</td>
               <td>{{ record['issue_replied_by'] }}</td>
