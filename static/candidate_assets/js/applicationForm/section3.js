@@ -177,6 +177,7 @@ $('#domicile').on('change', function () {
         $('#domicile_issuing_authority').attr('disabled',false)
         $('#domicile_issuing_district').attr('disabled',false)
         $('#domicile_issuing_taluka').attr('disabled',false)
+        $('#domicile_barcode').attr('disabled',false)
     }else if($(this).val() == 'No'){
         Swal.fire({
                 title: "Sorry!",
@@ -187,11 +188,13 @@ $('#domicile').on('change', function () {
         $('#domicile_issuing_authority').attr('disabled',true)
         $('#domicile_issuing_district').attr('disabled',true)
         $('#domicile_issuing_taluka').attr('disabled',true)
+        $('#domicile_barcode').attr('disabled',true)
         $('#domicile').val('')
         $('#domicile_number').val('')
         $('#domicile_issuing_authority').val('')
         $('#domicile_issuing_district').val('')
         $('#domicile_issuing_taluka').val('')
+        $('#domicile_barcode').val('')
     }
 })
 
@@ -203,6 +206,7 @@ $('#caste_certf').on('change', function () {
         $('#caste_issuing_authority').attr('disabled',false)
         $('#issuing_district').attr('disabled',false)
         $('#caste_issuing_taluka').attr('disabled',false)
+        $('#caste_barcode').attr('disabled',false)
     }else if($(this).val() == 'No'){
         Swal.fire({
                 title: "Sorry!",
@@ -213,12 +217,14 @@ $('#caste_certf').on('change', function () {
         $('#caste_issuing_authority').attr('disabled',true)
         $('#issuing_district').attr('disabled',true)
         $('#caste_issuing_taluka').attr('disabled',true)
+        $('#caste_barcode').attr('disabled',true)
 
         $('#caste_certf').val('')
         $('#caste_certf_number').val('')
         $('#caste_issuing_authority').val('')
         $('#issuing_district').val('')
         $('#caste_issuing_taluka').val('')
+        $('#caste_barcode').val('')
     }
 })
 
@@ -230,16 +236,20 @@ $('#validity_certificate').on('change', function () {
         $('#validity_issuing_authority').attr('disabled',false).prop('required', true);
         $('#validity_issuing_district').attr('disabled',false).prop('required', true);
         $('#validity_issuing_taluka').attr('disabled',false).prop('required', true);
+        $('#validity_barcode').attr('disabled',false).prop('required', true);
+
     }else if($(this).val() == 'No'){
         $('#validity_cert_number').attr('disabled',true).prop('required', false);
         $('#validity_issuing_authority').attr('disabled',true).prop('required', false);
         $('#validity_issuing_district').attr('disabled',true).prop('required', false);
         $('#validity_issuing_taluka').attr('disabled',true).prop('required', false);
+        $('#validity_barcode').attr('disabled',true).prop('required', false);
 
         $('#validity_cert_number').val('')
         $('#validity_issuing_authority').val('')
         $('#validity_issuing_district').val('')
         $('#validity_issuing_taluka').val('')
+        $('#validity_barcode').val('')
     }
 })
 
@@ -266,3 +276,128 @@ window.onload = function() {
     // Call function initially to check if the button should be enabled or not
     enableDisabledFields2();
 };
+
+// ----------------------------------------------------
+function toggleDomicileBarcodefield(select) {
+    
+    const domicileDiv = document.getElementById('domicile_num_div');
+    const numberField = document.getElementById('domicile_number');
+
+    const issueDateDiv = document.getElementById('domicile_isssue_date_div');
+    const issueDateField = document.getElementById('domicile_barcode_issue_date');
+
+    if (select.value === 'Yes') {
+        
+        domicileDiv.classList.remove('d-none'); // Show field
+        numberField.setAttribute('required', 'required');
+
+        issueDateDiv.classList.add('d-none'); // Show field
+        issueDateField.removeAttribute('required');
+        issueDateField.value = ''; // Clear input field
+
+    } else {
+       
+        domicileDiv.classList.add('d-none'); // Hide field
+        numberField.value = ''; // Clear input field
+        numberField.removeAttribute('required');
+
+        issueDateDiv.classList.remove('d-none'); // Hide field
+        issueDateField.setAttribute('required', 'required');
+
+    }
+}
+// ----------------------------------------------------
+
+// ----------------------------------------------------
+function toggleCasteBarcodefield(select) {
+    
+    const casteDiv = document.getElementById('caste_num_div');
+    const numberField = document.getElementById('caste_certf_number');
+
+    const issueDateDiv = document.getElementById('caste_issue_date_div');
+    const issueDateField = document.getElementById('caste_barcode_issue_date');
+
+    if (select.value === 'Yes') {
+        
+        casteDiv.classList.remove('d-none'); // Show field
+        numberField.setAttribute('required', 'required');
+
+        issueDateDiv.classList.add('d-none'); // Show field
+        issueDateField.removeAttribute('required');
+        issueDateField.value = ''; // Clear input field
+
+    } else {
+       
+        casteDiv.classList.add('d-none'); // Hide field
+        numberField.value = ''; // Clear input field
+        numberField.removeAttribute('required');
+
+        issueDateDiv.classList.remove('d-none'); // Hide field
+        issueDateField.setAttribute('required', 'required');
+
+    }
+}
+// ----------------------------------------------------
+
+// ----------------------------------------------------
+function toggleValidityBarcodefield(select) {
+    
+    const validityDiv = document.getElementById('validity_num_div');
+    const numberField = document.getElementById('validity_cert_number');
+
+    const issueDateDiv = document.getElementById('validity_issue_date_div');
+    const issueDateField = document.getElementById('validity_barcode_issue_date');
+
+    if (select.value === 'Yes') {
+        
+        validityDiv.classList.remove('d-none'); // Show field
+        numberField.setAttribute('required', 'required');
+
+        issueDateDiv.classList.add('d-none'); // Show field
+        issueDateField.removeAttribute('required');
+        issueDateField.value = ''; // Clear input field
+
+    } else {
+       
+        validityDiv.classList.add('d-none'); // Hide field
+        numberField.value = ''; // Clear input field
+        numberField.removeAttribute('required');
+
+        issueDateDiv.classList.remove('d-none'); // Hide field
+        issueDateField.setAttribute('required', 'required');
+
+    }
+}
+// ----------------------------------------------------
+
+
+// ----------------------------------------------------
+function toggleIncomeBarcodefield(select) {
+    
+    const incomeDiv = document.getElementById('income_number_div');
+    const numberField = document.getElementById('income_certificate_number');
+
+    const issueDateDiv = document.getElementById('income_issue_date_div');
+    const issueDateField = document.getElementById('income_barcode_issue_date');
+
+    if (select.value === 'Yes') {
+        
+        incomeDiv.classList.remove('d-none'); // Show field
+        numberField.setAttribute('required', 'required');
+
+        issueDateDiv.classList.add('d-none'); // Show field
+        issueDateField.removeAttribute('required');
+        issueDateField.value = ''; // Clear input field
+
+    } else {
+       
+        incomeDiv.classList.add('d-none'); // Hide field
+        numberField.value = ''; // Clear input field
+        numberField.removeAttribute('required');
+
+        issueDateDiv.classList.remove('d-none'); // Hide field
+        issueDateField.setAttribute('required', 'required');
+
+    }
+}
+// ----------------------------------------------------

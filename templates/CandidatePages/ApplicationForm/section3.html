@@ -32,7 +32,26 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2"> 
+                            <div class="form-group">
+                                <label for="income_barcode">Do you have barcode on the certificate?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['income_barcode'] }}</span>
+                                {% else %}
+                                <select class="form-control" name="income_barcode" id="income_barcode" 
+                                onchange="toggleIncomeBarcodefield(this)" required>
+                                    <option value="">-- Select Option --</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mt-2 d-none" id="income_number_div">
                             <div class="form-group">
                                 <label for="income_certificate_number">Income Certificate Number (Barcode)
                                     <span class="text-danger">*</span>
@@ -47,6 +66,48 @@
                                 {% endif %}
                             </div>
                         </div>
+
+                        {% if record['section3'] == 'filled' and record['income_certificate_number']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="income_certificate_number">
+                                    Income Certificate Number (Barcode)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['income_certificate_number'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="col-md-4 mt-2 d-none" id="income_issue_date_div">
+                            <div class="form-group">
+                                <label for="income_barcode_issue_date">Barcode Certificate Issue Date
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['income_barcode_issue_date'] }}</span>
+                                {% else %}
+                                <input type="date" name="income_barcode_issue_date" id="income_barcode_issue_date"
+                                class="form-control">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if record['section3'] == 'filled' and record['income_barcode_issue_date']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="income_barcode_issue_date">
+                                    Income Barcode Issue Date
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['income_barcode_issue_date'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="issuing_authority">Issuing Authority
@@ -61,8 +122,6 @@
                                 {% endif %}
                             </div>
                         </div>
-                     </div>
-                     <div class="row m-0">
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="income_issuing_district">Issuing District
@@ -127,19 +186,71 @@
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
-                                <label for="domicile_number">Domicile Certificate Number (Barcode)
+                                <label for="domicile_barcode">Do you have barcode on the certificate?
                                     <span class="text-danger">*</span>
                                 </label>
                                 {% if record['section3'] == 'filled' %}
                                     <br>
-                                    <span class="text-dark">{{ record['domicile_number'] }}</span>
+                                    <span class="text-dark">{{ record['domicile_barcode'] }}</span>
                                 {% else %}
-                                    <input type="text" name="domicile_number" id="domicile_number"
-                                       placeholder="Enter Domicile Cert. Barcode Number" class="form-control"
-                                        oninput="validateDomicileCertificateNumber()" disabled required>
+                                <select class="form-control" name="domicile_barcode" id="domicile_barcode" 
+                                onchange="toggleDomicileBarcodefield(this)" disabled required>
+                                    <option value="">-- Select Option --</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
                                 {% endif %}
                             </div>
                         </div>
+                        <div class="col-md-4 mt-2 d-none" id="domicile_num_div">
+                            <div class="form-group">
+                                <label for="domicile_number">Domicile Certificate Number (Barcode)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                    <input type="text" name="domicile_number" id="domicile_number"
+                                       placeholder="Enter Domicile Cert. Barcode Number" class="form-control"
+                                       oninput="validateDomicileCertificateNumber()" disabled>
+                            </div>
+                        </div>
+                        {% if record['section3'] == 'filled' and record['domicile_number']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="domicile_number">
+                                    Domicile Certificate Number (Barcode)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['domicile_number'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="col-md-4 mt-2 d-none" id="domicile_isssue_date_div">
+                            <div class="form-group">
+                                <label for="domicile_barcode_issue_date">Barcode Certificate Issue Date
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['domicile_barcode_issue_date'] }}</span>
+                                {% else %}
+                                <input type="date" name="domicile_barcode_issue_date" id="domicile_barcode_issue_date"
+                                class="form-control">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if record['section3'] == 'filled' and record['domicile_barcode_issue_date']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="domicile_barcode_issue_date">
+                                    Domicile Barcode Issue Date
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['domicile_barcode_issue_date'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
                          <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="domicile_issuing_authority">Domicile Issuing Authority
@@ -222,6 +333,24 @@
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
+                                <label for="caste_barcode">Do you have barcode on the certificate?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['caste_barcode'] }}</span>
+                                {% else %}
+                                <select class="form-control" name="caste_barcode" id="caste_barcode" 
+                                onchange="toggleCasteBarcodefield(this)" disabled required>
+                                    <option value="">-- Select Option --</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="caste_num_div">
+                            <div class="form-group">
                                 <label for="caste_certf_number">Caste Certificate Number (Barcode)
                                     <span class="text-danger">*</span>
                                 </label>
@@ -235,6 +364,46 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% if record['section3'] == 'filled' and record['caste_certf_number']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="caste_certf_number">
+                                    Caste Certificate Number (Barcode)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['caste_certf_number'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="col-md-4 mt-2 d-none" id="caste_issue_date_div">
+                            <div class="form-group">
+                                <label for="caste_barcode_issue_date">Barcode Certificate Issue Date
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['caste_barcode_issue_date'] }}</span>
+                                {% else %}
+                                <input type="date" name="caste_barcode_issue_date" id="caste_barcode_issue_date"
+                                class="form-control">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if record['section3'] == 'filled' and record['caste_barcode_issue_date']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="caste_barcode_issue_date">
+                                    Caste Barcode Issue Date
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['caste_barcode_issue_date'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="caste_issuing_authority">Issuing Authority
@@ -253,8 +422,6 @@
                                 {% endif %}
                             </div>
                         </div>
-                     </div>
-                     <div class="row m-0">
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="issuing_district">Issuing District
@@ -319,6 +486,23 @@
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
+                                <label for="validity_barcode">Do you have barcode on the certificate?
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['validity_barcode'] }}</span>
+                                {% else %}
+                                <select class="form-control" name="validity_barcode" id="validity_barcode" 
+                                onchange="toggleValidityBarcodefield(this)" disabled>
+                                    <option value="">-- Select Option --</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2 d-none" id="validity_num_div">
+                            <div class="form-group">
                                 <label for="validity_cert_number">Validity Certificate Number (Barcode)
                                 </label>
                                 {% if record['section3'] == 'filled' %}
@@ -331,6 +515,48 @@
                                 {% endif %}
                             </div>
                         </div>
+
+                        {% if record['section3'] == 'filled' and record['validity_cert_number']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="validity_cert_number">
+                                    Validity Certificate Number (Barcode)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['validity_cert_number'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="col-md-4 mt-2 d-none" id="validity_issue_date_div">
+                            <div class="form-group">
+                                <label for="validity_barcode_issue_date">Barcode Certificate Issue Date
+                                </label>
+                                {% if record['section3'] == 'filled' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['validity_barcode_issue_date'] }}</span>
+                                {% else %}
+                                <input type="date" name="validity_barcode_issue_date" id="validity_barcode_issue_date"
+                                class="form-control">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if record['section3'] == 'filled' and record['validity_barcode_issue_date']  %}
+                        <div class="col-md-4 mt-2">
+                            <div class="form-group">
+                                <label for="validity_barcode_issue_date">
+                                    Validity Barcode Issue Date
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <br>
+                                <span class="text-dark">{{ record['validity_barcode_issue_date'] }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="validity_issuing_authority">Issuing Authority
@@ -351,8 +577,6 @@
                                 {% endif %}
                             </div>
                         </div>
-                     </div>
-                     <div class="row m-0">
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="validity_issuing_district">Issuing District
