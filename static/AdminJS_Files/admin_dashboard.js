@@ -186,6 +186,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -289,6 +290,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -393,6 +395,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -497,6 +500,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -600,6 +604,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -806,6 +811,7 @@ $(document).ready(function () {
                                 <td>${record.gender}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -910,6 +916,7 @@ $(document).ready(function () {
                                 <td>${record.gender}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -1012,6 +1019,7 @@ $(document).ready(function () {
                                 <td>${record.disability}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
@@ -1114,6 +1122,7 @@ $(document).ready(function () {
                                 <td>${record.disability}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target='_blank'

@@ -185,6 +185,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -288,6 +289,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -392,6 +394,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -496,6 +499,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -599,6 +603,7 @@ $(document).ready(function () {
                                 <td>${record.last_name}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -702,6 +707,7 @@ $(document).ready(function () {
                                 <td>${record.gender}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -806,6 +812,7 @@ $(document).ready(function () {
                                 <td>${record.gender}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -908,6 +915,7 @@ $(document).ready(function () {
                                 <td>${record.disability}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
@@ -1010,6 +1018,7 @@ $(document).ready(function () {
                                 <td>${record.disability}</td>
                                 <td>${record.email}</td>
                                 <td>${record.application_date}</td>
+                                <td>${record.phd_registration_year}</td>
                                 <td>${statusLabel}</td>
                                 <td>
                                     <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
