@@ -15,73 +15,89 @@
             Code for Ajax call will be found in: """/static/admin.js file on LINE 296."""
             Code for Python will be found in: """/PythonFiles/AdminPages/Dashboard/admin_dashboard.py on LINE 206."""
          -->
+        {% if year_selected in years and admin_username in usernames %}
         <div class="btn-group me-2">
-            <select id="female_select_year" name="selected_year" class="btn btn-primary btn-sm text-dark">
-                <option value="" selected>Select Year</option>
-                <option value="2020">2020 - 2021</option>
-                <option value="2021">2021 - 2022</option>
-                <option value="2022">2022 - 2023</option>
-                <option value="2023">2023 - 2024</option>
-                <option value="2024">2024 - 2025</option>
-            </select>
+           <div class="btn-group">
+             <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
+             <input type="hidden" id="yearSelector" name="selected_year" value="2021">
+           </div>
         </div>
+        {% else %}
+         <div class="btn-group me-2">
+           <select id="female_select_year" name="selected_year" class="btn btn-primary btn-sm text-dark">
+               <option value="" selected>Select Year</option>
+               <option value="2020">2020 - 2021</option>
+               <option value="2021">2021 - 2022</option>
+               <option value="2022">2022 - 2023</option>
+               <option value="2023">2023 - 2024</option>
+               <option value="2024">2024 - 2025</option>
+           </select>
+         </div>
+        {% endif %}
         <!-- Export to Excel Button -->
         <!--
             This is a dynamic functioning on the """id""" which will export the records.
             Code for ID call will be found in: """/static/admin.js file on LINE 204."""
             Code for Python will be found in: """/PythonFiles/AdminPages/Dashboard/admin_dashboard.py on LINE 498."""
          -->
+        <!-- <a href="#" class="btn btn-outline-primary btn-sm" data-form-type="female_application_records"
+           id="export-to-excel-female">Export to Excel</a> -->
         <a href="#" class="btn btn-outline-primary btn-sm" data-form-type="female_application_records"
-           id="export-to-excel-female">Export to Excel</a>
+           id="#">Export to Excel</a>   
     </div>
   </div>
 
   <div class="row">
         <div class="col-md-12 card p-3">
           <!-- Table with stripped rows -->
-          <table class="table datatable">
-            <thead>
-              <tr>
-                <th scope="col">Application Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Email</th>
-                <th scope="col">Application Date</th>
-                <th scope="col">Final Approval Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for record in result %}
-              <tr>
-                <td>{{ record['applicant_id'] }}</td>
-                <td>{{ record['first_name'] }}</td>
-                <td>{{ record['last_name'] }}</td>
-                <td>{{ record['gender'] }}</td>
-                <td>{{ record['email'] }}</td>
-                <td>{{ record['application_date'] }}</td>
-                <td>
-                    {% if record.final_approval == 'accepted' %}
-                      <label class="badge badge-gradient-success text-dark">Accepted</label>
-                    {% elif record.final_approval == 'rejected' %}
-                      <label class="badge badge-gradient-danger text-dark">Rejected</label>
-                    {% elif record.final_approval == 'pending' %}
-                      <label class="badge badge-gradient-warning text-dark">Pending</label>
-                    {% else %}
-                      <label>N/A</label>
-                    {% endif %}
-                </td>
-                <td>
-                  <a href="/viewform/{{ record['id'] }}" class="btn btn-primary btn-sm"
-                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
-                    <i class="mdi mdi-eye fw-bold"></i>
-                  </a>
-                </td>
-              </tr>
-             {% endfor %}
-            </tbody>
-          </table>
+           <div class = "table-responsive">
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">Application Id</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Application Date</th>
+                  <th scope="col">Application Year</th>
+                  <th scope="col">Final Approval Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for record in result %}
+                <tr>
+                  <td>{{ record['applicant_id'] }}</td>
+                  <td>{{ record['first_name'] }}</td>
+                  <td>{{ record['last_name'] }}</td>
+                  <td>{{ record['gender'] }}</td>
+                  <td>{{ record['email'] }}</td>
+                  <td>{{ record['application_date'] }}</td>
+                  <td>{{ record['phd_registration_year'] }}</td>
+                  <td>
+                      {% if record.final_approval == 'accepted' %}
+                        <label class="badge badge-gradient-success text-dark">Accepted</label>
+                      {% elif record.final_approval == 'rejected' %}
+                        <label class="badge badge-gradient-danger text-dark">Rejected</label>
+                      {% elif record.final_approval == 'pending' %}
+                        <label class="badge badge-gradient-warning text-dark">Pending</label>
+                      {% else %}
+                        <label>N/A</label>
+                      {% endif %}
+                  </td>
+                  <td>
+                    <a href="/viewform/{{ record['id'] }}" class="btn btn-primary btn-sm"
+                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
+                      <i class="mdi mdi-eye fw-bold"></i>
+                    </a>
+                  </td>
+                </tr>
+               {% endfor %}
+              </tbody>
+            </table>
+           </div>
+          
           <!-- End Table with stripped rows -->
           </div>
         </div>
