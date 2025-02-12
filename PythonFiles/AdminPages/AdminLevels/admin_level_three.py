@@ -116,6 +116,9 @@ def adminlevelthree_auth(app, mail):
 
     @adminlevelthree_blueprint.route('/reject_at_level_3', methods=['GET', 'POST'])
     def reject_at_level_3():
+        """
+            This is for Final Approval
+        """
         if not session.get('logged_in'):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
@@ -158,7 +161,13 @@ def adminlevelthree_auth(app, mail):
         cnx.close()
         return redirect(url_for('adminlevelthree.level_three_admin'))
 
-    def update_final_appr_admin(applicant_id, final_approval, day, month, year):
+    def generate_payment_sheet(applicant_id, email):
+        """
+            This function is written as whenever the final approval will happen from admin or whoever approves,
+            that is the time the payment sheet for 5 years will generate for that student as per the application
+            year. Sheets duration will be according to the date of PHD Registration date and will have 10 quarters
+            of 6 Months across 5 years of fellowship.
+        """
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
@@ -174,7 +183,7 @@ def adminlevelthree_auth(app, mail):
                        "final_approval_month = %s, final_approval_year = %s, " \
                        "approved_for=%s WHERE applicant_id = %s"
         print(update_query)
-        cursor.execute(update_query, (final_approval, day, month, year, approved_for, applicant_id))
+        # cursor.execute(update_query, (final_approval, day, month, year, approved_for, applicant_id))
 
         # Commit the changes to the database
         cnx.commit()

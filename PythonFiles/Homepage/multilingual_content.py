@@ -53,7 +53,7 @@ multilingual_content = {
         'total_applications_2021' : "Total Application 2021",
         'fellowship_awarded' : 'Fellowship Awarded',
         'fellowship_completed' : 'Fellowship Completed',
-        'this_yrs_application' : 'This Year Applications',
+        'this_yrs_application' : 'Total Application 2021',
         'get_your_fellowship_now' : 'Dr. Babasaheb Ambedkar National Research Fellowship (BANRF)',
         'enroll_here' : 'Enroll Here',
 

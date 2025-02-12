@@ -22,6 +22,9 @@ def payment_sheet_auth(app):
         if not session.get('logged_in'):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('admin_login'))
+
+        user = session['user']
+
         user_records = []
         if request.method == 'GET':
             # Establish a database connection
@@ -36,14 +39,7 @@ def payment_sheet_auth(app):
                         SELECT * 
                         FROM application_page 
                         WHERE final_approval = 'accepted' 
-                          AND phd_registration_year >= '2023'
-
-                        UNION
-
-                        SELECT * 
-                        FROM application_page 
-                        WHERE phd_registration_year > '2020' 
-                          AND aadesh = 1;
+                            AND fellowship_awarded_year = '2023'
 
             """)
             user_data = cursor.fetchall()  # Use fetchall to retrieve all rows
@@ -61,7 +57,7 @@ def payment_sheet_auth(app):
                 bank_name = row['bank_name']
                 account_number = row['account_number']
                 ifsc = row['ifsc_code']
-                year = '2023'
+                # year = '2023'
                 # print(joining_date)
 
                 # Calculate Count Yearly
@@ -78,12 +74,22 @@ def payment_sheet_auth(app):
                 else:
                     count_yearly = 0  # Handle other faculty values as needed
 
+                if fellowship_awarded_year in ['2020', '2021', '2022']:
+                    hra_year_rate = 'Old User'
+                else:
+                    hra_year_rate = 'New User'
+
 
                 if city in [
                             'Hyderabad(UA)', 'Delhi(UA)', 'Ahmadabad(UA)', 'Bengalore / Bengaluru(UA)',
                             'Greater Mumbai(UA)', 'Pune(UA)', 'Chennai(UA)', 'Kolkata(UA)'
-                            ]:
-                    rate = '30%'
+                            ] and hra_year_rate == 'Old User':
+                    rate = '24%%'
+                elif city in [
+                            'Hyderabad(UA)', 'Delhi(UA)', 'Ahmadabad(UA)', 'Bengalore / Bengaluru(UA)',
+                            'Greater Mumbai(UA)', 'Pune(UA)', 'Chennai(UA)', 'Kolkata(UA)'
+                            ] and hra_year_rate == 'New User':
+                    rate = '27%'
                 elif city in [
                             "Vijayawada (UA)", "Warangal (UA)", "Greater Visakhapatnam (M.Corpn.)", "Guntur (UA)",
                             "Nellore (UA)", "Guwahati (UA)", "Patna (UA)", "Chandigarh (UA)",
@@ -107,10 +113,35 @@ def payment_sheet_auth(app):
                             "Kanpur (UA)", "Allahabad (UA)", "Gorakhpur (UA)", "Varanasi (UA)",
                             "Saharanpur (M.Corpn.)", "Noida (CT)", "Firozabad (NPP)", "Jhansi (UA)",
                             "Dehradun (UA)", "Asansol (UA)", "Siliguri (UA)", "Durgapur (UA)"
-                            ]:
-                    rate = '20%'
+                            ] and hra_year_rate == 'Old User':
+                    rate = '16%'
+                elif city in [
+                            "Vijayawada (UA)", "Warangal (UA)", "Greater Visakhapatnam (M.Corpn.)", "Guntur (UA)",
+                            "Nellore (UA)", "Guwahati (UA)", "Patna (UA)", "Chandigarh (UA)",
+                            "Durg-Bhilai Nagar (UA)", "Raipur (UA)", "Rajkot (UA)", "Jamnagar (UA)",
+                            "Bhavnagar (UA)", "Vadodara (UA)", "Surat (UA)", "Faridabad (M.Corpn.)",
+                            "Gurgaon (UA)", "Srinagar (UA)", "Jammu (UA)", "Jamshedpur (UA)",
+                            "Dhanbad (UA)", "Ranchi (UA)", "Bokaro Steel City (UA)", "Belgaum (UA)",
+                            "Hubli-Dharwad (M.Corpn.)", "Mangalore (UA)", "Mysore (UA)", "Gulbarga (UA)",
+                            "Kozhikode (UA)", "Kochi (UA)", "Thiruvananthapuram (UA)", "Thrissur (UA)",
+                            "Malappuram (UA)", "Kannur (UA)", "Kollam (UA)", "Gwalior (UA)",
+                            "Indore (UA)", "Bhopal (UA)", "Jabalpur (UA)", "Ujjain (M.Corpn.)",
+                            "Amravati (M.Corpn.)", "Nagpur (UA)", "Aurangabad (UA)", "Nashik (UA)",
+                            "Bhiwandi (UA)", "Solapur (M.Corpn.)", "Kolhapur (UA)", "Vasai-Virar City (M.Corpn.)",
+                            "Malegaon (UA)", "Nanded-Waghala (M. Corpn.)", "Sangli (UA)", "Cuttack (UA)",
+                            "Bhubaneswar (UA)", "Raurkela (UA)", "Puducherry/Pondicherry (UA)", "Amritsar (UA)",
+                            "Jalandhar (UA)", "Ludhiana (M.Corpn.)", "Bikaner (M.Corpn.)", "Jaipur (M.Corpn.)",
+                            "Jodhpur (UA)", "Kota (M.Corpn.)", "Ajmer (UA)", "Salem (UA)",
+                            "Tiruppur (UA)", "Coimbatore (UA)", "Tiruchirappalli (UA)", "Madurai (UA)",
+                            "Erode (UA)", "Moradabad (M.Corpn.)", "Meerut (UA)", "Ghaziabad (UA)",
+                            "Aligarh (UA)", "Agra (UA)", "Bareilly (UA)", "Lucknow (UA)",
+                            "Kanpur (UA)", "Allahabad (UA)", "Gorakhpur (UA)", "Varanasi (UA)",
+                            "Saharanpur (M.Corpn.)", "Noida (CT)", "Firozabad (NPP)", "Jhansi (UA)",
+                            "Dehradun (UA)", "Asansol (UA)", "Siliguri (UA)", "Durgapur (UA)"
+                            ] and hra_year_rate == 'Old User':
+                    rate = '18%'
                 else:
-                    rate = '10%'
+                    rate = '9%'
 
                 # print("Rate:", rate)
 

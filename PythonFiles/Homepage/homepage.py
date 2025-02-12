@@ -49,7 +49,7 @@ def homepage_auth(app):
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect()
-        cursor.execute(" SELECT COUNT(*) FROM application_page where phd_registration_year>=2023 ")
+        cursor.execute(" SELECT COUNT(*) FROM application_page ")
         result = cursor.fetchone()
         print(result)
         return result[0]
@@ -62,7 +62,7 @@ def homepage_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect()
         cursor.execute(
-            " SELECT COUNT(*) FROM application_page where phd_registration_year='2023' and final_approval='accepted' ")
+            " SELECT COUNT(*) FROM application_page where final_approval='accepted' AND form_filled='1' ")
         result = cursor.fetchone()
         print(result)
         return result[0]
@@ -74,7 +74,7 @@ def homepage_auth(app):
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect()
-        cursor.execute(" SELECT COUNT(*) FROM application_page where phd_registration_year='2022' ")
+        cursor.execute(" SELECT COUNT(*) FROM application_page where fellowship_application_year='2022' AND form_filled='1' ")
         result = cursor.fetchone()
         print(result)
         return result[0]
@@ -86,7 +86,7 @@ def homepage_auth(app):
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect()
-        cursor.execute(" SELECT COUNT(*) FROM application_page where phd_registration_year='2023' ")
+        cursor.execute(" SELECT COUNT(*) FROM application_page where fellowship_application_year='2021' AND form_filled='1' ")
         result = cursor.fetchone()
         print(result)
         return result[0]

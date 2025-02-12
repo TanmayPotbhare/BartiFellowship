@@ -78,21 +78,27 @@
                                     <form action="/undertaking_report_submit" method="POST" enctype="multipart/form-data">
                                         <div class="row mt-5">
                                             <div class="col-md-3">
-                                                <label>Undertaking Date</label>
+                                                <label>
+                                                    Undertaking Date
+                                                    <span class="text-danger">*</span>
+                                                </label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="date" name="undertaking_doc_date" id="undertaking_doc_date"
-                                                       class="form-control"
+                                                       class="form-control" required
                                                        placeholder="Enter your Date of Birth">
                                             </div>
                                         </div>
                                         <div class="row mt-5">
                                             <div class="col-md-3">
-                                                <label>Undertaking Report</label>
+                                                <label>
+                                                    Undertaking Report
+                                                    <span class="text-danger">*</span>
+                                                </label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="file" name="undertaking_doc" id="undertaking_doc"
-                                                       class="form-control"
+                                                       class="form-control" required
                                                        placeholder="Enter your Date of Birth">
                                             </div>
                                         </div>
