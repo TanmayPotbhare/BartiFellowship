@@ -88,11 +88,14 @@
                                     <form action="/joining_report_submit" method="POST" enctype="multipart/form-data">
                                         <div class="row mt-5">
                                             <div class="col-md-3">
-                                                <label>Joining Report</label>
+                                                <label>
+                                                    Joining Report
+                                                    <span class="text-danger">*</span>
+                                                </label>
                                             </div>
                                             <div class="col-md-9">
                                                 <input type="file" name="joining_report" id="joining_report"
-                                                       class="form-control"
+                                                       class="form-control" required
                                                        placeholder="Enter your Date of Birth">
                                             </div>
                                         </div>

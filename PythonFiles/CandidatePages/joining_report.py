@@ -23,7 +23,8 @@ def joining_report_auth(app):
 
         if session.get('report_uploaded'):
             # Redirect to the admin login page if the user is not logged in
-            flash('Joining Report has been uploaded successfully', 'Success')
+            flash('Joining Report has been uploaded successfully', 'success')
+            session['report_uploaded'] = False
 
         email = session['email']
 
