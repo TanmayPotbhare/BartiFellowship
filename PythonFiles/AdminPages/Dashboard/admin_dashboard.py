@@ -1167,35 +1167,6 @@ def admin_dashboard_auth(app):
             if cnx:
                 cnx.close()    
 
-
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-
-        cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year = %s and disability='No' ",
-            (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
-
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/not_disabled_report.html', result=result,
-                               year=year)
-
     # END Reports
     # ----------------------------------------------------------------
 

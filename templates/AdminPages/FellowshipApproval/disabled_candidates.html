@@ -13,6 +13,11 @@
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb d-flex align-items-center">
         <li class="breadcrumb-item active" aria-current="page">
+          {% if year_selected in years and admin_username in usernames %}
+            <div class="btn-group">
+              <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
+            </div>
+          {% else %}
             <div class="btn-group">
               <select id="disabled_candidate_year" name="disabled_candidate_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option selected disabled>Select BANRF Year</option>
@@ -23,7 +28,7 @@
                 <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024 - 2025</option>
               </select>
             </div>
-
+          {% endif %}
         </li>
       </ul>
     </nav>
@@ -41,7 +46,8 @@
               </div>
           {% else %}
               <div class="col-md-12 d-flex justify-content-end">
-                  <a href="/export_level_one_applications"
+                  <!-- <a href="/export_level_one_applications" -->
+                  <a href="#"
                      class="btn btn-outline-primary btn-fw btn-rounded"
                      data-bs-toggle="tooltip"
                      data-bs-placement="top"
@@ -51,7 +57,7 @@
         </div>
 
         <div class="text-center mb-4">
-            <h4>LEVEL 1 - NEW APPLICATIONS</h4>
+            <h4>DISABLED CANDIDATE APPLICATIONS</h4>
         </div><br>
       </div>
 

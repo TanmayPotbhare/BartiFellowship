@@ -7,22 +7,28 @@
         <h3 class="page-title">
           <span class="page-title-icon bg-gradient-primary text-white me-2">
             <i class="mdi mdi-home"></i>
-          </span> Final Approval
+          </span> FINAL APPROVAL
         </h3>
 
         <nav aria-label="breadcrumb">
           <ul class="breadcrumb d-flex align-items-center">
             <li class="breadcrumb-item active" aria-current="page">
+                {% if year_selected in years and admin_username in usernames %}
+                  <div class="btn-group">
+                    <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
+                  </div>
+                {% else %}
                 <div class="btn-group">
                   <select id="approval_year_selector_three" name="approval_year_selector_three" class="btn btn-dark btn-fw text-white" style="width: auto;">
-                    <option selected disabled>Select STRF Year</option>
-                    <option value="2020" {% if year == '2020' %}selected{% endif %}>STRF 2020 - 2021</option>
-                    <option value="2021" {% if year == '2021' %}selected{% endif %}>STRF 2021 - 2022</option>
-                    <option value="2022" {% if year == '2022' %}selected{% endif %}>STRF 2022 - 2023</option>
-                    <option value="2023" {% if year == '2023' %}selected{% endif %}>STRF 2023 - 2024</option>
-                    <option value="2024" {% if year == '2024' %}selected{% endif %}>STRF 2024 - 2025</option>
+                    <option selected disabled>Select BANRF Year</option>
+                    <option value="2020" {% if year == '2020' %}selected{% endif %}>BANRF 2020 - 2021</option>
+                    <option value="2021" {% if year == '2021' %}selected{% endif %}>BANRF 2021 - 2022</option>
+                    <option value="2022" {% if year == '2022' %}selected{% endif %}>BANRF 2022 - 2023</option>
+                    <option value="2023" {% if year == '2023' %}selected{% endif %}>BANRF 2023 - 2024</option>
+                    <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024 - 2025</option>
                   </select>
                 </div>
+                {% endif %}
             </li>
           </ul>
         </nav>
@@ -32,81 +38,21 @@
         <div class="card-header">
           <div class="row justify-content-end">
 
-              <div class="col-md-6 text-center">
-                  {% if session['user'] == 'Auditor' %}
-                          <a href="#" class="mx-3 export-excel">
-                            <button class="btn btn-outline-primary btn-fw">Accepted Students</button>
-                          </a>
-                          <a href="#" class="mx-3 export-excel">
-                            <button class="btn btn-outline-primary btn-fw">Pending Students</button>
-                          </a>
-                          <a href="#" class="mx-3 export-excel">
-                            <button class="btn btn-outline-primary btn-fw">Rejected Students</button>
-                          </a>
-                          <a href="#" class="mx-3 export-excel">
-                            <button class="btn btn-outline-primary btn-fw">PVTG Students(Katkari, Kolam, Madia)</button>
-                          </a>
-                          <a href="#" class="mx-3 export-excel">
-                            <button class="btn btn-outline-primary btn-fw">Disabled Students</button>
-                          </a>
-                  {% else %}
-                          <div class="container mt-3 d-flex justify-content-left">
-                            <div class="dropdown">
-                                <button class="btn btn-outline-primary btn-fw dropdown-toggle px-4 py-3 fw-bold"
-                                        type="button" id="studentOptions" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Student Options for Level 3
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-dark border-0 rounded" aria-labelledby="studentOptions">
-                                  <!-- Accepted Students -->
-                                  <li>
-                                    <a class="dropdown-item d-flex align-items-center py-2" href="/accepted_students_level3">
-                                      <i class="bi bi-check-circle text-success me-2"></i>
-                                      Accepted Students
-                                    </a>
-                                  </li>
-                                  <!-- Pending Students -->
-                                  <li>
-                                    <a class="dropdown-item d-flex align-items-center py-2" href="/pending_students_level3">
-                                      <i class="bi bi-hourglass-split text-warning me-2"></i>
-                                      Pending Students
-                                    </a>
-                                  </li>
-                                  <!-- Rejected Students -->
-                                  <li>
-                                    <a class="dropdown-item d-flex align-items-center py-2" href="/rejected_students_level3">
-                                      <i class="bi bi-x-circle text-danger me-2"></i>
-                                      Rejected Students
-                                    </a>
-                                  </li>
-                                  <!-- PVTG Students -->
-                                  <li>
-                                    <a class="dropdown-item d-flex align-items-center py-2" href="/pvtg_students_level3">
-                                      <i class="bi bi-people-fill text-info me-2"></i>
-                                      PVTG Students
-                                    </a>
-                                  </li>
-                                  <!-- Disabled Students -->
-                                  <li>
-                                    <a class="dropdown-item d-flex align-items-center py-2" href="/disabled_students_level3">
-                                      <i class="bi bi-person-fill-slash text-secondary me-2"></i>
-                                      Disabled Students
-                                    </a>
-                                  </li>
-
-                                </ul>
-                              </div>
-                        </div>
-                  {% endif %}
-              </div>
-
             <div class="col-md-6 text-end">
              {% if session['user'] == 'Auditor' %}
                  <div class="text-end">
                     <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
                   </div>
               {% else %}
-                  <div class="col-md-12 d-flex justify-content-end">
+                  <!-- <div class="col-md-12 d-flex justify-content-end">
                       <a href="/export_level_three_applications"
+                         class="btn btn-outline-primary btn-fw btn-rounded"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="top"
+                         title="Export as Excel">Export to Excel</a>
+                    </div> -->
+                    <div class="col-md-12 d-flex justify-content-end">
+                      <a href="#"
                          class="btn btn-outline-primary btn-fw btn-rounded"
                          data-bs-toggle="tooltip"
                          data-bs-placement="top"
