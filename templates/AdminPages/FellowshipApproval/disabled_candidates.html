@@ -1,0 +1,129 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-home"></i>
+      </span> DISABLED CANDIDATES
+    </h3>
+
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb d-flex align-items-center">
+        <li class="breadcrumb-item active" aria-current="page">
+            <div class="btn-group">
+              <select id="disabled_candidate_year" name="disabled_candidate_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
+                <option selected disabled>Select BANRF Year</option>
+                <option value="2020" {% if year == '2020' %}selected{% endif %}>BANRF 2020 - 2021</option>
+                <option value="2021" {% if year == '2021' %}selected{% endif %}>BANRF 2021 - 2022</option>
+                <option value="2022" {% if year == '2022' %}selected{% endif %}>BANRF 2022 - 2023</option>
+                <option value="2023" {% if year == '2023' %}selected{% endif %}>BANRF 2023 - 2024</option>
+                <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024 - 2025</option>
+              </select>
+            </div>
+
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Table to display student applications -->
+  <div class="card">
+    <div class="card-header">
+      <div class="row justify-content-end">
+
+        <div class="col-md-6 text-end">
+          {% if session['user'] == 'Auditor' %}
+             <div class="text-end">
+                <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+              </div>
+          {% else %}
+              <div class="col-md-12 d-flex justify-content-end">
+                  <a href="/export_level_one_applications"
+                     class="btn btn-outline-primary btn-fw btn-rounded"
+                     data-bs-toggle="tooltip"
+                     data-bs-placement="top"
+                     title="Export as Excel">Export to Excel</a>
+              </div>
+          {% endif %}
+        </div>
+
+        <div class="text-center mb-4">
+            <h4>LEVEL 1 - NEW APPLICATIONS</h4>
+        </div><br>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered datatable">
+            <thead>
+              <tr>
+                <th>Sr.No.</th>
+                <th>Applicant ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>PhD Registration Date</th>
+                <th>Application Year</th>
+                <th>Disability</th>
+                <th>Type of Disability</th>
+                <th>Status</th>
+                <th>Scrutiny Status</th>
+                <th>Fellowship Status</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- Replace this with your backend code to iterate over rows -->
+              {% for row in data %}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{ row['applicant_id'] }}</td>
+                <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
+                <td>{{ row['email'] }}</td>
+                <td>{{ row['phd_registration_date'] }}</td>
+                <td>{{ row['fellowship_application_year'] }}</td>
+                <td>{{ row['disability'] }}</td>
+                <td>{{ row['type_of_disability'] }}</td>
+                <td>
+                  {% if row['status'] == 'accepted' %}
+                  <span class="badge badge-success bg-success text-capitalize">{{ row['status'] }}</span>
+                  {% elif row['status'] == 'pending' %}
+                  <span class="badge badge-warning bg-warning text-dark text-capitalize">{{ row['status'] }}</span>
+                  {% else %}
+                  <span class="badge badge-danger bg-danger text-capitalize">{{ row['status'] }}</span>
+                  {% endif %}
+                </td>
+                  <td>
+                  {% if row['scrutiny_status'] == 'accepted' %}
+                  <span class="badge badge-success bg-success text-capitalize">{{ row['scrutiny_status'] }}</span>
+                  {% elif row['scrutiny_status'] == 'pending' %}
+                  <span class="badge badge-warning bg-warning text-dark text-capitalize">{{ row['scrutiny_status'] }}</span>
+                  {% else %}
+                  <span class="badge badge-danger bg-danger text-capitalize">{{ row['scrutiny_status'] }}</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if row['final_approval'] == 'accepted' %}
+                  <span class="badge badge-success bg-success text-capitalize">{{ row['final_approval'] }}</span>
+                  {% elif row['final_approval'] == 'pending' %}
+                  <span class="badge badge-warning bg-warning text-dark text-capitalize">{{ row['final_approval'] }}</span>
+                  {% else %}
+                  <span class="badge badge-danger bg-danger text-capitalize">{{ row['final_approval'] }}</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+{% endblock %}

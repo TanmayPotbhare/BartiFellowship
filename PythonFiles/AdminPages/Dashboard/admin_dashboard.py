@@ -806,24 +806,24 @@ def admin_dashboard_auth(app):
 
         sql = """SELECT * FROM application_page WHERE id = %s"""
         cursor.execute(sql, (id,))
-        records = cursor.fetchall()
-
+        records = cursor.fetchone()
+        print(records)
         # Check if the user is approved for fellowship no matter the year to show the desired sidebar.
-        if records[0]['final_approval'] == 'accepted':
+        if records['final_approval'] == 'accepted':
             finally_approved = 'approved'
         else:
             finally_approved = 'pending'
 
         # Pass the user and Photo to the header and the template to render is neatly instead of keeping it in session.
         if records:
-            user = records[0]['first_name'] + ' ' + records[0]['last_name']
-            photo = records[0]['applicant_photo']
+            user = records['first_name'] + ' ' + records['last_name']
+            photo = records['applicant_photo']
         else:
             user = "Admin"
             photo = '/static/assets/img/default_user.png'
 
         # Convert the Date to standard Format
-        first_record = records[0]
+        first_record = records
         DoB = first_record['date_of_birth'] # Date of Birth
         formatted_date_of_birth = DoB.strftime('%d-%b-%Y')   
  

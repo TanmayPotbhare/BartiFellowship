@@ -34,66 +34,6 @@
     <div class="card-header">
       <div class="row justify-content-end">
 
-        <div class="col-md-6 text-start">
-              {% if session['user'] == 'Auditor' %}
-                      <a href="#" class="mx-2 export-excel">
-                        <button class="btn btn-outline-primary btn-fw">Accepted Students</button>
-                      </a>
-                      <a href="#" class="mx-2 export-excel">
-                        <button class="btn btn-outline-primary btn-fw">Pending Students</button>
-                      </a>
-                      <a href="#" class="mx-2 export-excel">
-                        <button class="btn btn-outline-primary btn-fw">Rejected Students</button>
-                      </a>
-                      <a href="#" class="mx-2 export-excel">
-                        <button class="btn btn-outline-primary btn-fw">PVTG Students(Katkari, Kolam, Madia)</button>
-                      </a>
-                      <a href="#" class="mx-2 export-excel">
-                        <button class="btn btn-outline-primary btn-fw">Disabled Students</button>
-                      </a>
-              {% else %}
-                    <div class="container mt-3 d-flex justify-content-left">
-                        <div class="dropdown">
-                            <button class="btn btn-outline-primary btn-fw dropdown-toggle px-4 py-3 fw-bold"
-                                    type="button" id="studentOptions" data-bs-toggle="dropdown" aria-expanded="false">
-                              Student Options
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark border-0 rounded" aria-labelledby="studentOptions">
-                              <!-- Accepted Students -->
-                              <li>
-                                <a class="dropdown-item d-flex align-items-center py-2" href="/accepted_students_level1">
-                                  <i class="bi bi-check-circle text-success me-2"></i>
-                                  Accepted Students
-                                </a>
-                              </li>
-                              <!-- Pending Students -->
-                              <li>
-                                <a class="dropdown-item d-flex align-items-center py-2" href="/pending_students_level1">
-                                  <i class="bi bi-hourglass-split text-warning me-2"></i>
-                                  Pending Students
-                                </a>
-                              </li>
-                              <!-- Rejected Students -->
-                              <li>
-                                <a class="dropdown-item d-flex align-items-center py-2" href="/rejected_students_level1">
-                                  <i class="bi bi-x-circle text-danger me-2"></i>
-                                  Rejected Students
-                                </a>
-                              </li>
-                              <!-- Disabled Students -->
-                              <li>
-                                <a class="dropdown-item d-flex align-items-center py-2" href="/disabled_students_level1">
-                                  <i class="bi bi-person-fill-slash text-secondary me-2"></i>
-                                  Disabled Students
-                                </a>
-                              </li>
-
-                            </ul>
-                          </div>
-                    </div>
-              {% endif %}
-        </div>
-
         <div class="col-md-6 text-end">
           {% if session['user'] == 'Auditor' %}
              <div class="text-end">
@@ -163,11 +103,13 @@
                         <form method="POST">
                           <input type="hidden" name="applicant_id" value="{{ row['applicant_id'] }}">
                           {% if row['status'] == 'pending' %}
+
                             <button class="btn btn-success btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#acceptModal"
                                 data-applicant-id="{{ row['applicant_id'] }}" data-bs-placement="top"
                                 data-bs-original-title="Accept Applicant">
                                 <i class="mdi mdi-check-all"></i>
                             </button>
+
                             <button class="btn btn-danger btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#rejectModal"
                                 data-applicant-id="{{ row['applicant_id'] }}" data-bs-placement="top"
                                 data-bs-original-title="Reject Applicant">
@@ -183,15 +125,15 @@
               </tr>
 
                 <!-- Start Modal for Acceptance Reason -->
-                <div class="modal fade show" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal fade" id="acceptModal{{loop.index}}" tabindex="-1" aria-labelledby="acceptModalLabel{{loop.index}}" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="acceptModalLabel">Accept Applicant</h5>
+                                <h5 class="modal-title" id="acceptModalLabel{{loop.index}}">Accept Applicant</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/accept_at_level_1" id="acceptForm" method="POST">
+                                <form action="/accept_at_level_1" id="acceptForm{{loop.index}}" method="POST">
                                     <input type="hidden" name="applicant_id" value="{{ row['applicant_id'] }}">
                                     <input type="hidden" name="accept" value="accept">
                                     <p>
@@ -210,7 +152,7 @@
                 <!-- End Modal for Acceptance Reason -->
 
                 <!-- Start Modal for Rejection Reason -->
-                <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+                <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

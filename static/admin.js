@@ -187,7 +187,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -290,7 +290,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -394,7 +394,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -498,7 +498,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -601,7 +601,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -704,7 +704,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -808,7 +808,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -910,7 +910,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>
@@ -1012,7 +1012,7 @@ $(document).ready(function () {
                                 <td>${record.application_date}</td>
                                 <td>${statusLabel}</td>
                                 <td>
-                                    <a href="/viewform/${record.id}" class="btn btn-primary btn-sm"
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm"
                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                                         <i class="mdi mdi-eye text-dark fw-bold"></i>
                                     </a>

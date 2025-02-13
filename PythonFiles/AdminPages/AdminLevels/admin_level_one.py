@@ -40,13 +40,130 @@ def adminlevelone_auth(app, mail):
 
         return data  # Return the data (list of dictionaries)
 
+
+    def get_accepted_candidates(year):  # Separate function for data fetching
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        query = """
+                   SELECT * FROM application_page 
+                   WHERE form_filled='1' 
+                   AND final_approval='accepted' 
+                   AND fellowship_application_year=%s
+                """
+        cursor.execute(query, (year,))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+        for row in data:
+            for key, value in row.items():
+                if isinstance(value, datetime.timedelta):
+                    row[key] = str(value)  # Or value.total_seconds()
+                elif isinstance(value, datetime.date):
+                    row[key] = value.strftime('%Y-%m-%d')
+                elif isinstance(value, datetime.datetime):
+                    row[key] = value.isoformat()
+
+        return data  # Return the data (list of dictionaries)
+
+    def get_rejected_candidates(year):  # Separate function for data fetching
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        query = """
+                   SELECT * FROM application_page 
+                   WHERE form_filled='1' 
+                   AND final_approval='rejected' 
+                   AND fellowship_application_year=%s
+                """
+        cursor.execute(query, (year,))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+        for row in data:
+            for key, value in row.items():
+                if isinstance(value, datetime.timedelta):
+                    row[key] = str(value)  # Or value.total_seconds()
+                elif isinstance(value, datetime.date):
+                    row[key] = value.strftime('%Y-%m-%d')
+                elif isinstance(value, datetime.datetime):
+                    row[key] = value.isoformat()
+
+        return data  # Return the data (list of dictionaries)
+
+    def get_pending_candidates(year):  # Separate function for data fetching
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        query = """
+                    SELECT * 
+                    FROM application_page 
+                    WHERE form_filled = '1' 
+                      AND fellowship_application_year = %s  
+                      AND (status = 'pending' 
+                       OR scrutiny_status = 'pending' 
+                       OR final_approval = 'pending');
+                """
+        cursor.execute(query, (year,))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+        for row in data:
+            for key, value in row.items():
+                if isinstance(value, datetime.timedelta):
+                    row[key] = str(value)  # Or value.total_seconds()
+                elif isinstance(value, datetime.date):
+                    row[key] = value.strftime('%Y-%m-%d')
+                elif isinstance(value, datetime.datetime):
+                    row[key] = value.isoformat()
+
+        return data  # Return the data (list of dictionaries)
+
+    def get_disabled_candidates(year):  # Separate function for data fetching
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        query = """
+                    SELECT * 
+                    FROM application_page 
+                    WHERE form_filled = '1' 
+                      AND fellowship_application_year = %s  
+                      AND disability = 'Yes'
+                """
+        cursor.execute(query, (year,))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+        for row in data:
+            for key, value in row.items():
+                if isinstance(value, datetime.timedelta):
+                    row[key] = str(value)  # Or value.total_seconds()
+                elif isinstance(value, datetime.date):
+                    row[key] = value.strftime('%Y-%m-%d')
+                elif isinstance(value, datetime.datetime):
+                    row[key] = value.isoformat()
+
+        return data  # Return the data (list of dictionaries)
+
     @adminlevelone_blueprint.route('/get_approval_year', methods=['GET', 'POST'])
     def get_approval_year():
         year = request.args.get('year', '2024')
         admin_level_one_data = get_admin_level_one_data(year)  # Call the data fetching function
+        accepted_candidates = get_accepted_candidates(year)
+        rejected_candidates = get_rejected_candidates(year)
+        pending_candidates = get_pending_candidates(year)
+        disabled_candidates = get_disabled_candidates(year)
         # print(admin_level_one_data)
         data = {
-            'admin_level_one_list': admin_level_one_data
+            'admin_level_one_list': admin_level_one_data,
+            'accepted_candidates': accepted_candidates,
+            'rejected_candidates': rejected_candidates,
+            'pending_candidates': pending_candidates,
+            'disabled_candidates': disabled_candidates
         }
         return jsonify(data)
 
@@ -146,7 +263,73 @@ def adminlevelone_auth(app, mail):
         cnx.close()
         return redirect(url_for('adminlevelone.admin_level_1'))
 
+    @adminlevelone_blueprint.route('/accepted_candidates', methods=['GET', 'POST'])
+    def accepted_candidates():
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
 
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
+        data = get_accepted_candidates(year)  # Call the data fetching function
+        print(data)
+        cursor.close()
+        cnx.close()
+        return render_template('AdminPages/FellowshipApproval/accepted_candidates.html', data=data)
+
+    @adminlevelone_blueprint.route('/final_rejected_candidates', methods=['GET', 'POST'])
+    def final_rejected_candidates():
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
+        data = get_rejected_candidates(year)  # Call the data fetching function
+        print(data)
+        cursor.close()
+        cnx.close()
+        return render_template('AdminPages/FellowshipApproval/final_rejected_candidates.html', data=data)
+
+    @adminlevelone_blueprint.route('/final_pending_candidates', methods=['GET', 'POST'])
+    def final_pending_candidates():
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
+        data = get_pending_candidates(year)  # Call the data fetching function
+        print(data)
+        cursor.close()
+        cnx.close()
+        return render_template('AdminPages/FellowshipApproval/pending_candidates.html', data=data)
+
+    @adminlevelone_blueprint.route('/final_disabled_candidates', methods=['GET', 'POST'])
+    def final_disabled_candidates():
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
+        data = get_disabled_candidates(year)  # Call the data fetching function
+        print(data)
+        cursor.close()
+        cnx.close()
+        return render_template('AdminPages/FellowshipApproval/disabled_candidates.html', data=data)
 
     def update_status_admin(applicant_id, status):
         host = HostConfig.host
