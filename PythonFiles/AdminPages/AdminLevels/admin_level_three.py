@@ -59,15 +59,83 @@ def adminlevelthree_auth(app, mail):
         if not session.get('logged_in'):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
-
+        
+        user = session['user']
+        print("The user is: " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
-        data = get_admin_level_three_data(year)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        return render_template('AdminPages/AdminLevels/LevelThree/admin_level_three.html', data=data)
+            # Default year selection
+            year_selected = "2024"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying FINAL APPROVAL Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            data = get_admin_level_three_data(year)  # Call the data fetching function
+
+            # print(data)
+
+            # Render template with results
+            return render_template(
+                'AdminPages/AdminLevels/LevelThree/admin_level_three.html',
+                data=data,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('adminlevelthree.level_three_admin'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @adminlevelthree_blueprint.route('/accept_at_level_3', methods=['GET', 'POST'])
     def accept_at_level_3():

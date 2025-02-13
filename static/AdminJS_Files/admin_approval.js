@@ -690,7 +690,7 @@ $(document).ready(function () {
                         }
 
                         switch (record.rejected_at_level) {
-                            case 'status':
+                            case 'preliminary':
                                 rejectedLabel = '<span class="text-danger text-capitalize">Preliminary Review</span>';
                                 break;
                             case 'scrutiny_status':

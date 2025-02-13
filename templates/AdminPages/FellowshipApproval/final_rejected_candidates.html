@@ -13,6 +13,12 @@
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb d-flex align-items-center">
         <li class="breadcrumb-item active" aria-current="page">
+
+          {% if year_selected in years and admin_username in usernames %}
+            <div class="btn-group">
+              <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
+            </div>
+          {% else %}
             <div class="btn-group">
               <select id="rejected_candidate_year" name="rejected_candidate_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option selected disabled>Select BANRF Year</option>
@@ -23,6 +29,18 @@
                 <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024 - 2025</option>
               </select>
             </div>
+          {% endif %}
+
+            <!-- <div class="btn-group">
+              <select id="rejected_candidate_year" name="rejected_candidate_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
+                <option selected disabled>Select BANRF Year</option>
+                <option value="2020" {% if year == '2020' %}selected{% endif %}>BANRF 2020 - 2021</option>
+                <option value="2021" {% if year == '2021' %}selected{% endif %}>BANRF 2021 - 2022</option>
+                <option value="2022" {% if year == '2022' %}selected{% endif %}>BANRF 2022 - 2023</option>
+                <option value="2023" {% if year == '2023' %}selected{% endif %}>BANRF 2023 - 2024</option>
+                <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024 - 2025</option>
+              </select>
+            </div> -->
 
         </li>
       </ul>
@@ -41,7 +59,8 @@
               </div>
           {% else %}
               <div class="col-md-12 d-flex justify-content-end">
-                  <a href="/export_level_one_applications"
+                  <!-- <a href="/export_level_one_applications" -->
+                  <a href="#"
                      class="btn btn-outline-primary btn-fw btn-rounded"
                      data-bs-toggle="tooltip"
                      data-bs-placement="top"
@@ -51,7 +70,7 @@
         </div>
 
         <div class="text-center mb-4">
-            <h4>LEVEL 1 - NEW APPLICATIONS</h4>
+            <h4>REJECTED CANDIDATE APPLICATIONS</h4>
         </div><br>
       </div>
 
@@ -111,7 +130,15 @@
                   {% endif %}
                 </td>
                 <td>
-                  {{ row['rejected_at_level'] }}
+                  {% if row['rejected_at_level'] == 'preliminary' %}
+                      <span class="text-danger text-capitalize">Preliminary Review</span>
+                  {% elif row['rejected_at_level'] == 'scrutiny_status' %}
+                      <span class="text-danger text-capitalize">Scrutiny Status</span>
+                  {% elif row['rejected_at_level'] == 'final_approval' %}
+                      <span class="text-danger text-capitalize">Final Approval</span>
+                  {% else %}
+                      <span>N/A</span>
+                  {% endif %}
                 </td>
               </tr>
               {% endfor %}

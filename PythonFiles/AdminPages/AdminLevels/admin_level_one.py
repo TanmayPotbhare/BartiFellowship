@@ -1,4 +1,4 @@
-import datetime
+from datetime import timedelta, date, datetime
 import mysql.connector
 from classes.database import HostConfig, ConfigPaths, ConnectParam
 import os
@@ -31,11 +31,11 @@ def adminlevelone_auth(app, mail):
         cnx.close()
         for row in data:
             for key, value in row.items():
-                if isinstance(value, datetime.timedelta):
+                if isinstance(value, timedelta):  # Use imported timedelta
                     row[key] = str(value)  # Or value.total_seconds()
-                elif isinstance(value, datetime.date):
+                elif isinstance(value, date):  # Covers both date and datetime
                     row[key] = value.strftime('%Y-%m-%d')
-                elif isinstance(value, datetime.datetime):
+                elif isinstance(value, datetime):
                     row[key] = value.isoformat()
 
         return data  # Return the data (list of dictionaries)
@@ -58,11 +58,11 @@ def adminlevelone_auth(app, mail):
         cnx.close()
         for row in data:
             for key, value in row.items():
-                if isinstance(value, datetime.timedelta):
+                if isinstance(value, timedelta):  # Use imported timedelta
                     row[key] = str(value)  # Or value.total_seconds()
-                elif isinstance(value, datetime.date):
+                elif isinstance(value, date):  # Covers both date and datetime
                     row[key] = value.strftime('%Y-%m-%d')
-                elif isinstance(value, datetime.datetime):
+                elif isinstance(value, datetime):
                     row[key] = value.isoformat()
 
         return data  # Return the data (list of dictionaries)
@@ -84,11 +84,11 @@ def adminlevelone_auth(app, mail):
         cnx.close()
         for row in data:
             for key, value in row.items():
-                if isinstance(value, datetime.timedelta):
+                if isinstance(value, timedelta):  # Use imported timedelta
                     row[key] = str(value)  # Or value.total_seconds()
-                elif isinstance(value, datetime.date):
+                elif isinstance(value, date):  # Covers both date and datetime
                     row[key] = value.strftime('%Y-%m-%d')
-                elif isinstance(value, datetime.datetime):
+                elif isinstance(value, datetime):
                     row[key] = value.isoformat()
 
         return data  # Return the data (list of dictionaries)
@@ -113,11 +113,11 @@ def adminlevelone_auth(app, mail):
         cnx.close()
         for row in data:
             for key, value in row.items():
-                if isinstance(value, datetime.timedelta):
+                if isinstance(value, timedelta):  # Use imported timedelta
                     row[key] = str(value)  # Or value.total_seconds()
-                elif isinstance(value, datetime.date):
+                elif isinstance(value, date):  # Covers both date and datetime
                     row[key] = value.strftime('%Y-%m-%d')
-                elif isinstance(value, datetime.datetime):
+                elif isinstance(value, datetime):
                     row[key] = value.isoformat()
 
         return data  # Return the data (list of dictionaries)
@@ -140,11 +140,11 @@ def adminlevelone_auth(app, mail):
         cnx.close()
         for row in data:
             for key, value in row.items():
-                if isinstance(value, datetime.timedelta):
+                if isinstance(value, timedelta):  # Use imported timedelta
                     row[key] = str(value)  # Or value.total_seconds()
-                elif isinstance(value, datetime.date):
+                elif isinstance(value, date):  # Covers both date and datetime
                     row[key] = value.strftime('%Y-%m-%d')
-                elif isinstance(value, datetime.datetime):
+                elif isinstance(value, datetime):
                     row[key] = value.isoformat()
 
         return data  # Return the data (list of dictionaries)
@@ -173,16 +173,82 @@ def adminlevelone_auth(app, mail):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
 
+        user = session['user']
+        print("The user is: " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
-        data = get_admin_level_one_data(year)  # Call the data fetching function
-        # print(data)
-        cursor.close()
-        cnx.close()
-        return render_template('AdminPages/AdminLevels/LevelOne/admin_level_one.html', data=data)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            # Default year selection
+            year_selected = "2024"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying PRELIMINARY REVIEW Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            data = get_admin_level_one_data(year)  # Call the data fetching function
+
+            # print(data)
+
+            # Render template with results
+            return render_template(
+                'AdminPages/AdminLevels/LevelOne/admin_level_one.html',
+                data=data,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('adminlevelone.admin_level_1'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @adminlevelone_blueprint.route('/accept_at_level_1', methods=['GET', 'POST'])
     def accept_at_level_1():
@@ -269,16 +335,82 @@ def adminlevelone_auth(app, mail):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
 
+        user = session['user']
+        print("The user is: " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
-        data = get_accepted_candidates(year)  # Call the data fetching function
-        print(data)
-        cursor.close()
-        cnx.close()
-        return render_template('AdminPages/FellowshipApproval/accepted_candidates.html', data=data)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            # Default year selection
+            year_selected = "2024"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying ACCEPTED CANDIDATES Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            data = get_accepted_candidates(year)  # Call the data fetching function
+
+            # print(data)
+
+            # Render template with results
+            return render_template(
+                'AdminPages/FellowshipApproval/accepted_candidates.html',
+                data=data,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('adminlevelone.accepted_candidates'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @adminlevelone_blueprint.route('/final_rejected_candidates', methods=['GET', 'POST'])
     def final_rejected_candidates():
@@ -286,16 +418,82 @@ def adminlevelone_auth(app, mail):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
 
+        user = session['user']
+        print("The user is: " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
-        data = get_rejected_candidates(year)  # Call the data fetching function
-        print(data)
-        cursor.close()
-        cnx.close()
-        return render_template('AdminPages/FellowshipApproval/final_rejected_candidates.html', data=data)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            # Default year selection
+            year_selected = "2024"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying REJECTED CANDIDATES Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            data = get_rejected_candidates(year)  # Call the data fetching function
+
+            # print(data)
+
+            # Render template with results
+            return render_template(
+                'AdminPages/FellowshipApproval/final_rejected_candidates.html',
+                data=data,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('adminlevelone.final_rejected_candidates'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @adminlevelone_blueprint.route('/final_pending_candidates', methods=['GET', 'POST'])
     def final_pending_candidates():
@@ -303,16 +501,82 @@ def adminlevelone_auth(app, mail):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
 
+        user = session['user']
+        print("The user is: " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
-        data = get_pending_candidates(year)  # Call the data fetching function
-        print(data)
-        cursor.close()
-        cnx.close()
-        return render_template('AdminPages/FellowshipApproval/pending_candidates.html', data=data)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            # Default year selection
+            year_selected = "2024"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying FIANL PENDING CANDIDATES Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            data = get_pending_candidates(year)  # Call the data fetching function
+
+            # print(data)
+
+            # Render template with results
+            return render_template(
+                'AdminPages/FellowshipApproval/pending_candidates.html',
+                data=data,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('adminlevelone.final_pending_candidates'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @adminlevelone_blueprint.route('/final_disabled_candidates', methods=['GET', 'POST'])
     def final_disabled_candidates():
@@ -320,16 +584,82 @@ def adminlevelone_auth(app, mail):
             # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
 
+        user = session['user']
+        print("The user is: " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', '2024')  # Get the year from the URL parameter (for initial load)
-        data = get_disabled_candidates(year)  # Call the data fetching function
-        print(data)
-        cursor.close()
-        cnx.close()
-        return render_template('AdminPages/FellowshipApproval/disabled_candidates.html', data=data)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            # Default year selection
+            year_selected = "2024"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying DISABLED CANDIDATES Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            data = get_disabled_candidates(year)  # Call the data fetching function
+
+            # print(data)
+
+            # Render template with results
+            return render_template(
+                'AdminPages/FellowshipApproval/disabled_candidates.html',
+                data=data,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('adminlevelone.final_disabled_candidates'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     def update_status_admin(applicant_id, status):
         host = HostConfig.host
