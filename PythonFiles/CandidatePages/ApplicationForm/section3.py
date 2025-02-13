@@ -105,6 +105,8 @@ def section3_auth(app):
 
         if request.method == 'POST':
             family_annual_income = request.form['family_annual_income']
+            income_barcode = request.form['income_barcode']
+            income_barcode_issue_date = request.form['income_barcode_issue_date'] 
             income_certificate_number = request.form['income_certificate_number']
             issuing_authority = request.form['issuing_authority']
             income_issuing_district = request.form['income_issuing_district']
@@ -112,12 +114,16 @@ def section3_auth(app):
 
             domicile = request.form['domicile']
             domicile_number = request.form['domicile_number']
+            domicile_barcode = request.form['domicile_barcode']
+            domicile_barcode_issue_date = request.form['domicile_barcode_issue_date']            
             domicile_issuing_authority = request.form['domicile_issuing_authority']
             domicile_issuing_district = request.form['domicile_issuing_district']
             domicile_issuing_taluka = request.form['domicile_issuing_taluka']
 
             caste_certf = request.form['caste_certf']
             caste_certf_number = request.form['caste_certf_number']
+            caste_barcode = request.form['caste_barcode']
+            caste_barcode_issue_date = request.form['caste_barcode_issue_date']    
             caste_issuing_authority = request.form['caste_issuing_authority']
             issuing_district = request.form['issuing_district']
             caste_issuing_taluka = request.form['caste_issuing_taluka']
@@ -126,11 +132,15 @@ def section3_auth(app):
 
             if validity_certificate == 'Yes':
                 validity_cert_number = request.form['validity_cert_number'] 
+                validity_barcode = request.form['validity_barcode']
+                validity_barcode_issue_date = request.form['validity_barcode_issue_date'] 
                 validity_issuing_authority = request.form['validity_issuing_authority'] 
                 validity_issuing_district = request.form['validity_issuing_district'] 
                 validity_issuing_taluka = request.form['validity_issuing_taluka'] 
             else: 
                 validity_cert_number = '' 
+                validity_barcode = ''
+                validity_barcode_issue_date = '' 
                 validity_issuing_authority = '' 
                 validity_issuing_district = '' 
                 validity_issuing_taluka = '' 
@@ -145,18 +155,18 @@ def section3_auth(app):
                 sql = """
                     UPDATE application_page 
                     SET 
-                        family_annual_income = %s, income_certificate_number = %s, issuing_authority = %s, income_issuing_district = %s, income_issuing_taluka = %s, 
-                        domicile = %s, domicile_number = %s, domicile_issuing_authority = %s, domicile_issuing_district = %s, domicile_issuing_taluka = %s,
-                        caste_certf = %s, caste_certf_number = %s, caste_issuing_authority = %s, issuing_district = %s, caste_issuing_taluka = %s,
-                        validity_certificate = %s, validity_cert_number = %s, validity_issuing_authority = %s, validity_issuing_district = %s, validity_issuing_taluka = %s,
+                        family_annual_income = %s, income_barcode = %s, income_barcode_issue_date = %s, income_certificate_number = %s, issuing_authority = %s, income_issuing_district = %s, income_issuing_taluka = %s, 
+                        domicile = %s, domicile_number = %s, domicile_issuing_authority = %s, domicile_barcode = %s, domicile_barcode_issue_date = %s, domicile_issuing_district = %s, domicile_issuing_taluka = %s,
+                        caste_certf = %s, caste_certf_number = %s, caste_barcode = %s, caste_barcode_issue_date = %s, caste_issuing_authority = %s, issuing_district = %s, caste_issuing_taluka = %s,
+                        validity_certificate = %s, validity_cert_number = %s, validity_barcode = %s, validity_barcode_issue_date = %s, validity_issuing_authority = %s, validity_issuing_district = %s, validity_issuing_taluka = %s,
                         section3 = %s
                     WHERE email = %s
                 """
                 values = (
-                    family_annual_income, income_certificate_number, issuing_authority, income_issuing_district, income_issuing_taluka,
-                    domicile, domicile_number, domicile_issuing_authority, domicile_issuing_district, domicile_issuing_taluka,
-                    caste_certf, caste_certf_number, caste_issuing_authority, issuing_district, caste_issuing_taluka,
-                    validity_certificate, validity_cert_number, validity_issuing_authority, validity_issuing_district, validity_issuing_taluka,
+                    family_annual_income,  income_barcode, income_barcode_issue_date, income_certificate_number, issuing_authority, income_issuing_district, income_issuing_taluka,
+                    domicile, domicile_number, domicile_issuing_authority, domicile_barcode, domicile_barcode_issue_date, domicile_issuing_district, domicile_issuing_taluka,
+                    caste_certf, caste_certf_number, caste_barcode, caste_barcode_issue_date, caste_issuing_authority, issuing_district, caste_issuing_taluka,
+                    validity_certificate, validity_cert_number, validity_barcode, validity_barcode_issue_date, validity_issuing_authority, validity_issuing_district, validity_issuing_taluka,
                     section3, email  # Include `email` to identify the record
                 )
 

@@ -243,31 +243,95 @@ def admin_dashboard_auth(app):
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
 
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s", (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/total_application_report.html', result=result,
-                               year=year)
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying TOTAL applications Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/total_application_report.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.total_application_report'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @admin_dashboard_blueprint.route('/completed_form', methods=['GET', 'POST'])
     def completed_form():
@@ -282,34 +346,96 @@ def admin_dashboard_auth(app):
             # Redirect to the admin login page if the user is not logged in
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
-
-        year = request.args.get('year', default=2023, type=int)
-
-        # print(year)
+        
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(" SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='1' ", (year,))
-        result = cursor.fetchall()
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+            # Default year selection
+            year_selected = "2023"  
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/completed_form.html', result=result,
-                               year=year)
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying COMPLETED Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='1' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/completed_form.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.completed_form'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @admin_dashboard_blueprint.route('/incompleted_form', methods=['GET', 'POST'])
     def incompleted_form():
@@ -324,32 +450,96 @@ def admin_dashboard_auth(app):
             # Redirect to the admin login page if the user is not logged in
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
-
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
+        
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(" SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='0' ", (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/incompleted_form.html', result=result,
-                               year=year)
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying INCOMPLETE Application Completed Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='0' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/incompleted_form.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.incompleted_form'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
     @admin_dashboard_blueprint.route('/total_accepted_report', methods=['GET', 'POST'])
     def total_accepted_report():
@@ -365,31 +555,95 @@ def admin_dashboard_auth(app):
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
 
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(" SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='1' and final_approval='accepted' ", (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/total_accepted_report.html', result=result,
-                               year=year)
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying Total ACCEPTED Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='1' and final_approval='accepted' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/total_accepted_report.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.total_accepted_report'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()    
 
     @admin_dashboard_blueprint.route('/total_rejected_report', methods=['GET', 'POST'])
     def total_rejected_report():
@@ -404,34 +658,96 @@ def admin_dashboard_auth(app):
             # Redirect to the admin login page if the user is not logged in
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
-
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
+        
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='1' and final_approval='rejected' ",
-            (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/total_rejected_report.html', result=result,
-                               year=year)
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying Total REJECTED Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and form_filled='1' and final_approval='rejected' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/total_rejected_report.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.total_rejected_report'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()    
 
     @admin_dashboard_blueprint.route('/male_report', methods=['GET', 'POST'])
     def male_report():
@@ -446,34 +762,96 @@ def admin_dashboard_auth(app):
             # Redirect to the admin login page if the user is not logged in
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
-
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
+        
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year = %s and gender='Male' ",
-            (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/male_report.html', result=result,
-                               year=year)
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying Total MALE Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and gender='Male' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/male_report.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.male_report'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()    
 
     @admin_dashboard_blueprint.route('/female_report', methods=['GET', 'POST'])
     def female_report():
@@ -488,34 +866,97 @@ def admin_dashboard_auth(app):
             # Redirect to the admin login page if the user is not logged in
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
-
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
+        
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year = %s and gender='Female' ",
-            (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/female_report.html', result=result,
-                               year=year)
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            
+            print("I am displaying Total FEMALE Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and gender='Female' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/female_report.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.female_report'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close() 
 
     @admin_dashboard_blueprint.route('/disabled_report', methods=['GET', 'POST'])
     def disabled_report():
@@ -530,34 +971,96 @@ def admin_dashboard_auth(app):
             # Redirect to the admin login page if the user is not logged in
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
-
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
+                
+        user = session['user']
+        print("The user is " + user)
         host = HostConfig.host
         connect_param = ConnectParam(host)
+
+        # Establish database connection
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(
-            " SELECT * FROM application_page WHERE phd_registration_year = %s and disability='Yes' ",
-            (year,))
-        result = cursor.fetchall()
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-        # print(count(result))
-        # If it's an AJAX request, return JSON data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            for record in result:
-                for key, value in record.items():
-                    if isinstance(value, timedelta):
-                        record[key] = str(value)  # Convert to a string (e.g., "5 days, 0:00:00")
-                    if isinstance(value, date):
-                        record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
-            return jsonify(result)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # print(result)
-        return render_template('AdminPages/DashboardCountReports/disabled_report.html', result=result,
-                               year=year)
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying Total DISABLED Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and disability='Yes' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/disabled_report.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.disabled_report'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()     
 
     @admin_dashboard_blueprint.route('/not_disabled_report', methods=['GET', 'POST'])
     def not_disabled_report():
@@ -572,6 +1075,98 @@ def admin_dashboard_auth(app):
             # Redirect to the admin login page if the user is not logged in
             flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
+
+
+        user = session['user']
+        print("The user is " + user)
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+
+        # Establish database connection
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying Total NOT DISABLED Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
+            # Fetch application data based on the selected year
+            cursor.execute("SELECT * FROM application_page WHERE phd_registration_year = %s and disability='No' ", (year,))
+            result = cursor.fetchall()
+
+            # If it's an AJAX request, return JSON response
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                for record in result:
+                    for key, value in record.items():
+                        if isinstance(value, timedelta):
+                            record[key] = str(value)  # Convert timedelta to string
+                        if isinstance(value, date):
+                            record[key] = value.strftime('%Y-%m-%d')  # Format date for JSON
+                return jsonify(result)
+
+
+            # Render template with results
+            return render_template(
+                'AdminPages/DashboardCountReports/not_disabled_report.html',
+                result=result,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames 
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            flash("An error occurred while fetching data", "error")
+            return redirect(url_for('admin_dashboard.not_disabled_report'))
+
+        finally:
+            # Ensure the cursor and connection are closed properly
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()    
+
 
         year = request.args.get('year', default=2023, type=int)
         # print(year)
