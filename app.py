@@ -8,6 +8,7 @@ from Blueprints.blueprints_candidate import candidate_blueprints
 from classes.caste import casteController
 from classes.university import universityController
 
+# Added
 # ----------- Flask Instance --------------
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'FellowApp123@#$*&'
