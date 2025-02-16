@@ -1,0 +1,199 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">
+          <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-eye-arrow-right"></i>
+          </span> View HRA Rates
+        </h3>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-end">
+                <!-- Add Admin Button to Open Modal -->
+                <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addHRAModal">
+                    <i class="mdi mdi-plus-thick"></i> Add Rate
+                </a>
+            </div>
+
+            <!-- Add HRA Rate Modal -->
+            <div class="modal fade" id="addHRAModal" tabindex="-1" aria-labelledby="addHRAModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="addHRAModalLabel">Add HRA Rate</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Card Form Starts Here -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/submit_HRA_rate" method="POST">
+                                        <div class="card shadow-sm mb-4">
+                                            <div class="btn btn-dark btn-lg text-center">
+                                                <h6 class="text-white fw-bold">Rate Details</h6>
+                                            </div>
+                                            <div class="row m-0 mt-3">
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Select District
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select name="city" id="city" class="form-select" required>
+                                                            <option value="" selected disabled>-- Select City --</option>
+                                                            {% for row in city_list %}
+                                                            <option value="{{row['city']}}">{{row['city']}}</option>
+                                                            {% endfor %}
+
+                                                            <!-- {% for castes in all_caste %}
+                                                                    <option
+                                                                        data-hidden="{{ castes['unique_number'] }}"
+                                                                        value="{{ castes['caste_name'] }}"
+                                                                    >
+                                                                    {{ castes['caste_name'] }}
+                                                                    </option>
+                                                            {% endfor %} -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Rate
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="rate" id="rate"
+                                                            placeholder="Enter HRA Rate" class="form-control"
+                                                            oninput="validateRate(this)" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Category
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select name="category" class="form-select" required>
+                                                            <option value="" selected disabled>-- Select Category --</option>
+                                                            <option value="X">X</option>
+                                                            <option value="Y">Y</option>
+                                                            <option value="Z">Z</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center ms-2 mb-2">
+                                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Card Form Ends Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered datatable">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>District</th>
+                            <th>Rate</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in record %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row['city'] }}</td>
+                            <td>{{ row['rate'] }}</td>
+                            <td>{{ row['category'] }}</td>
+                            <td>
+                                <a href="/delete_hra/{{row['id']}}" class="btn btn-danger btn-sm tooltip-trigger"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Delete Admin"><i
+                                    class="mdi mdi-close-octagon"></i>
+                                </a>
+                                <!-- <a href="#" class="btn btn-primary btn-sm editHRABtn"
+                                    data-id="{{ row['id'] }}"
+                                    data-first_name="{{ row['first_name'] }}"
+                                    data-middle_name="{{ row['middle_name'] }}"
+                                    data-surname="{{ row['surname'] }}"
+                                    data-email="{{ row['email'] }}"
+                                    data-username="{{ row['username'] }}"
+                                    data-role="{{ row['role'] }}"
+                                    data-year="{{ row['year'] }}"
+                                    data-mobile_number="{{ row['mobile_number'] }}"
+                                    data-password="{{ row['password'] }}"
+                                    data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                    <i class="mdi mdi-pencil"></i> Edit
+                                </a> -->
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="editAdminModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold" id="editAdminModalLabel">Edit Admin Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editAdminForm" action="" method="POST">
+                                    <input type="hidden" name="id" id="edit_id"> 
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">First Name</label>
+                                            <input type="text" name="first_name" id="edit_first_name" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Middle Name</label>
+                                            <input type="text" name="middle_name" id="edit_middle_name" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Surname</label>
+                                            <input type="text" name="surname" id="edit_surname" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Email</label>
+                                            <input type="email" name="email" id="edit_email" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Username</label>
+                                            <input type="text" name="username" id="edit_username" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Role</label>
+                                            <input type="text" name="role" id="edit_role" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Year</label>
+                                            <input type="text" name="year" id="edit_year" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Mobile Number</label>
+                                            <input type="text" name="mobile_number" id="edit_mobile_number" class="form-control">
+                                        </div>
+                                    </div>
+                
+                                    <button type="submit" class="btn btn-success mt-3">Update Admin</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
