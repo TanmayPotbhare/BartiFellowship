@@ -1218,3 +1218,58 @@ function validatePasswords() {
 }
 // ----------------------END Add Admin Validations---------------------------------
 // --------------------------------------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".editAdminBtn").forEach(button => {
+        button.addEventListener("click", function() {
+            // Populate form fields
+            document.getElementById("edit_id").value = this.dataset.id;
+            document.getElementById("edit_first_name").value = this.dataset.first_name;
+            document.getElementById("edit_middle_name").value = this.dataset.middle_name;
+            document.getElementById("edit_surname").value = this.dataset.surname;
+            document.getElementById("edit_email").value = this.dataset.email;
+            document.getElementById("edit_username").value = this.dataset.username;
+            document.getElementById("edit_role").value = this.dataset.role;
+            document.getElementById("edit_year").value = this.dataset.year;
+            document.getElementById("edit_mobile_number").value = this.dataset.mobile_number;
+
+            // Set form action dynamically
+            document.querySelector("#editAdminModal form").action = "/edit_admin/" + this.dataset.id;
+        });
+    });
+});
+
+
+function validateRate(input) {
+    // Remove any non-numeric characters
+    input.value = input.value.replace(/[^0-9]/g, '');
+
+        // Limit the input to 1 digits
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10);
+        }     
+
+        if (input.value === '0') {
+            input.value = '';
+        }  
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".editHRABtn").forEach(button => {
+            button.addEventListener("click", function() {
+                // Populate form fields
+                document.getElementById("edit_id").value = this.dataset.id;
+                document.getElementById("edit_first_name").value = this.dataset.first_name;
+                document.getElementById("edit_middle_name").value = this.dataset.middle_name;
+                document.getElementById("edit_surname").value = this.dataset.surname;
+                document.getElementById("edit_email").value = this.dataset.email;
+                document.getElementById("edit_username").value = this.dataset.username;
+                document.getElementById("edit_role").value = this.dataset.role;
+                document.getElementById("edit_year").value = this.dataset.year;
+                document.getElementById("edit_mobile_number").value = this.dataset.mobile_number;
+    
+                // Set form action dynamically
+                document.querySelector("#editAdminModal form").action = "/edit_admin/" + this.dataset.id;
+            });
+        });
+    });

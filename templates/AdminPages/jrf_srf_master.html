@@ -1,0 +1,191 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">
+          <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-eye-arrow-right"></i>
+          </span> View JRF SRF Details
+        </h3>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-end">
+                <!-- Add Admin Button to Open Modal -->
+                <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addJRFModal">
+                    <i class="mdi mdi-plus-thick"></i> Add Amount
+                </a>
+            </div>
+
+            <!-- Add JRf-SRF Modal -->
+            <div class="modal fade" id="addJRFModal" tabindex="-1" aria-labelledby="addJRFModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="addJRFModalLabel">Add Amount</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Card Form Starts Here -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/submit_jrf_srf" method="POST">
+                                        <div class="card shadow-sm mb-4">
+                                            <div class="btn btn-dark btn-lg text-center">
+                                                <h6 class="text-white fw-bold">Amount Details</h6>
+                                            </div>
+                                            <div class="row m-0 mt-3">
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">JRF Amount
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="jrf_amount" id="jrf_amount"
+                                                            placeholder="Enter JRF Amount" class="form-control"
+                                                            oninput="validateRate(this)" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">SRF Amount
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="text" name="srf_amount" id="srf_amount"
+                                                            placeholder="Enter SRF Amount" class="form-control"
+                                                            oninput="validateRate(this)" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-2">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold">Year
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select name="year" class="form-select" required>
+                                                            <option value="" selected disabled>-- Select Year --</option>
+                                                            <option value="BANRF 2020">BANRF 2020</option>
+                                                            <option value="BANRF 2021">BANRF 2021</option>
+                                                            <option value="BANRF 2022">BANRF 2022</option>
+                                                            <option value="BANRF 2023">BANRF 2023</option>
+                                                            <option value="BANRF 2024">BANRF 2024</option>
+                                                            <option value="BANRF 2025">BANRF 2025</option>
+                                                            <option value="BANRF 2026">BANRF 2026</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center ms-2 mb-2">
+                                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Card Form Ends Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered datatable">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>JRF Amount</th>
+                            <th>SRF Amount</th>
+                            <th>Year</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in record %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row['jrf_amount'] }}</td>
+                            <td>{{ row['srf_amount'] }}</td>
+                            <td>{{ row['year'] }}</td>
+                            <td>
+                                <a href="/delete_jrf/{{row['id']}}" class="btn btn-danger btn-sm tooltip-trigger"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Delete Admin"><i
+                                    class="mdi mdi-close-octagon"></i>
+                                </a>
+                                <!-- <a href="#" class="btn btn-primary btn-sm editHRABtn"
+                                    data-id="{{ row['id'] }}"
+                                    data-first_name="{{ row['first_name'] }}"
+                                    data-middle_name="{{ row['middle_name'] }}"
+                                    data-surname="{{ row['surname'] }}"
+                                    data-email="{{ row['email'] }}"
+                                    data-username="{{ row['username'] }}"
+                                    data-role="{{ row['role'] }}"
+                                    data-year="{{ row['year'] }}"
+                                    data-mobile_number="{{ row['mobile_number'] }}"
+                                    data-password="{{ row['password'] }}"
+                                    data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                    <i class="mdi mdi-pencil"></i> Edit
+                                </a> -->
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="editAdminModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold" id="editAdminModalLabel">Edit Admin Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editAdminForm" action="" method="POST">
+                                    <input type="hidden" name="id" id="edit_id"> 
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">First Name</label>
+                                            <input type="text" name="first_name" id="edit_first_name" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Middle Name</label>
+                                            <input type="text" name="middle_name" id="edit_middle_name" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Surname</label>
+                                            <input type="text" name="surname" id="edit_surname" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Email</label>
+                                            <input type="email" name="email" id="edit_email" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Username</label>
+                                            <input type="text" name="username" id="edit_username" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Role</label>
+                                            <input type="text" name="role" id="edit_role" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Year</label>
+                                            <input type="text" name="year" id="edit_year" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bold">Mobile Number</label>
+                                            <input type="text" name="mobile_number" id="edit_mobile_number" class="form-control">
+                                        </div>
+                                    </div>
+                
+                                    <button type="submit" class="btn btn-success mt-3">Update Admin</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

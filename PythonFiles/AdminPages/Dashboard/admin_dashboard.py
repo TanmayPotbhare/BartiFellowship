@@ -1288,11 +1288,11 @@ def admin_dashboard_auth(app):
 
         cursor.execute("SELECT username FROM admin WHERE role = 'Admin'")
         existing_usernames = [row['username'] for row in cursor.fetchall()]
-        print(existing_usernames)
+        # print(existing_usernames)
 
         cursor.execute("SELECT year FROM admin WHERE role = 'Admin'")
         existing_years = [row['year'] for row in cursor.fetchall()]
-        print(existing_years)
+        # print(existing_years)
 
         cnx.commit()
         cursor.close()
@@ -1303,11 +1303,8 @@ def admin_dashboard_auth(app):
     @admin_dashboard_blueprint.route('/addAdmin_submit', methods=['GET', 'POST'])
     def addAdmin_submit():
         """
-            This function is responsible for handling the dynamic exporting of application report data based
-            on the selected year.
-            Path of AJAX Call: /static/admin.js. (Search the form_types in the JS File)
-            Path of HTML can be found in the respective templates.
-            {columns_str} will be found in: PythonFiles/AdminPages/Dashboard/export_column_names.py
+            This function is responsible for submitting the ADD Admin Form in Add User Functionality for Admin Master 
+            in HoD Login
         """
         host = HostConfig.host
         connect_param = ConnectParam(host)
@@ -1353,6 +1350,84 @@ def admin_dashboard_auth(app):
 
                 flash('Admin Added successfully and Mail has been sent with the credentials', 'success')
                 return redirect(url_for('admin_dashboard.addAdmin'))
+        return render_template('AdminPages/addAdmin.html')
+
+    @admin_dashboard_blueprint.route('/delete_admin/<int:id>')
+    def delete_admin(id):
+        """
+            This function is responsible for DELETE ADMIN functionality for Admin Master in HOD Login
+        """
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        try:
+            sql = "DELETE FROM admin WHERE id = %s"
+            cursor.execute(sql, (id,))
+            cnx.commit() 
+
+            flash('Admin Deleted Successfully!', 'success') 
+
+        except Exception as e:
+            print(f"Error deleting admin: {e}")
+            flash('An error occurred while deleting the admin.', 'error')
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+        return redirect(url_for('admin_dashboard.addAdmin'))
+
+    @admin_dashboard_blueprint.route('/edit_admin/<int:id>' , methods=['GET', 'POST'])
+    def edit_admin(id):
+        """
+            This function is responsible for EDIT ADMIN functionality for Admin Master in HOD Login
+        """
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+        admin_id = id
+        my_id = str(admin_id)
+        print("I am editing rec for Admin with ID " + my_id)
+        if request.method == 'POST':
+            first_name = request.form['first_name']
+            middle_name = request.form['middle_name']
+            last_name = request.form['surname']
+            mobile_number = request.form['mobile_number']
+            # age = request.form['age']
+            # dob = request.form['date_of_birth']
+            email = request.form['email']
+            # password = request.form['password']
+            # gender = request.form['gender']
+            role = request.form['role']
+            year = request.form['year']
+            username = request.form['username']
+
+            cursor.execute("SELECT * FROM admin WHERE email = %s", (email,))
+            record = cursor.fetchone()
+
+            # if is_user_already_exist(username):
+            #     flash('An admin is already registered for this year. Please select a different year.', 'info')
+            #     return redirect(url_for('admin_dashboard.addAdmin'))
+            updated_date = datetime.now().date()
+            updated_time = datetime.now().time()
+            updated_by = 'HoD'
+            # role = 'Admin'
+
+            cursor.execute(
+                "UPDATE admin SET first_name = %s, middle_name = %s, surname = %s, mobile_number = %s, email = %s, "
+                "username = %s, updated_date = %s, updated_time = %s, updated_by = %s, role = %s, year = %s "
+                "WHERE id = %s",  # Ensure the WHERE clause specifies the row to update
+                (first_name, middle_name, last_name, mobile_number, email, username,
+                updated_date, updated_time, updated_by, role, year, admin_id)  # Pass `admin_id` for the WHERE condition
+            )
+            cnx.commit()
+            flash('Admin Updated successfully !!', 'success')
+            return redirect(url_for('admin_dashboard.addAdmin'))
         return render_template('AdminPages/addAdmin.html')
 
     # END Add, View, Update, Delete Admin Function
@@ -1417,3 +1492,200 @@ def admin_dashboard_auth(app):
         cnx.close()
         return result
     
+
+# -------------------------------------------------------------------------------------------------
+# -------------------Start VIEW, ADD, EDIT, DELETE functionality for HRA Master----------------------
+# -------------------------------------------------------------------------------------------------
+
+# --------------------VIEW HRA Rate---------------------------------------------------------------
+    @admin_dashboard_blueprint.route('/hra_master', methods=['GET', 'POST'])
+    def hra_master():
+        """
+            This function is responsible for redirecting to the HRA Master in Admin Login
+        """
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        cursor.execute("SELECT * FROM hra_rate_master ")
+        record = cursor.fetchall()
+
+        cursor.execute("SELECT city FROM cities ORDER BY city ASC")
+        city_list = cursor.fetchall()
+        print(city_list)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+        return render_template('AdminPages/hra_master.html', record=record,city_list=city_list)
+    
+    # --------------------------ADD HRA Rate-----------------------------------
+    @admin_dashboard_blueprint.route('/submit_HRA_rate', methods=['GET', 'POST'])
+    def submit_HRA_rate():
+        """
+            This function is responsible for submitting the HRA Rate Form in ADD Rate Functionality for HRA Master
+            in HoD Login
+        """
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        if request.method == 'POST':
+            city = request.form['city']
+            rate = request.form['rate']
+            category = request.form['category']
+
+            if is_city_already_exist(city):
+                flash('HRA Rate is already set for this city. Please Edit the rates for the same.', 'info')
+                return redirect(url_for('admin_dashboard.hra_master'))
+            
+            added_date = datetime.now().date()
+            added_time = datetime.now().time()
+            added_by = 'HoD'
+            # role = 'Admin'
+
+            cursor.execute(
+                "INSERT INTO hra_rate_master (city, rate, category, added_date, added_time, added_by) "
+                "VALUES (%s, %s, %s, %s, %s, %s)",
+                (city, rate, category, added_date, added_time, added_by))
+            cnx.commit()
+
+            flash('HRA Rate added successfully!!', 'success')
+            return redirect(url_for('admin_dashboard.hra_master'))
+        return render_template('AdminPages/hra_master.html')
+
+    # ---------------------------- Check if city already exists in DB ----------------------
+    def is_city_already_exist(city):  # ---------------- CHECK IF city IS IN THE DATABASE
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect()
+        sql = "SELECT city FROM hra_rate_master WHERE city = %s"
+        cursor.execute(sql, (city,))
+        result = cursor.fetchone()
+        cursor.close()
+        cnx.close()
+        return result
+    
+# --------------------------------DELETE HRA Rate-------------------------------------------
+    @admin_dashboard_blueprint.route('/delete_hra/<int:id>')
+    def delete_hra(id):
+        """
+            This function is responsible for DELETE HRA Rate functionality for HRA Master in HOD Login
+        """
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        try:
+            sql = "DELETE FROM hra_rate_master WHERE id = %s"
+            cursor.execute(sql, (id,))
+            cnx.commit() 
+
+            flash('HRA Rate Deleted Successfully!', 'success') 
+
+        except Exception as e:
+            print(f"Error deleting HRA Rate: {e}")
+            flash('An error occurred while deleting the admin.', 'error')
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+        return redirect(url_for('admin_dashboard.hra_master'))
+
+# -------------------------------------------------------------------------------------------------
+# -------------------End VIEW, ADD, EDIT, DELETE functionality for HRA Master----------------------
+# -------------------------------------------------------------------------------------------------
+#     
+# -------------------------------------------------------------------------------------------------
+# -------------------Start VIEW, ADD, EDIT, DELETE functionality for JRF-SRF Master----------------
+# -------------------------------------------------------------------------------------------------
+
+    # -------------------- VIEW JRF-SRF Amount--------------------
+    @admin_dashboard_blueprint.route('/jrf_srf_master', methods=['GET', 'POST'])
+    def jrf_srf_master():
+        """
+            This function is responsible for redirecting to the JRF-SRF Master in Admin Login
+        """
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        cursor.execute("SELECT * FROM jrf_srf_master ")
+        record = cursor.fetchall()
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+        return render_template('AdminPages/jrf_srf_master.html', record=record)
+    
+    # -------------------- ADD JRF-SRF Amount--------------------
+    @admin_dashboard_blueprint.route('/submit_jrf_srf', methods=['GET', 'POST'])
+    def submit_jrf_srf():
+        """
+            This function is responsible for submitting the JRF-SRF Rate Form in ADD Amount Functionality for JRF-SRF Master
+            in HoD Login
+        """
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        if request.method == 'POST':
+            jrf_amount = request.form['jrf_amount']
+            srf_amount = request.form['srf_amount']
+            year = request.form['year']
+            added_date = datetime.now().date()
+            added_time = datetime.now().time()
+            added_by = 'HoD'
+            # role = 'Admin'
+
+            cursor.execute(
+                "INSERT INTO jrf_srf_master (jrf_amount, srf_amount, year, added_date, added_time, added_by) "
+                "VALUES (%s, %s, %s, %s, %s, %s)",
+                (jrf_amount, srf_amount, year, added_date, added_time, added_by))
+            cnx.commit()
+
+            flash('JRF/SRF Amount added successfully!!', 'success')
+            return redirect(url_for('admin_dashboard.jrf_srf_master'))
+        return render_template('AdminPages/jrf_srf_master.html')
+    
+    # -------------------- DELETE JRF-SRF Amount--------------------
+    @admin_dashboard_blueprint.route('/delete_jrf/<int:id>')
+    def delete_jrf(id):
+        """
+            This function is responsible for DELETE JRF/SRF Rate functionality for JRF/SRF Master in HOD Login
+        """
+        if not session.get('logged_in'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        try:
+            sql = "DELETE FROM jrf_srf_master WHERE id = %s"
+            cursor.execute(sql, (id,))
+            cnx.commit() 
+
+            flash('JRF/SRf Amount Deleted Successfully!', 'success') 
+
+        except Exception as e:
+            print(f"Error deleting JRF/SRf Amount: {e}")
+            flash('An error occurred while deleting the admin.', 'error')
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+        return redirect(url_for('admin_dashboard.jrf_srf_master'))
+    
+# -------------------------------------------------------------------------------------------------
+# -------------------End VIEW, ADD, EDIT, DELETE functionality for JRF-SRF Master------------------
+# -------------------------------------------------------------------------------------------------    

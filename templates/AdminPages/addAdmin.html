@@ -229,6 +229,7 @@
                             <th>Mobile Number</th>
                             <th>Password</th>
                             <th>Added By</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -243,10 +244,109 @@
                             <td>{{ row['mobile_number'] }}</td>
                             <td>{{ row['password'] }}</td>
                             <td>{{ row['added_by'] }}</td>
+                            <td>
+                                <a href="/delete_admin/{{row['id']}}" class="btn btn-danger btn-sm tooltip-trigger"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Delete Admin"><i
+                                    class="mdi mdi-close-octagon"></i>
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm editAdminBtn"
+                                    data-id="{{ row['id'] }}"
+                                    data-first_name="{{ row['first_name'] }}"
+                                    data-middle_name="{{ row['middle_name'] }}"
+                                    data-surname="{{ row['surname'] }}"
+                                    data-email="{{ row['email'] }}"
+                                    data-username="{{ row['username'] }}"
+                                    data-role="{{ row['role'] }}"
+                                    data-year="{{ row['year'] }}"
+                                    data-mobile_number="{{ row['mobile_number'] }}"
+                                    data-password="{{ row['password'] }}"
+                                    data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                    <i class="mdi mdi-pencil"></i> Edit
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+                <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="editAdminModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold" id="editAdminModalLabel">Edit Admin Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Card Form Starts Here -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="editAdminForm" action="" method="POST">
+                                            <input type="hidden" name="id" id="edit_id"> <!-- Hidden field for ID -->
+                                            <div class="card shadow-sm mb-4">
+                                                <div class="btn btn-dark btn-lg text-center">
+                                                    <h6 class="text-white fw-bold">Admin Details</h6>
+                                                </div>
+                                                <div class="row m-0 mt-3">
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">First Name</label>
+                                                            <input type="text" name="first_name" id="edit_first_name" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">Middle Name</label>
+                                                            <input type="text" name="middle_name" id="edit_middle_name" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">Surname</label>
+                                                            <input type="text" name="surname" id="edit_surname" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">Email</label>
+                                                            <input type="email" name="email" id="edit_email" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">Username</label>
+                                                            <input type="text" name="username" id="edit_username" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">Role</label>
+                                                            <input type="text" name="role" id="edit_role" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">Year</label>
+                                                            <input type="text" name="year" id="edit_year" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label class="fw-bold">Mobile Number</label>
+                                                            <input type="text" name="mobile_number" id="edit_mobile_number" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                        <div class="text-center ms-2 mb-2">
+                                            <button type="submit" class="btn btn-primary mt-3">Update Admin</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
