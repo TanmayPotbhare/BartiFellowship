@@ -106,8 +106,8 @@ def section5_auth(app):
                 'income_doc',
                 'ssc_doc', 'hsc_doc', 'grad_doc', 'post_grad_doc', 'entrance_doc', 'phd_reciept_doc',
                 'guideAllotment_doc',
-                'guideAccept_doc', 'rac_doc', 'confirmation_doc', 'joining_doc', 'annexureAC_doc', 'annexureB_doc',
-                'disable_doc', 'gazete_doc', 'selfWritten_doc', 'research_letter_doc'
+                'guideAccept_doc', 'rac_doc', 'confirmation_doc', 'joining_doc', 'annexureA_doc', 'annexureB_doc',
+                'annexureC_doc', 'annexureD_doc', 'disable_doc', 'gazete_doc', 'selfWritten_doc', 'research_letter_doc'
             ]
 
             uploaded_files = {}
@@ -135,8 +135,10 @@ def section5_auth(app):
             rac_doc = uploaded_files['rac_doc']
             confirmation_doc = uploaded_files['confirmation_doc']
             joining_doc = uploaded_files['joining_doc']
-            annexureAC_doc = uploaded_files['annexureAC_doc']
+            annexureA_doc = uploaded_files['annexureA_doc']
             annexureB_doc = uploaded_files['annexureB_doc']
+            annexureC_doc = uploaded_files['annexureC_doc']
+            annexureD_doc = uploaded_files['annexureD_doc']
             disable_doc = uploaded_files['disable_doc']
             gazete_doc = uploaded_files['gazete_doc']
             selfWritten_doc = uploaded_files['selfWritten_doc']
@@ -155,15 +157,16 @@ def section5_auth(app):
                         caste_doc = %s, validity_doc = %s, income_doc = %s, ssc_doc = %s, hsc_doc = %s,
                         grad_doc = %s, post_grad_doc = %s, entrance_doc = %s, phd_reciept_doc = %s, 
                         guideAllotment_doc = %s, guideAccept_doc = %s, rac_doc = %s, confirmation_doc = %s, 
-                        joining_doc = %s, annexureAC_doc = %s, annexureB_doc = %s, disable_doc = %s, 
-                        gazete_doc = %s, selfWritten_doc = %s, research_letter_doc = %s, section5 = %s
+                        joining_doc = %s, annexureA_doc = %s, annexureB_doc = %s, annexureC_doc = %s, 
+                        annexureD_doc = %s, disable_doc = %s, gazete_doc = %s, selfWritten_doc = %s,
+                        research_letter_doc = %s, section5 = %s
                     WHERE email = %s
                 """
                 values = (
                     signature, adhaar_card_doc, pan_card_doc, domicile_doc, caste_doc, validity_doc, income_doc,
                     ssc_doc, hsc_doc, grad_doc, post_grad_doc, entrance_doc, phd_reciept_doc, guideAllotment_doc,
-                    guideAccept_doc, rac_doc, confirmation_doc, joining_doc, annexureAC_doc, annexureB_doc,
-                    disable_doc, gazete_doc, selfWritten_doc, research_letter_doc,
+                    guideAccept_doc, rac_doc, confirmation_doc, joining_doc, annexureA_doc, annexureB_doc, 
+                    annexureC_doc, annexureD_doc, disable_doc, gazete_doc, selfWritten_doc, research_letter_doc,
                     section5, email  # Include `email` to identify the record
                 )
 
