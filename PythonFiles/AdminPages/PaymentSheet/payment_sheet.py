@@ -55,6 +55,7 @@ def payment_sheet_auth(app):
             return redirect(url_for('admin_login'))
 
         user = session['user']
+        print("The user is " + user)
 
         user_records = []
         if request.method == 'GET':
@@ -77,12 +78,61 @@ def payment_sheet_auth(app):
             """)
             user_data = cursor.fetchall()  # Use fetchall to retrieve all rows
             print('user data:', user_data)
+            
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            # Default year selection
+            year_selected = "2023"  
+
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
+
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
+
+                print("The username is " + username)
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year_selected = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year_selected = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year_selected = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year_selected = "2024"
+
+            # Set available years
+            years = ["2020", "2021", "2022", "2023", "2024"]
+            # Set available usernames
+            usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
+
+            print("I am displaying Total ACCEPTED Application Report")
+
+            # Get year from request, fallback to admin's assigned year if not provided
+            year = request.args.get('year', year_selected)
+            print("The year selected is :" +year)
+
 
             # Close the database cursor and connection
             cursor.close()
             cnx.close()
 
-        return render_template('AdminPages/PaymentSheet/payment_sheet.html', user_data=user_data)
+        return render_template('AdminPages/PaymentSheet/payment_sheet.html', user_data=user_data,
+                year=year,
+                years=years,
+                username=username,
+                year_selected=year_selected,
+                admin_username=admin_username,
+                usernames=usernames)
 
     class PDF(FPDF):
         def __init__(self):
