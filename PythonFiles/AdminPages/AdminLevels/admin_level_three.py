@@ -1,10 +1,7 @@
 import datetime
-import mysql.connector
 from classes.database import HostConfig, ConfigPaths, ConnectParam
-import os
 from flask_mail import Mail, Message
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, jsonify
-from authentication.middleware import auth
 
 adminlevelthree_blueprint = Blueprint('adminlevelthree', __name__)
 
@@ -148,6 +145,10 @@ def adminlevelthree_auth(app, mail):
         cnx, cursor = connect_param.connect(use_dict=True)
 
         applicant_id = request.form['applicant_id']  # Use the correct field name
+
+        cursor.execute("SELECT * FROM application_page WHERE applicant_id = %s", (applicant_id,))
+        user_result = cursor.fetchone()
+
         final_approval = 'accepted'
         current_date = datetime.date.today()
         current_day_int = int(current_date.strftime("%d"))
@@ -161,6 +162,9 @@ def adminlevelthree_auth(app, mail):
         cursor.execute(update_query, (final_approval, current_date, current_day_int, current_month_int,
                                       current_year_int, approved_for, applicant_id))
         cnx.commit()  # Important: Commit the changes to the database
+
+        # To insert 10 records in payment sheet
+        insert_payment_sheet_record(applicant_id)
 
         cursor.execute(
             "SELECT email, first_name, last_name, status, status_rejected_reason, scrutiny_status, "
@@ -468,58 +472,264 @@ def adminlevelthree_auth(app, mail):
         msg.html = msg_body
         mail.send(msg)
 
-    @adminlevelthree_blueprint.route('/accepted_students_level3', methods=['GET', 'POST'])
-    def accepted_students_level3():
+    # @adminlevelthree_blueprint.route('/accepted_students_level3', methods=['GET', 'POST'])
+    # def accepted_students_level3():
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
+    #     cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' and "
+    #                    "final_approval='accepted' and scrutiny_status='accepted' ")
+    #     result = cursor.fetchall()
+    #
+    #     return render_template('AdminPages/AdminLevels/LevelThree/accepted_students_level3.html', result=result)
+    #
+    # @adminlevelthree_blueprint.route('/pending_students_level3', methods=['GET', 'POST'])
+    # def pending_students_level3():
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
+    #     cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' "
+    #                    "and final_approval='pending' and scrutiny_status='accepted' ")
+    #     result = cursor.fetchall()
+    #     print('Pending', result)
+    #     return render_template('AdminPages/AdminLevels/LevelThree/pending_students_level3.html', result=result)
+    #
+    # @adminlevelthree_blueprint.route('/rejected_students_level3')
+    # def rejected_students_level3():
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
+    #     cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' "
+    #                    "and final_approval='rejected' and scrutiny_status='accepted' ")
+    #     result = cursor.fetchall()
+    #
+    #     return render_template('AdminPages/AdminLevels/LevelThree/rejected_students_level3.html', result=result)
+    #
+    # @adminlevelthree_blueprint.route('/pvtg_students_level3')
+    # def pvtg_students_level3():
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
+    #     cursor.execute(
+    #         " SELECT * FROM application_page WHERE fellowship_application_year='2024' and"
+    #         " your_caste IN ('katkari', 'kolam', 'madia') "
+    #     )
+    #     result = cursor.fetchall()
+    #     return render_template('AdminPages/AdminLevels/LevelThree/pvtg_students_level3.html', result=result)
+    #
+    # @adminlevelthree_blueprint.route('/disabled_students_level3')
+    # def disabled_students_level3():
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
+    #     cursor.execute(
+    #         " SELECT * FROM application_page WHERE fellowship_application_year='2024' and disability='Yes' "
+    #     )
+    #     result = cursor.fetchall()
+    #     return render_template('AdminPages/AdminLevels/LevelThree/disabled_students_level3.html', result=result)
+
+
+    # def insert_payment_sheet_record():
+    def insert_payment_sheet_record(applicant_id):
+        """
+        This function is also written in Section5.py for Old Users as they are already accepted.
+        Here it is for new users.
+        """
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
-        cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' and "
-                       "final_approval='accepted' and scrutiny_status='accepted' ")
-        result = cursor.fetchall()
 
-        return render_template('AdminPages/AdminLevels/LevelThree/accepted_students_level3.html', result=result)
+        payment_records = []
 
-    @adminlevelthree_blueprint.route('/pending_students_level3', methods=['GET', 'POST'])
-    def pending_students_level3():
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-        cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' "
-                       "and final_approval='pending' and scrutiny_status='accepted' ")
-        result = cursor.fetchall()
-        print('Pending', result)
-        return render_template('AdminPages/AdminLevels/LevelThree/pending_students_level3.html', result=result)
+        cursor.execute("SELECT * FROM application_page WHERE applicant_id = %s", (applicant_id,))
+        result = cursor.fetchone()
+        # print('Student Record:', result)
 
-    @adminlevelthree_blueprint.route('/rejected_students_level3')
-    def rejected_students_level3():
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-        cursor.execute(" SELECT * FROM application_page WHERE fellowship_application_year='2024' "
-                       "and final_approval='rejected' and scrutiny_status='accepted' ")
-        result = cursor.fetchall()
+        cursor.execute("SELECT city, code FROM cities where city=%s", (result['research_center_district'],))
+        city_rates = cursor.fetchone()
+        # print('City and Code:', city_rates)
 
-        return render_template('AdminPages/AdminLevels/LevelThree/rejected_students_level3.html', result=result)
+        cursor.execute("SELECT * FROM hra_rate_master")
+        master = cursor.fetchall()
+        # print('Rate Master:', master)
 
-    @adminlevelthree_blueprint.route('/pvtg_students_level3')
-    def pvtg_students_level3():
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-        cursor.execute(
-            " SELECT * FROM application_page WHERE fellowship_application_year='2024' and"
-            " your_caste IN ('katkari', 'kolam', 'madia') "
-        )
-        result = cursor.fetchall()
-        return render_template('AdminPages/AdminLevels/LevelThree/pvtg_students_level3.html', result=result)
+        if result and master:
+            # -----------------------------------------
+            # These are the fields for Payment sheet in order
 
-    @adminlevelthree_blueprint.route('/disabled_students_level3')
-    def disabled_students_level3():
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-        cursor.execute(
-            " SELECT * FROM application_page WHERE fellowship_application_year='2024' and disability='Yes' "
-        )
-        result = cursor.fetchall()
-        return render_template('AdminPages/AdminLevels/LevelThree/disabled_students_level3.html', result=result)
+            fullname = result['first_name'] + ' ' + result['middle_name'] + ' ' + result['last_name']
+            email = result['email']
+            fellowship_awarded = result['fellowship_awarded_date']
+            fellowship_awarded_year = result['fellowship_awarded_year']
+            faculty = result['faculty']
+            date = result['phd_registration_date']
+            total_months = 6
+            disability = result['disability']
+            bank_name = result['bank_name']
+            ifsc_code = result['ifsc_code']
+            account_number = result['account_number']
+
+            current_date = datetime.datetime.now().strftime('%Y-%m-%d')
+            start_date = result['phd_registration_date']
+
+            fellowship_durations = {}
+            current_quarter_start = start_date
+
+            for i in range(10):  # 10 quarters of 6 months each
+                quarter_start = current_quarter_start  # Use the current quarter's start date
+                quarter_end = quarter_start + datetime.timedelta(days=6 * 30)
+
+                quarter_start_str = quarter_start.strftime('%Y-%m-%d')
+                quarter_end_str = quarter_end.strftime('%Y-%m-%d')
+
+                if i < 9:  # Check if it's not the last quarter
+                    current_quarter_start = quarter_end + datetime.timedelta(days=1)  # Update for the next quarter
+
+                if i < 4:  # First two years (4 quarters)
+                    fellowship_type = "jrf_" + str((i // 2) + 1)  # jrf_1 and jrf_2
+                else:  # Next three years (6 quarters)
+                    fellowship_type = "srf_" + str(((i - 4) // 2) + 1)  # Corrected logic here!
+
+                fellowship_durations[fellowship_type + "_q" + str(i + 1)] = {"start": quarter_start_str,
+                                                                             "end": quarter_end_str,
+                                                                             "total_months": total_months}
+
+                applicable_master = None
+                fellowship_jrf_srf = fellowship_type
+                for record in master:
+                    master_fellowship_type = record['jrf_srf']
+                    date_criteria = record['date_criteria']
+                    less_greater_than = record['less_greater_than']
+
+                    if master_fellowship_type == fellowship_jrf_srf:
+                        if less_greater_than == 'less_than' and quarter_start < date_criteria:
+                            applicable_master = record
+                        elif less_greater_than == 'greater_than' and quarter_start >= date_criteria:
+                            applicable_master = record
+
+                if applicable_master:
+                    fellowship = applicable_master['fellowship_amount']
+                    jrf_srf = applicable_master['jrf_srf']
+
+                    if city_rates['code'] == 'X':
+                        hra_rate = applicable_master['X_rate']
+                    elif city_rates['code'] == 'Y':
+                        hra_rate = applicable_master['Y_rate']
+                    elif city_rates['code'] == 'Z':
+                        hra_rate = applicable_master['Z_rate']
+                    else:
+                        hra_rate = 0
+
+                    if (i + 1) % 2 == 0:
+                        if faculty == 'Arts':
+                            contingency = applicable_master['contingency_other']
+                        elif faculty == 'Law':
+                            contingency = applicable_master['contingency_other']
+                        elif faculty == 'Commerce':
+                            contingency = applicable_master['contingency_other']
+                        elif faculty == 'Other':
+                            contingency = applicable_master['contingency_other']
+                        elif faculty == 'Agriculture':
+                            contingency = applicable_master['contingency_other']
+                        elif faculty == 'Vocational':
+                            contingency = applicable_master['contingency_other']
+                        elif faculty == 'Science':
+                            contingency = applicable_master['contingency_science']
+                        else:
+                            contingency = 0
+                    else:
+                        contingency = 0
+
+                    if disability == 'Yes':
+                        pwd = applicable_master['disability']
+                        total_pwd = int(pwd) * int(total_months)
+                    elif disability == 'No':
+                        total_pwd = 0
+                    else:
+                        total_pwd = 0
+
+                    # pprint(f"Quarter: {i + 1}, Fellowship Type: {fellowship_type}, Start Date: {quarter_start_str}, "
+                    #       f"End Date: {quarter_end_str}, HRA Rate: {hra_rate}, Contingency: {contingency},"
+                    #         f"Fellowship Amount: {fellowship}, JRF-SRF: {jrf_srf}, pwd: {total_pwd}")
+
+                    total_fellowship =  int(fellowship) * int(total_months)
+                    convert_rate = (float(hra_rate) / 100)
+                    hra_amount = convert_rate * int(fellowship)
+                    total_hra = int(hra_amount) * int(total_months)
+                    duration_date_from = quarter_start_str
+                    duration_date_to = quarter_end_str
+
+                final_result = {
+                    'fullname': fullname,
+                    'email': email,
+                    'applicant_id': applicant_id,
+                    'jrf_srf': jrf_srf,
+                    'fellowship_awarded_date': fellowship_awarded,
+                    'fellowship_awarded_year': fellowship_awarded_year,
+                    'faculty': faculty,
+                    'date': date,
+                    'duration_date_from': duration_date_from,
+                    'duration_date_to': duration_date_to,
+                    'total_months': total_months,
+                    'fellowship': fellowship,
+                    'total_fellowship': total_fellowship,
+                    'hra_rate': hra_rate,
+                    'hra_amount': hra_amount,
+                    'hra_months': total_months,
+                    'total_hra_rate': total_hra,
+                    'contingency': contingency,
+                    'pwd': total_pwd,
+                    'total': int(total_fellowship) + int(total_hra),
+                    'city': city_rates['city'],
+                    'bank_name': bank_name,
+                    'ifsc_code': ifsc_code,
+                    'account_number': account_number,
+                    'quarters': 'Quarter ' + str(i + 1)
+                }
+
+                # pprint(final_result)
+
+                fellowship_application_year = result['fellowship_application_year']
+                application_year = fellowship_application_year
+                table_name = f"payment_sheet_{application_year}"
+                # print(table_name)
+
+                # Construct the SQL Insert query with placeholders for 10 records
+                insert_query = f"""
+                    INSERT INTO {table_name} (
+                        applicant_id, full_name, email, jrf_srf, fellowship_awarded_date, fellowship_awarded_year,
+                        faculty, date, duration_date_from, duration_date_to, total_months, fellowship, 
+                        total_fellowship, hra_rate, hra_amount, hra_months, total_hra_rate, contingency, 
+                        pwd, total, city, bank_name, ifsc_code, account_number, quarters
+                    )
+                    VALUES 
+                        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s);
+                """
+
+                values = [
+                    final_result['applicant_id'],
+                    final_result['fullname'], final_result['email'], final_result['jrf_srf'],
+                    final_result['fellowship_awarded_date'],
+                    final_result['fellowship_awarded_year'], final_result['faculty'], final_result['date'],
+                    final_result['duration_date_from'],
+                    final_result['duration_date_to'], final_result['total_months'], final_result['fellowship'],
+                    final_result['total_fellowship'],
+                    final_result['hra_rate'], final_result['hra_amount'], final_result['hra_months'],
+                    final_result['total_hra_rate'],
+                    final_result['contingency'], final_result['pwd'], final_result['total'],
+                    final_result['city'], final_result['bank_name'],
+                    final_result['ifsc_code'], final_result['account_number'], final_result['quarters']
+                ]  # Repeat the values for all 10 quarters
+
+                # Execute the query using your database connection
+                cursor.execute(insert_query, values)
+
+            cnx.commit()
+            return flash('Record Inserted Successfully', 'success')
+        else:
+            error = flash('No record Found', 'error')
+            return error
+
+
+
+

@@ -12,40 +12,30 @@
       <ul class="breadcrumb d-flex align-items-center">
         <li class="breadcrumb-item active" aria-current="page">
             <div class="btn-group">
-<!--              <select id="payment_yearSelector" name="selected_year" class="btn btn-primary btn-fw text-white" style="width: auto;">-->
-<!--                <option selected disabled>Select Fellowship Awarded Year</option>-->
-<!--&lt;!&ndash;                <option value="2020">2020 - 2021</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                <option value="2021">2021 - 2022</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                <option value="2022">2022 - 2023</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                <option value="2023">2023 - 2024</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                <option value="2024">2024 - 2025</option>&ndash;&gt;-->
-<!--              </select>-->
-                <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
-                <input type="hidden" id="yearSelector" name="selected_year" value="2021">
+              <select id="paymentYearSelector" name="selected_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
+                <option value="" selected disabled>Select BANRF Year</option>
+                <option value="2020">BANRF 2020 - 2021</option>
+                <option value="2021">BANRF 2021 - 2022</option>
+                <option value="2022">BANRF 2022 - 2023</option>
+                <option value="2023">BANRF 2023 - 2024</option>
+                <option value="2024">BANRF 2024 - 2025</option>
+              </select>
+<!--                <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>-->
+<!--                <input type="hidden" id="yearSelector" name="selected_year" value="2021">-->
             </div>
             <div class="btn-group ms-2">
-              <select id="quarterSelector" name="selected_year" class="btn btn-primary btn-fw text-white" style="width: auto;">
+              <select id="quarterSelector" name="selected_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option selected disabled>Select Quarter</option>
-                <option value="Q1">1st Quarter</option>
-                <option value="Q2">2nd Quarter</option>
-                <option value="Q3">3rd Quarter</option>
-                <option value="Q4">4th Quarter</option>
-                <option value="Q5">5th Quarter</option>
-                <option value="Q6">6th Quarter</option>
-                <option value="Q7">7th Quarter</option>
-                <option value="Q8">8th Quarter</option>
-                <option value="Q9">9th Quarter</option>
-                <option value="Q10">10th Quarter</option>
-<!--                <option value="Q11">11th Quarter</option>-->
-<!--                <option value="Q12">12th Quarter</option>-->
-<!--                <option value="Q13">13th Quarter</option>-->
-<!--                <option value="Q14">14th Quarter</option>-->
-<!--                <option value="Q15">15th Quarter</option>-->
-<!--                <option value="Q16">16th Quarter</option>-->
-<!--                <option value="Q17">17th Quarter</option>-->
-<!--                <option value="Q18">18th Quarter</option>-->
-<!--                <option value="Q19">19th Quarter</option>-->
-<!--                <option value="Q20">20th Quarter</option>-->
+                <option value="Quarter 1">1st Quarter</option>
+                <option value="Quarter 2">2nd Quarter</option>
+                <option value="Quarter 3">3rd Quarter</option>
+                <option value="Quarter 4">4th Quarter</option>
+                <option value="Quarter 5">5th Quarter</option>
+                <option value="Quarter 6">6th Quarter</option>
+                <option value="Quarter 7">7th Quarter</option>
+                <option value="Quarter 8">8th Quarter</option>
+                <option value="Quarter 9">9th Quarter</option>
+                <option value="Quarter 10">10th Quarter</option>
               </select>
             </div>
         </li>
@@ -87,7 +77,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for record in user_records %}
+        {% for record in user_data %}
             <tr>
               <td class="text-center" style="font-size:15px">{{ loop.index }}</td>
               <td class="text-center">
