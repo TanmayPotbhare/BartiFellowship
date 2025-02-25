@@ -4,7 +4,7 @@ from openpyxl.workbook import Workbook
 from openpyxl.styles import Font
 from classes.database import HostConfig, ConfigPaths, ConnectParam
 from fpdf import FPDF
-from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
+from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response, jsonify
 
 payment_sheet_blueprint = Blueprint('payment_sheet', __name__)
 
@@ -16,6 +16,37 @@ def payment_sheet_auth(app):
     if app_paths:
         for key, value in app_paths.items():
             app.config[key] = value
+
+    def get_payment_year_quarter(year, quarter):  # Separate function for data fetching
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        if year:
+            database = f'payment_sheet_{year}'
+
+        query = f"""
+                   SELECT * FROM {database} 
+                   WHERE fellowship_awarded_year = %s
+                   AND quarters = %s
+                """
+        cursor.execute(query, (year,quarter))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+
+        return data  # Return the data (list of dictionaries)
+
+    @payment_sheet_blueprint.route('/get_payment_sheet_data', methods=['GET', 'POST'])
+    def get_payment_sheet_data():
+        year = request.args.get('year', '2024')
+        quarter = request.args.get('quarter', '1')
+        hod_payment_data = get_payment_year_quarter(year, quarter)  # Call the data fetching function
+        print(hod_payment_data)
+        data = {
+            'hod_payment_data': hod_payment_data
+        }
+        return jsonify(data)
 
     @payment_sheet_blueprint.route('/payment_sheet', methods=['GET', 'POST'])
     def payment_sheet():
@@ -35,256 +66,23 @@ def payment_sheet_auth(app):
 
             # Fetch user data based on the email
             cursor.execute("""
-
-                        SELECT * 
-                        FROM application_page 
-                        WHERE final_approval = 'accepted' 
-                            AND fellowship_awarded_year = '2023'
-
+                    SELECT *  
+                    FROM payment_sheet_2021 where quarters = 'Quarter 1'
+                    UNION ALL  
+                    SELECT *
+                    FROM payment_sheet_2022 where quarters = 'Quarter 1'
+                    # UNION ALL
+                    # SELECT *
+                    # FROM payment_sheet_2023 where quarters = 'Quarter 1';
             """)
             user_data = cursor.fetchall()  # Use fetchall to retrieve all rows
-            # print('user data:', user_data)
+            print('user data:', user_data)
 
-            for row in user_data:
-                # Calculate values based on user data
-                applicant_id = row['applicant_id']
-                faculty = row["faculty"]
-                # print('faculty', faculty)
-                fellowship_awarded_year = row['fellowship_awarded_year']
-                fellowship_awarded_date = row['fellowship_awarded_date']
-                joining_date = row["phd_registration_date"]
-                city = row['research_center_district']
-                bank_name = row['bank_name']
-                account_number = row['account_number']
-                ifsc = row['ifsc_code']
-                # year = '2023'
-                # print(joining_date)
-
-                # Calculate Count Yearly
-                if faculty == "Arts":
-                    count_yearly = 20500
-                elif faculty == "Law":
-                    count_yearly = 20500
-                elif faculty == "Commerce":
-                    count_yearly = 20500
-                elif faculty == "Other":
-                    count_yearly = 20500
-                elif faculty == "Science":
-                    count_yearly = 25000
-                else:
-                    count_yearly = 0  # Handle other faculty values as needed
-
-                if fellowship_awarded_year in ['2020', '2021', '2022']:
-                    hra_year_rate = 'Old User'
-                else:
-                    hra_year_rate = 'New User'
-
-
-                if city in [
-                            'Hyderabad(UA)', 'Delhi(UA)', 'Ahmadabad(UA)', 'Bengalore / Bengaluru(UA)',
-                            'Greater Mumbai(UA)', 'Pune(UA)', 'Chennai(UA)', 'Kolkata(UA)'
-                            ] and hra_year_rate == 'Old User':
-                    rate = '24%%'
-                elif city in [
-                            'Hyderabad(UA)', 'Delhi(UA)', 'Ahmadabad(UA)', 'Bengalore / Bengaluru(UA)',
-                            'Greater Mumbai(UA)', 'Pune(UA)', 'Chennai(UA)', 'Kolkata(UA)'
-                            ] and hra_year_rate == 'New User':
-                    rate = '27%'
-                elif city in [
-                            "Vijayawada (UA)", "Warangal (UA)", "Greater Visakhapatnam (M.Corpn.)", "Guntur (UA)",
-                            "Nellore (UA)", "Guwahati (UA)", "Patna (UA)", "Chandigarh (UA)",
-                            "Durg-Bhilai Nagar (UA)", "Raipur (UA)", "Rajkot (UA)", "Jamnagar (UA)",
-                            "Bhavnagar (UA)", "Vadodara (UA)", "Surat (UA)", "Faridabad (M.Corpn.)",
-                            "Gurgaon (UA)", "Srinagar (UA)", "Jammu (UA)", "Jamshedpur (UA)",
-                            "Dhanbad (UA)", "Ranchi (UA)", "Bokaro Steel City (UA)", "Belgaum (UA)",
-                            "Hubli-Dharwad (M.Corpn.)", "Mangalore (UA)", "Mysore (UA)", "Gulbarga (UA)",
-                            "Kozhikode (UA)", "Kochi (UA)", "Thiruvananthapuram (UA)", "Thrissur (UA)",
-                            "Malappuram (UA)", "Kannur (UA)", "Kollam (UA)", "Gwalior (UA)",
-                            "Indore (UA)", "Bhopal (UA)", "Jabalpur (UA)", "Ujjain (M.Corpn.)",
-                            "Amravati (M.Corpn.)", "Nagpur (UA)", "Aurangabad (UA)", "Nashik (UA)",
-                            "Bhiwandi (UA)", "Solapur (M.Corpn.)", "Kolhapur (UA)", "Vasai-Virar City (M.Corpn.)",
-                            "Malegaon (UA)", "Nanded-Waghala (M. Corpn.)", "Sangli (UA)", "Cuttack (UA)",
-                            "Bhubaneswar (UA)", "Raurkela (UA)", "Puducherry/Pondicherry (UA)", "Amritsar (UA)",
-                            "Jalandhar (UA)", "Ludhiana (M.Corpn.)", "Bikaner (M.Corpn.)", "Jaipur (M.Corpn.)",
-                            "Jodhpur (UA)", "Kota (M.Corpn.)", "Ajmer (UA)", "Salem (UA)",
-                            "Tiruppur (UA)", "Coimbatore (UA)", "Tiruchirappalli (UA)", "Madurai (UA)",
-                            "Erode (UA)", "Moradabad (M.Corpn.)", "Meerut (UA)", "Ghaziabad (UA)",
-                            "Aligarh (UA)", "Agra (UA)", "Bareilly (UA)", "Lucknow (UA)",
-                            "Kanpur (UA)", "Allahabad (UA)", "Gorakhpur (UA)", "Varanasi (UA)",
-                            "Saharanpur (M.Corpn.)", "Noida (CT)", "Firozabad (NPP)", "Jhansi (UA)",
-                            "Dehradun (UA)", "Asansol (UA)", "Siliguri (UA)", "Durgapur (UA)"
-                            ] and hra_year_rate == 'Old User':
-                    rate = '16%'
-                elif city in [
-                            "Vijayawada (UA)", "Warangal (UA)", "Greater Visakhapatnam (M.Corpn.)", "Guntur (UA)",
-                            "Nellore (UA)", "Guwahati (UA)", "Patna (UA)", "Chandigarh (UA)",
-                            "Durg-Bhilai Nagar (UA)", "Raipur (UA)", "Rajkot (UA)", "Jamnagar (UA)",
-                            "Bhavnagar (UA)", "Vadodara (UA)", "Surat (UA)", "Faridabad (M.Corpn.)",
-                            "Gurgaon (UA)", "Srinagar (UA)", "Jammu (UA)", "Jamshedpur (UA)",
-                            "Dhanbad (UA)", "Ranchi (UA)", "Bokaro Steel City (UA)", "Belgaum (UA)",
-                            "Hubli-Dharwad (M.Corpn.)", "Mangalore (UA)", "Mysore (UA)", "Gulbarga (UA)",
-                            "Kozhikode (UA)", "Kochi (UA)", "Thiruvananthapuram (UA)", "Thrissur (UA)",
-                            "Malappuram (UA)", "Kannur (UA)", "Kollam (UA)", "Gwalior (UA)",
-                            "Indore (UA)", "Bhopal (UA)", "Jabalpur (UA)", "Ujjain (M.Corpn.)",
-                            "Amravati (M.Corpn.)", "Nagpur (UA)", "Aurangabad (UA)", "Nashik (UA)",
-                            "Bhiwandi (UA)", "Solapur (M.Corpn.)", "Kolhapur (UA)", "Vasai-Virar City (M.Corpn.)",
-                            "Malegaon (UA)", "Nanded-Waghala (M. Corpn.)", "Sangli (UA)", "Cuttack (UA)",
-                            "Bhubaneswar (UA)", "Raurkela (UA)", "Puducherry/Pondicherry (UA)", "Amritsar (UA)",
-                            "Jalandhar (UA)", "Ludhiana (M.Corpn.)", "Bikaner (M.Corpn.)", "Jaipur (M.Corpn.)",
-                            "Jodhpur (UA)", "Kota (M.Corpn.)", "Ajmer (UA)", "Salem (UA)",
-                            "Tiruppur (UA)", "Coimbatore (UA)", "Tiruchirappalli (UA)", "Madurai (UA)",
-                            "Erode (UA)", "Moradabad (M.Corpn.)", "Meerut (UA)", "Ghaziabad (UA)",
-                            "Aligarh (UA)", "Agra (UA)", "Bareilly (UA)", "Lucknow (UA)",
-                            "Kanpur (UA)", "Allahabad (UA)", "Gorakhpur (UA)", "Varanasi (UA)",
-                            "Saharanpur (M.Corpn.)", "Noida (CT)", "Firozabad (NPP)", "Jhansi (UA)",
-                            "Dehradun (UA)", "Asansol (UA)", "Siliguri (UA)", "Durgapur (UA)"
-                            ] and hra_year_rate == 'Old User':
-                    rate = '18%'
-                else:
-                    rate = '9%'
-
-                # print("Rate:", rate)
-
-                # Initialize the "from" and "to" date to empty strings
-                duration_date_from = ""
-                duration_date_to = ""
-
-                if joining_date:  # Check if joining_date is not None
-                    # Calculate Duration Date (adding 3 months to joining date)
-                    duration_date_from = fellowship_awarded_date  # Assuming this is a datetime object
-                    duration_date_to = fellowship_awarded_date + timedelta(days=90)  # Adding 90 days to joining date
-                    # Extract day, month, and year
-                    day = duration_date_to.day
-                    month = duration_date_to.month
-                    year = duration_date_to.year
-
-                    # Print the stripped day, month, and year
-                    # print(f"Day: {day}, Month: {month}, Year: {year}")
-                    # Format the dates for display in the desired format
-                    duration_date_from_str = duration_date_from.strftime('%d/%m/%Y')  # "17 Aug 2023"
-                    duration_date_to_str = duration_date_to.strftime('%d/%m/%Y')  # "15 Nov 2023"
-
-                # Calculate Total Months
-                total_months = 3
-
-                # Calculate Fellowship
-                fellowship = 42000  # Fixed value for 3 months
-
-                # Calculate Total Fellowship
-                total_fellowship = fellowship * total_months
-
-                rate_str = float(rate.rstrip('%'))
-                convert_rate = (rate_str / 100)
-                hra_amount = convert_rate * fellowship
-
-                months = total_months
-
-                total_hra = hra_amount * months
-
-                total = total_fellowship + total_hra
-
-                # Calculate the date 2 years after duration_date_from
-                two_years_later = duration_date_from + timedelta(days=730)  # 2 years = 730 days
-
-                # Assuming 'phd_registration_date' is already a datetime object
-                if 'phd_registration_date' in row and row['phd_registration_date']:
-                    joiningDate = row['phd_registration_date'].strftime('%Y-%m-%d')
-
-                # Get the current date
-                current_date = datetime.now().date()
-                current_year = current_date.year
-
-                # Check the category based on 2 years difference
-                if current_year == fellowship_awarded_year + 2:
-                    category = "SRF"  # Senior Research Fellowship
-                else:
-                    category = "JRF"  # Junior Research Fellowship
-
-                # Create a record dictionary for the user
-                record = {
-                    "applicant_id": row['applicant_id'],
-                    "full_name": str(row['first_name']) + ' ' + str(row['middle_name']) + ' ' + str(row['last_name']),
-                    "first_name": row['first_name'],
-                    "last_name": row['last_name'],
-                    "middle_name": row['middle_name'],
-                    "email": row["email"],
-                    "faculty": row['faculty'],
-                    "fellowship_awarded_date": fellowship_awarded_date,
-                    "joining_date": joiningDate,
-                    "city": row['city'],
-                    "duration": f"{duration_date_from_str} <span class='fw-bold'>to</span> {duration_date_to_str}",
-                    "rate": rate,
-                    "count": count_yearly,
-                    "amount": hra_amount,
-                    "months": months,
-                    "total_hra": total_hra,
-                    "total": total,
-                    "duration_date_from": duration_date_from,
-                    "duration_date_to": duration_date_to,
-                    "duration_day": day,
-                    "duration_month": month,
-                    "duration_year": year,
-                    "total_months": total_months,
-                    "fellowship": fellowship,
-                    "to_fellowship": total_fellowship,
-                    "phd_registration_year": row['phd_registration_year'],
-                    "id": row['id'],
-                    "account_number": account_number,
-                    "ifsc": ifsc,
-                    "bank_name": bank_name,
-                    "year": year,
-                    "jrf_srf": category
-                }
-
-                user_records.append(record)
-
-                email = record['email']
-
-                host = HostConfig.host
-                connect_param = ConnectParam(host)
-                cnx, cursor = connect_param.connect()
-
-                cursor.execute(" SELECT * FROM payment_sheet where email=%s", (email,))
-                result = cursor.fetchone()
-
-                if result:
-                    pass
-                    # print("Existing Record:", email)
-                    # Record already exists, do not insert again
-                else:
-                    # print("Record not found, proceeding with the INSERT query")
-                    # Insert values into the payment_sheet table
-                    host = HostConfig.host
-                    connect_param = ConnectParam(host)
-                    cnx, cursor = connect_param.connect()
-
-                    insert_query = """
-                        INSERT INTO payment_sheet (
-                            full_name, faculty, fellowship_awarded_date, city, date, jrf_srf, duration_date_from, duration_date_to, duration_day, duration_month, duration_year, 
-                            rate, count, amount, months, total_hra, total,
-                            total_months, fellowship,
-                            to_fellowship, bank_name, ifsc_code, account_number, fellowship_awarded_year, email
-                        )
-                        VALUES (%(full_name)s, %(faculty)s, %(fellowship_awarded_date)s, %(city)s, %(joining_date)s, %(jrf_srf)s, %(duration_date_from)s, %(duration_date_to)s,
-                                %(duration_day)s, %(duration_month)s, %(duration_year)s,
-                                %(rate)s, %(count)s, %(amount)s, %(months)s, %(total_hra)s, %(total)s, 
-                                %(total_months)s, %(fellowship)s, %(to_fellowship)s, %(bank_name)s, %(ifsc)s,
-                                %(account_number)s, %(year)s, %(email)s)         
-                    """
-                    # Execute the INSERT query
-                    cursor.execute(insert_query, record)
-
-                    # Commit the changes to the database
-                    cnx.commit()
-
-                # Close the database cursor and connection
-                cursor.close()
-                cnx.close()
             # Close the database cursor and connection
             cursor.close()
             cnx.close()
 
-        return render_template('AdminPages/PaymentSheet/payment_sheet.html', user_records=user_records)
+        return render_template('AdminPages/PaymentSheet/payment_sheet.html', user_data=user_data)
 
     class PDF(FPDF):
         def __init__(self):
@@ -539,3 +337,4 @@ def payment_sheet_auth(app):
         response.headers['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
         return response
+

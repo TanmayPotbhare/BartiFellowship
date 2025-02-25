@@ -939,3 +939,61 @@ $(document).ready(function () {
 });
 // --------------------------------------------------------------------
 // END the Dynamic year wise list for approval level one
+
+
+$(document).ready(function () {
+    var dataTable = $('.datatable').DataTable();
+    const yearSelector = $('#paymentYearSelector');
+    const quarterSelector = $('#quarterSelector');
+
+    function fetchData() {
+        var selectedYear = yearSelector.val();
+        var selectedQuarter = quarterSelector.val();
+
+        if (selectedYear && selectedQuarter) {
+            $.ajax({
+                url: '/get_payment_sheet_data',
+                type: 'GET',
+                data: { year: selectedYear, quarter: selectedQuarter },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function (response) {
+                    dataTable.clear().draw();
+
+                    $.each(response.hod_payment_data, function (index, record) { // Change to hod_payment_data to match your flask endpoint.
+                        var statusLabel = '';
+                        var scrutinyStatusLabel = '';
+                        var finalApprovalLabel = '';
+
+                        // ... (statusLabel, scrutinyStatusLabel, finalApprovalLabel logic remains the same)
+
+                        var rowData = [
+                            index + 1,
+                            record.applicant_id,
+                            record.full_name,
+                            record.date,
+                            record.fellowship_awarded_year,
+                            record.duration_date_from + ' ' + '<strong> TO </strong>' + ' ' + record.duration_date_to,
+                            record.bank_name,
+                            record.account_number,
+                            record.ifsc_code,
+                            '<strong>INR</strong>' + ' ' + record.fellowship
+                        ];
+
+                        dataTable.row.add(rowData);
+                    });
+
+                    dataTable.draw();
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error, xhr.responseText);
+                    alert('Failed to fetch data. Please check the console for details.');
+                }
+            });
+        }
+    }
+
+    yearSelector.change(fetchData);
+    quarterSelector.change(fetchData);
+});
