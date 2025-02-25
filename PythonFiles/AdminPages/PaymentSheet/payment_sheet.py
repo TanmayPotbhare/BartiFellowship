@@ -68,13 +68,7 @@ def payment_sheet_auth(app):
             # Fetch user data based on the email
             cursor.execute("""
                     SELECT *  
-                    FROM payment_sheet_2021 where quarters = 'Quarter 1'
-                    UNION ALL  
-                    SELECT *
-                    FROM payment_sheet_2022 where quarters = 'Quarter 1'
-                    # UNION ALL
-                    # SELECT *
-                    # FROM payment_sheet_2023 where quarters = 'Quarter 1';
+                    FROM payment_sheet_2024 where quarters = 'Quarter 1';
             """)
             user_data = cursor.fetchall()  # Use fetchall to retrieve all rows
             print('user data:', user_data)
