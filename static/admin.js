@@ -1240,11 +1240,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-function validateRate(input) {
+function validateAmount(input) {
     // Remove any non-numeric characters
     input.value = input.value.replace(/[^0-9]/g, '');
 
-        // Limit the input to 1 digits
+        // Limit the input to 10 digits
         if (input.value.length > 10) {
             input.value = input.value.slice(0, 10);
         }     
@@ -1254,22 +1254,41 @@ function validateRate(input) {
         }  
     }
 
+function validateHRArate(input) {
+    // Remove any non-numeric characters
+    input.value = input.value.replace(/[^0-9]/g, '');
+
+        // Limit the input to 2 digits
+        if (input.value.length > 2) {
+            input.value = input.value.slice(0, 2);
+        }     
+
+        if (input.value === '0') {
+            input.value = '';
+        }  
+    }    
+
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".editHRABtn").forEach(button => {
             button.addEventListener("click", function() {
                 // Populate form fields
+                console.log("Dataset values:", this.dataset); 
+                
                 document.getElementById("edit_id").value = this.dataset.id;
-                document.getElementById("edit_first_name").value = this.dataset.first_name;
-                document.getElementById("edit_middle_name").value = this.dataset.middle_name;
-                document.getElementById("edit_surname").value = this.dataset.surname;
-                document.getElementById("edit_email").value = this.dataset.email;
-                document.getElementById("edit_username").value = this.dataset.username;
-                document.getElementById("edit_role").value = this.dataset.role;
-                document.getElementById("edit_year").value = this.dataset.year;
-                document.getElementById("edit_mobile_number").value = this.dataset.mobile_number;
+                document.getElementById("edit_for_year").value = this.dataset.for_year;
+                document.getElementById("edit_date_criteria").value = this.dataset.date_criteria;
+                document.getElementById("edit_fellowship_amount").value = this.dataset.fellowship_amount;
+                document.getElementById("edit_less_greater_than").value = this.dataset.less_greater_than;
+                document.getElementById("edit_jrf_srf").value = this.dataset.jrf_srf;
+                document.getElementById("edit_X_rate").value = this.dataset.x_rate;
+                document.getElementById("edit_Y_rate").value = this.dataset.y_rate;
+                document.getElementById("edit_Z_rate").value = this.dataset.z_rate;
+                document.getElementById("edit_contingency_other").value = this.dataset.contingency_other;
+                document.getElementById("edit_contingency_science").value = this.dataset.contingency_science;
+                document.getElementById("edit_disability").value = this.dataset.disability;
     
                 // Set form action dynamically
-                document.querySelector("#editAdminModal form").action = "/edit_admin/" + this.dataset.id;
+                document.querySelector("#editHRAModal form").action = "/edit_hra_rate/" + this.dataset.id;
             });
         });
     });
