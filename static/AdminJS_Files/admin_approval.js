@@ -978,7 +978,8 @@ $(document).ready(function () {
                             record.bank_name,
                             record.account_number,
                             record.ifsc_code,
-                            '<strong>INR</strong>' + ' ' + record.fellowship
+                            '<strong>INR</strong>' + ' ' + record.fellowship,
+                            '<a class="btn btn-dark btn-sm" href="#"><i class="mdi mdi-eye text-white"></i></a>'
                         ];
 
                         dataTable.row.add(rowData);
@@ -997,3 +998,33 @@ $(document).ready(function () {
     yearSelector.change(fetchData);
     quarterSelector.change(fetchData);
 });
+
+// Get the year dropdown and the title element
+const yearDropdown = document.getElementById('paymentYearSelector');
+const paymentSheetTitle = document.getElementById('paymentSheetTitle');
+const quarter = document.getElementById('quarterSelector');
+
+// Function to update the title
+function updateTitle() {
+  const selectedYear = yearDropdown.value;
+  const selectedQuarter = quarter.value;
+    if (selectedYear) {
+      const yearNumber = parseInt(selectedYear); // Convert to number
+      if (!isNaN(yearNumber)) { //check if yearNumber is a number.
+        val = 'BANRF ' + selectedYear + '-' + (yearNumber + 1);
+      } else {
+        val = "Invalid year";
+      }
+
+    } else {
+        val = "Please select a year";
+    }
+  paymentSheetTitle.innerHTML = `Payment Sheet of <span style="font-weight: bold; color: blue;">${selectedQuarter}</span> for <span style="font-weight: bold; color: red;">${val}</span>`;
+}
+
+// Add event listeners to both dropdowns
+yearDropdown.addEventListener('change', updateTitle);
+quarter.addEventListener('change', updateTitle);
+
+//Initial call to update title.
+updateTitle();
