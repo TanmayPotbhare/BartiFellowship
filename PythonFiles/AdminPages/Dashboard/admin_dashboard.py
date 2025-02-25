@@ -1511,14 +1511,10 @@ def admin_dashboard_auth(app):
         cursor.execute("SELECT * FROM hra_rate_master ")
         record = cursor.fetchall()
 
-        cursor.execute("SELECT city FROM cities ORDER BY city ASC")
-        city_list = cursor.fetchall()
-        print(city_list)
-
         cnx.commit()
         cursor.close()
         cnx.close()
-        return render_template('AdminPages/hra_master.html', record=record,city_list=city_list)
+        return render_template('AdminPages/hra_master.html', record=record)
     
     # --------------------------ADD HRA Rate-----------------------------------
     @admin_dashboard_blueprint.route('/submit_HRA_rate', methods=['GET', 'POST'])
@@ -1532,23 +1528,28 @@ def admin_dashboard_auth(app):
         cnx, cursor = connect_param.connect(use_dict=True)
 
         if request.method == 'POST':
-            city = request.form['city']
-            rate = request.form['rate']
-            category = request.form['category']
-
-            if is_city_already_exist(city):
-                flash('HRA Rate is already set for this city. Please Edit the rates for the same.', 'info')
-                return redirect(url_for('admin_dashboard.hra_master'))
-            
+            for_year = request.form['for_year']
+            fellowship_amount = request.form['fellowship_amount']
+            date_criteria = request.form['date_criteria']
+            less_greater_than = request.form['less_greater_than']
+            jrf_srf = request.form['jrf_srf']
+            X_rate = request.form['X_rate']
+            Y_rate = request.form['Y_rate']
+            Z_rate = request.form['Z_rate']
+            contingency_other = request.form['contingency_other']
+            contingency_science = request.form['contingency_science']
+            disability = request.form['disability']
             added_date = datetime.now().date()
             added_time = datetime.now().time()
             added_by = 'HoD'
             # role = 'Admin'
 
             cursor.execute(
-                "INSERT INTO hra_rate_master (city, rate, category, added_date, added_time, added_by) "
-                "VALUES (%s, %s, %s, %s, %s, %s)",
-                (city, rate, category, added_date, added_time, added_by))
+                "INSERT INTO hra_rate_master (for_year, fellowship_amount, date_criteria, less_greater_than, jrf_srf, X_rate, Y_rate, Z_rate," 
+                "contingency_other, contingency_science, disability, added_date, added_time, added_by) "
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (for_year, fellowship_amount, date_criteria, less_greater_than, jrf_srf, X_rate, Y_rate, Z_rate, 
+                contingency_other, contingency_science, disability, added_date, added_time, added_by))
             cnx.commit()
 
             flash('HRA Rate added successfully!!', 'success')
@@ -1566,6 +1567,52 @@ def admin_dashboard_auth(app):
         cursor.close()
         cnx.close()
         return result
+    
+    # --------------------------EDIT HRA Rate---------------------------------------------
+    @admin_dashboard_blueprint.route('/edit_hra_rate/<int:id>' , methods=['GET', 'POST'])
+    def edit_hra_rate(id):
+        """
+            This function is responsible for EDIT HRA Rate functionality for HRA Master in HOD Login
+        """
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+        if id:
+            print(id)
+        hra_id = id
+        my_id = str(hra_id)
+        print("I am editing rec for HRA with ID " + my_id)
+
+        if request.method == 'POST':
+            for_year = request.form['for_year']
+            fellowship_amount = request.form['fellowship_amount']
+            date_criteria = request.form['date_criteria']
+            less_greater_than = request.form['less_greater_than']
+            jrf_srf = request.form['jrf_srf']
+            X_rate = request.form['X_rate']
+            Y_rate = request.form['Y_rate']
+            Z_rate = request.form['Z_rate']
+            contingency_other = request.form['contingency_other']
+            contingency_science = request.form['contingency_science']
+            disability = request.form['disability']
+
+            updated_date = datetime.now().date()
+            updated_time = datetime.now().time()
+            updated_by = 'HoD'
+
+            cursor.execute(
+                "UPDATE hra_rate_master SET for_year = %s, fellowship_amount = %s, date_criteria = %s, less_greater_than = %s, jrf_srf = %s, "
+                "X_rate = %s, Y_rate = %s, Z_rate = %s, contingency_other = %s, contingency_science = %s, disability = %s, updated_date = %s, "
+                "updated_time = %s, updated_by = %s" 
+                "WHERE id = %s",  # Ensure the WHERE clause specifies the row to update
+                (for_year, fellowship_amount, date_criteria, less_greater_than, jrf_srf, X_rate, Y_rate, Z_rate,
+                contingency_other, contingency_science, disability, updated_date, updated_time, updated_by, hra_id)  # Pass `admin_id` for the WHERE condition
+            )
+            cnx.commit()
+            flash('HRA Rate Updated successfully !!', 'success')
+            return redirect(url_for('admin_dashboard.hra_master'))
+        return render_template('AdminPages/hra_master.html')
+    
     
 # --------------------------------DELETE HRA Rate-------------------------------------------
     @admin_dashboard_blueprint.route('/delete_hra/<int:id>')
