@@ -67,10 +67,11 @@ def section3_auth(app):
                 photo = '/static/assets/img/default_user.png'
 
             signup_record = record['email']
+            year = record['fellowship_application_year']
 
             return render_template('CandidatePages/ApplicationForm/section3.html', record=record, districts=districts,
                                    finally_approved=finally_approved, user=user, photo=photo, signup_record=signup_record,
-                                   title='Application Form (Certificate Details)', validity=validity)
+                                   title='Application Form (Certificate Details)', validity=validity, year=year)
         else:
             user = "Student"
             photo = '/static/assets/img/default_user.png'

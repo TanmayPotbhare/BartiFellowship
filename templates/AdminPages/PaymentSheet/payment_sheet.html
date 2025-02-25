@@ -11,6 +11,13 @@
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb d-flex align-items-center">
         <li class="breadcrumb-item active" aria-current="page">
+          
+          {% if year_selected in years and admin_username in usernames %}
+             <div class="btn-group">
+               <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
+               <input type="hidden" id="paymentYearSelector" name="selected_year" value="2021">
+             </div>
+          {% else %}
             <div class="btn-group">
               <select id="paymentYearSelector" name="selected_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option value="" selected disabled>Select BANRF Year</option>
@@ -20,9 +27,8 @@
                 <option value="2023">BANRF 2023 - 2024</option>
                 <option value="2024">BANRF 2024 - 2025</option>
               </select>
-<!--                <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>-->
-<!--                <input type="hidden" id="yearSelector" name="selected_year" value="2021">-->
             </div>
+            {% endif %}
             <div class="btn-group ms-2">
               <select id="quarterSelector" name="selected_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option selected disabled>Select Quarter</option>
@@ -55,56 +61,61 @@
               <a href ="/export_payment_sheet" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
         {% endif %}
         </div>
+        {% if year_selected in years and admin_username in usernames %}
+          <div class="text-center mb-4">
+              <h4>Payment Sheet for BANRF - {{year_selected}}</h4>
+          </div>
+        {% else %}  
         <div class="text-center mb-4">
-            <h4 id="paymentSheetTitle">Payment Sheet for 2023-2024</h4>
-        </div><br>
+          <h4>Payment Sheet for 2023-2024</h4>
+        </div>
+        {% endif %}
+        <br>
       <div class="table-responsive">
-        <table class="table datatable shadow table-bordered">
-          <thead>
-    <!--      <p><strong>NOTE : The H.R.A Rate is calculated according the City Category you are from. IF X Category - 30%, Y Category - 20%, Z Category - 10% </strong></p>-->
+    <table class="table datatable shadow table-bordered">
+      <thead>
+<!--      <p><strong>NOTE : The H.R.A Rate is calculated according the City Category you are from. IF X Category - 30%, Y Category - 20%, Z Category - 10% </strong></p>-->
 
-            <tr class="text-center">
-              <th>Sr. No.</th>
-              <th>Applicant ID</th>
-              <th>Name of Student</th>
-              <th>Date of PHD Registration</th>
-              <th>Fellowship Awarded Date</th>
-              <th>Duration</th>
-              <th>Bank Name</th>
-              <th>Account Number</th>
-              <th>IFSC</th>
-              <th>Fellowship Amount</th>
-              <th>View all Installments</th>
+        <tr class="text-center">
+          <th>Sr. No.</th>
+          <th>Applicant ID</th>
+          <th>Name of Student</th>
+          <th>Date of PHD Registration</th>
+          <th>Fellowship Awarded Date</th>
+          <th>Duration</th>
+          <th>Bank Name</th>
+          <th>Account Number</th>
+          <th>IFSC</th>
+          <th>Fellowship Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in user_data %}
+            <tr>
+              <td class="text-center" style="font-size:15px">{{ loop.index }}</td>
+              <td class="text-center">
+                <a href="/fellowship_details/{{ record['email'] }}" class="btn btn-outline-primary btn -fw btn-sm btn-rounded tooltip-trigger" data-bs-parent="table"
+                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">TRTI/{{ record['phd_registration_year'] }}/{{ record['id'] }}</a>
+              </td>
+              <td class="text-center" style="font-size:15px">
+                {% if record['first_name'] and record['last_name'] %}
+                    {{ record['first_name'] }} {{ record['middle_name'] }} {{ record['last_name'] }}
+                {% else %}
+                    N/A
+                {% endif %}
+              </td>
+              <td class="text-center" style="font-size:15px">{{ record['joining_date'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['fellowship_awarded_date'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['duration']|safe }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['bank_name'] }} </td>
+              <td class="text-center" style="font-size:15px">{{ record['account_number'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['ifsc'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['total'] }}</td>
             </tr>
-          </thead>
-          <tbody>
-            {% for record in user_data %}
-                <tr>
-                  <td class="text-center" style="font-size:15px">{{ loop.index }}</td>
-                  <td class="text-center">
-                    <a href="/fellowship_details/{{ record['email'] }}" class="btn btn-outline-primary btn -fw btn-sm btn-rounded tooltip-trigger" data-bs-parent="table"
-                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">TRTI/{{ record['phd_registration_year'] }}/{{ record['id'] }}</a>
-                  </td>
-                  <td class="text-center" style="font-size:15px">
-                    {% if record['first_name'] and record['last_name'] %}
-                        {{ record['first_name'] }} {{ record['middle_name'] }} {{ record['last_name'] }}
-                    {% else %}
-                        N/A
-                    {% endif %}
-                  </td>
-                  <td class="text-center" style="font-size:15px">{{ record['joining_date'] }}</td>
-                  <td class="text-center" style="font-size:15px">{{ record['fellowship_awarded_date'] }}</td>
-                  <td class="text-center" style="font-size:15px">{{ record['duration']|safe }}</td>
-                  <td class="text-center" style="font-size:15px">{{ record['bank_name'] }} </td>
-                  <td class="text-center" style="font-size:15px">{{ record['account_number'] }}</td>
-                  <td class="text-center" style="font-size:15px">{{ record['ifsc'] }}</td>
-                  <td class="text-center" style="font-size:15px">{{ record['total'] }}</td>
-                  <td class="text-center" style="font-size:15px">View</td>
-                </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
     </div>
     </div>
   </div>
