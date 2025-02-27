@@ -23,6 +23,25 @@ $(document).ready(function () {
                         var scrutinyStatusLabel = '';
                         var finalApprovalLabel = '';
 
+
+                        var statusLabel = '';
+                        switch (record.admin_approval) {
+                            case 'accepted':
+                                statusLabel = '<span class="badge badge-success bg-success text-capitalize">Accepted</span>';
+                                break;
+                            case 'rejected':
+                                statusLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected</span>';
+                                break;
+                            case 'pending':
+                                statusLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">Pending</span>';
+                                break;
+                            case 'hold':
+                                statusLabel = '<span class="badge badge-primary text-dark text-capitalize">On Hold</span>';
+                                break;
+                            default:
+                                statusLabel = '<span>N/A</span>'; // Use a span for consistency
+                        }
+
                         // ... (statusLabel, scrutinyStatusLabel, finalApprovalLabel logic remains the same)
 
                         var rowData = [
@@ -36,6 +55,7 @@ $(document).ready(function () {
                             record.account_number,
                             record.ifsc_code,
                             '<strong>INR</strong>' + ' ' + record.fellowship,
+                            statusLabel,
                             `
                                 <td>
                                     <form method="POST">
@@ -58,26 +78,103 @@ $(document).ready(function () {
                                     </form>
                                 </td>
 
-                                <div class="modal fade" id="acceptModal${index + 1}" tabindex="-1" aria-labelledby="acceptModalLabel${index + 1}" style="display: none;">
+                                <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" style="display: none;">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="acceptModalLabel${index + 1}">Accept Applicant</h5>
+                                                <h5 class="modal-title" id="acceptModalLabel">Accept Applicant</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/admin_accept" id="acceptForm${index + 1}" method="POST">
+                                                <form action="/admin_accept_payment_sheet" id="acceptForm" method="POST">
                                                     <input type="hidden" name="sheet_id" value="${record.number}">
                                                     <input type="hidden" name="accept" value="accept">
                                                     <p style="word-wrap: break-word;">
                                                         Please make sure you want to <span class="text-success fw-bold">Accept</span> the following Payment Sheet :
-                                                        <br> <strong>Name:</strong> {{ record['full_name'] }}.
-                                                        <br> <strong>Fellowship:</strong> {{ record['jrf_srf'] }}
-                                                        <br> <strong>Total Fellowship Amount:</strong> {{ record['total_fellowship'] }}
+                                                        <br> <strong>Name:</strong> ${record.full_name}.
+                                                        <br> <strong>Fellowship:</strong> ${record.jrf_srf}
+                                                        <br> <strong>Total Fellowship Amount:</strong> ${record.total_fellowship}
                                                         <br><br>
-                                                        After you accept the Payment Sheet, it will be passed on to HoD for further approval.
+                                                        After you accept the Payment Sheet,
+                                                        <br> it will be passed on to HoD for further approval.
                                                     </p>
                                                     <button type="submit" class="btn btn-success text-dark">Submit Acceptance</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="rejectModalLabel">Reject Applicant</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/admin_reject_payment_sheet" id="rejectForm" method="POST">
+                                                    <input type="hidden" name="sheet_id" value="${record.number}">
+                                                    <input type="hidden" name="reject" value="reject">
+
+                                                        <p style="word-wrap: break-word;">
+                                                            Please make sure you want to <span class="text-danger fw-bold">Reject</span> the following Payment Sheet :
+                                                            <br> <strong>Name:</strong> ${record.full_name}.
+                                                            <br> <strong>Fellowship:</strong> ${record.jrf_srf}
+                                                            <br> <strong>Total Fellowship Amount:</strong> ${record.total_fellowship}
+                                                            <br><br>
+                                                        </p>
+
+                                                    <div class="mb-3">
+                                                    <label for="rejectionReason" class="form-label">Rejection Reason</label>
+                                                        <select name="rejectionReason" id="rejectionReason" class="form-select">
+                                                            <option value="" selected>-- Select a Reason --</option>
+                                                            <option value="The candidate is double beneficiary">The candidate is double beneficiary</option>
+                                                            <option value="Test1">Test1</option>
+                                                            <option value="Test2">Test2</option>
+                                                            <option value="Test3">Test3</option>
+                                                            <option value="Other">Other</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger">Submit Rejection</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="holdModal" tabindex="-1" aria-labelledby="holdModalLabel">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="holdModalLabel">Hold Payment Sheet</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/admin_hold_payment_sheet" id="holdForm" method="POST">
+                                                    <input type="hidden" name="sheet_id" value="${record.number}">
+                                                    <input type="hidden" name="hold" value="hold">
+
+                                                        <p style="word-wrap: break-word;">
+                                                            Please make sure you want to keep the Payment Sheet <span class="text-warning fw-bold">On Hold</span>:
+                                                            <br> <strong>Name:</strong> ${record.full_name}.
+                                                            <br> <strong>Fellowship:</strong> ${record.jrf_srf}
+                                                            <br> <strong>Total Fellowship Amount:</strong> ${record.total_fellowship}
+                                                            <br><br>
+                                                        </p>
+
+                                                    <div class="mb-3">
+                                                    <label for="rejectionReason" class="form-label">On Hold Reason</label>
+                                                        <select name="onHoldReason" id="onHoldReason" class="form-select">
+                                                            <option value="" selected>-- Select a Reason --</option>
+                                                            <option value="The candidate is double beneficiary">The candidate is double beneficiary</option>
+                                                            <option value="Test1">Test1</option>
+                                                            <option value="Test2">Test2</option>
+                                                            <option value="Test3">Test3</option>
+                                                            <option value="Other">Other</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger">Submit</button>
                                                 </form>
                                             </div>
                                         </div>
