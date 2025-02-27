@@ -45,26 +45,11 @@
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>
     </li>
-    {% if session['user'] == 'Head of Department' %}
-    <li class="nav-item">
-      <a class="nav-link" href="/addAdmin">
-        <span class="menu-title">Admin Master</span>
-        <i class="mdi mdi-plus-thick menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/hra_master">
-        <span class="menu-title">HRA Master</span>
-        <i class="mdi mdi-plus-thick menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/jrf_srf_master">
-        <span class="menu-title">JRF SRF Master</span>
-        <i class="mdi mdi-plus-thick menu-icon"></i>
-      </a>
-    </li>
-    {% endif %}
+
+    <br>
+    <h2 class="text-dark ms-3" style="font-size: medium">
+      Fellowship Grant
+    </h2>
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <span class="menu-title">Fellowship Approval</span>
@@ -98,11 +83,33 @@
         </ul>
       </div>
     </li>
+
+    <br>
+    <h2 class="text-dark ms-3" style="font-size: medium">
+      Accounts & Payments
+    </h2>
     <li class="nav-item">
-      <a class="nav-link" href="/payment_sheet">
-        <span class="menu-title">Payment Sheet</span>
+      <a class="nav-link" data-bs-toggle="collapse" href="#pay-basic" aria-expanded="false" aria-controls="pay-basic">
+        <span class="menu-title">Payments &  Approval</span>
+        <i class="menu-arrow"></i>
         <i class="mdi mdi-cash-clock menu-icon"></i>
       </a>
+      <div class="collapse" id="pay-basic">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" href="/payment_sheet">Payment Sheets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Payments Approved</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Payments Rejected</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Payments On Hold</a>
+          </li>
+        </ul>
+      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/payment_tracking">
@@ -110,6 +117,44 @@
         <i class="mdi mdi-contactless-payment menu-icon"></i>
       </a>
     </li>
+
+
+    {% if session['user'] == 'Head of Department' %}
+    <br>
+    <h2 class="text-dark ms-3" style="font-size: medium">
+      Masters
+    </h2>
+    <li class="nav-item">
+      <a class="nav-link" href="/addAdmin">
+        <span class="menu-title">Admin Master</span>
+        <i class="mdi mdi-book menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/hra_master">
+        <span class="menu-title">H.R.A Master</span>
+        <i class="mdi mdi-book menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/jrf_srf_master">
+        <span class="menu-title">JRF SRF Master</span>
+        <i class="mdi mdi-book menu-icon"></i>
+      </a>
+    </li>
+    {% endif %}
+
+<!--    <li class="nav-item">-->
+<!--      <a class="nav-link" href="/payment_sheet">-->
+<!--        <span class="menu-title">Payment Sheet</span>-->
+<!--        <i class="mdi mdi-cash-clock menu-icon"></i>-->
+<!--      </a>-->
+<!--    </li>-->
+
+    <br>
+    <h2 class="text-dark ms-3" style="font-size: medium">
+      General Operations
+    </h2>
     <li class="nav-item">
       <a class="nav-link" href="/document_repo">
         <span class="menu-title">Document Repository</span>
