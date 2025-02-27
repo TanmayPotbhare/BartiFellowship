@@ -1292,3 +1292,106 @@ function validateHRArate(input) {
             });
         });
     });
+
+
+// ----------------------------------------------
+// ------ Start Code for Pending Applications Report Page -----
+
+$(document).ready(function () {
+    /*
+      Path to HTML: "/templates/AdminPages/DashboardCountReports/total_accepted_report.html"
+      Path to Python Route: "/PythonFiles/AdminPages/Dashboard/admin_dashboard.py"
+      This code is responsible for handling the dynamic fetching of application report data based on the selected year.
+      It utilizes DataTables with row selection.
+      The AJAX call updates the DataTable based on the selected year and populates the table with new data.
+    */
+    // Initialize the DataTable
+    var dataTable = $('.datatable').DataTable();
+
+    // Listen for changes in the year selector
+    $('#selectedd_yearrrs').change(function () {
+        var selectedYear = $(this).val();
+
+        if (selectedYear) {
+            // Make an AJAX GET request
+            $.ajax({
+                url: '/total_pending_report',
+                type: 'GET',
+                data: { year: selectedYear },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Ensure the server recognizes it as an AJAX call
+                },
+                success: function (response) {
+                    // Destroy the existing DataTable
+                    dataTable.destroy();
+
+                    // Clear the table body
+                    $('.datatable tbody').empty();
+
+                    // Populate the table with the new data
+                    response.forEach(function (record) {
+                        var statusLabel = '';
+                        if (record.final_approval === 'accepted') {
+                            statusLabel = '<label class="badge badge-gradient-success text-dark">Accepted</label>';
+                        } else if (record.final_approval === 'rejected') {
+                            statusLabel = '<label class="badge badge-gradient-danger text-dark">Rejected</label>';
+                        } else if (record.final_approval === 'pending') {
+                            statusLabel = '<label class="badge badge-gradient-warning text-dark">Pending</label>';
+                        } else {
+                            statusLabel = '<label>N/A</label>';
+                        }
+
+                        $('.datatable tbody').append(`
+                            <tr>
+                                <td>${record.applicant_id}</td>
+                                <td>${record.first_name}</td>
+                                <td>${record.last_name}</td>
+                                <td>${record.email}</td>
+                                <td>${record.application_date}</td>
+                                <td>${statusLabel}</td>
+                                <td>
+                                    <a href="/view_candidate/${record.id}" class="btn btn-primary btn-sm" target="_blank"
+                                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
+                                        <i class="mdi mdi-eye text-dark fw-bold"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        `);
+                    });
+
+                    // Reinitialize the DataTable with the updated data
+                    dataTable = $('.datatable').DataTable();
+                },
+                error: function () {
+                    alert('Failed to fetch data for the selected year. Please try again.');
+                }
+            });
+        }
+    });
+});
+
+$('#export-to-excel-pending').on('click', function () {
+    /*
+        Go to this path: templates/AdminPages/DashboardCountReports/total_rejected_report.html
+        On line 35, the ID is mentioned of the export to excel and the select_year id is on line 19.
+        These ID's are used to fetch data and hit the export to excel link.
+        Python code path: /PythonFiles/AdminPages/Dashboard/admin_dashboard.py on LINE 498.
+    */
+    // Get the selected year from the dropdown
+    let selectedYear = $('#selectedd_yearrr').val();
+    console.log('Selected year:', selectedYear);
+    const formType = $(this).data('form-type');  // Get the form type (e.g., "completed_form")
+
+    // If no year is selected, default to 2023
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    // Set the href of the export link dynamically with the selected year
+    // Dynamically build the export link using the selected year and form type
+    const exportHref = `/export_to_excel?year=${selectedYear}&form_type=${formType}`;
+
+    // Set the href of the export link dynamically
+    $(this).attr('href', exportHref);
+});
+// ----------------------------------------------
+// ------ END Code for Pending Application Report Page -----    
