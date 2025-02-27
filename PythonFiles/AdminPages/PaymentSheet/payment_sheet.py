@@ -109,7 +109,7 @@ def payment_sheet_auth(app):
             # Set available usernames
             usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
 
-            print("I am displaying Total ACCEPTED Application Report")
+            print("I am displaying the Payment Sheet")
 
             # Get year from request, fallback to admin's assigned year if not provided
             year = request.args.get('year', year_selected)
@@ -381,4 +381,3 @@ def payment_sheet_auth(app):
         response.headers['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
         return response
-
