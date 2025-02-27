@@ -112,7 +112,55 @@
               <td class="text-center" style="font-size:15px">{{ record['account_number'] }}</td>
               <td class="text-center" style="font-size:15px">{{ record['ifsc'] }}</td>
               <td class="text-center" style="font-size:15px">{{ record['total'] }}</td>
+              <td>
+                <form method="POST">
+                  <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
+                    <button class="btn btn-success btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#acceptModal"
+                        data-applicant-id="{{ record['number'] }}" data-bs-placement="top"
+                        data-bs-original-title="Accept Sheet">
+                        <i class="mdi mdi-check-all"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#rejectModal"
+                        data-applicant-id="{{ record['number'] }}" data-bs-placement="top"
+                        data-bs-original-title="Reject Sheet">
+                        <i class="mdi mdi-close-octagon"></i>
+                    </button>
+                    <button class="btn btn-warning btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#holdModal"
+                        data-applicant-id="{{ record['number'] }}" data-bs-placement="top"
+                        data-bs-original-title="Holf Sheet">
+                        <i class="mdi mdi-close-octagon"></i>
+                    </button>
+                </form>
+              </td>
             </tr>
+
+            <!-- Start Modal for Acceptance Reason -->
+            <div class="modal fade" id="acceptModal{{loop.index}}" tabindex="-1" aria-labelledby="acceptModalLabel{{loop.index}}" style="display: none;">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="acceptModalLabel{{loop.index}}">Accept Payment Sheet:</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form action="/admin_accept" id="acceptForm{{loop.index}}" method="POST">
+                              <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
+                              <input type="hidden" name="accept" value="accept">
+                              <p>
+                                  Please make sure you want to <span class="text-success fw-bold">Accept</span> the following Payment Sheet :
+                                  <br> <strong>Name:</strong> {{ record['full_name'] }}.
+                                  <br> <strong>Fellowship:</strong> {{ record['jrf_srf'] }}
+                                  <br> <strong>Total Fellowship Amount:</strong> {{ record['total_fellowship'] }}
+                                  <br><br>
+                                  After you accept the Payment Sheet, it will be passed on to HoD for further approval.
+                              </p>
+                              <button type="submit" class="btn btn-success text-dark">Submit Acceptance</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- End Modal for Acceptance Reason -->
         {% endfor %}
       </tbody>
     </table>
