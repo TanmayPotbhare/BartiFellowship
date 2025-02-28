@@ -1465,14 +1465,24 @@ def admin_dashboard_auth(app):
 
         # Convert the Date to standard Format
         first_record = records
-        DoB = first_record['date_of_birth'] # Date of Birth
-        formatted_date_of_birth = DoB.strftime('%d-%b-%Y')   
- 
-        application_date = first_record['application_date'] # Application Date
-        formatted_application_date = application_date.strftime('%d-%b-%Y')
 
-        PHD_reg_date = first_record['phd_registration_date'] # PHD Registration Date
-        formatted_PHD_reg_date = PHD_reg_date.strftime('%d-%b-%Y')
+        if first_record['date_of_birth']: 
+            DoB = first_record['date_of_birth'] # Date of Birth
+            formatted_date_of_birth = DoB.strftime('%d-%b-%Y')   
+        else:
+            formatted_date_of_birth = "None"    
+ 
+        if first_record['application_date']: 
+            application_date = first_record['application_date'] # Application Date
+            formatted_application_date = application_date.strftime('%d-%b-%Y')
+        else:
+            formatted_application_date = "None"
+
+        if first_record['phd_registration_date']: 
+            PHD_reg_date = first_record['phd_registration_date'] # PHD Registration Date
+            formatted_PHD_reg_date = PHD_reg_date.strftime('%d-%b-%Y')
+        else:
+            formatted_PHD_reg_date = "None"
 
         return render_template('AdminPages/view_candidate.html', title="My Profile", records=records,
                                user=user, photo=photo, finally_approved=finally_approved, 
