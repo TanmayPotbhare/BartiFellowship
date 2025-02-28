@@ -58,7 +58,6 @@ def set_session(value):
     session['language'] = value
     return redirect(request.referrer)
 
-
 # ------------ Blueprint Registration --------------
 homepage_blueprints(app, mail)    # These blueprints are in the file - (Blueprints/blueprints_homepage.py)
 admin_blueprints(app, mail)     # These blueprints are in the file - (Blueprints/blueprints_admin.py)

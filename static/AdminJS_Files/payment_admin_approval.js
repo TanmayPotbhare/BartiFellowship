@@ -21,21 +21,54 @@ $(document).ready(function () {
                     $.each(response.hod_payment_data, function (index, record) { // Change to hod_payment_data to match your flask endpoint.
                         var statusLabel = '';
                         var scrutinyStatusLabel = '';
-                        var finalApprovalLabel = '';
+                        var jrf_srf = '';
+
+                        switch (record.jrf_srf) {
+                            case 'jrf_1':
+                                jrf_srf = '<strong class="text-danger"> JRF </strong>';
+                                break;
+                            case 'jrf_2':
+                                jrf_srf = '<strong class="text-danger"> JRF </strong>';
+                                break;
+                            case 'srf_1':
+                                jrf_srf = '<strong class="text-danger"> SRF </strong>';
+                                break;
+                            case 'srf_2':
+                                jrf_srf = '<strong class="text-danger"> SRF </strong>';
+                                break;
+                            case 'srf_3':
+                                jrf_srf = '<strong class="text-danger"> SRF </strong>';
+                                break;
+                            default:
+                                jrf_srf = '<span>N/A</span>'; // Use a span for consistency
+                        }
 
                         // ... (statusLabel, scrutinyStatusLabel, finalApprovalLabel logic remains the same)
 
                         var rowData = [
                             index + 1,
-                            record.number,
+                            record.applicant_id,
                             record.full_name,
+                            record.email,
+                            '<strong>' + jrf_srf + '</strong>',
+                            record.faculty,
                             record.date,
                             record.fellowship_awarded_year,
                             record.duration_date_from + ' ' + '<strong> TO </strong>' + ' ' + record.duration_date_to,
+                            record.total_months,
+                            '<strong>INR</strong>' + ' ' + record.fellowship,
+                            '<strong>INR</strong>' + ' ' + record.total_fellowship,
+                            record.hra_rate + ' ' + '<strong>%</strong>',
+                            record.hra_amount,
+                            record.hra_months,
+                            '<strong>INR</strong>' + ' ' + record.total_hra_rate,
+                            '<strong>INR</strong>' + ' ' + record.contingency,
+                            '<strong>INR</strong>' + ' ' + record.pwd,
+                            '<strong>INR</strong>' + ' ' + record.total,
+                            '<strong class="text-danger">' + record.city + '<strong>',
                             record.bank_name,
                             record.account_number,
                             record.ifsc_code,
-                            '<strong>INR</strong>' + ' ' + record.fellowship,
                             `
                                 <td>
                                     <form method="POST">
