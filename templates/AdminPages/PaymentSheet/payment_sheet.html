@@ -80,26 +80,14 @@
           <th>Sr. No.</th>
           <th>Applicant ID</th>
           <th>Name of Student</th>
-          <th>Email</th>
-          <th>JRF/SRF</th>
-          <th>Faculty</th>
           <th>Date of PHD Registration</th>
-          <th>Fellowship Year</th>
+          <th>Fellowship Awarded Date</th>
           <th>Duration</th>
-          <th>Total Month</th>
-          <th>Fellowship Amount</th>
-          <th>Total Amount</th>
-          <th>H.R.A Rate</th>
-          <th>H.R.A Amount</th>
-          <th>H.R.A Months</th>
-          <th>Total H.R.A Amount</th>
-          <th>Contingency</th>
-          <th>Disability Amount</th>
-          <th>Total</th>
-          <th>City</th>
           <th>Bank Name</th>
           <th>Account Number</th>
           <th>IFSC</th>
+          <th>Fellowship Amount</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -125,6 +113,7 @@
               <td class="text-center" style="font-size:15px">{{ record['account_number'] }}</td>
               <td class="text-center" style="font-size:15px">{{ record['ifsc'] }}</td>
               <td class="text-center" style="font-size:15px">{{ record['total'] }}</td>
+              <td class="text-center" style="font-size:15px">{{ record['admin_approval'] }}</td>
               <td>
                 <form method="POST">
                   <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
@@ -156,7 +145,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                          <form action="/admin_accept" id="acceptForm{{loop.index}}" method="POST">
+                          <form action="/admin_accept_payment_sheet" id="acceptForm{{loop.index}}" method="POST">
                               <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
                               <input type="hidden" name="accept" value="accept">
                               <p>
@@ -173,7 +162,70 @@
                   </div>
               </div>
           </div>
-          <!-- End Modal for Acceptance Reason -->
+          <!-- End Modal for Acceptance -->
+          <!-- Start Modal for Rejection Reason -->
+          <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rejectModalLabel">Reject Paymen Sheet</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/admin_reject_payment_sheet" id="rejectForm" method="POST">
+                            <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
+                            <input type="hidden" name="reject" value="reject">
+                            <div class="mb-3">
+<!--                                        <label for="rejectionReason" class="form-label">Rejection Reason</label>-->
+<!--                                        <textarea class="form-control" id="rejectionReason" name="rejectionReason" rows="3" required></textarea>-->
+                                <select name="rejectionReason" id="rejectionReason" class="form-select">
+                                  <option value="" selected>-- Select a Reason --</option>
+                                  <option value="The candidate is double beneficiary">The candidate is double beneficiary</option>
+                                  <option value="Test1">Test1</option>
+                                  <option value="Test2">Test2</option>
+                                  <option value="Test3">Test3</option>
+                                  <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Submit Rejection</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal for Rejection Reason -->
+
+
+         <!-- Start Modal for Rejection Reason -->
+         <div class="modal fade" id="holdModal" tabindex="-1" aria-labelledby="holdModalLabel">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="holdModalLabel">Reject Paymen Sheet</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <form action="/admin_hold_payment_sheet" id="holdForm" method="POST">
+                          <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
+                          <input type="hidden" name="hold" value="hold">
+                          <div class="mb-3">
+                            <label for="onHoldReason" class="form-label">On Hold Reason</label>
+                             <select name="onHoldReason" id="onHoldReason" class="form-select">
+                                 <option value="" selected>-- Select a Reason --</option>
+                                 <option value="The candidate is double beneficiary">The candidate is double beneficiary</option>
+                                 <option value="Test1">Test1</option>
+                                 <option value="Test2">Test2</option>
+                                 <option value="Test3">Test3</option>
+                                 <option value="Other">Other</option>
+                             </select>
+                         </div>
+                          <button type="submit" class="btn btn-danger">Submit</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- End Modal for Rejection Reason -->
         {% endfor %}
       </tbody>
     </table>
