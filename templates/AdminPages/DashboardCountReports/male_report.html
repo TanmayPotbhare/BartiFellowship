@@ -26,11 +26,11 @@
           <div class="btn-group me-2">
             <select id="male_select_year" name="selected_year" class="btn btn-primary btn-sm text-dark">
                 <option value="" selected>Select Year</option>
-                <option value="2020">2020 - 2021</option>
-                <option value="2021">2021 - 2022</option>
-                <option value="2022">2022 - 2023</option>
-                <option value="2023">2023 - 2024</option>
-                <option value="2024">2024 - 2025</option>
+                <option value="2020">BANRF 2020</option>
+                <option value="2021">BANRF 2021</option>
+                <option value="2022">BANRF 2022</option>
+                <option value="2023">BANRF 2023</option>
+                <option value="2024">BANRF 2024</option>
             </select>
           </div>
          {% endif %}
@@ -40,10 +40,8 @@
             Code for ID call will be found in: """/static/admin.js file on LINE 204."""
             Code for Python will be found in: """/PythonFiles/AdminPages/Dashboard/admin_dashboard.py on LINE 498."""
          -->
-        <!-- <a href="#" class="btn btn-outline-primary btn-sm" data-form-type="male_application_records"
-           id="export-to-excel-male">Export to Excel</a> -->
         <a href="#" class="btn btn-outline-primary btn-sm" data-form-type="male_application_records"
-           id="#">Export to Excel</a>   
+           id="export-to-excel-male">Export to Excel</a>
     </div>
   </div>
 
@@ -87,7 +85,7 @@
                       {% endif %}
                   </td>
                   <td>
-                    <a href="/viewform/{{ record['id'] }}" class="btn btn-primary btn-sm"
+                    <a href="/view_candidate/{{ record['id'] }}" class="btn btn-primary btn-sm"
                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">
                       <i class="mdi mdi-eye fw-bold"></i>
                     </a>

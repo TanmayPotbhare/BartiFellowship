@@ -1190,78 +1190,117 @@ def admin_dashboard_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        year = request.args.get('year', default=2023, type=int)
-        # print(year)
-        form_type = request.args.get('form_type')  # Get the form type (e.g., "completed_form")
+        user = session['user']
+        print("The EXPORT user is :" , user)
 
-        columns_str = ', '.join(COMMON_COLUMNS)
+        try:
+            # Fetch admin details
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        # Dynamically change the SQL query based on form_type
-        if form_type == "total_application_records":
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s", (year,))
-        elif form_type == "completed_form_records":
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND form_filled='1'",
-                           (year,))
-        elif form_type == "incomplete_form_records":
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND form_filled='0'",
-                           (year,))
-        elif form_type == 'accepted_records':
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND "
-                           "final_approval='accepted' AND form_filled=1 ",
-                           (year,))
-        elif form_type == 'rejected_records':
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND "
-                           "final_approval='rejected' AND form_filled=1 ",
-                           (year,))
-        elif form_type == 'male_application_records':
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and gender='Male' ",
-                           (year,))
-        elif form_type == 'female_application_records':
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and gender='Female' ",
-                           (year,))
-        elif form_type == 'disabled_application_records':
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and disability='Yes' ",
-                           (year,))
-        elif form_type == 'not_disabled_application_records':
-            cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and disability='No' ",
-                           (year,))
-        else:
-            # Handle other form types or default case
-            flash('Error fetching Details. Some details are missing.', 'error')
+            # Default year selection
+            year = request.args.get('year', default=2023, type=int)
 
-        data = cursor.fetchall()  # Fetch the results
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
 
-        # Close the connection
-        cursor.close()
-        cnx.close()
+                # Extract and format username
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
 
-        # Create an Excel workbook
-        workbook = Workbook()
-        sheet = workbook.active
-        sheet.title = f"Data_{year}"
+                print("The username is " + username)
 
-        # Write headers
-        if data:
-            # Map database column names to headers
-            headers = [COMMON_HEADERS.get(column, column) for column in
-                       data[0].keys()]  # Use COMMON_HEADERS for headers
-            sheet.append(headers)  # Add headers to the first row
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":  # Corrected typo here
+                        year = "2024"
 
-            # Write data rows
-            for row_data in data:
-                sheet.append(
-                    [row_data.get(column, '') for column in data[0].keys()])  # Ensure data matches the header order
+                # year = request.args.get('year', default=2023, type=int)
+                print("Exporting the Report for YEAR : " , year)
+                form_type = request.args.get('form_type')  # Get the form type (e.g., "completed_form")
 
-        # Save the workbook to an in-memory stream
-        output = BytesIO()
-        workbook.save(output)
-        output.seek(0)
+                columns_str = ', '.join(COMMON_COLUMNS)
 
-        # Return the file as a downloadable response
-        response = make_response(output.read())
-        response.headers['Content-Disposition'] = f'attachment; filename=export_{form_type}_{year}.xlsx'
-        response.headers['Content-type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        return response
+                # Dynamically change the SQL query based on form_type
+                if form_type == "total_application_records":
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s", (year,))
+                elif form_type == "completed_form_records":
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND form_filled='1'",
+                                (year,))
+                elif form_type == "incomplete_form_records":
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND form_filled='0'",
+                                (year,))
+                elif form_type == 'accepted_records':
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND "
+                                "final_approval='accepted' AND form_filled=1 ",
+                                (year,))
+                elif form_type == 'rejected_records':
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s AND "
+                                "final_approval='rejected' AND form_filled=1 ",
+                                (year,))
+                elif form_type == 'male_application_records':
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and gender='Male' ",
+                                (year,))
+                elif form_type == 'female_application_records':
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and gender='Female' ",
+                                (year,))
+                elif form_type == 'disabled_application_records':
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and disability='Yes' ",
+                                (year,))
+                elif form_type == 'not_disabled_application_records':
+                    cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and disability='No' ",
+                                (year,))
+                else:
+                    # Handle other form types or default case
+                    flash('Error fetching Details. Some details are missing.', 'error')
+
+                data = cursor.fetchall()  # Fetch the results
+
+                # Close the connection
+                cursor.close()
+                cnx.close()
+
+                # Create an Excel workbook
+                workbook = Workbook()
+                sheet = workbook.active
+                sheet.title = f"Data_{year}"
+
+                # Write headers
+                if data:
+                    # Map database column names to headers
+                    headers = [COMMON_HEADERS.get(column, column) for column in
+                            data[0].keys()]  # Use COMMON_HEADERS for headers
+                    sheet.append(headers)  # Add headers to the first row
+
+                    # Write data rows
+                    for row_data in data:
+                        sheet.append(
+                            [row_data.get(column, '') for column in data[0].keys()])  # Ensure data matches the header order
+
+                # Save the workbook to an in-memory stream
+                output = BytesIO()
+                workbook.save(output)
+                output.seek(0)
+
+                # Return the file as a downloadable response
+                response = make_response(output.read())
+                response.headers['Content-Disposition'] = f'attachment; filename=export_{form_type}_{year}.xlsx'
+                response.headers['Content-type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                return response
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            flash(f"An error occurred: {e}", 'error')
+            return redirect(url_for('admin_dashboard.some_route')) #replace some_route with a valid route.
 
     # END Common Export to Excel
     # ----------------------------------------------------------------
@@ -1465,14 +1504,24 @@ def admin_dashboard_auth(app):
 
         # Convert the Date to standard Format
         first_record = records
-        DoB = first_record['date_of_birth'] # Date of Birth
-        formatted_date_of_birth = DoB.strftime('%d-%b-%Y')   
- 
-        application_date = first_record['application_date'] # Application Date
-        formatted_application_date = application_date.strftime('%d-%b-%Y')
 
-        PHD_reg_date = first_record['phd_registration_date'] # PHD Registration Date
-        formatted_PHD_reg_date = PHD_reg_date.strftime('%d-%b-%Y')
+        if first_record['date_of_birth']: 
+            DoB = first_record['date_of_birth'] # Date of Birth
+            formatted_date_of_birth = DoB.strftime('%d-%b-%Y')   
+        else:
+            formatted_date_of_birth = "None"    
+ 
+        if first_record['application_date']: 
+            application_date = first_record['application_date'] # Application Date
+            formatted_application_date = application_date.strftime('%d-%b-%Y')
+        else:
+            formatted_application_date = "None"
+
+        if first_record['phd_registration_date']: 
+            PHD_reg_date = first_record['phd_registration_date'] # PHD Registration Date
+            formatted_PHD_reg_date = PHD_reg_date.strftime('%d-%b-%Y')
+        else:
+            formatted_PHD_reg_date = "None"
 
         return render_template('AdminPages/view_candidate.html', title="My Profile", records=records,
                                user=user, photo=photo, finally_approved=finally_approved, 
