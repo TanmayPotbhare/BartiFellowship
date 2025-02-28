@@ -15,17 +15,17 @@
           {% if year_selected in years and admin_username in usernames %}
              <div class="btn-group">
                <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
-               <input type="hidden" id="paymentYearSelector" name="selected_year" value="2021">
+               <input type="hidden" id="paymentYearSelector" name="selected_year" value="{{year_selected}}">
              </div>
           {% else %}
             <div class="btn-group">
               <select id="paymentYearSelector" name="selected_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option value="" selected disabled>Select BANRF Year</option>
-                <option value="2020">BANRF 2020 - 2021</option>
-                <option value="2021">BANRF 2021 - 2022</option>
-                <option value="2022">BANRF 2022 - 2023</option>
-                <option value="2023">BANRF 2023 - 2024</option>
-                <option value="2024">BANRF 2024 - 2025</option>
+                <option value="2020">BANRF 2020</option>
+                <option value="2021">BANRF 2021</option>
+                <option value="2022">BANRF 2022</option>
+                <option value="2023">BANRF 2023</option>
+                <option value="2024">BANRF 2024</option>
               </select>
             </div>
             {% endif %}
@@ -63,7 +63,7 @@
         </div>
         {% if year_selected in years and admin_username in usernames %}
           <div class="text-center mb-4">
-              <h4>Payment Sheet for BANRF - {{year_selected}}</h4>
+              <h4 id="paymentSheetTitle">Payment Sheet for BANRF - {{year_selected}}</h4>
           </div>
         {% else %}  
         <div class="text-center mb-4">
@@ -80,153 +80,34 @@
           <th>Sr. No.</th>
           <th>Applicant ID</th>
           <th>Name of Student</th>
+          <th>Email</th>
+          <th>JRF/SRF</th>
+          <th>Faculty</th>
           <th>Date of PHD Registration</th>
-          <th>Fellowship Awarded Date</th>
+          <th>Fellowship Year</th>
           <th>Duration</th>
+          <th>Total Month</th>
+          <th>Fellowship Amount</th>
+          <th>Total Amount</th>
+          <th>H.R.A Rate</th>
+          <th>H.R.A Amount</th>
+          <th>H.R.A Months</th>
+          <th>Total H.R.A Amount</th>
+          <th>Contingency</th>
+          <th>Disability Amount</th>
+          <th>Total</th>
+          <th>City</th>
           <th>Bank Name</th>
           <th>Account Number</th>
           <th>IFSC</th>
-          <th>Fellowship Amount</th>
-          <th>Status</th>
+          <th>Admin Status</th>
+          <th>HOD Status</th>
+          <th>Account Officer Status</th>
+          <th>Registrar Status</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {% for record in user_data %}
-            <tr>
-              <td class="text-center" style="font-size:15px">{{ loop.index }}</td>
-              <td class="text-center">
-                <a href="/fellowship_details/{{ record['email'] }}" class="btn btn-outline-primary btn -fw btn-sm btn-rounded tooltip-trigger" data-bs-parent="table"
-                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Form">TRTI/{{ record['phd_registration_year'] }}/{{ record['id'] }}</a>
-              </td>
-              <td class="text-center" style="font-size:15px">
-                {% if record['first_name'] and record['last_name'] %}
-                    {{ record['first_name'] }} {{ record['middle_name'] }} {{ record['last_name'] }}
-                {% else %}
-                    N/A
-                {% endif %}
-              </td>
-              <td class="text-center" style="font-size:15px">{{ record['joining_date'] }}</td>
-              <td class="text-center" style="font-size:15px">{{ record['fellowship_awarded_date'] }}</td>
-              <td class="text-center" style="font-size:15px">{{ record['duration']|safe }}</td>
-              <td class="text-center" style="font-size:15px">{{ record['bank_name'] }} </td>
-              <td class="text-center" style="font-size:15px">{{ record['account_number'] }}</td>
-              <td class="text-center" style="font-size:15px">{{ record['ifsc'] }}</td>
-              <td class="text-center" style="font-size:15px">{{ record['total'] }}</td>
-              <td class="text-center" style="font-size:15px">{{ record['admin_approval'] }}</td>
-              <td>
-                <form method="POST">
-                  <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
-                    <button class="btn btn-success btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#acceptModal"
-                        data-applicant-id="{{ record['number'] }}" data-bs-placement="top"
-                        data-bs-original-title="Accept Sheet">
-                        <i class="mdi mdi-check-all"></i>
-                    </button>
-                    <button class="btn btn-danger btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#rejectModal"
-                        data-applicant-id="{{ record['number'] }}" data-bs-placement="top"
-                        data-bs-original-title="Reject Sheet">
-                        <i class="mdi mdi-close-octagon"></i>
-                    </button>
-                    <button class="btn btn-warning btn-sm tooltip-trigger" type="button" data-bs-toggle="modal" data-bs-target="#holdModal"
-                        data-applicant-id="{{ record['number'] }}" data-bs-placement="top"
-                        data-bs-original-title="Holf Sheet">
-                        <i class="mdi mdi-close-octagon"></i>
-                    </button>
-                </form>
-              </td>
-            </tr>
-
-            <!-- Start Modal for Acceptance Reason -->
-            <div class="modal fade" id="acceptModal{{loop.index}}" tabindex="-1" aria-labelledby="acceptModalLabel{{loop.index}}" style="display: none;">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="acceptModalLabel{{loop.index}}">Accept Payment Sheet:</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                          <form action="/admin_accept_payment_sheet" id="acceptForm{{loop.index}}" method="POST">
-                              <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
-                              <input type="hidden" name="accept" value="accept">
-                              <p>
-                                  Please make sure you want to <span class="text-success fw-bold">Accept</span> the following Payment Sheet :
-                                  <br> <strong>Name:</strong> {{ record['full_name'] }}.
-                                  <br> <strong>Fellowship:</strong> {{ record['jrf_srf'] }}
-                                  <br> <strong>Total Fellowship Amount:</strong> {{ record['total_fellowship'] }}
-                                  <br><br>
-                                  After you accept the Payment Sheet, it will be passed on to HoD for further approval.
-                              </p>
-                              <button type="submit" class="btn btn-success text-dark">Submit Acceptance</button>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- End Modal for Acceptance -->
-          <!-- Start Modal for Rejection Reason -->
-          <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="rejectModalLabel">Reject Paymen Sheet</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/admin_reject_payment_sheet" id="rejectForm" method="POST">
-                            <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
-                            <input type="hidden" name="reject" value="reject">
-                            <div class="mb-3">
-<!--                                        <label for="rejectionReason" class="form-label">Rejection Reason</label>-->
-<!--                                        <textarea class="form-control" id="rejectionReason" name="rejectionReason" rows="3" required></textarea>-->
-                                <select name="rejectionReason" id="rejectionReason" class="form-select">
-                                  <option value="" selected>-- Select a Reason --</option>
-                                  <option value="The candidate is double beneficiary">The candidate is double beneficiary</option>
-                                  <option value="Test1">Test1</option>
-                                  <option value="Test2">Test2</option>
-                                  <option value="Test3">Test3</option>
-                                  <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-danger">Submit Rejection</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Modal for Rejection Reason -->
-
-
-         <!-- Start Modal for Rejection Reason -->
-         <div class="modal fade" id="holdModal" tabindex="-1" aria-labelledby="holdModalLabel">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="holdModalLabel">Reject Paymen Sheet</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      <form action="/admin_hold_payment_sheet" id="holdForm" method="POST">
-                          <input type="hidden" name="sheet_id" value="{{ record['number'] }}">
-                          <input type="hidden" name="hold" value="hold">
-                          <div class="mb-3">
-                            <label for="onHoldReason" class="form-label">On Hold Reason</label>
-                             <select name="onHoldReason" id="onHoldReason" class="form-select">
-                                 <option value="" selected>-- Select a Reason --</option>
-                                 <option value="The candidate is double beneficiary">The candidate is double beneficiary</option>
-                                 <option value="Test1">Test1</option>
-                                 <option value="Test2">Test2</option>
-                                 <option value="Test3">Test3</option>
-                                 <option value="Other">Other</option>
-                             </select>
-                         </div>
-                          <button type="submit" class="btn btn-danger">Submit</button>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- End Modal for Rejection Reason -->
-        {% endfor %}
       </tbody>
     </table>
   </div>

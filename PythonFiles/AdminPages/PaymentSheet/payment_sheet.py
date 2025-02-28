@@ -1,5 +1,7 @@
 from datetime import date, timedelta, datetime
 from io import BytesIO
+
+import mysql
 from openpyxl.workbook import Workbook
 from openpyxl.styles import Font
 from classes.database import HostConfig, ConfigPaths, ConnectParam
@@ -53,9 +55,10 @@ def payment_sheet_auth(app):
     def admin_accept_payment_sheet_status(cnx, cursor, year, sheet_id, status): # Added cnx and cursor
         if year:
             database = f'payment_sheet_{year}'
-            update_query = f"UPDATE {database} SET admin_approval = %s WHERE number = %s"
+            admin_action = 'Approved by Admin'
+            update_query = f"UPDATE {database} SET admin_approval = %s, admin_action = %s WHERE number = %s"
             try:
-                cursor.execute(update_query, (status, sheet_id))
+                cursor.execute(update_query, (status, admin_action, sheet_id))
                 cnx.commit() # Commit the transaction
                 print("Status Updated")
             except mysql.connector.Error as err:
@@ -66,29 +69,32 @@ def payment_sheet_auth(app):
     def admin_reject_payment_sheet_status(cnx, cursor, year, sheet_id, status, rejection_reason): # Added cnx and cursor
         if year:
             database = f'payment_sheet_{year}'
-            update_query = f"UPDATE {database} SET admin_approval = %s, admin_reject_reason = %s WHERE number = %s"
+            admin_action = 'Rejected by Admin'
+            print('SHEET ID for REJECTION', sheet_id)
+            update_query = f"UPDATE {database} SET admin_approval = %s, admin_reject_reason = %s, admin_action = %s WHERE number = %s"
             try:
-                cursor.execute(update_query, (status, rejection_reason, sheet_id))
+                cursor.execute(update_query, (status, rejection_reason, admin_action, sheet_id))
                 cnx.commit() # Commit the transaction
                 print("Status Updated")
             except mysql.connector.Error as err:
                 print(f"Error updating status: {err}")
                 cnx.rollback() # Rollback on error
-                flash('An error occurred while updating status.', 'error') # Flash message            
+                flash('An error occurred while updating status.', 'error') # Flash message
 
 
     def admin_hold_payment_sheet_status(cnx, cursor, year, sheet_id, status, hold_reason): # Added cnx and cursor
         if year:
             database = f'payment_sheet_{year}'
-            update_query = f"UPDATE {database} SET admin_approval = %s, admin_hold_reason = %s WHERE number = %s"
+            admin_action = 'On Hold by Admin'
+            update_query = f"UPDATE {database} SET admin_approval = %s, admin_hold_reason = %s, admin_action = %s WHERE number = %s"
             try:
-                cursor.execute(update_query, (status, hold_reason, sheet_id))
+                cursor.execute(update_query, (status, hold_reason, admin_action, sheet_id))
                 cnx.commit() # Commit the transaction
                 print("Status Updated")
             except mysql.connector.Error as err:
                 print(f"Error updating status: {err}")
                 cnx.rollback() # Rollback on error
-                flash('An error occurred while updating status.', 'error') # Flash message                 
+                flash('An error occurred while updating status.', 'error') # Flash message
 
     @payment_sheet_blueprint.route('/payment_sheet', methods=['GET', 'POST'])
     def payment_sheet():
@@ -422,153 +428,5 @@ def payment_sheet_auth(app):
         response.headers['Content-Disposition'] = 'attachment; filename=Payment_Sheet_2023_2024.xlsx'
         response.headers['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
-        return response    
+        return response
 
-    @payment_sheet_blueprint.route('/admin_accept_payment_sheet', methods=['POST'])  # Corrected method
-    def admin_accept_payment_sheet():
-        if not session.get('logged_in'):
-            flash('Please log in.', 'error')
-            return redirect(url_for('adminlogin.admin_login'))
-
-        user = session['user']
-        print("The user is " + user)
-
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-
-        try:
-            sheet_id = request.form['sheet_id']
-            status = 'accepted'
-            print('I am ACCEPTING Sheet No:', sheet_id)
-
-            fetch_admin = "SELECT year FROM admin WHERE username = %s"
-            cursor.execute(fetch_admin, (user,))
-            admin_details = cursor.fetchone()
-
-            if admin_details:
-                year_string = admin_details['year']
-                try:
-                    year = int(year_string.split(' ')[1])
-                    print("Accepting for Year:", year)
-                    admin_accept_payment_sheet_status(cnx, cursor, year, sheet_id, status)  # Pass cnx and cursor
-                    flash('Payment sheet accepted successfully!', 'success')
-                except (IndexError, ValueError):
-                    print("Invalid year format in admin details.")
-                    flash('Invalid year format in admin details.', 'error') 
-            else:
-                print("Admin not found")
-                flash('Admin not found.', 'error')
-
-        except Exception as e:
-            print(f"Error in admin_accept_payment_sheet: {e}")
-            flash('An error occurred during acceptance.', 'error') # Flash message
-
-        finally:
-            if cursor:
-                cursor.close()
-            if cnx:
-                cnx.close()
-
-        return redirect(url_for('payment_sheet.payment_sheet'))
-
-    @payment_sheet_blueprint.route('/admin_reject_payment_sheet', methods=['GET', 'POST'])
-    def admin_reject_payment_sheet():
-        if not session.get('logged_in'):
-            # Redirect to the admin login page if the user is not logged in
-            return redirect(url_for('adminlogin.admin_login'))
-
-        user = session['user']
-        print("The user is " + user)
-
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-
-        try:
-            sheet_id = request.form['sheet_id']
-            rejection_reason = request.form['rejectionReason']
-            status = 'rejected'
-            print('I am REJECTING Sheet No:', sheet_id)
-            print('Rejection reason is:', rejection_reason)
-
-            fetch_admin = "SELECT year FROM admin WHERE username = %s"
-            cursor.execute(fetch_admin, (user,))
-            admin_details = cursor.fetchone()
-            
-            if admin_details:
-                year_string = admin_details['year']
-                try:
-                    year = int(year_string.split(' ')[1])
-                    print("Accepting for Year:", year)
-                    admin_reject_payment_sheet_status(cnx, cursor, year, sheet_id, status, rejection_reason)  # Pass cnx and cursor
-                    flash('Payment sheet rejected successfully!', 'success')
-                except (IndexError, ValueError):
-                    print("Invalid year format in admin details.")
-                    flash('Invalid year format in admin details.', 'error') 
-            else:
-                print("Admin not found")
-                flash('Admin not found.', 'error')
-
-        except Exception as e:
-            print(f"Error in admin_reject_payment_sheet: {e}")
-            flash('An error occurred during acceptance.', 'error') # Flash message
-
-        finally:
-            if cursor:
-                cursor.close()
-            if cnx:
-                cnx.close()
-
-        return redirect(url_for('payment_sheet.payment_sheet'))
-
-
-    @payment_sheet_blueprint.route('/admin_hold_payment_sheet', methods=['GET', 'POST'])
-    def admin_hold_payment_sheet():
-        if not session.get('logged_in'):
-            # Redirect to the admin login page if the user is not logged in
-            return redirect(url_for('adminlogin.admin_login'))
-
-        user = session['user']
-        print("The user is " + user)
-
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
-
-        try:
-            sheet_id = request.form['sheet_id']
-            on_hold_reason = request.form['onHoldReason']
-            status = 'hold'
-            print('I am HOLDING Sheet No:', sheet_id)
-            print('On Hold reason is:', on_hold_reason)
-
-            fetch_admin = "SELECT year FROM admin WHERE username = %s"
-            cursor.execute(fetch_admin, (user,))
-            admin_details = cursor.fetchone()
-            
-            if admin_details:
-                year_string = admin_details['year']
-                try:
-                    year = int(year_string.split(' ')[1])
-                    print("Accepting for Year:", year)
-                    admin_hold_payment_sheet_status(cnx, cursor, year, sheet_id, status, on_hold_reason)  # Pass cnx and cursor
-                    flash('Payment sheet kept On Hold successfully!', 'success')
-                except (IndexError, ValueError):
-                    print("Invalid year format in admin details.")
-                    flash('Invalid year format in admin details.', 'error') 
-            else:
-                print("Admin not found")
-                flash('Admin not found.', 'error')
-
-        except Exception as e:
-            print(f"Error in admin_hold_payment_sheet: {e}")
-            flash('An error occurred during acceptance.', 'error') # Flash message
-
-        finally:
-            if cursor:
-                cursor.close()
-            if cnx:
-                cnx.close()
-
-        return redirect(url_for('payment_sheet.payment_sheet'))
