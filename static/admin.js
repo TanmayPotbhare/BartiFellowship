@@ -1395,3 +1395,34 @@ $('#export-to-excel-pending').on('click', function () {
 });
 // ----------------------------------------------
 // ------ END Code for Pending Application Report Page -----    
+
+
+$('#export_payment_sheet').on('click', function () {
+    /*
+        Go to this path: templates/AdminPages/DashboardCountReports/total_application_report.html
+        On line 35, the ID is mentioned of the export to excel and the select_year id is on line 19.
+        These ID's are used to fetch data and hit the export to excel link.
+        Python code path: /PythonFiles/AdminPages/Dashboard/admin_dashboard.py on LINE 498.
+    */
+    // Get the selected year from the dropdown
+    let selectedYear = $('#paymentYearSelector').val();
+    console.log('Selected year:', selectedYear);
+    let selectedQuarter= $('#quarterSelector').val();
+    console.log('Selected Qaurter:', selectedQuarter);
+    const formType = $(this).data('form-type');  // Get the form type (e.g., "completed_form")
+
+    // If no year is selected, default to 2023
+    if (selectedYear === '') {
+        selectedYear = 2023;
+    }
+    // If no quarter is selected, then set default to Quarter 1
+    if (selectedQuarter === '') {
+        selectedQuarter = 'Quarter 1';
+    }
+    // Set the href of the export link dynamically with the selected year
+    // Dynamically build the export link using the selected year and form type
+    const exportHref = `/export_payment_sheet?year=${selectedYear}&quarter=${selectedQuarter}&form_type=${formType}`;
+
+    // Set the href of the export link dynamically
+    $(this).attr('href', exportHref);
+});

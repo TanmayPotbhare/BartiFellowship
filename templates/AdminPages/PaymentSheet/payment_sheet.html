@@ -30,7 +30,7 @@
             </div>
             {% endif %}
             <div class="btn-group ms-2">
-              <select id="quarterSelector" name="selected_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
+              <select id="quarterSelector" name="selected_quarter" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option selected disabled>Select Quarter</option>
                 <option value="Quarter 1">1st Quarter</option>
                 <option value="Quarter 2">2nd Quarter</option>
@@ -58,7 +58,9 @@
               <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
         {% else %}
               <a href ="/export_payment_sheet_pdf" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Generate PDF<a>
-              <a href ="/export_payment_sheet" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+              <!-- <a href ="/export_payment_sheet" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a> -->
+              <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel" data-form-type="export_to_excel_payment_sheet"
+                id="export_payment_sheet">Export to Excel</a>
         {% endif %}
         </div>
         {% if year_selected in years and admin_username in usernames %}
