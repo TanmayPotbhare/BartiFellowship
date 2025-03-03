@@ -23,88 +23,134 @@ $(document).ready(function () {
                         var scrutinyStatusLabel = '';
                         var finalApprovalLabel = '';
 
+                        function formatDate(dateString) {
+                              const date = new Date(dateString);
+                              const options = {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                              };
+                              return date.toLocaleDateString('en-US', options).replace(/,/g, '');
+                        }
+                        const dateString = record.date; // Simply assign the value
+                        const formattedDate = formatDate(dateString);
 
                         var jrf_srf = '';
                         switch (record.jrf_srf) {
                             case 'jrf_1':
-                                jrf_srf = '<span class="badge badge-success bg-success text-capitalize">JRF</span>';
+                                jrf_srf = '<span class="badge badge-warning bg-warning text-dark fw-bold text-capitalize">JRF</span>';
                                 break;
                             case 'jrf_2':
-                                jrf_srf = '<span class="badge badge-danger bg-danger text-capitalize">JRF</span>';
+                                jrf_srf = '<span class="badge badge-warning bg-warning text-dark fw-bold text-capitalize">JRF</span>';
                                 break;
                             case 'srf_1':
-                                jrf_srf = '<span class="badge badge-warning bg-warning text-dark text-capitalize">SRF</span>';
+                                jrf_srf = '<span class="badge badge-warning bg-warning text-dark fw-bold text-capitalize">SRF</span>';
                                 break;
                             case 'srf_2':
-                                jrf_srf = '<span class="badge badge-primary text-dark text-capitalize">SRF</span>';
+                                jrf_srf = '<span class="badge badge-warning bg-warning text-dark fw-bold text-capitalize">SRF</span>';
                                 break;
                             case 'srf_3':
-                                jrf_srf = '<span class="badge badge-primary text-dark text-capitalize">SRF</span>';
+                                jrf_srf = '<span class="badge badge-warning bg-warning text-dark fw-bold text-capitalize">SRF</span>';
                                 break;
                             default:
                                 jrf_srf = '<span>N/A</span>'; // Use a span for consistency
                         }
 
                         var AdminLabel = '';
-                        switch (record.admin_action) {
-                            case 'Accepted by Admin':
-                                AdminLabel = '<span class="badge badge-success bg-success text-capitalize">Accepted by Admin</span>';
+                        if (record.admin_action === null || record.admin_action === undefined) {
+                            AdminLabel = '<span class="text-primary fw-bold text-capitalize">Pending</span>';
+                        } else {
+                            switch (record.admin_action) {
+                                case 'Approved by Admin':
+                                    AdminLabel = '<span class="badge badge-success bg-success text-capitalize">Accepted by Admin</span>';
+                                    break;
+                                case 'Rejected by Admin':
+                                    AdminLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Admin</span>';
+                                    break;
+                                case 'On Hold by Admin':
+                                    AdminLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Admin</span>';
+                                    break;
+                                default:
+                                    AdminLabel = '<span>N/A</span>';
+                            }
+                        }
+
+                        var AdminButton = '';
+                        switch (record.admin_approval) {
+                            case 'accepted':
+                                AdminButton = '<span class="badge badge-success bg-success text-capitalize">Accepted by Admin</span>';
                                 break;
-                            case 'Rejected by Admin':
-                                AdminLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Admin</span>';
+                            case 'rejected':
+                                AdminButton = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Admin</span>';
                                 break;
-                            case 'On Hold by Admin':
-                                AdminLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Admin</span>';
+                            case 'hold':
+                                AdminButton = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Admin</span>';
+                                break;
+                            case 'N/A':
+                                AdminButton = '<span class="badge badge-warning bg-warning text-dark text-capitalize">Pending</span>';
                                 break;
                             default:
-                                AdminLabel = '<span>N/A</span>'; // Use a span for consistency
+                                AdminButton = '<span>N/A</span>'; // Use a span for consistency
                         }
 
                         var HODLabel = '';
-                        switch (record.hod_action) {
-                            case 'Accepted by Head of Department':
-                                HODLabel = '<span class="badge badge-success bg-success text-capitalize">Accepted by Head of Department</span>';
-                                break;
-                            case 'Rejected by Head of Department':
-                                HODLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Head of Department</span>';
-                                break;
-                            case 'On Hold by Head of Department':
-                                HODLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Head of Department</span>';
-                                break;
-                            default:
-                                HODLabel = '<span>N/A</span>'; // Use a span for consistency
+                        if (record.hod_action === null || record.hod_action === undefined) {
+                            HODLabel = '<span class="text-primary fw-bold text-capitalize">Pending</span>';
+                        } else {
+                            switch (record.hod_action) {
+                                case 'Approved by Head of Department':
+                                    HODLabel = '<span class="badge badge-success bg-success text-dark fw-bold text-capitalize">Accepted by Head of Department</span>';
+                                    break;
+                                case 'Rejected by Head of Department':
+                                    HODLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Head of Department</span>';
+                                    break;
+                                case 'On Hold by Head of Department':
+                                    HODLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Head of Department</span>';
+                                    break;
+                                default:
+                                    HODLabel = '<span>N/A</span>'; // Use a span for consistency
+                            }
                         }
+
 
                         var AOLabel = '';
-                        switch (record.ao_action) {
-                            case 'Accepted by Account Officer':
-                                AOLabel = '<span class="badge badge-success bg-success text-capitalize">Accepted by Account Officer</span>';
-                                break;
-                            case 'Rejected by Account Officer':
-                                AOLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Account Officer</span>';
-                                break;
-                            case 'On Hold by Account Officer':
-                                AOLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Account Officer</span>';
-                                break;
-                            default:
-                                AOLabel = '<span>N/A</span>'; // Use a span for consistency
+                        if (record.ao_action === null || record.ao_action === undefined) {
+                            AOLabel = '<span class="text-primary fw-bold text-capitalize">Pending</span>';
+                        } else {
+                            switch (record.ao_action) {
+                                case 'Approved by Account Officer':
+                                    AOLabel = '<span class="badge badge-success bg-success text-dark fw-bold text-capitalize">Accepted by Account Officer</span>';
+                                    break;
+                                case 'Rejected by Account Officer':
+                                    AOLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Account Officer</span>';
+                                    break;
+                                case 'On Hold by Account Officer':
+                                    AOLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Account Officer</span>';
+                                    break;
+                                default:
+                                    AOLabel = '<span>N/A</span>'; // Use a span for consistency
+                            }
                         }
+
 
                         var RegistrarLabel = '';
-                        switch (record.registrar_action) {
-                            case 'Accepted by Registrar':
-                                RegistrarLabel = '<span class="badge badge-success bg-success text-capitalize">Accepted by Registrar</span>';
-                                break;
-                            case 'Rejected by Registrar':
-                                RegistrarLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Registrar</span>';
-                                break;
-                            case 'On Hold by Registrar':
-                                RegistrarLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Registrar</span>';
-                                break;
-                            default:
-                                RegistrarLabel = '<span>N/A</span>'; // Use a span for consistency
+                        if (record.registrar_action === null || record.registrar_action === undefined) {
+                            RegistrarLabel = '<span class="text-primary fw-bold text-capitalize">Pending</span>';
+                        } else {
+                            switch (record.registrar_action) {
+                                case 'Approved by Registrar':
+                                    RegistrarLabel = '<span class="badge badge-success bg-success text-capitalize">Accepted by Registrar</span>';
+                                    break;
+                                case 'Rejected by Registrar':
+                                    RegistrarLabel = '<span class="badge badge-danger bg-danger text-capitalize">Rejected by Registrar</span>';
+                                    break;
+                                case 'On Hold by Registrar':
+                                    RegistrarLabel = '<span class="badge badge-warning bg-warning text-dark text-capitalize">On Hold by Registrar</span>';
+                                    break;
+                                default:
+                                    RegistrarLabel = '<span>N/A</span>'; // Use a span for consistency
+                            }
                         }
-
                         // ... (statusLabel, scrutinyStatusLabel, finalApprovalLabel logic remains the same)
 
 
@@ -115,10 +161,10 @@ $(document).ready(function () {
                             record.email,
                             '<strong>' + jrf_srf + '</strong>',
                             record.faculty,
-                            record.date,
-                            record.fellowship_awarded_year,
+                            formattedDate,
+                            'BANRF - ' + record.fellowship_awarded_year,
                             record.duration_date_from + ' ' + '<strong> TO </strong>' + ' ' + record.duration_date_to,
-                            record.total_months,
+                            '<strong>' + record.total_months + '</strong>' + ' ' + 'Months',
                             '<strong>INR</strong>' + ' ' + record.fellowship,
                             '<strong>INR</strong>' + ' ' + record.total_fellowship,
                             record.hra_rate + ' ' + '<strong>%</strong>',
@@ -128,7 +174,7 @@ $(document).ready(function () {
                             '<strong>INR</strong>' + ' ' + record.contingency,
                             '<strong>INR</strong>' + ' ' + record.pwd,
                             '<strong>INR</strong>' + ' ' + record.total,
-                            '<strong class="text-danger">' + record.city + '<strong>',
+                            '<span class="badge badge-primary bg-primary text-capitalize">' + record.city + '<span>',
                             record.bank_name,
                             record.account_number,
                             record.ifsc_code,
@@ -139,25 +185,25 @@ $(document).ready(function () {
                             `
                                 <td>
                                     <form method="POST">
-                                    <input type="hidden" name="sheet_id" value="${record.number}">
-                                        <button class="btn btn-success btn-sm tooltip-trigger" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#acceptModal${record.number}"
-                                            data-applicant-id="${record.number}" data-bs-placement="top"
-                                            data-bs-original-title="Accept Sheet">
-                                            <i class="mdi mdi-check-all"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm tooltip-trigger" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#rejectModal${record.number}"
-                                            data-applicant-id="${record.number}" data-bs-placement="top"
-                                            data-bs-original-title="Reject Sheet">
-                                            <i class="mdi mdi-close-octagon"></i>
-                                        </button>
-                                        <button class="btn btn-warning btn-sm tooltip-trigger" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#holdModal${record.number}"
-                                            data-applicant-id="${record.number}" data-bs-placement="top"
-                                            data-bs-original-title="Hold Sheet">
-                                            <i class="mdi mdi-close-octagon"></i>
-                                        </button>
+                                        <input type="hidden" name="sheet_id" value="${record.number}">
+                                            <button class="btn btn-success btn-sm tooltip-trigger" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#acceptModal${record.number}"
+                                                data-applicant-id="${record.number}" data-bs-placement="top"
+                                                data-bs-original-title="Accept Sheet">
+                                                <i class="mdi mdi-check-all"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm tooltip-trigger" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#rejectModal${record.number}"
+                                                data-applicant-id="${record.number}" data-bs-placement="top"
+                                                data-bs-original-title="Reject Sheet">
+                                                <i class="mdi mdi-close-octagon"></i>
+                                            </button>
+                                            <button class="btn btn-warning btn-sm tooltip-trigger" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#holdModal${record.number}"
+                                                data-applicant-id="${record.number}" data-bs-placement="top"
+                                                data-bs-original-title="Hold Sheet">
+                                                <i class="mdi mdi-close-octagon"></i>
+                                            </button>
                                     </form>
                                 </td>
 

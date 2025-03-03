@@ -351,6 +351,22 @@ def section5_auth(app):
                                finally_approved=finally_approved, user=user, photo=photo, signup_record=signup_record)
 
 
+    # @section5_blueprint.route('/load_pament_data')
+    # def load_pament_data():
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
+    #
+    #     cursor.execute("SELECT * FROM application_page WHERE form_filled = '1' AND application_form_status = 'submitted' ")
+    #     result = cursor.fetchall()
+    #
+    #
+    #     for row in result:
+    #         email = row['email']
+    #         insert_payment_sheet_record(email)
+    #
+    #     return render_template('test_pdf.html', result=result)
+
     def insert_payment_sheet_record(email):
         """
         This function is also written in Section5.py for Old Users as they are already accepted.
@@ -381,7 +397,7 @@ def section5_auth(app):
             fullname = result['first_name'] + ' ' + result['middle_name'] + ' ' + result['last_name']
             email = result['email']
             fellowship_awarded = result['fellowship_awarded_date']
-            fellowship_awarded_year = result['fellowship_awarded_year']
+            fellowship_awarded_year = result['fellowship_application_year']
             faculty = result['faculty']
             date = result['phd_registration_date']
             total_months = 6
