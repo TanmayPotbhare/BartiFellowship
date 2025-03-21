@@ -20,7 +20,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="/static/admin_assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="/static/admin_assets/images/favicon.png" />
+    <link rel="shortcut icon" href="/static/assets/img/logo/barti.png" />
     <!-- Bootstrap Datatable Integration -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 
@@ -35,9 +35,10 @@
   </head>
   <body>
     <div class="container-scroller">
+      {% include 'sweetalert.html' %}
       <!-- partial:partials/_navbar.html -->
       {% include 'AdminPages/layout/header.html' %}
-      {% include 'sweetalert.html' %}
+     
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
 

@@ -1426,3 +1426,19 @@ $('#export_payment_sheet').on('click', function () {
     // Set the href of the export link dynamically
     $(this).attr('href', exportHref);
 });
+
+$('#export_payment_sheet_pdf').on('click', function () {
+    let selectedYear = $('#paymentYearSelector').val();
+    let selectedQuarter = $('#quarterSelector').val();
+
+    if (selectedYear === '') {
+        selectedYear = 2022;
+    }
+
+    if (selectedQuarter === '') {
+        selectedQuarter = 'Quarter 1';
+    }
+
+    const iframeSrc = `/generate_pdf?year=${selectedYear}&quarter=${selectedQuarter}`;
+    $('#pdfIframe').attr('src', iframeSrc);
+});

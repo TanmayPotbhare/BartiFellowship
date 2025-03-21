@@ -57,8 +57,7 @@
         {% if session['user'] == 'Auditor' %}
               <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
         {% else %}
-              <a href ="/export_payment_sheet_pdf" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Generate PDF<a>
-              <!-- <a href ="/export_payment_sheet" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a> -->
+        <a href="/export_payment_sheet_pdf" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as PDF" id="export_payment_sheet_pdf">Generate PDF</a>
               <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel" data-form-type="export_to_excel_payment_sheet"
                 id="export_payment_sheet">Export to Excel</a>
         {% endif %}
