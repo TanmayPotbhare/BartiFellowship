@@ -1,6 +1,5 @@
 {% extends 'AdminPages/layout/layout.html' %}
 {% block content %}
-
 <div class="content-wrapper">
   <div class="page-header">
     <h3 class="page-title">
@@ -55,10 +54,10 @@
                         </label><br>
                         <select id="year" name="year" class="form-select">
                             <option value="">Default</option>
-                            <option value="2021">2021 - 2022</option>
-                            <option value="2022">2022 - 2023</option>
-                            <option value="2023">2023 - 2024</option>
-                            <option value="2024">2024 - 2025</option>
+                            <option value="2021">BANRF - 2021 </option>
+                            <option value="2022">BANRF - 2022</option>
+                            <option value="2023">BANRF - 2023</option>
+                            <option value="2024">BANRF - 2024</option>
                         </select>
                     </div>
 
@@ -95,18 +94,21 @@
                         </label><br>
                         <select id="quarters" name="quarters" class="form-select">
                             <option value="">Default</option>
-                            <option value="1">1st Quarter Payment</option>
-                            <option value="2">2nd Quarter Payment</option>
-                            <option value="3">3rd Quarter Payment</option>
+                            <option value="Quarter 1">First Quarter</option>
+                            <option value="Quarter 2">Second Quarter</option>
+                            <option value="Quarter 3">Third Quarter</option>
+                            <option value="Quarter 4">Fourth Quarter</option>
+                            <option value="Quarter 5">Fifth Quarter</option>
+                            <option value="Quarter 6">Sixth Quarter</option>
+                            <option value="Quarter 7">Seventh Quarter</option>
+                            <option value="Quarter 8">Eighth Quarter</option>
+                            <option value="Quarter 9">Ninth Quarter</option>
+                            <option value="Quarter 10">Tenth Quarter</option>
                         </select>
                     </div>
-
-
                       <div class="col-sm-10  text-center">
                         <button type="submit" class="btn btn-primary">Submit Form</button>
                       </div>
-
-
                 </div>
                 <div class="col-md-12">
                   <div class="text-end">
@@ -121,15 +123,19 @@
             <br>
 
             {% if records_display %}
-                <!-- Display payment data if available -->
-                <table class="table datatable" style="font-size:13px">
+            <div class="table-responsive">
+                <!-- Display payment data if available. This table is displayed if records_display contains data 
+                 after submitting the filter form and query that fetch the database has returned the results. -->
+                 <table class="table datatable" style="font-size:13px">
                     <thead>
                         <tr>
                             <th scope="col">Sr No</th>
                             <th scope="col">Full Name</th>
                             <th scope="col">Faculty</th>
                             <th scope="col">JRF/SRF</th>
+                            <th scope="col">Quarter</th>
                             <th scope="col">Date of PhD Registration</th>
+                            <th scope="col">Fellowship Awarded Date</th>
                             <th scope="col">Duration</th>
                             <th scope="col">Total Months</th>
                             <th scope="col">Fellowship</th>
@@ -139,7 +145,7 @@
                             <th scope="col">Months</th>
                             <th scope="col">Total H.R.A</th>
                             <th scope="col">Cont. Yearly</th>
-                            <th scope="col">Difference</th>
+                            <!-- <th scope="col">Difference</th> -->
                             <th scope="col">PWD</th>
                             <th scope="col">Total</th>
                             <th scope="col">City</th>
@@ -153,37 +159,52 @@
                                 <a href="/fellowship_details/{{ record['email'] }}">{{ record['full_name'] }}</a>
                             </td>
                             <td>{{ record['faculty'] }}</td>
-                            <td>{{ record['jrf_srf'] }}</td>
+                            {% if record['jrf_srf'] in ["jrf_1", "jrf_2"] %}
+                                <td>JRF</td>
+                            {% elif record['jrf_srf'] in ["srf_1", "srf_2", "srf_3"] %}
+                                <td>SRF</td>
+                            {% endif %}
+                            <td>{{ record['quarters'] }}</td>
+                            <td>{{ record['date'] }}</td>
                             <td>{{ record['duration_date_from'] }}</td>
                             <td>{{ record['duration_date_from'] }} <strong>to</strong> {{ record['duration_date_to'] }}</td>
                             <td>{{ record['total_months'] }}</td>
                             <td>{{ record['fellowship'] }}</td>
-                            <td>{{ record['to_fellowship'] }}</td>
-                            <td>{{ record['rate'] }}</td>
-                            <td>{{ record['amount'] }}</td>
-                            <td>{{ record['months'] }}</td>
-                            <td>{{ record['total_hra'] }}</td>
-                            <td>{{ record['count'] }}</td>
-                            <td>N/A</td>
-                            <td>{{ record['pwd'] }}</td>
+                            <td>{{ record['total_fellowship'] }}</td>
+                            <td>{{ record['hra_rate'] }}</td>
+                            <td>{{ record['hra_amount'] }}</td>
+                            <td>{{ record['total_months'] }}</td>
+                            <td>{{ record['total_hra_rate'] }}</td>
+                            <td>{{ record['contingency'] }}</td>
+                            <!-- <td>N/A</td> -->
+                            {% if record['pwd'] == "0"%}
+                                <td>N/A</td>
+                            {% else %}
+                                <td>Disabled</td>
+                            {% endif %}
                             <td>{{ record['total'] }}</td>
                             <td>{{ record['city'] }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+                
                 <!-- End Display payment data -->
             {% else %}
                 <div class="table-responsive">
-                    <h4 class="text-center text-theme">2023-2024 Records</h4>
-                    <!-- Display payment data if available -->
+                    <!-- <h4 class="text-center text-theme">2023-2024 Records</h4> -->
+
+                     <!-- This table is displayed if records_display does not contain any data.
+                     i.e. Filter form hasn't been submitted yet or the filter criteria didn't match any records. -->
                     <table class="table datatable" style="font-size:13px">
                         <thead>
                             <tr>
-                                <th scope="col">Sr No</th>
+                                <th scope="col">Sr. No.</th>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Faculty</th>
                                 <th scope="col">JRF/SRF</th>
+                                <th scope="col">Quarter</th>
                                 <th scope="col">Date of PhD Registration</th>
                                 <th scope="col">Fellowship Awarded Date</th>
                                 <th scope="col">Duration</th>
@@ -195,7 +216,7 @@
                                 <th scope="col">Months</th>
                                 <th scope="col">Total H.R.A</th>
                                 <th scope="col">Cont. Yearly</th>
-                                <th scope="col">Difference</th>
+                                <!-- <th scope="col">Difference</th> -->
                                 <th scope="col">PWD</th>
                                 <th scope="col">Total</th>
                                 <th scope="col">City</th>
@@ -209,20 +230,29 @@
                                     <a href="/fellowship_details/{{ record['email'] }}">{{ record['full_name'] }}</a>
                                 </td>
                                 <td>{{ record['faculty'] }}</td>
-                                <td>{{ record['jrf_srf'] }}</td>
+                                {% if record['jrf_srf'] in ["jrf_1", "jrf_2"] %}
+                                    <td>JRF</td>
+                                {% elif record['jrf_srf'] in ["srf_1", "srf_2", "srf_3"] %}
+                                    <td>SRF</td>
+                                {% endif %}
+                                <td>{{ record['quarters'] }}</td>
                                 <td>{{ record['date'] }}</td>
                                 <td>{{ record['duration_date_from'] }}</td>
                                 <td>{{ record['duration_date_from'] }} <strong>to</strong> {{ record['duration_date_to'] }}</td>
                                 <td>{{ record['total_months'] }}</td>
                                 <td>{{ record['fellowship'] }}</td>
-                                <td>{{ record['to_fellowship'] }}</td>
-                                <td>{{ record['rate'] }}</td>
-                                <td>{{ record['amount'] }}</td>
-                                <td>{{ record['months'] }}</td>
-                                <td>{{ record['total_hra'] }}</td>
-                                <td>{{ record['count'] }}</td>
-                                <td>N/A</td>
-                                <td>{{ record['pwd'] }}</td>
+                                <td>{{ record['total_fellowship'] }}</td>
+                                <td>{{ record['hra_rate'] }}</td>
+                                <td>{{ record['hra_amount'] }}</td>
+                                <td>{{ record['total_months'] }}</td>
+                                <td>{{ record['total_hra_rate'] }}</td>
+                                <td>{{ record['contingency'] }}</td>
+                                <!-- <td>N/A</td> -->
+                                {% if record['pwd'] == "0"%}
+                                    <td>N/A</td>
+                                {% else %}
+                                    <td>Disabled</td>
+                                {% endif %}
                                 <td>{{ record['total'] }}</td>
                                 <td>{{ record['city'] }}</td>
                             </tr>

@@ -615,12 +615,12 @@
   </div>
 
   {% else %}  
-
+  <!-- The Dashboard in else condition is displayed for HOD -->
   <div class="page-header">
     <h3 class="page-title">
       <span class="page-title-icon bg-gradient-primary text-white me-2">
         <i class="mdi mdi-chart-bar menu-icon"></i>
-      </span> Dashboard
+      </span> HoD Dashboard
     </h3>
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb d-flex align-items-center">
@@ -629,11 +629,11 @@
             
             <select id="yearSelector" name="selected_year" class="btn btn-danger btn-fw text-dark" style="width: auto;">
               <option selected disabled>Select Year</option>
-              <option value="2020">2020 - 2021</option>
-              <option value="2021">2021 - 2022</option>
-              <option value="2022">2022 - 2023</option>
-              <option value="2023">2023 - 2024</option>
-              <option value="2024">2024 - 2025</option>
+              <option value="2020">BANRF - 2020</option>
+              <option value="2021">BANRF - 2021</option>
+              <option value="2022">BANRF - 2022</option>
+              <option value="2023">BANRF - 2023</option>
+              <option value="2024">BANRF - 2024</option>
             </select>
           </div>
         </li>
@@ -648,7 +648,7 @@
             <div class="card bg-gradient-primary card-img-holder text-white">
               <div class="card-body">
                   <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                  <h4 class="font-weight-normal text-dark fw-bold mb-3">Total Applications <span class="yearChange">(2023 - 2024)</span></h4>
+                  <h4 class="font-weight-normal text-dark fw-bold mb-3">Total Applications <span class="yearChange">BANRF - 2023</span></h4>
                   <!-- Admin Dashboard .py file contains this count name defined-->
                   <h2 class="mb-3" id="total_appl_count">{{ data['total_appl_count'] }}</h2>
                   <h6 class="text-white fw-bold">View Applications</h6>
@@ -664,7 +664,7 @@
             <div class="card bg-gradient-danger card-img-holder text-white">
               <div class="card-body">
                 <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                <h4 class="font-weight-normal text-dark fw-bold mb-3">Completed Forms <span class="yearChange">(2023 - 2024)</span></h4>
+                <h4 class="font-weight-normal text-dark fw-bold mb-3">Completed Forms <span class="yearChange">BANRF - 2023</span></h4>
                 <h2 class="mb-3" id="completed_form_count">{{ data['completed_form_count'] }}</h2>
                 <h6 class="text-white fw-bold">View Applications</h6>
               </div>
@@ -679,7 +679,7 @@
             <div class="card bg-gradient-info card-img-holder text-white">
               <div class="card-body">
                 <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                <h4 class="font-weight-normal text-dark fw-bold mb-3">Incompleted Forms <span class="yearChange">(2023 - 2024)</span></h4>
+                <h4 class="font-weight-normal text-dark fw-bold mb-3">Incompleted Forms <span class="yearChange">BANRF - 2023</span></h4>
                 <h2 class="mb-3" id="incomplete_form_count">{{ data['incomplete_form_count'] }}</h2>
                 <h6 class="text-white fw-bold">View Applications</h6>
               </div>
@@ -694,7 +694,7 @@
             <div class="card bg-gradient-success card-img-holder text-white">
               <div class="card-body">
                 <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                <h4 class="font-weight-normal text-dark fw-bold mb-3">Accepted Applications <span class="yearChange">(2023 - 2024)</span></h4>
+                <h4 class="font-weight-normal text-dark fw-bold mb-3">Accepted Applications <span class="yearChange">BANRF - 2023</span></h4>
                 <h2 class="mb-3" id="accepted_appl_count">{{ data['accepted_appl_count'] }}</h2>
                 <h6 class="text-white fw-bold">View Applications</h6>
               </div>
@@ -709,7 +709,7 @@
             <div class="card bg-gradient-warning card-img-holder text-white">
               <div class="card-body">
                 <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                <h4 class="font-weight-normal text-dark fw-bold mb-3">Rejected Applications <span class="yearChange">(2023 - 2024)</span></h4>
+                <h4 class="font-weight-normal text-dark fw-bold mb-3">Rejected Applications <span class="yearChange">BANRF - 2023</span></h4>
                 <h2 class="mb-3" id="rejected_appl_count">{{ data['rejected_appl_count'] }}</h2>
                 <h6 class="text-white fw-bold">View Applications</h6>
               </div>
@@ -725,7 +725,7 @@
         <div class="card">
           <div class="card-body">
             <div class="clearfix">
-              <h4 class="card-title float-start">District-wise Student Count: <span class="yearChange">2023 - 2024</span></h4>
+              <h4 class="card-title float-start">District-wise Student Count: <span class="yearChange">BANRF - 2023</span></h4>
               <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-end"></div>
             </div>
             <div class="card">
@@ -852,7 +852,7 @@
       <div class="col-md-5 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Gender Counts: <span class="yearChange">2023 - 2024</span></h4>
+            <h4 class="card-title">Gender Counts: <span class="yearChange">BANRF - 2023</span></h4>
             <div class="doughnutjs-wrapper d-flex justify-content-center">
                 <div id="gender"></div>
             </div>
@@ -892,7 +892,7 @@
                         <div class="card bg-gradient-dark card-img-holder text-white">
                           <div class="card-body">
                             <img src="/static/admin_assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                            <h4 class="font-weight-normal text-white fw-bold mb-3">Other Count <span class="yearChange">(2023 - 2024)</span></h4>
+                            <h4 class="font-weight-normal text-white fw-bold mb-3">Other Count <span class="yearChange">BANRF - 2023</span></h4>
                             <h2 class="mb-3" id="transCount">
                               {% if data['trans_count'] %}
                                 {{ data['trans_count'] }}
@@ -980,7 +980,7 @@
       <div class="col-md-5 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Disability Counts: <span class="yearChange">2023 - 2024</span></h4>
+            <h4 class="card-title">Disability Counts: <span class="yearChange">BANRF - 2023</span></h4>
             <div class="doughnutjs-wrapper d-flex justify-content-center">
                 <div id="disability"></div>
             </div>
@@ -1086,7 +1086,7 @@
       <div class="col-lg-7 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Faculty/Stream Wise Student Count: <span class="yearChange">2023 - 2024</span></h4>
+            <h4 class="card-title">Faculty/Stream Wise Student Count: <span class="yearChange">BANRF - 2023</span></h4>
             <div class="chartjs-render-monitor d-flex justify-content-center mt-3">
                 <div id="facultyBarChart" style="width: 90%; height: 100%;"></div>
             </div>

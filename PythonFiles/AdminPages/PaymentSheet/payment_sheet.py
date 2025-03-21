@@ -1,6 +1,5 @@
 from datetime import date, timedelta, datetime
-from io import BytesIO
-
+import io
 import mysql
 from openpyxl.workbook import Workbook
 from openpyxl.styles import Font
@@ -8,6 +7,12 @@ from classes.database import HostConfig, ConfigPaths, ConnectParam
 from fpdf import FPDF
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response, jsonify
 from PythonFiles.AdminPages.ExportExcel.export_payment_sheet_column_names import COMMON_COLUMNS, COMMON_HEADERS
+
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Table, TableStyle
+from io import BytesIO
 
 payment_sheet_blueprint = Blueprint('payment_sheet', __name__)
 
@@ -257,88 +262,88 @@ def payment_sheet_auth(app):
         base_url = request.url_root
         return base_url
 
-    @payment_sheet_blueprint.route('/export_payment_sheet_pdf')
-    def export_payment_sheet_pdf():
-        # Establish a database connection
-        host = HostConfig.host
-        connect_param = ConnectParam(host)
-        cnx, cursor = connect_param.connect(use_dict=True)
+    # @payment_sheet_blueprint.route('/export_payment_sheet_pdf')
+    # def export_payment_sheet_pdf():
+    #     # Establish a database connection
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute("SELECT number, full_name, email, faculty, fellowship_awarded_date, date, duration_date_from, duration_date_to, "
-                       "total_months, fellowship, to_fellowship, rate, amount, months, total_hra, count, pwd, total,"
-                       "city, bank_name, ifsc_code, account_number FROM payment_sheet")
+    #     cursor.execute("SELECT number, full_name, email, faculty, fellowship_awarded_date, date, duration_date_from, duration_date_to, "
+    #                    "total_months, fellowship, to_fellowship, rate, amount, months, total_hra, count, pwd, total,"
+    #                    "city, bank_name, ifsc_code, account_number FROM payment_sheet")
 
-        data = cursor.fetchall()
-        pdf = PDF()
-        pdf.add_page()
+    #     data = cursor.fetchall()
+    #     pdf = PDF()
+    #     pdf.add_page()
 
-        # Set margins
-        pdf.set_margins(5, 5, 10)  # Left, Top, Right margins
+    #     # Set margins
+    #     pdf.set_margins(5, 5, 10)  # Left, Top, Right margins
 
-        current_date = datetime.now().strftime('%B %Y')
+    #     current_date = datetime.now().strftime('%B %Y')
 
-        # Add date information
-        pdf.set_font("Arial", 'I', 12)
-        # pdf.cell(0, 10, f'Number:', ln=True, align='L')
-        # pdf.cell(0, 10, f'Date: {current_date}', ln=True, align='L')
-        pdf.ln(5)  # Small line break
+    #     # Add date information
+    #     pdf.set_font("Arial", 'I', 12)
+    #     # pdf.cell(0, 10, f'Number:', ln=True, align='L')
+    #     # pdf.cell(0, 10, f'Date: {current_date}', ln=True, align='L')
+    #     pdf.ln(5)  # Small line break
 
-        # Set header
-        pdf.set_font("Arial", 'B', 10)
+    #     # Set header
+    #     pdf.set_font("Arial", 'B', 10)
 
-        # Define fixed column widths
-        column_widths = [15, 60, 30, 45, 40, 40, 30, 30]  # Set fixed widths for each column
-        headers = ['Sr. No.', 'Name of Student', 'Date of PHD Reg.', 'Fellowship Awarded Date', 'Duration', 'Bank Name',
-                   'Account Number', 'IFSC', 'Amount']
+    #     # Define fixed column widths
+    #     column_widths = [15, 60, 30, 45, 40, 40, 30, 30]  # Set fixed widths for each column
+    #     headers = ['Sr. No.', 'Name of Student', 'Date of PHD Reg.', 'Fellowship Awarded Date', 'Duration', 'Bank Name',
+    #                'Account Number', 'IFSC', 'Amount']
 
-        # Add header row with multi-cell for text wrapping
-        x_start = pdf.get_x()  # Get the starting x position
+    #     # Add header row with multi-cell for text wrapping
+    #     x_start = pdf.get_x()  # Get the starting x position
 
-        for i, header in enumerate(headers):
-            # Store the current x and y position before adding the multi_cell
-            x = pdf.get_x()
-            y = pdf.get_y()
+    #     for i, header in enumerate(headers):
+    #         # Store the current x and y position before adding the multi_cell
+    #         x = pdf.get_x()
+    #         y = pdf.get_y()
 
-            # Add the multi_cell for the header
-            pdf.cell(column_widths[i], 10, header, border=1, align='C')
+    #         # Add the multi_cell for the header
+    #         pdf.cell(column_widths[i], 10, header, border=1, align='C')
 
-            # Set the position back to where it was before adding multi_cell for the next cell
-            pdf.set_xy(x + column_widths[i], y)
+    #         # Set the position back to where it was before adding multi_cell for the next cell
+    #         pdf.set_xy(x + column_widths[i], y)
 
-        pdf.ln()  # Move to the next line after adding the header
+    #     pdf.ln()  # Move to the next line after adding the header
 
-        # Set font for data
-        pdf.set_font("Arial", '', 10)
+    #     # Set font for data
+    #     pdf.set_font("Arial", '', 10)
 
-        # Add data to the PDF
-        for index, row in enumerate(data, start=1):
-            pdf.cell(column_widths[0], 10, str(index), 1, align='C')
+    #     # Add data to the PDF
+    #     for index, row in enumerate(data, start=1):
+    #         pdf.cell(column_widths[0], 10, str(index), 1, align='C')
 
-            # Add the name cell with multi_cell
-            full_name = row['full_name']
-            pdf.cell(column_widths[1], 10, full_name, 1, align='C')
+    #         # Add the name cell with multi_cell
+    #         full_name = row['full_name']
+    #         pdf.cell(column_widths[1], 10, full_name, 1, align='C')
 
-            # Move cursor back to the right for the next column
-            # pdf.cell(column_widths[0], 10, '', 0)  # Placeholder for Sr. No.
+    #         # Move cursor back to the right for the next column
+    #         # pdf.cell(column_widths[0], 10, '', 0)  # Placeholder for Sr. No.
 
-            # Add the remaining cells
-            pdf.cell(column_widths[2], 10, str(row['date']), 1, align='C')
-            duration_text = f"{row['duration_date_from']} to {row['duration_date_to']}"
-            pdf.cell(column_widths[3], 10, duration_text, 1, align='C')
-            pdf.cell(column_widths[4], 10, row['bank_name'] if row['bank_name'] else 'N/A', 1, align='C')
-            pdf.cell(column_widths[5], 10, row['account_number'] if row['account_number'] else 'N/A', 1, align='C')
-            pdf.cell(column_widths[6], 10, row['ifsc_code'] if row['ifsc_code'] else 'N/A', 1, align='C')
-            pdf.cell(column_widths[7], 10, str(row['total']), 1, align='C')
+    #         # Add the remaining cells
+    #         pdf.cell(column_widths[2], 10, str(row['date']), 1, align='C')
+    #         duration_text = f"{row['duration_date_from']} to {row['duration_date_to']}"
+    #         pdf.cell(column_widths[3], 10, duration_text, 1, align='C')
+    #         pdf.cell(column_widths[4], 10, row['bank_name'] if row['bank_name'] else 'N/A', 1, align='C')
+    #         pdf.cell(column_widths[5], 10, row['account_number'] if row['account_number'] else 'N/A', 1, align='C')
+    #         pdf.cell(column_widths[6], 10, row['ifsc_code'] if row['ifsc_code'] else 'N/A', 1, align='C')
+    #         pdf.cell(column_widths[7], 10, str(row['total']), 1, align='C')
 
-            # Move to the next line
-            pdf.ln()
+    #         # Move to the next line
+    #         pdf.ln()
 
-        # Finalize PDF output
-        response = make_response(pdf.output(dest='S').encode('latin1'))
-        response.headers['Content-Disposition'] = 'attachment; filename=Payment_Sheet_2023_2024.pdf'
-        response.headers['Content-Type'] = 'application/pdf'
+    #     # Finalize PDF output
+    #     response = make_response(pdf.output(dest='S').encode('latin1'))
+    #     response.headers['Content-Disposition'] = 'attachment; filename=Payment_Sheet_2023_2024.pdf'
+    #     response.headers['Content-Type'] = 'application/pdf'
 
-        return response
+    #     return response
 
     # @payment_sheet_blueprint.route('/export_payment_sheet')
     # def export_payment_sheet():
@@ -552,3 +557,87 @@ def payment_sheet_auth(app):
     # END Common Export to Excel
     # ----------------------------------------------------------------
 
+    @app.route('/export_payment_sheet_pdf')
+    def export_payment_sheet_pdf():
+        return render_template('AdminPages/PaymentSheet/payment_sheet_pdf.html')
+
+    @app.route('/generate_pdf', methods=['GET'])
+    def generate_pdf():
+        """
+        Generate Payment Sheet PDF to display in iframe
+        """
+        if not session.get('logged_in'):
+            flash('Please enter Email ID and Password', 'error')
+            return redirect(url_for('adminlogin.admin_login'))
+
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        user = session['user']
+
+        try:
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
+
+            year = request.args.get('year', default=2023, type=int)
+            quarter = request.args.get('quarter', default="Quarter 1", type=str)
+
+            if admin_result:
+                role = admin_result['role']
+                admin_username = admin_result['username']
+                admin_year = admin_result['year']
+
+                if role == "Admin":
+                    if admin_username == "Admin2021" and admin_year == "BANRF 2021":
+                        year = "2021"
+                    elif admin_username == "Admin2022" and admin_year == "BANRF 2022":
+                        year = "2022"
+                    elif admin_username == "Admin2023" and admin_year == "BANRF 2023":
+                        year = "2023"
+                    elif admin_username == "Admin2024" and admin_year == "BANRF.2024":
+                        year = "2024"
+
+            table_name = f'payment_sheet_{year}'
+            cursor.execute(f"SELECT {', '.join(COMMON_COLUMNS)} FROM {table_name} WHERE fellowship_awarded_year = %s AND quarters = %s", (year, quarter))
+            data = cursor.fetchall()
+
+            output = BytesIO()
+            pdf = canvas.Canvas(output, pagesize=A4)
+            pdf.setTitle(f"Payment_Sheet_{year}_{quarter}")
+
+            pdf.drawString(200, 800, f"Payment Sheet for {year} - {quarter}")
+            pdf.line(50, 790, 550, 790)
+
+            table_data = [COMMON_HEADERS.values()]  # Headers
+            for row in data:
+                table_data.append([str(row[column]) for column in COMMON_COLUMNS])
+
+            table = Table(table_data)
+            table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('GRID', (0, 0), (-1, -1), 0.25, colors.black),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ]))
+
+            table.wrapOn(pdf, 50, 600)
+            table.drawOn(pdf, 50, 600)
+
+            pdf.save()
+            output.seek(0)
+
+            response = make_response(output.read())
+            response.headers['Content-Type'] = 'application/pdf'
+            return response
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            flash(f"An error occurred: {e}", 'error')
+            return redirect(url_for('payment_sheet.payment_sheet'))
+
+        finally:
+            cursor.close()
+            cnx.close()

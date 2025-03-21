@@ -6,7 +6,7 @@
               document.addEventListener("DOMContentLoaded", function() {
                   {% for category, message in messages %}
                       Swal.fire({
-                          title: "{{ 'Success!' if category == 'success' else 'Error!' }}",
+                          title: "{{ 'Success!' if category == 'success' else 'Info!' if category == 'info' else 'Error!' }}",
                           text: "{{ message }}",
                           icon: "{{ category }}",
                           confirmButtonText: 'OK'

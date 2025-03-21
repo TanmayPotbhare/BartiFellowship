@@ -23,106 +23,151 @@ def payment_tracking_auth(app):
     @payment_tracking_blueprint.route('/payment_tracking', methods=['GET', 'POST'])
     def payment_tracking():
         if not session.get('logged_in'):
-            # Redirect to the admin login page if the user is not logged in
+            flash('Please enter Email ID and Password', 'error')
             return redirect(url_for('adminlogin.admin_login'))
 
+        user = session['user']
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        # print('Connected')
-        records_display = []
-        # print('Post method')
+        try:
+            cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+            admin_result = cursor.fetchone()
 
-        sql = """
-                SELECT * 
-                FROM application_page 
-                WHERE final_approval = 'accepted' 
-                  AND phd_registration_year >= '2023'
+            if admin_result:
+                admin_year = admin_result['year']
+                admin_username = admin_result['username']
+                role = admin_result['role']
 
-                UNION
+                first_name = admin_result.get('first_name', '') or ''
+                surname = admin_result.get('surname', '') or ''
+                username = first_name + ' ' + surname
+                if username.strip() in ('None', ''):
+                    username = "Admin"
 
-                SELECT * 
-                FROM application_page 
-                WHERE phd_registration_year > '2020' 
-                  AND aadesh = 1;
-            """
-        cursor.execute(sql)
-        records = cursor.fetchall()
+                print("The username is " + username)
 
-        # Assuming you want to fetch payment records for each result from 'records'
-        payment_records = []
-        for record in records:
-            email = record['email']  # Extract email from each record
-            sql = "SELECT * FROM payment_sheet WHERE email=%s"
-            cursor.execute(sql, (email,))
-            result = cursor.fetchall()
+                # Determine the admin's year or if they are the HOD
+                if role == "Admin" and admin_username.startswith("Admin"):
+                    year_selected = admin_username[5:]  # Extract the year from the username
+                    admin_type = "year_admin"
+                else:
+                    year_selected = None  # HOD or other admin
+                    admin_type = "hod_admin"
 
-            # Assuming 'duration_date_from' is a date field in the result, format it
-            for payment_record in result:
-                if 'duration_date_from' in payment_record:
-                    try:
-                        # Convert the date string to a datetime object
-                        date_obj = datetime.strptime(payment_record['duration_date_from'], '%Y-%m-%d')
-                        date_objj = datetime.strptime(payment_record['duration_date_to'], '%Y-%m-%d')
-                        # Format the date as day/month/year
-                        payment_record['duration_date_from'] = date_obj.strftime('%d/%m/%Y')
-                        payment_record['duration_date_to'] = date_objj.strftime('%d/%m/%Y')
-                    except ValueError:
-                        pass  # Handle invalid date formats gracefully
+                years = ["2020", "2021", "2022", "2023", "2024"]
+                usernames = ["Admin2021", "Admin2022", "Admin2023", "Admin2024"]
 
-            payment_records.append(result)  # Append formatted result to the list
-        # print(payment_records)
+                print("Displaying the Report in Track Payments")
 
-        if request.method == 'POST':
-            start_date = request.form.get('start_date')
-            end_date = request.form.get('end_date')
-            year = request.form.get('year')
-            month = request.form.get('month')
-            quarters = request.form.get('quarters')
-            print(quarters)
-            # Base SQL query without the trailing 'AND'
-            sql = """
-                    SELECT ap.*, ps.*
-                    FROM application_page ap
-                    JOIN payment_sheet ps ON ap.email = ps.email
-                    WHERE ap.final_approval = 'accepted'          
+                year = request.args.get('year', year_selected) if year_selected else request.args.get('year')
+                print("The year selected is :" + (year or "None"))
+
+                records_display = []
+                payment_records = []
+
+                if request.method == 'POST':
+                    start_date = request.form.get('start_date')
+                    end_date = request.form.get('end_date')
+                    year = request.form.get('year')
+                    month = request.form.get('month')
+                    quarters = request.form.get('quarters')
+                    print(quarters)
+
+                    conditions = []
+                    params = []
+
+                    if start_date and end_date:
+                        conditions.append("ps.date BETWEEN %s AND %s")
+                        params.extend([start_date, end_date])
+                    if year:
+                        conditions.append("ps.fellowship_awarded_year = %s")
+                        params.append(year)
+                    if month:
+                        conditions.append("ps.duration_month = %s")
+                        params.append(month)
+                    if quarters:
+                        conditions.append("ps.quarters = %s")
+                        params.append(quarters)
+
+                    if admin_type == "year_admin":
+                        # Year-specific admin: target their table
+                        table_name = f"payment_sheet_{year_selected}"
+                        sql = f"""
+                            SELECT ap.*, ps.*
+                            FROM application_page ap
+                            JOIN {table_name} ps ON ap.email = ps.email
+                            WHERE ap.final_approval = 'accepted'
+                        """
+                        if conditions:
+                            sql += " AND " + " AND ".join(conditions)
+                        cursor.execute(sql, params)
+                        records_display = cursor.fetchall()
+                        print(sql)
+
+                    elif admin_type == "hod_admin":
+                        # HOD admin: query all tables and union the results
+                        all_results = []
+                        for y in years:
+                            table_name = f"payment_sheet_{y}"
+                            sql = f"""
+                                SELECT ap.*, ps.*
+                                FROM application_page ap
+                                JOIN {table_name} ps ON ap.email = ps.email
+                                WHERE ap.final_approval = 'accepted'
+                            """
+                            if conditions:
+                                sql += " AND " + " AND ".join(conditions)
+                            cursor.execute(sql, params)
+                            all_results.extend(cursor.fetchall())
+                        records_display = all_results
+                        print("HOD Admin query executed.")
+
+                    flash('Payment information retrieved successfully', 'success')
+
+                #application_page data
+                sql = """
+                    SELECT * FROM application_page 
+                    WHERE final_approval = 'accepted' 
+                        AND phd_registration_year >= '2023'
+
+                    UNION
+
+                    SELECT * FROM application_page 
+                    WHERE phd_registration_year > '2020' 
+                        AND aadesh = 1;
                 """
+                cursor.execute(sql)
+                records = cursor.fetchall()
 
-            # List to store query conditions
-            conditions = []
-            params = []
+                for record in records:
+                    email = record['email']
+                    sql = "SELECT * FROM payment_sheet WHERE email=%s" #this will be removed in final version.
+                    cursor.execute(sql, (email,))
+                    result = cursor.fetchall()
 
-            # Adding conditions dynamically based on input
-            if start_date and end_date:
-                conditions.append("ps.duration_date_to BETWEEN %s AND %s")
-                params.extend([start_date, end_date])
-            if year:
-                conditions.append("ps.fellowship_awarded_year = %s")
-                params.append(year)
-            if month:
-                conditions.append("ps.duration_month = %s")
-                params.append(month)
-            if quarters:
-                conditions.append("JSON_CONTAINS(ps.quarters, %s, '$')")
-                params.append(str(quarters))  # Convert to string to pass the integer value
+                    for payment_record in result:
+                        if 'duration_date_from' in payment_record:
+                            try:
+                                date_obj = datetime.strptime(payment_record['duration_date_from'], '%Y-%m-%d')
+                                date_objj = datetime.strptime(payment_record['duration_date_to'], '%Y-%m-%d')
+                                payment_record['duration_date_from'] = date_obj.strftime('%d/%m/%Y')
+                                payment_record['duration_date_to'] = date_objj.strftime('%d/%m/%Y')
+                            except ValueError:
+                                pass
 
-            # You can keep json.dumps() if it's for a JSON array like [1, 2]
+                    payment_records.append(result)
 
-            # Join the conditions with 'AND' if there are any
-            if conditions:
-                sql += " AND " + " AND ".join(conditions)
+                flattened_records = [record for sublist in payment_records for record in sublist]
 
-            # Execute the query
-            cursor.execute(sql, params)
-            records_display = cursor.fetchall()
-            print(sql)
-            flash('Payment information retrieved successfully', 'success')
-        flattened_records = [record for sublist in payment_records for record in sublist]
-        # No else block is needed in this case
-        # print(records_display)
-        return render_template('AdminPages/payment_tracking.html', records_display=records_display, records=records,
-                               payment_records=flattened_records)
+                return render_template('AdminPages/payment_tracking.html', records_display=records_display, records=records,
+                                    payment_records=flattened_records)
+        finally:
+            if cursor:
+                cursor.close()
+            if cnx and cnx.is_connected():
+                cnx.close()
 
     @payment_tracking_blueprint.route('/export_track_payments')
     def export_track_payments():
