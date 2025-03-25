@@ -102,8 +102,8 @@ def generate_award_letter(data, filename):
             self.multi_cell(0, 20, "Wish you all the best. ")
             self.set_x(150)  # Adjust the x-coordinate as needed
             # self.image('/static/Images/signature_awardletter.png', 20, 230, 30)
-            self.image('static/Images/sonanwanesir_signature.png',  125, 210, 50)
-            # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/sonanwanesir_signature.png', 125, 210, 50)
+            # self.image('static/Images/sonanwanesir_signature.png',  125, 210, 50)
+            self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/sonanwanesir_signature.png', 125, 210, 50)
             self.ln(5)  # Adjust this value to control the space after static data
 
         def footer(self):
@@ -140,8 +140,8 @@ def generate_pdf_with_styling(data, filename):
                     # self.image('static/assets/img/logo/barti.png', 10, 10,20)
                     self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/assets/img/logo/barti.png', 10, 10,20)  # Replace with the path to your symbol image
                     # Insert an image (symbol) at the right of the header
-                    self.image('static/Images/satya.png', 155, 10,20) 
-                    # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 155, 10,20)  # Replace with the path to your small image
+                    # self.image('static/Images/satya.png', 155, 10,20) 
+                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 155, 10,20)  # Replace with the path to your small image
                     # self.image('static/Images/maharashtra_shasn.png', 175, 10,20) 
                     self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/maharashtra_shasn.png', 175, 10,20)  # Replace with the path to your symbol image
                     self.cell(0, 10, "Tribal Research & Training Institute, Pune ", align="C", ln=True)
