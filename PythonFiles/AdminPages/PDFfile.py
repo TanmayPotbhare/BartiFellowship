@@ -7,8 +7,8 @@ def get_base_url():
     base_url = request.url_root
     return base_url
 
-
-def generate_award_letter_2023(data, filename):
+def generate_award_letter(data, filename):
+    # TO display the award letter for the candidates who have been awarded the Award Letter by the Admin.
     class PDF(FPDF):
         header_added = False  # To track whether the header is added to the first page
 
@@ -18,9 +18,9 @@ def generate_award_letter_2023(data, filename):
                 print(var)
                 # Add a header
                 self.set_font("Arial", "B", 12)
-                # self.image('/static/Images/satya.png', 94, 10, 20)  # Replace with the path to your small imag
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 94, 10,
-                           20)  # Replace with the path to your small imag
+                # self.image('static/Images/satya.png', 94, 10, 20)
+                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 94, 10, 20)  
+                # Replace with the path to your small imag
                 # Calculate the width of the image
                 image_width = 100  # Assuming the width of the image is 100 (adjust if different)
                 # Calculate the position for "Government of Maharashtra" text
@@ -28,134 +28,12 @@ def generate_award_letter_2023(data, filename):
                 text_y_position = self.get_y() + 20  # Set Y position below the image
                 # Set cursor position
                 self.set_xy(text_x_position, text_y_position)
-                # self.image('/static/Images/newtrtiImage.png', 10, 10, 45)  # Replace with the path to your symbol image
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/newtrtiImage.png', 10, 10,
-                           45)  # Replace with the path to your symbol image
-                # self.image('/static/Images/mahashasn_new.png', 155, 10, 45)  # Replace with the path to your symbol image
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/mahashasn_new.png', 155, 10,
-                           45)  # Replace with the path to your symbol image
-                self.ln(5)
-                self.ln(0)  # Reduce the space below the address
-                self.cell(0, 5, "Government of Maharashtra", align="C", ln=True)
-
-                self.cell(0, 5, "Tribal Research & Training Institute", align="C", ln=True)
-                self.cell(0, 10, "28, Queens Garden, Pune - 411001", align="C", ln=True)
-                self.dashed_line(10, self.get_y(), 200, self.get_y(), dash_length=3, space_length=1)
-
-                self.ln(5)  # Adjust this value to control the space after the line
-                self.set_font("Arial", size=10)
-                self.cell(0, 10, "No.: Research-2024/Case.No 9/Desk-4/1832",
-                          ln=False)  # Add the number on the left without a line break
-
-                # Move to the right for the date
-                self.cell(0, 10, "Date: 04-07-2024", align="R",
-                          ln=True)  # Add the date on the right with a line break
-
-                self.set_font("Arial", "B", size=10)
-                self.cell(0, 10,
-                          " Fellowship Award Letter",
-                          align="C", ln=True)
-                self.ln(2)  # Adjust this value to control the space after the line
-
-                self.rotate(45)  # Rotate the text by 45 degrees
-                self.set_font('Arial', '', 45)
-                self.set_text_color(192, 192, 192)
-                self.text(-30, 195, "STRF FELLOWSHIP")  # Use text instead of rotated_text
-                self.rotate(0)  # Reset the rotation to 0 degrees
-
-                self.header_added = True  # Set to True after adding the header
-
-        def to_name(self, data):
-            # AWARD LETTER in the center
-
-            # To, and Dear Candidate aligned to the left
-            self.set_font("Arial", "", size=10)
-            self.cell(0, 10, "To,", ln=True)
-            self.set_font("Arial", "B", size=11)
-            self.cell(0, 10, data['first_name'] + ' ' + data['middle_name'] + ' ' + data['last_name'], ln=True)
-
-        def insert_static_data(self, data):
-            # Insert your static data here
-            self.set_font("Arial", "B", size=10)
-            self.cell(0, 10, "Dear Candidate,", ln=True)
-            self.set_font("Arial", "", 10)
-            registration_year = data['phd_registration_year']
-            fiscal_year = f"{registration_year} - {registration_year + 1}"
-            self.multi_cell(0, 7,
-                            "         We are delighted to inform you that you have been selected for the award of "
-                            "a Fellowship for the year " + fiscal_year +
-                            " for Ph.D. The Fellowship amount will be effective from the date of registration for Ph.D. Congratulations! "
-                            )
-            self.ln(3)  # Adjust this value to control the space before static data
-            self.multi_cell(0, 7,
-                            "       TRTI reserves all the rights to add terms and conditions as and when required, and "
-                            "candidates are required to accept any changes in the terms and conditions of the fellowship."
-                            )
-            self.ln(3)  # Adjust this value to control the space before static data
-            self.multi_cell(0, 7,
-                            "       Attached with this letter is an undertaking stating that all the information provided "
-                            "for the document verification is true to the best of my knowledge. Any discrepancy found "
-                            "may result in the cancellation of the Fellowship. Please note that failure to submit the "
-                            "undertaking will be assumed as non-acceptance of this offer, and the Fellowship will not "
-                            "be  processed. "
-                            )
-            self.ln(3)  # Adjust this value to control the space before static data
-            self.multi_cell(0, 7,
-                            "       We believe this Fellowship will not only provide financial support but also contribute"
-                            " to your academic growth. It will enable you to conduct research on your subject and "
-                            "foster excellence in academia. Moreover, it will empower you to become an advocate for"
-                            " equality, social justice, a contributor to peace, harmony and happiness within various"
-                            " disadvantaged sections of society. "
-                            )
-            self.multi_cell(0, 20, "Wish you all the best. ")
-            self.set_x(150)  # Adjust the x-coordinate as needed
-            # self.image('/static/Images/signature_awardletter.png', 20, 230, 30)
-            # self.image('/static/Images/chanchalamam_signature.png', 125, 210, 50)
-            self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/chanchalamam_signature.png', 125, 210, 50)
-            self.ln(5)  # Adjust this value to control the space after static data
-
-        def footer(self):
-            # Add a footer
-            self.set_y(-15)
-            self.set_font("arial", "B", 8)
-            self.cell(0, 10, f" {self.page_no()} ", align="C")
-
-            # Center-align the "TRTI" text
-            self.cell(0, 10, " TRTI  |  Fellowship | 2023 - 2024 ", align="R")
-
-    pdf = PDF()
-    pdf.add_page()
-    pdf.header()
-    pdf.to_name(data)
-    # Insert static data
-    pdf.insert_static_data(data)
-    # Save the PDF to a file
-    pdf.output(filename)
-
-
-def generate_award_letter_2022(data, filename):
-    class PDF(FPDF):
-        header_added = False  # To track whether the header is added to the first page
-
-        def header(self):
-            if not self.header_added:
-                var = get_base_url()
-                print(var)
-                # Add a header
-                self.set_font("Arial", "B", 12)
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 94, 10,
-                           20)  # Replace with the path to your small imag
-                # Calculate the width of the image
-                image_width = 100  # Assuming the width of the image is 100 (adjust if different)
-                # Calculate the position for "Government of Maharashtra" text
-                text_x_position = self.get_x()  # Get current X position
-                text_y_position = self.get_y() + 20  # Set Y position below the image
-                # Set cursor position
-                self.set_xy(text_x_position, text_y_position)
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/newtrtiImage.png', 10, 10,
-                           45)  # Replace with the path to your symbol image
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/mahashasn_new.png', 155, 10,
-                           45)  # Replace with the path to your symbol image
+                # self.image('static/Images/newtrtiImage.png', 10, 10, 45)
+                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/newtrtiImage.png', 10, 10,45)  
+                # Replace with the path to your symbol image
+                self.image('static/Images/mahashasn_new.png', 155, 10, 45)
+                # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/mahashasn_new.png', 155, 10,45)  
+                # Replace with the path to your symbol image
                 self.ln(5)
                 self.ln(0)  # Reduce the space below the address
                 self.cell(0, 5, "Government of Maharashtra", align="C", ln=True)
@@ -194,7 +72,7 @@ def generate_award_letter_2022(data, filename):
             self.cell(0, 10, "Dear Candidate,", ln=True)
             self.set_font("Arial", "", 10)
             registration_year = data['phd_registration_year']
-            fiscal_year = f"{registration_year} - {registration_year + 1}"
+            fiscal_year = f"BANRF - {registration_year}"
             self.multi_cell(0, 7,
                             "         We are delighted to inform you that you have been selected for the award of "
                             "a Fellowship for the year " + fiscal_year +
@@ -224,7 +102,8 @@ def generate_award_letter_2022(data, filename):
             self.multi_cell(0, 20, "Wish you all the best. ")
             self.set_x(150)  # Adjust the x-coordinate as needed
             # self.image('/static/Images/signature_awardletter.png', 20, 230, 30)
-            self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/sonanwanesir_signature.png', 125, 210, 50)
+            self.image('static/Images/sonanwanesir_signature.png',  125, 210, 50)
+            # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/sonanwanesir_signature.png', 125, 210, 50)
             self.ln(5)  # Adjust this value to control the space after static data
 
         def footer(self):
@@ -258,13 +137,13 @@ def generate_pdf_with_styling(data, filename):
                     self.cell(0, 10, "Fellowship ", align="C",
                               ln=True)  # Add space by changing the second parameter (e.g., 20)
                     # Insert an image (symbol) at the center of the header
-                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/trti.jpeg', 10, 10,
-                               20)  # Replace with the path to your symbol image
+                    # self.image('static/assets/img/logo/barti.png', 10, 10,20)
+                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/assets/img/logo/barti.png', 10, 10,20)  # Replace with the path to your symbol image
                     # Insert an image (symbol) at the right of the header
-                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 155, 10,
-                               20)  # Replace with the path to your small image
-                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/maharashtra_shasn.png', 175, 10,
-                               20)  # Replace with the path to your symbol image
+                    self.image('static/Images/satya.png', 155, 10,20) 
+                    # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 155, 10,20)  # Replace with the path to your small image
+                    # self.image('static/Images/maharashtra_shasn.png', 175, 10,20) 
+                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/maharashtra_shasn.png', 175, 10,20)  # Replace with the path to your symbol image
                     self.cell(0, 10, "Tribal Research & Training Institute, Pune ", align="C", ln=True)
                     self.cell(0, 1, "Government of Maharashtra ", align="C", ln=True)
                     self.set_font("Arial", "B", size=8)
@@ -288,7 +167,7 @@ def generate_pdf_with_styling(data, filename):
                 # self.cell(50, 10, "Date: " + current_date, ln=True)
                 self.set_font("Arial", size=10)
                 full_name = data['first_name'] + ' ' + data['middle_name'] + ' ' + data['last_name']
-                self.cell(50, 10, "Full Name: " + str(full_name), ln=True)
+                self.cell(40, 10, "Full Name: " + str(full_name), ln=True)
 
                 if 'applicant_id' and 'application_date' in data:
                     data['applicant_id'] = 'TRTI' + '/' + str(data['phd_registration_year']) + '/' + str(data['id'])
@@ -296,7 +175,7 @@ def generate_pdf_with_styling(data, filename):
                     self.cell(50, 10, "Submitted Time: " + str(data['application_time']), ln=True)
 
                 if 'applicant_photo' in data:
-                    # photo = '/static/Images/trti.jpeg'
+                    # photo = 'static/Images/trti.jpeg'
                     photo = '/var/www/fellowship/fellowship/FellowshipPreServer' + data['applicant_photo']
                     print(photo)
                     # Insert the applicant photo (adjust the coordinates and size as needed)
@@ -429,8 +308,10 @@ def generate_pdf_with_styling(data, filename):
             "Father Name": data['father_name'],
             "Mother Name": data['mother_name'],
             "Anyone Work in Government": data['work_in_government'],
-            "Department in Government": data['gov_department'],
-            "Post in Government": data['gov_position']
+            "Number of Employees in Government": data['no_of_gov_employee'],
+            "Name of Employee 1": data['emp1_name'],
+            "Position of Employee 1": data['emp1_position'],
+            "Relation with Employee 1": data['emp1_relation']
         }
 
         bank_details = {
@@ -594,6 +475,7 @@ def generate_pdf_with_styling(data, filename):
         pdf.set_font("Arial", size=12)
         # Assuming data['signature'] contains the path to the image file
         signature_path = data['signature']
+        # signature_path = 'static/Images/tickk.png'
         # Determine the current position
         x = pdf.get_x()
         y = pdf.get_y()
@@ -607,7 +489,7 @@ def generate_pdf_with_styling(data, filename):
         pdf.ln(15)  # Adjust this value to control the space after the line
         current_date = datetime.now().strftime("%Y-%m-%d")  # You can change the date format as needed
         pdf.cell(0, 10, "Date:" + ' ' + current_date, ln=True)
-        pdf.cell(0, 10, "Place:" + ' ' + data['city'] + ', ' + data['state'], ln=True)
+        # pdf.cell(0, 10, "Place:" + ' ' + data['city'] + ', ' + data['state'], ln=True)
 
         # Save the PDF to a file
         pdf.output(filename)

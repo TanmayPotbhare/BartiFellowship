@@ -36,7 +36,7 @@
         {% for row in result %}
         <tr>
           <td>
-            TRTI/{{ row['phd_registration_year'] }}/{{ row['id'] }}</a>
+            BARTI/{{ row['phd_registration_year'] }}/{{ row['id'] }}</a>
           </td>
           <td>
               {% if row['first_name'] is not none and row['last_name'] is not none %}
@@ -154,6 +154,7 @@
             const button = event.relatedTarget;
             // Extract info from data-* attributes
             const applicantId = button.getAttribute("data-applicant-id");
+            // alert(applicantId);
             // Update the form action
             const form = modal.querySelector("form");
             form.action = `/award_fellowships/${applicantId}`;
