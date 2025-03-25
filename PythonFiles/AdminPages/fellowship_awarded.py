@@ -17,24 +17,44 @@ def fellowship_awarded_auth(app):
     @fellowship_awarded_blueprint.route('/fellowship_awarded', methods=['GET', 'POST'])
     def fellowship_awarded():
         if not session.get('logged_in'):
-            # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('adminlogin.admin_login'))
 
+        user = session['user']
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        sql = """ 
+        cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+        admin_result = cursor.fetchone()
+        admin_year = admin_result['year']
+        admin_username = admin_result['username']
+        role = admin_result['role']
 
-                    SELECT * 
-                    FROM application_page 
-                    WHERE final_approval = 'accepted' 
-                    AND approved_for = 2023; 
+        year_selected = None
 
-            """
-        cursor.execute(sql)
+        if role == "Admin" and admin_username == "Admin2021" and admin_year == "BANRF 2021":
+            year_selected = "2021"
+        elif role == "Admin" and admin_username == "Admin2022" and admin_year == "BANRF 2022":
+            year_selected = "2022"
+        elif role == "Admin" and admin_username == "Admin2023" and admin_year == "BANRF 2023":
+            year_selected = "2023"
+        elif role == "Admin" and admin_username == "Admin2024" and admin_year == "BANRF.2024":
+            year_selected = "2024"
+
+        sql = """
+            SELECT *
+            FROM application_page
+            WHERE final_approval = 'accepted'
+        """
+
+        if year_selected:
+            sql += " AND approved_for = %s"
+            cursor.execute(sql, (year_selected,))
+        else:
+            sql += " AND approved_for IN ('2020', '2021', '2022', '2023', '2024')"
+            cursor.execute(sql)
+
         result = cursor.fetchall()
-        # print(result)
         cursor.close()
         cnx.close()
         return render_template('AdminPages/fellowship_awarded.html', result=result)
@@ -79,7 +99,7 @@ def fellowship_awarded_auth(app):
         try:
             # email = session['email']
             output_filename = '/var/www/fellowship/fellowship/FellowshipPreServer/static/pdf_application_form/award_letter.pdf'
-            # output_filename = '/static/pdf_application_form/award_letter.pdf'
+            # output_filename = 'static/pdf_application_form/pdfform.pdf'
 
             host = HostConfig.host
             connect_param = ConnectParam(host)
@@ -107,10 +127,8 @@ def fellowship_awarded_auth(app):
             year = result['phd_registration_year']
             id = result['id']
 
-            if (year >= 2023):
-                generate_award_letter_2023(data, output_filename)
-            else:
-                generate_award_letter_2022(data, output_filename)
+            # Below function is defined in AdminPages/PDFfile.py - Displays the Award letter
+            generate_award_letter(data, output_filename)
 
             # Serve the generated PDF as a response
             with open(output_filename, "rb") as pdf_file:

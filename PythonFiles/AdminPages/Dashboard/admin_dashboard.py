@@ -154,15 +154,6 @@ def admin_dashboard_auth(app):
         # year_selected = "2021" if (role == "Admin" and admin_username == "Admin2021" and admin_year == "BANRF 2021") else None
         year_selected = None
 
-        # if (role == "Admin" and admin_username == "Admin2021" and admin_year == "BANRF 2021"):
-        #     year_selected = "2021"
-        # elif (role == "Admin" and admin_username == "Admin2022" and admin_year == "BANRF 2022"):
-        #     year_selected = "2022"
-        # elif (role == "Admin" and admin_username == "Admin2023" and admin_year == "BANRF 2023"):
-        #     year_selected = "2023"
-        # elif (role == "Admin" and admin_username == "Admin2024" and admin_year == "BANRF 2024"):
-        #     year_selected = "2024"
-
         if (role == "Admin" and admin_username == "Admin2021" and admin_year == "BANRF 2021"):
             year_selected = "2021"
         elif (role == "Admin" and admin_username == "Admin2022" and admin_year == "BANRF 2022"):

@@ -19,7 +19,7 @@ def app_pdf_auth(app):
         for key, value in app_paths.items():
             app.config[key] = value
 
-    @app_pdf_blueprint.route('/generate_pdf', methods=['GET', 'POST'])
+    @app_pdf_blueprint.route('/generate_pdf_candidate', methods=['GET', 'POST'])
     def generate_pdf():
         email = session['email']
         output_filename = app.config['PDF_STORAGE_PATH']
@@ -104,7 +104,7 @@ def app_pdf_auth(app):
                     pdf.set_text_color(255, 255, 255)  # White color
                     # Add the text inside the box
                     pdf.cell(0, 10,
-                             f"Fellowship BANRF {int(fellowship_year)} - {int(fellowship_year) + 1}",
+                             f"Fellowship BANRF {int(fellowship_year)}",
                              align="C", ln=True, fill=True)
                     # ------------------- Blue Box -----------------------
                     self.ln(2)  # Adjust this value to control the space after the line
@@ -342,12 +342,13 @@ def app_pdf_auth(app):
         entrance_doc = bool(data['entrance_doc'])
         phd_reciept_doc = bool(data['phd_reciept_doc'])
         guideAllotment_doc = bool(data['guideAllotment_doc'])
-        guideAccept_doc = bool(data['guideAccept_doc'])
+        # guideAccept_doc = bool(data['guideAccept_doc'])
         rac_doc = bool(data['rac_doc'])
         confirmation_doc = bool(data['confirmation_doc'])
         joining_doc = bool(data['joining_doc'])
-        annexureAC_doc = bool(data['annexureAC_doc'])
+        annexureA_doc = bool(data['annexureA_doc'])
         annexureB_doc = bool(data['annexureB_doc'])
+        annexureC_doc = bool(data['annexureC_doc'])
         annexureD_doc = bool(data['annexureD_doc'])
         disable_doc = bool(data['disable_doc'])
         gazete_doc = bool(data['gazete_doc'])
@@ -369,13 +370,14 @@ def app_pdf_auth(app):
             "SET/GATE/CET Marksheet & Passing Certificate": entrance_doc,
             "Ph.D Admission Reciept": phd_reciept_doc,
             "Guide Allotment Letter": guideAllotment_doc,
-            "Guide Acceptance Letter": guideAccept_doc,
+            # "Guide Acceptance Letter": guideAccept_doc,
             "Letter of Accpetance from RAC/RRC": rac_doc,
             "Confirmation Letter": confirmation_doc,
             "Research Center Joining Report": joining_doc,
-            "Annexure A (on INR 100 Stamp Paper) & Annexure C": annexureAC_doc,
-            "Guide & H.O.D Research Common letter (Annexure B)": annexureB_doc,
-            "Annexure D": annexureD_doc,
+            "Annexure A - Self Declaration": annexureA_doc,
+            "Annexure B - Undertaking": annexureB_doc,
+            "Annexure C - Affidavit": annexureC_doc,
+            "Annexure D - Non Beneficiary Certificate": annexureD_doc,
             "Disability Certificate": disable_doc,
             "Change in Name - Gazzette": gazete_doc,
             "Self Written Certificate of not getting scholarship from anywhere": selfWritten_doc,
@@ -712,6 +714,11 @@ def app_pdf_auth(app):
                 image_path = "var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/check_mark.png"
             else:
                 image_path = "var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/cross_icon.png"
+
+            # if value:
+            #     image_path = "static/assets/img/logo/check_mark.png"
+            # else:
+            #     image_path = "static/assets/img/logo/cross_icon.png"
 
             try:
                 pdf.image(image_path, x=pdf.get_x() + key_width + image_offset_x, y=pdf.get_y() + image_offset_y,
