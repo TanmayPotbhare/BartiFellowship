@@ -19,7 +19,7 @@ def generate_award_letter(data, filename):
                 # Add a header
                 self.set_font("Arial", "B", 12)
                 # self.image('static/Images/satya.png', 94, 10, 20)
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 94, 10, 20)  
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 94, 10, 20)  
                 # Replace with the path to your small imag
                 # Calculate the width of the image
                 image_width = 100  # Assuming the width of the image is 100 (adjust if different)
@@ -29,10 +29,10 @@ def generate_award_letter(data, filename):
                 # Set cursor position
                 self.set_xy(text_x_position, text_y_position)
                 # self.image('static/Images/newtrtiImage.png', 10, 10, 45)
-                self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/newtrtiImage.png', 10, 10,45)  
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/newtrtiImage.png', 10, 10,45)  
                 # Replace with the path to your symbol image
                 self.image('static/Images/mahashasn_new.png', 155, 10, 45)
-                # self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/mahashasn_new.png', 155, 10,45)  
+                # self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/mahashasn_new.png', 155, 10,45)  
                 # Replace with the path to your symbol image
                 self.ln(5)
                 self.ln(0)  # Reduce the space below the address
@@ -103,7 +103,7 @@ def generate_award_letter(data, filename):
             self.set_x(150)  # Adjust the x-coordinate as needed
             # self.image('/static/Images/signature_awardletter.png', 20, 230, 30)
             # self.image('static/Images/sonanwanesir_signature.png',  125, 210, 50)
-            self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/sonanwanesir_signature.png', 125, 210, 50)
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/sonanwanesir_signature.png', 125, 210, 50)
             self.ln(5)  # Adjust this value to control the space after static data
 
         def footer(self):
@@ -138,12 +138,12 @@ def generate_pdf_with_styling(data, filename):
                               ln=True)  # Add space by changing the second parameter (e.g., 20)
                     # Insert an image (symbol) at the center of the header
                     # self.image('static/assets/img/logo/barti.png', 10, 10,20)
-                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/assets/img/logo/barti.png', 10, 10,20)  # Replace with the path to your symbol image
+                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti.png', 10, 10,20)  # Replace with the path to your symbol image
                     # Insert an image (symbol) at the right of the header
                     # self.image('static/Images/satya.png', 155, 10,20) 
-                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/satya.png', 155, 10,20)  # Replace with the path to your small image
+                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 155, 10,20)  # Replace with the path to your small image
                     # self.image('static/Images/maharashtra_shasn.png', 175, 10,20) 
-                    self.image('/var/www/fellowship/fellowship/FellowshipPreServer/static/Images/maharashtra_shasn.png', 175, 10,20)  # Replace with the path to your symbol image
+                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/maharashtra_shasn.png', 175, 10,20)  # Replace with the path to your symbol image
                     self.cell(0, 10, "Tribal Research & Training Institute, Pune ", align="C", ln=True)
                     self.cell(0, 1, "Government of Maharashtra ", align="C", ln=True)
                     self.set_font("Arial", "B", size=8)
@@ -176,7 +176,7 @@ def generate_pdf_with_styling(data, filename):
 
                 if 'applicant_photo' in data:
                     # photo = 'static/Images/trti.jpeg'
-                    photo = '/var/www/fellowship/fellowship/FellowshipPreServer' + data['applicant_photo']
+                    photo = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['applicant_photo']
                     print(photo)
                     # Insert the applicant photo (adjust the coordinates and size as needed)
                     self.image(photo, 165, 65, 30, 35)  # Adjust the Y-coordinate from 60 to 65
