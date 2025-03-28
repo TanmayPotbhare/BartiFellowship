@@ -94,8 +94,8 @@ def login_auth(app, mail):
                                 'applicant_photo'] if user_image else '/static/assets/img/default_user.png'
 
                             if is_withdrawn(email):
-                                flash('You have withdrawn from Fellowship. Please contact us.', 'error')
-                                return redirect(url_for('login'))
+                                flash('You have withdrawn from Fellowship. Please BARTI office for any queries.', 'info')
+                                return redirect(url_for('login_signup.login'))
                             elif check_final_approval(email):
                                 print('I am here 2')
                                 session['final_approval'] = "accepted"
@@ -135,8 +135,8 @@ def login_auth(app, mail):
                             'applicant_photo'] if user_image else '/static/assets/img/default_user.png'
 
                         if is_withdrawn(email):
-                            flash('You have withdrawn from Fellowship. Please contact us.', 'error')
-                            return redirect(url_for('login'))
+                            flash('You have withdrawn from Fellowship. Please BARTI office for any queries.', 'info')
+                            return redirect(url_for('login_signup.login'))
                         elif check_final_approval(email):
                             print('I am here 2')
                             session['final_approval'] = "accepted"

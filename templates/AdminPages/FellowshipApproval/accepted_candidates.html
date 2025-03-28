@@ -22,11 +22,11 @@
             <div class="btn-group">
               <select id="accepted_candidate_year" name="accepted_candidate_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
                 <option selected disabled>Select BANRF Year</option>
-                <option value="2020" {% if year == '2020' %}selected{% endif %}>BANRF 2020 - 2021</option>
-                <option value="2021" {% if year == '2021' %}selected{% endif %}>BANRF 2021 - 2022</option>
-                <option value="2022" {% if year == '2022' %}selected{% endif %}>BANRF 2022 - 2023</option>
-                <option value="2023" {% if year == '2023' %}selected{% endif %}>BANRF 2023 - 2024</option>
-                <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024 - 2025</option>
+                <option value="2020" {% if year == '2020' %}selected{% endif %}>BANRF 2020</option>
+                <option value="2021" {% if year == '2021' %}selected{% endif %}>BANRF 2021</option>
+                <option value="2022" {% if year == '2022' %}selected{% endif %}>BANRF 2022</option>
+                <option value="2023" {% if year == '2023' %}selected{% endif %}>BANRF 2023</option>
+                <option value="2024" {% if year == '2024' %}selected{% endif %}>BANRF 2024</option>
               </select>
             </div>
             {% endif %}
@@ -48,7 +48,7 @@
           {% else %}
               <div class="col-md-12 d-flex justify-content-end">
                   <!-- <a href="/export_level_one_applications" -->
-                  <a href="#"
+                  <a id="export_accepted_applications"
                      class="btn btn-outline-primary btn-fw btn-rounded"
                      data-bs-toggle="tooltip"
                      data-bs-placement="top"

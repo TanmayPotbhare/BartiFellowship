@@ -20,9 +20,9 @@ from PythonFiles.AdminPages.issue_raised import issue_raised_blueprint, issue_ra
 from PythonFiles.AdminPages.news import news_blueprint, news_auth
 
 # Export to Excel Python Blueprints
-from PythonFiles.AdminPages.ExportExcel.adminlevels_One import adminlevels_blueprint, adminlevels_auth
-from PythonFiles.AdminPages.ExportExcel.adminlevels_Two import adminlevels_Two_blueprint, adminlevels_Two_auth
-from PythonFiles.AdminPages.ExportExcel.adminlevels_Three import adminlevels_Three_blueprint, adminlevels_Three_auth
+from PythonFiles.AdminPages.ExportExcel.export_admin_level_one import adminlevels_blueprint, adminlevels_auth
+from PythonFiles.AdminPages.ExportExcel.export_admin_level_two import adminlevels_Two_blueprint, adminlevels_Two_auth
+from PythonFiles.AdminPages.ExportExcel.export_admin_level_three import adminlevels_Three_blueprint, adminlevels_Three_auth
 
 
 # Function to register admin blueprints

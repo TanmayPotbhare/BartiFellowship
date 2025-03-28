@@ -39,7 +39,7 @@ $(document).ready(function () {
                         var rowData = [ // Prepare data for DataTables
                             index + 1, // Serial number
                             record.applicant_id,
-                            record.first_name + record.last_name,
+                            record.first_name + " " +record.last_name,
                             record.email,
                             record.mobile_number, // Make sure this key exists in your JSON
                             record.phd_registration_date, // Make sure this key exists in your JSON
@@ -208,7 +208,7 @@ $(document).ready(function () {
                         var rowData = [ // Prepare data for DataTables
                             index + 1, // Serial number
                             record.applicant_id,
-                            record.first_name + record.last_name,
+                            record.first_name + " " +record.last_name,
                             record.email,
                             record.mobile_number, // Make sure this key exists in your JSON
                             record.fellowship_application_year, // Make sure this key exists in your JSON
@@ -392,7 +392,7 @@ $(document).ready(function () {
                         var rowData = [ // Prepare data for DataTables
                             index + 1, // Serial number
                             record.applicant_id,
-                            record.first_name + record.last_name,
+                            record.first_name + " " +record.last_name,
                             record.email,
                             record.mobile_number, // Make sure this key exists in your JSON
                             record.fellowship_application_year, // Make sure this key exists in your JSON
@@ -577,7 +577,7 @@ $(document).ready(function () {
                         var rowData = [ // Prepare data for DataTables
                             index + 1, // Serial number
                             record.applicant_id,
-                            record.first_name + record.last_name,
+                            record.first_name + " " +record.last_name,
                             record.email,
                             record.mobile_number, // Make sure this key exists in your JSON
                             record.phd_registration_date, // Make sure this key exists in your JSON

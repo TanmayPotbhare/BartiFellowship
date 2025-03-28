@@ -34,7 +34,7 @@ def withdraw_application_auth(app):
         select_query = """
             SELECT s.*, ps.*, ap.*
             FROM signup s
-            LEFT JOIN payment_sheet ps ON s.email = ps.email
+            LEFT JOIN payment_sheet_2021 ps ON s.email = ps.email
             LEFT JOIN application_page ap ON s.email = ap.email
             WHERE s.request_withdrawal = '1'
         """
@@ -54,7 +54,7 @@ def withdraw_application_auth(app):
         application_2023 = """
                     SELECT s.*, ps.*, ap.*
                     FROM signup s
-                    LEFT JOIN payment_sheet ps ON s.email = ps.email
+                    LEFT JOIN payment_sheet_2023 ps ON s.email = ps.email
                     LEFT JOIN application_page ap ON s.email = ap.email
                     WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2023'
                 """
@@ -64,7 +64,7 @@ def withdraw_application_auth(app):
         application_2022 = """
                 SELECT s.*, ps.*, ap.*
                 FROM signup s
-                LEFT JOIN payment_sheet ps ON s.email = ps.email
+                LEFT JOIN payment_sheet_2022 ps ON s.email = ps.email
                 LEFT JOIN application_page ap ON s.email = ap.email
                 WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2022'
             """
@@ -74,7 +74,7 @@ def withdraw_application_auth(app):
         application_2021 = """
                     SELECT s.*, ps.*, ap.*
                     FROM signup s
-                    LEFT JOIN payment_sheet ps ON s.email = ps.email
+                    LEFT JOIN payment_sheet_2021 ps ON s.email = ps.email
                     LEFT JOIN application_page ap ON s.email = ap.email
                     WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2021'
                 """
@@ -84,7 +84,7 @@ def withdraw_application_auth(app):
         application_2020 = """
                     SELECT s.*, ps.*, ap.*
                     FROM signup s
-                    LEFT JOIN payment_sheet ps ON s.email = ps.email
+                    LEFT JOIN payment_sheet_2022 ps ON s.email = ps.email
                     LEFT JOIN application_page ap ON s.email = ap.email
                     WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2020'
                 """
