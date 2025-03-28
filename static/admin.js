@@ -1399,10 +1399,10 @@ $('#export-to-excel-pending').on('click', function () {
 
 $('#export_payment_sheet').on('click', function () {
     /*
-        Go to this path: templates/AdminPages/DashboardCountReports/total_application_report.html
-        On line 35, the ID is mentioned of the export to excel and the select_year id is on line 19.
-        These ID's are used to fetch data and hit the export to excel link.
-        Python code path: /PythonFiles/AdminPages/Dashboard/admin_dashboard.py on LINE 498.
+        Go to this path: templates/AdminPages/PaymentSheet/payment_sheet.html
+        The "export_payment_sheet" ID is mentioned of the export to excel.
+        This ID is used to fetch data and hit the export to excel link.
+        Python code path: /PythonFiles/AdminPages/PaymentSheet/payment_sheet.py
     */
     // Get the selected year from the dropdown
     let selectedYear = $('#paymentYearSelector').val();
@@ -1411,9 +1411,9 @@ $('#export_payment_sheet').on('click', function () {
     console.log('Selected Qaurter:', selectedQuarter);
     const formType = $(this).data('form-type');  // Get the form type (e.g., "completed_form")
 
-    // If no year is selected, default to 2023
+    // If no year is selected, default to 2024
     if (selectedYear === '') {
-        selectedYear = 2023;
+        selectedYear = 2024;
     }
     // If no quarter is selected, then set default to Quarter 1
     if (selectedQuarter === '') {
@@ -1432,7 +1432,7 @@ $('#export_payment_sheet_pdf').on('click', function () {
     let selectedQuarter = $('#quarterSelector').val();
 
     if (selectedYear === '') {
-        selectedYear = 2022;
+        selectedYear = 2024;
     }
 
     if (selectedQuarter === '') {
@@ -1441,4 +1441,102 @@ $('#export_payment_sheet_pdf').on('click', function () {
 
     const iframeSrc = `/generate_pdf?year=${selectedYear}&quarter=${selectedQuarter}`;
     $('#pdfIframe').attr('src', iframeSrc);
+});
+
+// Export Preliminary Review - Level One for Admin and HOD
+$('#export_level_one').on('click', function () {
+    let selectedYear = $('#approval_year_selector').val(); // Assuming the dropdown ID is approval_year_selector_two
+    alert("The Year Selected is :" + selectedYear)
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    const exportHref = `/export_level_one_applications?year=${selectedYear}`;
+
+    $(this).attr('href', exportHref);
+});
+
+// Export Eligibility Check - Level Two for Admin and HOD
+$('#export_level_two').on('click', function () {
+    let selectedYear = $('#approval_year_selector_two').val(); // Assuming the dropdown ID is approval_year_selector_two
+    alert("The Year Selected is :" + selectedYear)
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    const exportHref = `/export_level_two_applications?year=${selectedYear}`;
+
+    $(this).attr('href', exportHref);
+});
+
+// Export Final Approval - Level Three for Admin and HOD
+$('#export_level_three').on('click', function () {
+    let selectedYear = $('#approval_year_selector_three').val(); // Assuming the dropdown ID is approval_year_selector_two
+    alert("The Year Selected is :" + selectedYear)
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    const exportHref = `/export_level_three_admin?year=${selectedYear}`;
+
+    $(this).attr('href', exportHref);
+});
+
+// Export Accepted Applications for Admin and HOD
+$('#export_accepted_applications').on('click', function () {
+    let selectedYear = $('#accepted_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
+    alert("The Year Selected is :" + selectedYear)
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    const exportHref = `/export_accpeted_candidates?year=${selectedYear}`;
+
+    $(this).attr('href', exportHref);
+});
+
+// Export Rejected Approval for Admin and HOD
+$('#export_rejected_applications').on('click', function () {
+    let selectedYear = $('#rejected_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
+    alert("The Year Selected is :" + selectedYear)
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    const exportHref = `/export_rejected_candidates?year=${selectedYear}`;
+
+    $(this).attr('href', exportHref);
+});
+
+// Export Pending Approval for Admin and HOD
+$('#export_pending_applications').on('click', function () {
+    let selectedYear = $('#pending_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
+    alert("The Year Selected is :" + selectedYear)
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    const exportHref = `/export_pending_candidates?year=${selectedYear}`;
+
+    $(this).attr('href', exportHref);
+});
+
+// Export Disabled Candidates for Admin and HOD
+$('#export_disabled_applications').on('click', function () {
+    let selectedYear = $('#disabled_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
+    alert("The Year Selected is :" + selectedYear)
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    const exportHref = `/export_disabled_candidates?year=${selectedYear}`;
+
+    $(this).attr('href', exportHref);
 });

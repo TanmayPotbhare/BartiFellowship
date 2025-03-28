@@ -1,0 +1,121 @@
+{% extends 'AdminPages/layout/layout.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <div class="page-header">
+    <h3 class="page-title">
+      <span class="page-title-icon bg-gradient-primary text-white me-2">
+        <i class="mdi mdi-cash-clock menu-icon"></i>
+      </span> REJECTED PAYMENT SHEET
+    </h3>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb d-flex align-items-center">
+        <li class="breadcrumb-item active" aria-current="page">
+          
+          {% if year_selected in years and admin_username in usernames %}
+             <div class="btn-group">
+               <span class="btn btn-dark btn-fw text-white" style="width: auto;">BANRF - {{year_selected}}</span>
+               <input type="hidden" id="rejectedPaymentYearSelector" name="selected_year" value="{{year_selected}}">
+             </div>
+          {% else %}
+            <div class="btn-group">
+              <select id="rejectedPaymentYearSelector" name="selected_year" class="btn btn-dark btn-fw text-white" style="width: auto;">
+                <option value="" selected disabled>Select BANRF Year</option>
+                <option value="2020">BANRF 2020</option>
+                <option value="2021">BANRF 2021</option>
+                <option value="2022">BANRF 2022</option>
+                <option value="2023">BANRF 2023</option>
+                <option value="2024">BANRF 2024</option>
+              </select>
+            </div>
+            {% endif %}
+            <div class="btn-group ms-2">
+              <select id="rejectedQuarterSelector" name="selected_quarter" class="btn btn-dark btn-fw text-white" style="width: auto;">
+                <option selected disabled>Select Quarter</option>
+                <option value="Quarter 1">1st Quarter</option>
+                <option value="Quarter 2">2nd Quarter</option>
+                <option value="Quarter 3">3rd Quarter</option>
+                <option value="Quarter 4">4th Quarter</option>
+                <option value="Quarter 5">5th Quarter</option>
+                <option value="Quarter 6">6th Quarter</option>
+                <option value="Quarter 7">7th Quarter</option>
+                <option value="Quarter 8">8th Quarter</option>
+                <option value="Quarter 9">9th Quarter</option>
+                <option value="Quarter 10">10th Quarter</option>
+              </select>
+            </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+   <div class="card">
+    <div class="card-header">
+      <div class="row justify-content-end">
+
+        <!-- Table to display student applications -->
+      <div class="col-md-12 text-end">
+        {% if session['user'] == 'Auditor' %}
+              <a href ="#" class="btn btn-theme export-excel" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel">Export to Excel<a>
+        {% else %}
+                <!-- Export PDF -->
+                <!-- <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as PDF" id="export_payment_sheet_pdf">Generate PDF</a> -->
+                 <!-- Export Excel -->
+                <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel" data-form-type="export_to_excel_payment_sheet"
+                    id="export_rejected_payment_sheet">Export to Excel</a>
+        {% endif %}
+        </div>
+        {% if year_selected in years and admin_username in usernames %}
+          <div class="text-center mb-4">
+              <h4 id="paymentSheetTitle">Payment Sheet for BANRF - {{year_selected}}</h4>
+          </div>
+        {% else %}  
+        <div class="text-center mb-4">
+          <h4 id="paymentSheetTitle">Payment Sheet for 2023-2024</h4>
+        </div>
+        {% endif %}
+        <br>
+      <div class="table-responsive">
+    <table class="table datatable shadow table-bordered">
+      <thead>
+<!--      <p><strong>NOTE : The H.R.A Rate is calculated according the City Category you are from. IF X Category - 30%, Y Category - 20%, Z Category - 10% </strong></p>-->
+
+        <tr class="text-center">
+          <th>Sr. No.</th>
+          <th>Applicant ID</th>
+          <th>Name of Student</th>
+          <th>Email</th>
+          <th>JRF/SRF</th>
+          <th>Faculty</th>
+          <th>Date of PHD Registration</th>
+          <th>Fellowship Year</th>
+          <th>Duration</th>
+          <th>Total Month</th>
+          <th>Fellowship Amount</th>
+          <th>Total Amount</th>
+          <th>H.R.A Rate</th>
+          <th>H.R.A Amount</th>
+          <th>H.R.A Months</th>
+          <th>Total H.R.A Amount</th>
+          <th>Contingency</th>
+          <th>P.W.D. Amount</th>
+          <th>Total</th>
+          <th>City</th>
+          <th>Bank Name</th>
+          <th>Account Number</th>
+          <th>IFSC</th>
+          <th>Admin Status</th>
+          <th>HOD Status</th>
+          <th>Account Officer Status</th>
+          <th>Registrar Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

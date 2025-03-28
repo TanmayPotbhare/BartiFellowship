@@ -40,7 +40,7 @@
                         <tbody>
                         {% for row in result2023 %}
                           <tr>
-                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['applicant_id'] }}</td>
                               <td>{{ row['email'] }}</td>
                               <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
                               <td>{{ row['faculty'] }}</td>
@@ -81,7 +81,7 @@
                         <tbody>
                         {% for row in result2022 %}
                           <tr>
-                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['applicant_id'] }}</td>
                               <td>{{ row['email'] }}</td>
                               <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
                               <td>{{ row['faculty'] }}</td>
@@ -109,7 +109,7 @@
                         <thead>
 
                           <tr>
-                            <th> Applicant ID </th>
+                            <th>Applicant ID </th>
                             <th>Email</th>
                             <th>Student Name</th>
                             <th>Faculty</th>
@@ -122,7 +122,7 @@
                         <tbody>
                         {% for row in result2021 %}
                           <tr>
-                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['applicant_id'] }}</td>
                               <td>{{ row['email'] }}</td>
                               <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
                               <td>{{ row['faculty'] }}</td>
@@ -162,7 +162,7 @@
                         <tbody>
                         {% for row in result2020 %}
                           <tr>
-                              <td>TRTI / {{ row['phd_registration_year'] }} / {{ row['id'] }}</td>
+                              <td>{{ row['applicant_id'] }}</td>
                               <td>{{ row['email'] }}</td>
                               <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
                               <td>{{ row['faculty'] }}</td>
