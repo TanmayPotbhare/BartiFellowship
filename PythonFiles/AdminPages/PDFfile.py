@@ -17,9 +17,9 @@ def generate_award_letter(data, filename):
                 var = get_base_url()
                 print(var)
                 # Add a header
-                self.set_font("Arial", "B", 12)
-                # self.image('static/Images/satya.png', 94, 10, 20)
-                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 94, 10, 20)  
+                self.set_font("Arial", "B", 10)
+                # self.image('static/admin_assets/images/b-r-ambedkar.png', 94, 10, 15)
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/admin_assets/images/b-r-ambedkar.png', 94, 10, 15)
                 # Replace with the path to your small imag
                 # Calculate the width of the image
                 image_width = 100  # Assuming the width of the image is 100 (adjust if different)
@@ -28,31 +28,34 @@ def generate_award_letter(data, filename):
                 text_y_position = self.get_y() + 20  # Set Y position below the image
                 # Set cursor position
                 self.set_xy(text_x_position, text_y_position)
-                # self.image('static/Images/newtrtiImage.png', 10, 10, 45)
-                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/newtrtiImage.png', 10, 10,45)  
+                # self.image('static/assets/img/logo/barti_new.png', 10, 10, 30)
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti_new.png', 10, 10,30)
                 # Replace with the path to your symbol image
-                self.image('static/Images/mahashasn_new.png', 155, 10, 45)
-                # self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/mahashasn_new.png', 155, 10,45)  
+                # self.image('static/Images/satya.png', 165, 10, 28)
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 165, 10,28)
                 # Replace with the path to your symbol image
-                self.ln(5)
+                self.ln(1)
                 self.ln(0)  # Reduce the space below the address
-                self.cell(0, 5, "Government of Maharashtra", align="C", ln=True)
+                self.cell(0, 5, "Dr. Babasaheb Ambedkar Research & Training Institute (BARTI), Pune", align="C", ln=True)
 
-                self.cell(0, 5, "Tribal Research & Training Institute", align="C", ln=True)
-                self.cell(0, 10, "28, Queens Garden, Pune - 411001", align="C", ln=True)
-                self.dashed_line(10, self.get_y(), 200, self.get_y(), dash_length=3, space_length=1)
+                self.set_font("Arial", size=7)
+                self.cell(0, 5, "(An Autonomous Institute of the Department of Social Justice and Special Assistance, Government of Maharashtra)", align="C", ln=True)
+
+                self.set_font("Arial", size=7)
+                self.cell(0, 10, "28, Queens Garden, Pune - 411001. Phone No.: 020-26362076/26333595. Email: dg@barti.in", align="C", ln=True)
+                self.line(10, self.get_y(), 200, self.get_y())
 
                 self.ln(5)  # Adjust this value to control the space after the line
                 self.set_font("Arial", "B", size=10)
                 self.cell(0, 10,
-                          " Fellowship Award Letter",
+                          "Award Letter",
                           align="C", ln=True)
                 self.ln(2)  # Adjust this value to control the space after the line
 
                 self.rotate(45)  # Rotate the text by 45 degrees
                 self.set_font('Arial', '', 45)
                 self.set_text_color(192, 192, 192)
-                self.text(-30, 195, "STRF FELLOWSHIP")  # Use text instead of rotated_text
+                self.text(-70, 210, "BANRF FELLOWSHIP")  # Use text instead of rotated_text
                 self.rotate(0)  # Reset the rotation to 0 degrees
 
                 self.header_added = True  # Set to True after adding the header
@@ -70,6 +73,8 @@ def generate_award_letter(data, filename):
             # Insert your static data here
             self.set_font("Arial", "B", size=10)
             self.cell(0, 10, "Dear Candidate,", ln=True)
+            self.ln(3)
+            self.cell(0,10, " 'Congratulations' ", align="C", ln=True)
             self.set_font("Arial", "", 10)
             registration_year = data['phd_registration_year']
             fiscal_year = f"BANRF - {registration_year}"
@@ -80,8 +85,8 @@ def generate_award_letter(data, filename):
                             )
             self.ln(3)  # Adjust this value to control the space before static data
             self.multi_cell(0, 7,
-                            "       TRTI reserves all the rights to add terms and conditions as and when required, and "
-                            "candidates are required to accept any changes in the terms and conditions of the fellowship."
+                            "       BARTI reserves all the rights to add terms and conditions as and when required, and "
+                            "candidates are required to accept any changes in the terms and conditions of the fellowship. In case of dispute, Director General of BARTI will be the final authority."
                             )
             self.ln(3)  # Adjust this value to control the space before static data
             self.multi_cell(0, 7,
@@ -101,9 +106,15 @@ def generate_award_letter(data, filename):
                             )
             self.multi_cell(0, 20, "Wish you all the best. ")
             self.set_x(150)  # Adjust the x-coordinate as needed
-            # self.image('/static/Images/signature_awardletter.png', 20, 230, 30)
+
+            self.ln(1)
+            self.cell(160,10, "With Regards,", align='R', ln=True)
+            # self.image('static/assets/img/logo/signHOD.png', 140, 240, 30)
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/signHOD.png', 140, 240, 30)
+            self.ln(12)
+            self.cell(165, 10, "Head of Department,", align='R', ln=True)
             # self.image('static/Images/sonanwanesir_signature.png',  125, 210, 50)
-            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/sonanwanesir_signature.png', 125, 210, 50)
+            # self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/sonanwanesir_signature.png', 125, 210, 50)
             self.ln(5)  # Adjust this value to control the space after static data
 
         def footer(self):
@@ -113,12 +124,36 @@ def generate_award_letter(data, filename):
             self.cell(0, 10, f" {self.page_no()} ", align="C")
 
             # Center-align the "TRTI" text
-            self.cell(0, 10, " TRTI  |  Fellowship | 2023 - 2024 ", align="R")
+            self.cell(0, 10, " BARTI  |  Fellowship ", align="R")
 
-    pdf = PDF()
+    def add_page_borders(pdf, margin=10, color=(0, 0, 0), line_width=1):
+        """
+        Adds a rectangular border around the page with customizable color and line width.
+
+        Args:
+            pdf: The PDF object.
+            margin: The margin (in points) from the page edges.
+            color: A tuple (r, g, b) representing the border color (0-255).
+            line_width: The width of the border line in points.
+        """
+        page_width = pdf.w
+        page_height = pdf.h
+
+        pdf.set_draw_color(*color)  # Set the border color
+        pdf.set_line_width(line_width)  # Set the border line width
+
+        pdf.rect(margin, margin, page_width - 2 * margin, page_height - 2 * margin)
+
+    pdf = PDF(orientation='P', format='A4')
     pdf.add_page()
     pdf.header()
     pdf.to_name(data)
+
+    border_margin = 5
+    border_color = (0, 0, 0)  # Red border
+    border_line_width = 1
+    add_page_borders(pdf, margin=border_margin, color=border_color, line_width=border_line_width)
+
     # Insert static data
     pdf.insert_static_data(data)
     # Save the PDF to a file
