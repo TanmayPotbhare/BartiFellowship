@@ -28,7 +28,7 @@
           <th>Email</th>
           <th>Faculty</th>
           <th>Fellowship Application Year</th>
-          <th>View Application PDF</th>
+<!--          <th>View Application PDF</th>-->
           <th>Action</th>
         </tr>
       </thead>
@@ -48,11 +48,11 @@
           <td>{{ row['email'] }}</td>
           <td>{{ row['faculty'] }}</td>
           <td>{{ row['fellowship_application_year'] }}</td>
-          <td class="text-center">
-              <a href="/generate_pdf_application/{{ row['email'] }}" target="_blank">
-                  <button class="btn btn-primary btn-sm">View</button>
-              </a>
-          </td>
+<!--          <td class="text-center">-->
+<!--              <a href="/generate_pdf_application/{{ row['email'] }}" target="_blank">-->
+<!--                  <button class="btn btn-primary btn-sm">View</button>-->
+<!--              </a>-->
+<!--          </td>-->
           <td>
               {% if row['fellowship_awarded'] == 'Awarded' %}
                   <a href="/generate_award_letter_AA/{{ row['email'] }}" target="_blank">
