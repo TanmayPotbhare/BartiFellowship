@@ -96,7 +96,7 @@ def fellowship_awarded_auth(app):
         # Serve the generated PDF as a response
         with open(output_filename, "rb") as pdf_file:
             response = Response(pdf_file.read(), content_type="application/pdf")
-            response.headers['Content-Disposition'] = 'inline; filename=pdfform.pdf'
+            response.headers['Content-Disposition'] = 'inline; filename=Application Form.pdf'
 
         return response
 
