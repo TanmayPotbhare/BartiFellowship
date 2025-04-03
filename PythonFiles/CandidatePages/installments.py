@@ -1,7 +1,7 @@
 from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response
 from authentication.middleware import auth
-from datetime import datetime, timedelta
+import datetime
 import os
 
 installments_blueprint = Blueprint('installments', __name__)
@@ -25,6 +25,12 @@ def installments_auth(app):
         cnx, cursor = connect_param.connect(use_dict=True)
 
         # Fetch user details
+        cursor.execute("SELECT * FROM signup WHERE email=%s", (email,))
+        signup_year = cursor.fetchone()
+
+        sign_year = signup_year['year']
+
+        # Fetch user details
         cursor.execute("SELECT * FROM application_page WHERE email=%s", (email,))
         records = cursor.fetchone()
 
@@ -39,11 +45,11 @@ def installments_auth(app):
         cursor.execute("SELECT * FROM installments WHERE email=%s", (email,))
         installments = cursor.fetchall()
 
-        cursor.execute("SELECT * FROM payment_sheet WHERE email=%s", (email,))
+        cursor.execute(f"SELECT * FROM payment_sheet_{sign_year} WHERE email=%s", (email,))
         record = cursor.fetchall()
 
         # Assuming only one row in record
-        today = datetime.today()
+        today = datetime.datetime.today()
         installment_list = []  # Initialize the list here
         total_period = 0  # Initialize total_period
         total_balance = 0  # Initialize total_balance
@@ -59,9 +65,9 @@ def installments_auth(app):
                     if i == 1:
                         current_start_date = start_date
                     else:
-                        current_start_date = previous_end_date + timedelta(days=30)
+                        current_start_date = previous_end_date + datetime.timedelta(days=30)
 
-                    current_end_date = current_start_date + timedelta(days=90)
+                    current_end_date = current_start_date + datetime.timedelta(days=90)
 
                     # Create installment dictionary
                     installment = {

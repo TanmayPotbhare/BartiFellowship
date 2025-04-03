@@ -69,28 +69,34 @@ def fellowship_awarded_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        cursor.execute(" SELECT * FROM signup WHERE year IN ('2020', '2021', '2022') and email = %s ", (email,))
-        output = cursor.fetchall()
+        # cursor.execute(" SELECT * FROM signup WHERE year IN ('2020', '2021', '2022') and email = %s ", (email,))
+        # output = cursor.fetchall()
+        #
+        # if output:
+        #     cursor.execute(
+        #         "SELECT * FROM application_page WHERE email = %s", (email,))
+        #     old_user_data = cursor.fetchone()
+        #     print(old_user_data)
+        #     # Generate a styled PDF
+        #     print(output_filename)
+        #     generate_pdf_with_styling(old_user_data, output_filename)
+        # else:
+        #     cursor.execute("SELECT * FROM application_page WHERE email = %s", (email,))
+        #     data = cursor.fetchone()
+        #     print(data)
+        #     # Generate a styled PDF
+        #     generate_pdf_with_styling(data, output_filename)
 
-        if output:
-            cursor.execute(
-                "SELECT * FROM application_page WHERE email = %s", (email,))
-            old_user_data = cursor.fetchone()
-            print(old_user_data)
-            # Generate a styled PDF
-            print(output_filename)
-            generate_pdf_with_styling(old_user_data, output_filename)
-        else:
-            cursor.execute("SELECT * FROM application_page WHERE email = %s", (email,))
-            data = cursor.fetchone()
-            print(data)
-            # Generate a styled PDF
-            generate_pdf_with_styling(data, output_filename)
+        cursor.execute("SELECT * FROM application_page WHERE email = %s", (email,))
+        data = cursor.fetchone()
+        # print(data)
+        # Generate a styled PDF
+        generate_pdf_with_styling(data, output_filename)
 
         # Serve the generated PDF as a response
         with open(output_filename, "rb") as pdf_file:
             response = Response(pdf_file.read(), content_type="application/pdf")
-            response.headers['Content-Disposition'] = 'inline; filename=pdfform.pdf'
+            response.headers['Content-Disposition'] = 'inline; filename=Application Form.pdf'
 
         return response
 
