@@ -1427,6 +1427,99 @@ $('#export_payment_sheet').on('click', function () {
     $(this).attr('href', exportHref);
 });
 
+$('#export_accepted_payment_sheet').on('click', function () {
+    /*
+        Go to this path: templates/AdminPages/PaymentSheet/accepted_payment_sheet.html
+        The "export_payment_sheet" ID is mentioned of the export to excel.
+        This ID is used to fetch data and hit the export to excel link.
+        Python code path: /PythonFiles/AdminPages/PaymentSheet/payment_sheet.py
+    */
+    // Get the selected year from the dropdown
+    let selectedYear = $('#acceptedPaymentYearSelector').val();
+    console.log('Selected year:', selectedYear);
+    let selectedQuarter= $('#acceptedQuarterSelector').val();
+    console.log('Selected Qaurter:', selectedQuarter);
+    const formType = $(this).data('form-type');  // Get the form type (e.g., "completed_form")
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    // If no quarter is selected, then set default to Quarter 1
+    if (selectedQuarter === '') {
+        selectedQuarter = 'Quarter 1';
+    }
+    // Set the href of the export link dynamically with the selected year
+    // Dynamically build the export link using the selected year and form type
+    const exportHref = `/export_payment_sheet?year=${selectedYear}&quarter=${selectedQuarter}&form_type=${formType}`;
+
+    // Set the href of the export link dynamically
+    $(this).attr('href', exportHref);
+});
+
+
+$('#export_rejected_payment_sheet').on('click', function () {
+    /*
+        Go to this path: templates/AdminPages/PaymentSheet/rejected_payment_sheet.html
+        The "export_rejected_payment_sheet" ID is mentioned of the export to excel.
+        This ID is used to fetch data and hit the export to excel link.
+        Python code path: /PythonFiles/AdminPages/PaymentSheet/payment_sheet.py
+    */
+    // Get the selected year from the dropdown
+    let selectedYear = $('#rejectedPaymentYearSelector').val();
+    console.log('Selected year:', selectedYear);
+    let selectedQuarter= $('#rejectedQuarterSelector').val();
+    console.log('Selected Qaurter:', selectedQuarter);
+    const formType = $(this).data('form-type');  // Get the form type (e.g., "completed_form")
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    // If no quarter is selected, then set default to Quarter 1
+    if (selectedQuarter === '') {
+        selectedQuarter = 'Quarter 1';
+    }
+    // Set the href of the export link dynamically with the selected year
+    // Dynamically build the export link using the selected year and form type
+    const exportHref = `/export_payment_sheet?year=${selectedYear}&quarter=${selectedQuarter}&form_type=${formType}`;
+
+    // Set the href of the export link dynamically
+    $(this).attr('href', exportHref);
+});
+
+
+$('#export_onhold_payment_sheet').on('click', function () {
+    /*
+        Go to this path: templates/AdminPages/PaymentSheet/rejected_payment_sheet.html
+        The "export_rejected_payment_sheet" ID is mentioned of the export to excel.
+        This ID is used to fetch data and hit the export to excel link.
+        Python code path: /PythonFiles/AdminPages/PaymentSheet/payment_sheet.py
+    */
+    // Get the selected year from the dropdown
+    let selectedYear = $('#onHoldPaymentYearSelector').val();
+    console.log('Selected year:', selectedYear);
+    let selectedQuarter= $('#onHoldQuarterSelector').val();
+    console.log('Selected Qaurter:', selectedQuarter);
+    const formType = $(this).data('form-type');  // Get the form type (e.g., "completed_form")
+
+    // If no year is selected, default to 2024
+    if (selectedYear === '') {
+        selectedYear = 2024;
+    }
+    // If no quarter is selected, then set default to Quarter 1
+    if (selectedQuarter === '') {
+        selectedQuarter = 'Quarter 1';
+    }
+    // Set the href of the export link dynamically with the selected year
+    // Dynamically build the export link using the selected year and form type
+    const exportHref = `/export_payment_sheet?year=${selectedYear}&quarter=${selectedQuarter}&form_type=${formType}`;
+
+    // Set the href of the export link dynamically
+    $(this).attr('href', exportHref);
+});
+
+
 $('#export_payment_sheet_pdf').on('click', function () {
     let selectedYear = $('#paymentYearSelector').val();
     let selectedQuarter = $('#quarterSelector').val();
@@ -1446,7 +1539,7 @@ $('#export_payment_sheet_pdf').on('click', function () {
 // Export Preliminary Review - Level One for Admin and HOD
 $('#export_level_one').on('click', function () {
     let selectedYear = $('#approval_year_selector').val(); // Assuming the dropdown ID is approval_year_selector_two
-    alert("The Year Selected is :" + selectedYear)
+    // alert("The Year Selected is :" + selectedYear)
 
     // If no year is selected, default to 2024
     if (selectedYear === '') {
@@ -1460,7 +1553,7 @@ $('#export_level_one').on('click', function () {
 // Export Eligibility Check - Level Two for Admin and HOD
 $('#export_level_two').on('click', function () {
     let selectedYear = $('#approval_year_selector_two').val(); // Assuming the dropdown ID is approval_year_selector_two
-    alert("The Year Selected is :" + selectedYear)
+    // alert("The Year Selected is :" + selectedYear)
 
     // If no year is selected, default to 2024
     if (selectedYear === '') {
@@ -1474,7 +1567,7 @@ $('#export_level_two').on('click', function () {
 // Export Final Approval - Level Three for Admin and HOD
 $('#export_level_three').on('click', function () {
     let selectedYear = $('#approval_year_selector_three').val(); // Assuming the dropdown ID is approval_year_selector_two
-    alert("The Year Selected is :" + selectedYear)
+    // alert("The Year Selected is :" + selectedYear)
 
     // If no year is selected, default to 2024
     if (selectedYear === '') {
@@ -1488,7 +1581,7 @@ $('#export_level_three').on('click', function () {
 // Export Accepted Applications for Admin and HOD
 $('#export_accepted_applications').on('click', function () {
     let selectedYear = $('#accepted_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
-    alert("The Year Selected is :" + selectedYear)
+    // alert("The Year Selected is :" + selectedYear)
 
     // If no year is selected, default to 2024
     if (selectedYear === '') {
@@ -1502,7 +1595,7 @@ $('#export_accepted_applications').on('click', function () {
 // Export Rejected Approval for Admin and HOD
 $('#export_rejected_applications').on('click', function () {
     let selectedYear = $('#rejected_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
-    alert("The Year Selected is :" + selectedYear)
+    // alert("The Year Selected is :" + selectedYear)
 
     // If no year is selected, default to 2024
     if (selectedYear === '') {
@@ -1516,7 +1609,7 @@ $('#export_rejected_applications').on('click', function () {
 // Export Pending Approval for Admin and HOD
 $('#export_pending_applications').on('click', function () {
     let selectedYear = $('#pending_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
-    alert("The Year Selected is :" + selectedYear)
+    // alert("The Year Selected is :" + selectedYear)
 
     // If no year is selected, default to 2024
     if (selectedYear === '') {
@@ -1530,7 +1623,7 @@ $('#export_pending_applications').on('click', function () {
 // Export Disabled Candidates for Admin and HOD
 $('#export_disabled_applications').on('click', function () {
     let selectedYear = $('#disabled_candidate_year').val(); // Assuming the dropdown ID is approval_year_selector_two
-    alert("The Year Selected is :" + selectedYear)
+    // alert("The Year Selected is :" + selectedYear)
 
     // If no year is selected, default to 2024
     if (selectedYear === '') {

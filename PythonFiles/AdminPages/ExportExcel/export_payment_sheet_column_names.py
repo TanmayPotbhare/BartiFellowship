@@ -6,7 +6,8 @@ COMMON_COLUMNS = [
     "fellowship_awarded_year", "faculty", "date", "duration_date_from", "duration_date_to",
     "total_months", "fellowship", "total_fellowship", "hra_rate", "hra_amount",
     "hra_months", "total_hra_rate", "contingency", "pwd", "total",
-    "city", "bank_name", "ifsc_code", "account_number", "quarters"
+    "city", "bank_name", "ifsc_code", "account_number", "quarters", "paid", "total_paid ",
+    "admin_approval", "hod_approval", "ao_approval", "registrar_approval"
 ]
 
 # Define the headers as a dictionary
@@ -34,6 +35,12 @@ COMMON_HEADERS = {
     'bank_name': "Bank Name",
     'ifsc_code': "IFSC Code",
     'account_number': "Account Number",
-    'quarters': 'Quarter'
+    'quarters': 'Quarter',
+    'paid': 'Payment Status',
+    'total_paid': 'Quarter',
+    "admin_approval": 'Admin Approval', 
+    "hod_approval": 'HOD Approval', 
+    "ao_approval": 'AO Approval', 
+    "registrar_approval":'Registrar Approval'
 }
 

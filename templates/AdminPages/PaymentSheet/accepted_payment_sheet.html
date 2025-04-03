@@ -60,59 +60,58 @@
                  <!-- Export PDF -->
                 <!-- <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as PDF" id="export_payment_sheet_pdf">Generate PDF</a> -->
                  <!-- Export Excel -->
-                <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel" data-form-type="export_to_excel_payment_sheet"
+                <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel" data-form-type="export_accepted_payment_sheet"
                     id="export_accepted_payment_sheet">Export to Excel</a>
         {% endif %}
         </div>
         {% if year_selected in years and admin_username in usernames %}
           <div class="text-center mb-4">
-              <h4 id="paymentSheetTitle">Payment Sheet for BANRF - {{year_selected}}</h4>
+              <h4 id="acceptedpaymentSheetTitle">Payment Sheet for BANRF - {{year_selected}}</h4>
           </div>
         {% else %}  
         <div class="text-center mb-4">
-          <h4 id="paymentSheetTitle">Payment Sheet for 2023-2024</h4>
+          <h4 id="acceptedpaymentSheetTitle">Payment Sheet for BANRF - 2023</h4>
         </div>
         {% endif %}
         <br>
       <div class="table-responsive">
-    <table class="table datatable shadow table-bordered">
-      <thead>
-<!--      <p><strong>NOTE : The H.R.A Rate is calculated according the City Category you are from. IF X Category - 30%, Y Category - 20%, Z Category - 10% </strong></p>-->
+        <table class="table approvedDatatable shadow table-bordered">
+          <thead>
+    <!--      <p><strong>NOTE : The H.R.A Rate is calculated according the City Category you are from. IF X Category - 30%, Y Category - 20%, Z Category - 10% </strong></p>-->
 
-        <tr class="text-center">
-          <th>Sr. No.</th>
-          <th>Applicant ID</th>
-          <th>Name of Student</th>
-          <th>Email</th>
-          <th>JRF/SRF</th>
-          <th>Faculty</th>
-          <th>Date of PHD Registration</th>
-          <th>Fellowship Year</th>
-          <th>Duration</th>
-          <th>Total Month</th>
-          <th>Fellowship Amount</th>
-          <th>Total Amount</th>
-          <th>H.R.A Rate</th>
-          <th>H.R.A Amount</th>
-          <th>H.R.A Months</th>
-          <th>Total H.R.A Amount</th>
-          <th>Contingency</th>
-          <th>P.W.D. Amount</th>
-          <th>Total</th>
-          <th>City</th>
-          <th>Bank Name</th>
-          <th>Account Number</th>
-          <th>IFSC</th>
-          <th>Admin Status</th>
-          <th>HOD Status</th>
-          <th>Account Officer Status</th>
-          <th>Registrar Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+            <tr class="text-center">
+              <th>Sr. No.</th>
+              <th>Applicant ID</th>
+              <th>Name of Student</th>
+              <th>Email</th>
+              <th>JRF/SRF</th>
+              <th>Faculty</th>
+              <th>Date of PHD Registration</th>
+              <th>Fellowship Year</th>
+              <th>Duration</th>
+              <th>Total Month</th>
+              <th>Fellowship Amount</th>
+              <th>Total Amount</th>
+              <th>H.R.A Rate</th>
+              <th>H.R.A Amount</th>
+              <th>H.R.A Months</th>
+              <th>Total H.R.A Amount</th>
+              <th>Contingency</th>
+              <th>P.W.D. Amount</th>
+              <th>Total</th>
+              <th>City</th>
+              <th>Bank Name</th>
+              <th>Account Number</th>
+              <th>IFSC</th>
+              <th>Admin Status</th>
+              <th>HOD Status</th>
+              <th>Account Officer Status</th>
+              <th>Registrar Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
   </div>
     </div>
     </div>

@@ -60,22 +60,22 @@
                 <!-- Export PDF -->
                 <!-- <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as PDF" id="export_payment_sheet_pdf">Generate PDF</a> -->
                  <!-- Export Excel -->
-                <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel" data-form-type="export_to_excel_payment_sheet"
+                <a href="#" class="btn btn-outline-info btn-fw btn-rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Export as Excel" data-form-type="export_rejected_payment_sheet"
                     id="export_rejected_payment_sheet">Export to Excel</a>
         {% endif %}
         </div>
         {% if year_selected in years and admin_username in usernames %}
           <div class="text-center mb-4">
-              <h4 id="paymentSheetTitle">Payment Sheet for BANRF - {{year_selected}}</h4>
+              <h4 id="rejectedpaymentSheetTitle">Payment Sheet for BANRF - {{year_selected}}</h4>
           </div>
         {% else %}  
         <div class="text-center mb-4">
-          <h4 id="paymentSheetTitle">Payment Sheet for 2023-2024</h4>
+          <h4 id="rejectedpaymentSheetTitle">Payment Sheet for BANRF - 2023</h4>
         </div>
         {% endif %}
         <br>
       <div class="table-responsive">
-    <table class="table datatable shadow table-bordered">
+    <table class="table rejectedDatatable shadow table-bordered">
       <thead>
 <!--      <p><strong>NOTE : The H.R.A Rate is calculated according the City Category you are from. IF X Category - 30%, Y Category - 20%, Z Category - 10% </strong></p>-->
 
@@ -107,7 +107,6 @@
           <th>HOD Status</th>
           <th>Account Officer Status</th>
           <th>Registrar Status</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody>

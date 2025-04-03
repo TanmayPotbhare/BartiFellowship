@@ -1378,7 +1378,7 @@ def admin_dashboard_auth(app):
                      added_date, added_time, added_by, role, year))
                 cnx.commit()
 
-                flash('Admin Added successfully and Mail has been sent with the credentials', 'success')
+                flash('Admin Added successfully.', 'success')
                 return redirect(url_for('admin_dashboard.addAdmin'))
         return render_template('AdminPages/addAdmin.html')
 
