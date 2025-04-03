@@ -67,6 +67,8 @@ def payment_tracking_auth(app):
                 records_display = []
                 payment_records = []
 
+                print("The year selected for TRACK Payment is :", year_selected)
+
                 if request.method == 'POST':
                     start_date = request.form.get('start_date')
                     end_date = request.form.get('end_date')
@@ -162,7 +164,7 @@ def payment_tracking_auth(app):
                 flattened_records = [record for sublist in payment_records for record in sublist]
 
                 return render_template('AdminPages/payment_tracking.html', records_display=records_display, records=records,
-                                    payment_records=flattened_records)
+                                    payment_records=flattened_records, role=role)
         finally:
             if cursor:
                 cursor.close()

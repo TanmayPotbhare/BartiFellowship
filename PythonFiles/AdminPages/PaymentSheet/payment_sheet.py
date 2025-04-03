@@ -26,12 +26,16 @@ def payment_sheet_auth(app):
             app.config[key] = value
 
     def get_payment_year_quarter(year, quarter):  # Separate function for data fetching
+        """This function is defined to fetch the Payment Sheet Data based on the 
+           selected Year and Quarter for Admin and HoD Payment Sheet Report"""
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
         if year:
             database = f'payment_sheet_{year}'
+            print("The Table" ,database)
+            print("The Quarter" ,quarter)
 
         query = f"""
                    SELECT * FROM {database} 
@@ -44,17 +48,156 @@ def payment_sheet_auth(app):
         cnx.close()
 
         return data  # Return the data (list of dictionaries)
+    
+    def get_payment_year_quarter_accepted(year, quarter):  # Separate function for data fetching
+        # This function is defined to fetch the ACCEPTED Payment Sheet Data based on the 
+        # selected Year and Quarter for Admin and HoD Payment Sheet Report
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        user = session['user']
+        print("The Accepted user is " + user)
+
+        # Fetch admin details
+        cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+        admin_result = cursor.fetchone()
+
+        if admin_result:
+                role = admin_result['role']
+
+                print("The Admin's Role is " + role)
+                if year:
+                    database = f'payment_sheet_{year}'
+                    print("The Accepted Table" ,database)
+                    print("The Accepted Quarter" ,quarter)
+                    if role == "Admin":
+                        query = f"""
+                                SELECT * FROM {database} 
+                                WHERE fellowship_awarded_year = %s
+                                AND quarters = %s
+                                AND admin_approval = "accepted"
+                                """
+                    else:
+                        query = f"""
+                                SELECT * FROM {database} 
+                                WHERE fellowship_awarded_year = %s
+                                AND quarters = %s
+                                AND hod_approval = "accepted"
+                                """    
+        print(query)
+        cursor.execute(query, (year,quarter))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+
+        return data  # Return the data (list of dictionaries)
+
+    def get_payment_year_quarter_rejected(year, quarter):  # Separate function for data fetching
+        """This function is defined to fetch the REJECTED Payment Sheet Data based on the 
+        selected Year and Quarter for Admin and HoD Payment Sheet Report"""        
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        user = session['user']
+        print("The Accepted user is " + user)
+
+        # Fetch admin details
+        cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+        admin_result = cursor.fetchone()
+
+        if admin_result:
+                role = admin_result['role']
+
+                print("The Admin's Role is " + role)
+                if year:
+                    database = f'payment_sheet_{year}'
+                    print("The Rejected Table" ,database)
+                    print("The Rejected Quarter" ,quarter)
+                    if role == "Admin":
+                        query = f"""
+                                SELECT * FROM {database} 
+                                WHERE fellowship_awarded_year = %s
+                                AND quarters = %s
+                                AND admin_approval = "rejected"
+                                """
+                    else:
+                        query = f"""
+                                SELECT * FROM {database} 
+                                WHERE fellowship_awarded_year = %s
+                                AND quarters = %s
+                                AND hod_approval = "rejected"
+                                """    
+        print(query)
+        cursor.execute(query, (year,quarter))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+
+        return data  # Return the data (list of dictionaries)
+    
+
+    def get_payment_year_quarter_on_hold(year, quarter):  # Separate function for data fetching
+        """This function is defined to fetch the ON HOLD Payment Sheet Data based on the 
+        selected Year and Quarter for Admin and HoD Payment Sheet Report"""        
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        user = session['user']
+        print("The On Hold user is " + user)
+
+        # Fetch admin details
+        cursor.execute("SELECT * FROM admin WHERE username = %s", (user,))
+        admin_result = cursor.fetchone()
+
+        if admin_result:
+                role = admin_result['role']
+
+                print("The Admin's Role is " + role)
+                if year:
+                    database = f'payment_sheet_{year}'
+                    print("The ON HOLD Table" ,database)
+                    print("The ON HOLD Quarter" ,quarter)
+                    if role == "Admin":
+                        query = f"""
+                                SELECT * FROM {database} 
+                                WHERE fellowship_awarded_year = %s
+                                AND quarters = %s
+                                AND admin_approval = "hold"
+                                """
+                    else:
+                        query = f"""
+                                SELECT * FROM {database} 
+                                WHERE fellowship_awarded_year = %s
+                                AND quarters = %s
+                                AND hod_approval = "hold"
+                                """    
+        print(query)
+        cursor.execute(query, (year,quarter))
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+
+        return data  # Return the data (list of dictionaries)
 
     @payment_sheet_blueprint.route('/get_payment_sheet_data', methods=['GET', 'POST'])
     def get_payment_sheet_data():
         year = request.args.get('year', '2024')
-        quarter = request.args.get('quarter', '1')
-        hod_payment_data = get_payment_year_quarter(year, quarter)  # Call the data fetching function
-        print("The HOD Payment Data is:")
-        for item in hod_payment_data:
+        quarter = request.args.get('quarter', 'Quarter 1')
+        hod_payment_data = get_payment_year_quarter(year, quarter) # Fetch entire Payment Sheet Data
+        approved_payment_data = get_payment_year_quarter_accepted(year, quarter) # Fetch ACCEPTED 
+        rejected_payment_data = get_payment_year_quarter_rejected(year, quarter) # Fetch REJECTED 
+        on_hold_payment_data = get_payment_year_quarter_on_hold(year, quarter)   # Fetch ON HOLD 
+        print("The Accepted Payment Data is:")
+        for item in approved_payment_data:
             print(item)
         data = {
-            'hod_payment_data': hod_payment_data
+            'hod_payment_data': hod_payment_data,
+            'approved_payment_data': approved_payment_data,
+            'rejected_payment_data': rejected_payment_data,
+            'on_hold_payment_data': on_hold_payment_data
         }
         return jsonify(data)
 
@@ -331,14 +474,31 @@ def payment_sheet_auth(app):
                 # Dynamically change the SQL query based on form_type
                 if form_type == "export_to_excel_payment_sheet":
                     cursor.execute(f"SELECT {columns_str} FROM {table_name} WHERE fellowship_awarded_year = %s AND quarters = %s", (year, quarter,))
-                # elif form_type == 'not_disabled_application_records':
-                #     cursor.execute(f"SELECT {columns_str} FROM application_page WHERE phd_registration_year = %s and disability='No' ",
-                #                 (year,))
+                elif form_type == 'export_accepted_payment_sheet':
+                    if role == "Admin":
+                        cursor.execute(f"SELECT {columns_str} FROM {table_name} WHERE admin_approval = 'accepted' AND fellowship_awarded_year = %s AND quarters = %s", (year, quarter,))
+                    elif role == "Head of Department":
+                        cursor.execute(f"SELECT {columns_str} FROM {table_name} WHERE hod_approval = 'accepted' AND fellowship_awarded_year = %s AND quarters = %s", (year, quarter,))
+                elif form_type == 'export_rejected_payment_sheet':
+                    if role == "Admin":
+                        cursor.execute(f"SELECT {columns_str} FROM {table_name} WHERE admin_approval = 'rejected' AND fellowship_awarded_year = %s AND quarters = %s", (year, quarter,))
+                    elif role == "Head of Department":
+
+                        cursor.execute(f"SELECT {columns_str} FROM {table_name} WHERE hod_approval = 'rejected' AND fellowship_awarded_year = %s AND quarters = %s", (year, quarter,))
+                elif form_type == 'export_onhold_payment_sheet':
+                    if role == "Admin":
+                        cursor.execute(f"SELECT {columns_str} FROM {table_name} WHERE admin_approval = 'hold' AND fellowship_awarded_year = %s AND quarters = %s", (year, quarter,))
+                    elif role == "Head of Department":
+                        cursor.execute(f"SELECT {columns_str} FROM {table_name} WHERE hod_approval = 'hold' AND fellowship_awarded_year = %s AND quarters = %s", (year, quarter,))
                 else:
                     # Handle other form types or default case
                     flash('Error fetching Details. Some details are missing.', 'error')
 
                 data = cursor.fetchall()  # Fetch the results
+
+                if not data: #Check if data is empty.
+                    flash(f"No records found for {quarter} in the year {year}.", 'info')
+                    return redirect(url_for('payment_sheet.payment_sheet')) #return the page.
 
                 # Close the connection
                 cursor.close()
@@ -374,6 +534,7 @@ def payment_sheet_auth(app):
         except Exception as e:
             print(f"An error occurred: {e}")
             flash(f"An error occurred: {e}", 'error')
+            # flash("Please select Year and Quarter.",'info')
             return redirect(url_for('payment_sheet.payment_sheet')) #replace some_route with a valid route.
 
     # END Common Export to Excel

@@ -126,17 +126,17 @@
                                                               <td>1</td>
                                                               <td>Adhaar Card</td>
                                                               <td>
-                                                                  {% if row['documentfile1'] %}
+                                                                  {% if row['adhaar_card_doc'] %}
                                                                         <span class="text-success fw-bold">Document Uploaded</span>
                                                                   {% else %}
                                                                          <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                   {% endif %}
                                                               </td>
                                                               <td>
-                                                                  {% if row['documentfile1'] %}
-                                                                     <a href="{{ row['documentfile1'] }}" target="_blank"
+                                                                  {% if row['adhaar_card_doc'] %}
+                                                                     <a href="{{ row['adhaar_card_doc'] }}" target="_blank"
                                                                         class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                        data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        data-bs-original-title="View Aadhaar Card"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                     </a>
                                                                   {% else %}
                                                                     <span class="btn btn-outline-danger btn-sm">
@@ -149,17 +149,17 @@
                                                                   <td>2</td>
                                                                   <td>Pan Card</td>
                                                                   <td>
-                                                                      {% if row['documentfile2'] %}
+                                                                      {% if row['pan_card_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile2'] %}
-                                                                         <a href="{{ row['documentfile2'] }}" target="_blank"
+                                                                      {% if row['pan_card_doc'] %}
+                                                                         <a href="{{ row['pan_card_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                            data-bs-original-title="View PAN Card"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
                                                                       {% else %}
                                                                         <span class="btn btn-outline-danger btn-sm">
@@ -172,17 +172,17 @@
                                                                   <td>3</td>
                                                                   <td>Domicile Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile3'] %}
+                                                                      {% if row['domicile_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile3'] %}
-                                                                         <a href="{{ row['documentfile3'] }}" target="_blank"
+                                                                      {% if row['domicile_doc'] %}
+                                                                         <a href="{{ row['domicile_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                            data-bs-original-title="View Domicile Certificate"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
                                                                       {% else %}
                                                                         <span class="btn btn-outline-danger btn-sm">
@@ -195,17 +195,17 @@
                                                                   <td>4</td>
                                                                   <td>Caste Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile4'] %}
+                                                                      {% if row['caste_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile4'] %}
-                                                                         <a href="{{ row['documentfile4'] }}" target="_blank"
+                                                                      {% if row['caste_doc'] %}
+                                                                         <a href="{{ row['caste_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                            data-bs-original-title="View Caste Certificate"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
                                                                       {% else %}
                                                                         <span class="btn btn-outline-danger btn-sm">
@@ -218,15 +218,15 @@
                                                                   <td>5</td>
                                                                   <td>Caste Validity Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile5'] %}
+                                                                      {% if row['validity_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile5'] %}
-                                                                         <a href="{{ row['documentfile5'] }}" target="_blank"
+                                                                      {% if row['validity_doc'] %}
+                                                                         <a href="{{ row['validity_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -241,15 +241,15 @@
                                                                   <td>6</td>
                                                                   <td>Income Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile6'] %}
+                                                                      {% if row['income_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile6'] %}
-                                                                         <a href="{{ row['documentfile6'] }}" target="_blank"
+                                                                      {% if row['income_doc'] %}
+                                                                         <a href="{{ row['income_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -264,15 +264,15 @@
                                                                   <td>7</td>
                                                                   <td>10th Marksheet & Passing Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile7'] %}
+                                                                      {% if row['ssc_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile7'] %}
-                                                                         <a href="{{ row['documentfile7'] }}" target="_blank"
+                                                                      {% if row['ssc_doc'] %}
+                                                                         <a href="{{ row['ssc_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -287,15 +287,15 @@
                                                                   <td>8</td>
                                                                   <td>12th Marksheet & Passing Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile8'] %}
+                                                                      {% if row['hsc_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile8'] %}
-                                                                         <a href="{{ row['documentfile8'] }}" target="_blank"
+                                                                      {% if row['hsc_doc'] %}
+                                                                         <a href="{{ row['hsc_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -310,15 +310,15 @@
                                                                   <td>9</td>
                                                                   <td>Graduation Marksheet & Passing Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile10'] %}
+                                                                      {% if row['grad_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile10'] %}
-                                                                         <a href="{{ row['documentfile10'] }}" target="_blank"
+                                                                      {% if row['grad_doc'] %}
+                                                                         <a href="{{ row['grad_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -333,15 +333,15 @@
                                                                   <td>10</td>
                                                                   <td>Post-Graduation Marksheet & Passing Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile11'] %}
+                                                                      {% if row['post_grad_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile11'] %}
-                                                                         <a href="{{ row['documentfile11'] }}" target="_blank"
+                                                                      {% if row['post_grad_doc'] %}
+                                                                         <a href="{{ row['post_grad_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -354,17 +354,17 @@
                                                             </tr>
                                                             <tr>
                                                                   <td>11</td>
-                                                                  <td>PET/CET/GATE/SET Marksheet & Passing Certificate</td>
+                                                                  <td>M.Phil/PET/SET/NET/GATE Marksheet & Passing Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile12'] %}
+                                                                      {% if row['entrance_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile12'] %}
-                                                                         <a href="{{ row['documentfile12'] }}" target="_blank"
+                                                                      {% if row['entrance_doc'] %}
+                                                                         <a href="{{ row['entrance_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -379,15 +379,15 @@
                                                                   <td>12</td>
                                                                   <td>Ph.D Admission Reciept</td>
                                                                   <td>
-                                                                      {% if row['documentfile13'] %}
+                                                                      {% if row['phd_reciept_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile13'] %}
-                                                                         <a href="{{ row['documentfile13'] }}" target="_blank"
+                                                                      {% if row['phd_reciept_doc'] %}
+                                                                         <a href="{{ row['phd_reciept_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -402,17 +402,17 @@
                                                                   <td>13</td>
                                                                   <td>Guide Allotment Letter</td>
                                                                   <td>
-                                                                      {% if row['documentfile14'] %}
+                                                                      {% if row['guideAllotment_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile14'] %}
-                                                                         <a href="{{ row['documentfile14'] }}" target="_blank"
+                                                                      {% if row['guideAllotment_doc'] %}
+                                                                         <a href="{{ row['guideAllotment_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                            data-bs-original-title="View Guide Allotment Letter"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
                                                                       {% else %}
                                                                         <span class="btn btn-outline-danger btn-sm">
@@ -421,7 +421,7 @@
                                                                       {% endif %}
                                                                   </td>
                                                             </tr>
-                                                            <tr>
+                                                            <!-- <tr>
                                                                   <td>14</td>
                                                                   <td>Guide Acceptance Letter</td>
                                                                   <td>
@@ -443,20 +443,43 @@
                                                                         </span>
                                                                       {% endif %}
                                                                   </td>
-                                                            </tr>
+                                                            </tr> -->
                                                             <tr>
-                                                                  <td>15</td>
+                                                                  <td>14</td>
                                                                   <td>Letter of Accpetance from RAC/RRC</td>
                                                                   <td>
-                                                                      {% if row['documentfile16'] %}
+                                                                      {% if row['rac_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile16'] %}
-                                                                         <a href="{{ row['documentfile16'] }}" target="_blank"
+                                                                      {% if row['rac_doc'] %}
+                                                                         <a href="{{ row['rac_doc'] }}" target="_blank"
+                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                        </a>
+                                                                      {% else %}
+                                                                        <span class="btn btn-outline-danger btn-sm">
+                                                                            <i class="mdi mdi-sticker-remove"></i>
+                                                                        </span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                            </tr>
+                                                            <tr>
+                                                                  <td>15</td>
+                                                                  <td>Confirmation Letter</td>
+                                                                  <td>
+                                                                      {% if row['confirmation_doc'] %}
+                                                                            <span class="text-success fw-bold">Document Uploaded</span>
+                                                                      {% else %}
+                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                      {% endif %}
+                                                                  </td>
+                                                                  <td>
+                                                                      {% if row['confirmation_doc'] %}
+                                                                         <a href="{{ row['confirmation_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -469,17 +492,17 @@
                                                             </tr>
                                                             <tr>
                                                                   <td>16</td>
-                                                                  <td>Confirmation Letter</td>
+                                                                  <td>Research Center Joining Report</td>
                                                                   <td>
-                                                                      {% if row['documentfile17'] %}
+                                                                      {% if row['joining_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile17'] %}
-                                                                         <a href="{{ row['documentfile17'] }}" target="_blank"
+                                                                      {% if row['joining_doc'] %}
+                                                                         <a href="{{ row['joining_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -492,17 +515,17 @@
                                                             </tr>
                                                             <tr>
                                                                   <td>17</td>
-                                                                  <td>Research Center Joining Report</td>
+                                                                  <td>Annexure A - Self Declaration</td>
                                                                   <td>
-                                                                      {% if row['documentfile18'] %}
+                                                                      {% if row['annexureA_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile18'] %}
-                                                                         <a href="{{ row['documentfile18'] }}" target="_blank"
+                                                                      {% if row['annexureA_doc'] %}
+                                                                         <a href="{{ row['annexureA_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -515,17 +538,17 @@
                                                             </tr>
                                                             <tr>
                                                                   <td>18</td>
-                                                                  <td>Annexure A & Annexure C</td>
+                                                                  <td>Annexure B - Undertaking</td>
                                                                   <td>
-                                                                      {% if row['documentfile24'] %}
+                                                                      {% if row['annexureB_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile24'] %}
-                                                                         <a href="{{ row['documentfile24'] }}" target="_blank"
+                                                                      {% if row['annexureB_doc'] %}
+                                                                         <a href="{{ row['annexureB_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -538,17 +561,17 @@
                                                             </tr>
                                                             <tr>
                                                                   <td>19</td>
-                                                                  <td>Guide & H.O.D Research Common letter (Annexure B)</td>
+                                                                  <td>Annexure C - Affidavit</td>
                                                                   <td>
-                                                                      {% if row['documentfile19'] %}
+                                                                      {% if row['annexureC_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile19'] %}
-                                                                         <a href="{{ row['documentfile19'] }}" target="_blank"
+                                                                      {% if row['annexureC_doc'] %}
+                                                                         <a href="{{ row['annexureC_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -560,64 +583,41 @@
                                                                   </td>
                                                             </tr>
                                                             <tr>
-                                                                  <td>19</td>
-                                                                  <td>Annexure D</td>
-                                                                  <td>
-                                                                      {% if row['documentfile26'] %}
-                                                                            <span class="text-success fw-bold">Document Uploaded</span>
-                                                                      {% else %}
-                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
-                                                                      {% endif %}
-                                                                  </td>
-                                                                  <td>
-                                                                      {% if row['documentfile26'] %}
-                                                                         <a href="{{ row['documentfile26'] }}" target="_blank"
-                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
-                                                                        </a>
-                                                                      {% else %}
-                                                                        <span class="btn btn-outline-danger btn-sm">
-                                                                            <i class="mdi mdi-sticker-remove"></i>
-                                                                        </span>
-                                                                      {% endif %}
-                                                                  </td>
-                                                            </tr>
-                                                            <tr>
-                                                                  <td>20</td>
-                                                                  <td>If Disabled - Disability Certificate</td>
-                                                                  <td>
-                                                                      {% if row['documentfile20'] %}
-                                                                            <span class="text-success fw-bold">Document Uploaded</span>
-                                                                      {% else %}
-                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
-                                                                      {% endif %}
-                                                                  </td>
-                                                                  <td>
-                                                                      {% if row['documentfile20'] %}
-                                                                         <a href="{{ row['documentfile20'] }}" target="_blank"
-                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
-                                                                        </a>
-                                                                      {% else %}
-                                                                        <span class="btn btn-outline-danger btn-sm">
-                                                                            <i class="mdi mdi-sticker-remove"></i>
-                                                                        </span>
-                                                                      {% endif %}
-                                                                  </td>
-                                                            </tr>
+                                                                <td>20</td>
+                                                                <td>Annexure D - Non Beneficiary Certificate</td>
+                                                                <td>
+                                                                    {% if row['annexureD_doc'] %}
+                                                                          <span class="text-success fw-bold">Document Uploaded</span>
+                                                                    {% else %}
+                                                                           <span class="text-danger fw-bold">Document Not Uploaded</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if row['annexureD_doc'] %}
+                                                                       <a href="{{ row['annexureD_doc'] }}" target="_blank"
+                                                                          class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                          data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
+                                                                      </a>
+                                                                    {% else %}
+                                                                      <span class="btn btn-outline-danger btn-sm">
+                                                                          <i class="mdi mdi-sticker-remove"></i>
+                                                                      </span>
+                                                                    {% endif %}
+                                                                </td>
+                                                          </tr>
                                                             <tr>
                                                                   <td>21</td>
-                                                                  <td>Change in Name - Gazzette</td>
+                                                                  <td>If Disabled - Disability Certificate</td>
                                                                   <td>
-                                                                      {% if row['documentfile21'] %}
+                                                                      {% if row['disable_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile21'] %}
-                                                                         <a href="{{ row['documentfile21'] }}" target="_blank"
+                                                                      {% if row['disable_doc'] %}
+                                                                         <a href="{{ row['disable_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -630,17 +630,17 @@
                                                             </tr>
                                                             <tr>
                                                                   <td>22</td>
-                                                                  <td>Self Written Certificate of not getting scholarship from anywhere</td>
+                                                                  <td>Change in Name - Gazzette</td>
                                                                   <td>
-                                                                      {% if row['documentfile22'] %}
+                                                                      {% if row['gazete_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile22'] %}
-                                                                         <a href="{{ row['documentfile22'] }}" target="_blank"
+                                                                      {% if row['gazete_doc'] %}
+                                                                         <a href="{{ row['gazete_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
@@ -655,38 +655,15 @@
                                                                   <td>23</td>
                                                                   <td>Research Synopsis/ Research Center Allotment letter</td>
                                                                   <td>
-                                                                      {% if row['documentfile23'] %}
+                                                                      {% if row['research_letter_doc'] %}
                                                                             <span class="text-success fw-bold">Document Uploaded</span>
                                                                       {% else %}
                                                                              <span class="text-danger fw-bold">Document Not Uploaded</span>
                                                                       {% endif %}
                                                                   </td>
                                                                   <td>
-                                                                      {% if row['documentfile23'] %}
-                                                                         <a href="{{ row['documentfile23'] }}" target="_blank"
-                                                                            class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                                            data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
-                                                                        </a>
-                                                                      {% else %}
-                                                                        <span class="btn btn-outline-danger btn-sm">
-                                                                            <i class="mdi mdi-sticker-remove"></i>
-                                                                        </span>
-                                                                      {% endif %}
-                                                                  </td>
-                                                            </tr>
-                                                            <tr>
-                                                                  <td>24</td>
-                                                                  <td>Adhaar Seeding Document</td>
-                                                                  <td>
-                                                                      {% if row['documentfile19'] %}
-                                                                            <span class="text-success fw-bold">Document Uploaded</span>
-                                                                      {% else %}
-                                                                             <span class="text-danger fw-bold">Document Not Uploaded</span>
-                                                                      {% endif %}
-                                                                  </td>
-                                                                  <td>
-                                                                      {% if row['documentfile19'] %}
-                                                                         <a href="{{ row['documentfile19'] }}" target="_blank"
+                                                                      {% if row['research_letter_doc'] %}
+                                                                         <a href="{{ row['research_letter_doc'] }}" target="_blank"
                                                                             class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
                                                                             data-bs-original-title="View address Proof"><span><i class="mdi mdi-eye-outline"></i></span>
                                                                         </a>
