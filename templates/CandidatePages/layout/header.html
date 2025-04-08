@@ -19,7 +19,7 @@
                           <span class="d-none d-lg-inline-block">{{ user }}</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                        {% set paths = ['/section1', '/section2', '/section3', '/section4', '/section5', '/completed_application'] %}
+                        {% set paths = ['/app_form_info', '/section1', '/section2', '/section3', '/section4', '/section5', '/completed_application'] %}
                         {% if request.path in paths %}
                           <li>
                             <a class="dropdown-link-item" href="/raise_issue">
