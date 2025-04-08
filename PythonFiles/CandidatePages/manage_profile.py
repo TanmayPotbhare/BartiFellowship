@@ -52,8 +52,11 @@ def manage_profile_auth(app):
 
         return render_template('CandidatePages/manage_profile.html', title="Manage Profile", records=records,
                                user=user, photo=photo, finally_approved=finally_approved, formatted_Application_date=formatted_Application_date)
+
+
     def hash_password(password):
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
     
     @manage_profile_blueprint.route('/change_password_user', methods=['POST'])
     def change_password_user():

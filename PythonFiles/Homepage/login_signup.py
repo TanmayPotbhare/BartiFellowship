@@ -105,7 +105,8 @@ def login_auth(app, mail):
                             elif old_user(email):
                                 print('I am here')
                                 session['logged_in_from_login'] = True
-                                return redirect(url_for('section1.app_form_info'))
+                                session['old_user'] = True
+                                return redirect(url_for('section1.old_change_password'))
                             elif new_applicant_incomplete_form(email) == '2024':
                                 print('I am here 1')
                                 session['logged_in_from_login'] = True

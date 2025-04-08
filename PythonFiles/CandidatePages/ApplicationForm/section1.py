@@ -1,4 +1,6 @@
 import datetime
+
+import bcrypt
 import requests
 import os
 from classes.caste import casteController
@@ -17,6 +19,85 @@ def section1_auth(app):
     if app_paths:
         for key, value in app_paths.items():
             app.config[key] = value
+
+    @section1_blueprint.route('/old_change_password')
+    def old_change_password():
+        if not session.get('logged_in_from_login'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('login_signup.login'))
+        return render_template('CandidatePages/ApplicationForm/old_change_password.html')
+
+    def hash_password(password):
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    @section1_blueprint.route('/submit_old_change_password', methods=['GET', 'POST'])
+    def submit_old_change_password():
+        if not session.get('logged_in_from_login'):
+            # Redirect to the admin login page if the user is not logged in
+            return redirect(url_for('login_signup.login'))
+
+        if request.method == 'POST':
+            current_password = request.form['current_password']
+            new_password = request.form['new_password']
+            confirm_password = request.form['confirm_password']
+            email = session.get('email')
+
+            if not email:
+                flash("Session expired. Please log in again.", "error")
+                return redirect(url_for('login'))
+
+            # Connect to the database
+            host = HostConfig.host
+            connect_param = ConnectParam(host)
+            cnx, cursor = connect_param.connect(use_dict=True)
+
+            try:
+                # Retrieve hashed password from the database
+                query = 'SELECT password FROM signup WHERE email = %s'
+                cursor.execute(query, (email,))
+                result = cursor.fetchone()
+
+                if result:
+                    stored_password = result['password']
+
+                    # Check if stored_password is hashed (bcrypt hash starts with "$2")
+                    if stored_password.startswith('$2b$') or stored_password.startswith('$2a$'):
+                        # Verify hashed password
+                        password_matches = bcrypt.checkpw(current_password.encode('utf-8'), stored_password.encode('utf-8'))
+                    else:
+                        # Compare as plain text
+                        password_matches = (current_password == stored_password)
+
+                    if password_matches:
+                        if new_password != confirm_password:
+                            flash("New Password and Confirm Password do not match.", "error")
+                            return redirect(url_for('manage_profile.manage_profile'))
+
+                        # Hash the new password before storing (ensure it's hashed for security)
+                        hashed_password = hash_password(new_password).decode('utf-8')
+
+                        # Update password in the database (removing confirm_password field)
+                        update_query = 'UPDATE signup SET password = %s, confirm_password = %s WHERE email = %s'
+                        cursor.execute(update_query, (hashed_password, confirm_password, email))
+                        cnx.commit()
+
+                        flash("Password updated successfully.", "success")
+                        return redirect(url_for('section1.app_form_info'))
+                    else:
+                        flash("Incorrect current password.", "error")
+                else:
+                    flash("User not found.", "error")
+
+            except Exception as e:
+                flash(f"An error occurred: {str(e)}", "error")
+
+            finally:
+                cursor.close()
+                cnx.close()
+
+            return redirect(url_for('section1.app_form_info'))
+
+        return render_template('CandidatePages/ApplicationForm/old_change_password.html')
 
     @section1_blueprint.route('/app_form_info')
     def app_form_info():
