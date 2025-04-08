@@ -57,41 +57,78 @@ function validatePasswords() {
     return true;  // Both password and confirm password are valid and match
 }
 
-    function checkCurrentPassword(e){
-            const currentPassword = e.value;
-            if (currentPassword) {
-                $.ajax({
-                    url: '/check-current-password',  // Corrected Flask API route
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ password: currentPassword }),
-                    success: function (response) {
-                        if (!response.valid) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Incorrect Password!',
-                                text: response.message,
-                            });
-                            $('#current_password').val('');  // Clear the field
-                        } else {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Password Verified!',
-                                text: response.message,
-                                timer: 2000
-                            });
-                        }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Something went wrong. Please try again.',
-                        });
-                    }
+function checkCurrentPassword(e){
+    const currentPassword = e.value;
+    if (currentPassword) {
+        $.ajax({
+            url: '/check-current-password',  // Corrected Flask API route
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ password: currentPassword }),
+            success: function (response) {
+                if (!response.valid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Incorrect Password!',
+                        text: response.message,
+                    });
+                    $('#current_password').val('');  // Clear the field
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password Verified!',
+                        text: response.message,
+                        timer: 2000
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Something went wrong. Please try again.',
                 });
             }
-        };
+        });
+    }
+};
+
+
+function checkRegisteredMobile(e){
+    const registered_mobile = e.value;
+    if (registered_mobile) {
+        $.ajax({
+            url: '/check-current-mobile',  // Corrected Flask API route
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ registered_mobile: registered_mobile }),
+            success: function (response) {
+                if (!response.valid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Incorrect Password!',
+                        text: response.message,
+                    });
+                    $('#registered_mobile').val('');  // Clear the field
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password Verified!',
+                        text: response.message,
+                        timer: 2000
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Something went wrong. Please try again.',
+                });
+            }
+        });
+    }
+};
 
 
 
