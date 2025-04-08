@@ -10,29 +10,76 @@ $('#body').on('input', function () {
 })
 
 $(document).ready(function () {
-    // Attach a submit event handler to the form
-    $('#emailForm').submit(function (event) {
-        event.preventDefault();  // Prevent the form from submitting normally
+    const searchFilterForm = $('#search_filter').closest('form'); // Get the parent form of the filter
+    const bulkSection = $('#bulk_section');
+    const customSection = $('#custom_section');
+    const mailTypeSelect = $('#mail_type');
 
-        // Use AJAX to submit the form data and update the textarea
+    // Initially hide both sections
+    bulkSection.addClass('d-none');
+    customSection.addClass('d-none');
+
+    // Event listener for the main form submission (after filtering for bulk emails)
+    searchFilterForm.on('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
         $.ajax({
             type: 'POST',
             url: '/sendbulkEmails',
             data: $(this).serialize(),
             success: function (data) {
-                // Update the textarea if email_list is defined
-                if (data.email_list) {
-                    $('#emailRecipients').val(data.email_list.join(', '));
-                } else {
-                    $('#emailRecipients').val('No emails found.');
+                if (mailTypeSelect.val() === 'bulk') {
+                    bulkSection.removeClass('d-none'); // Show bulk section on success
+                    // Update the textarea if email_list is defined (though you are using a table now)
+                    const emailTableBody = $('#sendBulkEmail tbody');
+                    emailTableBody.empty(); // Clear previous data
+
+                    if (data.email_list && data.email_list.length > 0) {
+                        data.email_list.forEach((email, index) => {
+                            emailTableBody.append(`
+                                <tr>
+                                    <td><input type="checkbox" class="email-input" name="emailRecipients[]" value="${email}" id=""></td>
+                                    <td>${index + 1}</td>
+                                    <td>${email}</td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        emailTableBody.append('<tr><td colspan="3">No emails found.</td></tr>');
+                    }
                 }
             },
             error: function (error) {
                 console.log('Error:', error);
+                if (mailTypeSelect.val() === 'bulk') {
+                    bulkSection.removeClass('d-none'); // Still show the section, but with an error message perhaps
+                    const emailTableBody = $('#sendBulkEmail tbody');
+                    emailTableBody.empty();
+                    emailTableBody.append('<tr><td colspan="3">Error fetching emails.</td></tr>');
+                }
             }
         });
     });
 });
+
+function toggleMailType(select) {
+    const searchFilterDiv = document.getElementById('search_filter');
+    const bulkSection = document.getElementById('bulk_section');
+    const customSection = document.getElementById('custom_section');
+
+    if (select.value === 'bulk') {
+        searchFilterDiv.classList.remove('d-none'); // Show filter form
+        customSection.classList.add('d-none');   // Hide custom section
+    } else if (select.value === 'custom') {
+        searchFilterDiv.classList.add('d-none');   // Hide filter form
+        bulkSection.classList.add('d-none');      // Hide bulk section (initially)
+        customSection.classList.remove('d-none'); // Show custom section
+    } else {
+        searchFilterDiv.classList.add('d-none');   // Hide filter form
+        bulkSection.classList.add('d-none');      // Hide bulk section
+        customSection.classList.add('d-none');   // Hide custom section
+    }
+}
 
 // Function to handle button click events
 $(document).ready(function() {

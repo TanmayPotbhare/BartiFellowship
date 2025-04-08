@@ -6,7 +6,7 @@
     <h3 class="page-title">
       <span class="page-title-icon bg-gradient-primary text-white me-2">
         <i class="mdi mdi-home"></i>
-      </span> Track Payments
+      </span> Send Bulk Emails
     </h3>
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
@@ -18,35 +18,76 @@
   </div>
   <div class="card">
       <div class="card-body">
-        <h3 class="form-label text-center mb-4">Fellowships Awarded</h3>
+        <!-- <h3 class="form-label text-center mb-4">Fellowships Awarded</h3> -->
             <div>
                   <div class="container-fluid px-0 mt-4">
-                      <form action="/sendbulkEmails" method="POST">
+                      <form action="/sendbulkEmails" method="POST" id="emailForm" >
                           <div class="row g-3 justify-content-center">
                               <!-- Search by Name -->
                               <div class="row col-md-12 align-items-end">
                                   <div class="col-md-3">
                                       <label for="search_name" class="form-label"><strong>Select Mail
                                               Type</strong></label>
-                                      <select name="mail_type" id="mail_type" class="form-control">
+                                      <select name="mail_type" id="mail_type" class="form-control"
+                                      onchange="toggleMailType(this)">
                                           <option value="">-- Select Type --</option>
                                           <option value="custom">Custom Email</option>
                                           <option value="bulk">Bulk Email</option>
                                       </select>
                                   </div>
-                                  <div class="col-md-6 row align-items-end d-none" id="search_option">
-                                      <div class="col-md-6">
-                                          <label for="search_name" class="form-label"><strong>Search by
-                                                  Year</strong></label>
-                                          <input type="text" name="year" class="form-control" id="search_name"
-                                              placeholder="Enter Year">
-                                      </div>
+                                    <form action="/sendbulkEmails" method="POST">
+                                        <div class="row g-3 justify-content-center d-none" id="search_filter">
+                                            <h3 class="form-label text-center mb-4"><strong>Search by Filters</strong></h3>
 
-                                      <!-- Submit Button -->
-                                      <div class="col-md-6">
-                                          <button type="submit" class="btn btn-primary">Submit Form</button>
-                                      </div>
-                                  </div>
+                                            <div class="col-md-4">
+                                                <label for="" class="fw-bold mb-2">Year<span
+                                                    class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-original-title="This is the Year from which students have started their fellowships.">
+                                                    <i class="ri-information-fill"></i>
+                                                </label><br>
+                                                <select id="year" name="year" class="form-select" required>
+                                                    <option value="">-- Select Year --</option>
+                                                    <option value="2021">BANRF - 2021 </option>
+                                                    <option value="2022">BANRF - 2022</option>
+                                                    <option value="2023">BANRF - 2023</option>
+                                                    <option value="2024">BANRF - 2024</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="" class="fw-bold mb-2" >Applicantion form status<span
+                                                    class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-original-title="This is the Year from which students have started their fellowships.">
+                                                    <i class="ri-information-fill"></i>
+                                                </label><br>
+                                                <select id="form_status" name="form_status" class="form-select" required>
+                                                    <option value="">-- Select Status --</option>
+                                                    <option value="submitted">Submitted</option>
+                                                    <option value="">Not Submitted</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="" class="fw-bold mb-2" >Candidate Status<span
+                                                    class="text-danger">*</span></label><i class="bi bi-arrow-right"></i> <label
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-original-title="This is the Year from which students have started their fellowships.">
+                                                    <i class="ri-information-fill"></i>
+                                                </label><br>
+                                                <select id="candidate_status" name="candidate_status" class="form-select">
+                                                    <option value="">-- Select Status --</option>
+                                                    <option value="pending">Pending</option>
+                                                    <option value="accepted">Accepted</option>
+                                                    <option value="hold">On Hold</option>
+                                                    <option value="rejected">Rejected</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-10  text-center">
+                                                <button type="submit" class="btn btn-primary">Submit Filetrs</button>
+                                            </div>
+                                        </div>
+                                    </form>
                               </div>
 
 
@@ -54,9 +95,9 @@
                               <div class="row mt-4">
 
                                   <div class="col-md-12 d-none" id="bulk_section" style="height: 50vh; overflow-y: scroll;">
-                                      <h2>Email Form</h2>
-                                      <label for="emailRecipients" class="form-label"><strong>Email
-                                              Recipients:</strong></label>
+                                      <label for="emailRecipients" class="form-label">
+                                        <strong>Email Recipients:</strong>
+                                      </label>
                                       <table class="table table-bordered" id="sendBulkEmail">
                                           <thead>
                                               <tr>
@@ -85,9 +126,9 @@
                                   </div>
                                   <div id="custom_section" class="d-none">
                                       <div class="row" id="custom_email_wrapper">
-                                          <div class="col-md-3">
-                                              <label for="">Enter Email</label>
-                                              <input type="text" name="custom_email[]" class="form-control custom_email" placeholder="Enter Email">
+                                          <div class="col-md-6">
+                                              <label for="" calss="mb-2">Email To: </label>
+                                              <input type="text" name="custom_email[]" class="form-control custom_email" placeholder="Enter Email ID of recipient">
                                           </div>
                                       </div>
                                       <div class="mt-3">
@@ -117,7 +158,7 @@
                                 <div class="email-list">
 
                                 </div>
-
+                                <h4>Email Form</h4>
                                 <div class="form-group">
                                     <label for="subject">Subject:</label>
                                     <input type="text" class="form-control" id="subject" name="subject" required>
@@ -129,7 +170,7 @@
                                 </div>
 
                                     <div class="mb-3">
-                                        <label for="attachment" class="form-label">Attachment</label>
+                                        <label for="attachment" class="form-label">Attachment:</label>
                                         <input class="form-control" type="file" id="attachment" name="attachment">
                                     </div>
 
