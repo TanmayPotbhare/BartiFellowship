@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-body">
 
-             <form action="/section1_submit" method="POST" enctype="multipart/form-data" class="personal-details-form">
+            <form action="/section1_submit" method="POST" enctype="multipart/form-data" class="personal-details-form">
 
                 <h4 class="mb-4 text-center">Personal Details</h4>
 
@@ -28,23 +28,36 @@
                                 <label for="applicant_photo">Applicant Photo
                                     <span class="text-danger">*</span>
                                     <span data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Upload a JPG/PNG image (50KB-100KB).">
+                                          title="Upload a JPG/PNG image (50KB-100KB).">
                                         (<span class="mdi mdi-image-area text-primary">IMG</span>)
                                     </span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
-                                    <img src="{{ record['applicant_photo'] }}" alt="Applicant Photo"
-                                        style="height:100px; width:100px;">
+                                    {% if record['applicant_photo'] %}
+                                        <img src="{{ record['applicant_photo'] }}" alt="Applicant Photo"
+                                             style="height:100px; width:100px;">
+                                    {% else %}
+                                        <span class="text-muted">No photo uploaded.</span>
+                                    {% endif %}
                                 {% else %}
                                     <input type="file" name="applicant_photo" id="applicant_photo"
-                                       class="form-control accept_img" required>
+                                           class="form-control accept_img"
+                                           {% if not record['section1'] == "filled" %}required{% endif %}>
+                                           <input type="hidden" name="applicant_photo_hidden" value="{{ record['applicant_photo'] }}">
+                                    {% if record['section1'] == "filled" and record['applicant_photo'] %}
+                                        <img src="{{ record['applicant_photo'] }}" alt="Applicant Photo"
+                                             style="height:100px; width:100px; margin-top: 10px;">
+                                        <small class="form-text text-muted">You can upload a new photo to replace the existing one.</small>
+                                    {% elif record['section1'] == "filled" %}
+                                        <small class="form-text text-muted">You can upload a photo now.</small>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <label for="adhaar_number">Verified Adhaar
                                         <span class="text-danger">*</span>
                                     </label>
@@ -56,28 +69,42 @@
                                     </label>
 
                                     <input type="text" name="adhaar_number" id="adhaar_number" class="form-control mb-2"
-                                        maxlength="12" onchange="checkAadhaarOnChange(this)" placeholder = "Enter Aadhaar Number" required>
+                                        maxlength="12" onchange="checkAadhaarOnChange(this)" placeholder = "Enter Aadhaar Number" required
+                                        value = "{{ record['adhaar_number'] }}">
 <!--                                    <a href="#" class="btn btn-primary btn-sm">Verify Aadhaar</a>-->
                                 {% endif %}
                             </div>
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
-                                    <label for="adhaar_seeding_bank">Adhaar Seeding Document
-                                        <span class="text-danger">*</span>
-                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Upload a JPG/PNG image (50KB-100KB).">
-                                            (<span class="mdi mdi-image-area text-primary">IMG</span>)
-                                        </span>
-                                    </label>
-                                    {% if record['section1'] == 'filled' %}
-                                        <br>
+                                <label for="adhaar_seeding_bank">Adhaar Seeding Document
+                                    <span class="text-danger">*</span>
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                          title="Upload a JPG/PNG image (50KB-100KB).">
+                                        (<span class="mdi mdi-image-area text-primary">IMG</span>)
+                                    </span>
+                                </label>
+                                {% if record['lock_application_form'] == 'locked' %}
+                                    <br>
+                                    {% if record['adhaar_seeding_doc'] %}
                                         <img src="{{ record['adhaar_seeding_doc'] }}" alt="Adhaar Seeding Document"
-                                            style="height:100px; width:100px;">
+                                             style="height:100px; width:100px;">
                                     {% else %}
-                                        <input type="file" name="adhaar_seeding_bank" id="adhaar_seeding_bank"
-                                            class="form-control accept_img" required>
+                                        <span class="text-muted">No document uploaded.</span>
                                     {% endif %}
+                                {% else %}
+                                    <input type="file" name="adhaar_seeding_bank" id="adhaar_seeding_bank"
+                                           class="form-control accept_img"
+                                           {% if not record['section1'] == "filled" %}required{% endif %}>
+                                           <input type="hidden" name="adhaar_seeding_doc" value="{{ record['adhaar_seeding_doc'] }}">
+                                    {% if record['section1'] == "filled" and record['adhaar_seeding_doc'] %}
+                                        <img src="{{ record['adhaar_seeding_doc'] }}" alt="Adhaar Seeding Document"
+                                             style="height:100px; width:100px; margin-top: 10px;">
+                                        <small class="form-text text-muted">You can upload a new document to replace the existing one.</small>
+                                    {% elif record['section1'] == "filled" %}
+                                        <small class="form-text text-muted">You can upload the Adhaar seeding document now.</small>
+                                    {% endif %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -93,7 +120,7 @@
                                 <label for="first_name">First Name
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['first_name'] }}</span>
                                 {% else %}
@@ -108,7 +135,7 @@
                                 <label for="middle_name">Middle Name
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['middle_name'] }}</span>
                                 {% else %}
@@ -123,7 +150,7 @@
                                 <label for="last_name">Surname
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['last_name'] }}</span>
                                 {% else %}
@@ -138,7 +165,7 @@
                                 <label for="mobile_number">Mobile Number
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['mobile_number'] }}</span>
                                 {% else %}
@@ -157,12 +184,12 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="input-group mb-3">
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['email'] }}</span>
                                 {% else %}
                                     <input type="text" class="form-control" aria-label="Text input with dropdown button"
-                                            name="email" id="email" value="{{ signup_record['email'] }}" disabled>
+                                            name="email" id="email" value="{{ signup['email'] }}" disabled>
                                 {% endif %}
                             </div>
                         </div>
@@ -171,12 +198,12 @@
                                 <label for="date_of_birth">Date of Birth
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ formatted_date_of_birth }}</span>
                                 {% else %}
                                    <input type="date" name="date_of_birth" id="date_of_birth" class="form-control"
-                                      onblur="calculateAge(this)" required>
+                                      onblur="calculateAge(this)"  value= "{{ record['date_of_birth'] }}" required>
                                 {% endif %}
                             </div>
                         </div>
@@ -185,12 +212,13 @@
                                 <label for="age">Age
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['age'] }} Years</span>
                                 {% else %}
                                     <input type="text" name="age" id="age" class="form-control"
-                                        placeholder="Enter your Date of Birth" readonly>
+                                        placeholder="Enter your Date of Birth" 
+                                        value="{{ record['age'] }}"readonly>
                                 {% endif %}
                             </div>
                         </div>
@@ -199,16 +227,16 @@
                                 <label for="gender">Gender
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['gender'] }}</span>
                                 {% else %}
                                 <select name="gender" id="gender" class="form-control" required>
-                                        <option value="" selected>-- Select Gender --</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
+                                    <option value="" {% if not record['gender'] %}selected{% endif %}>-- Select Gender --</option>
+                                    <option value="Male" {% if record['gender'] == 'Male' %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if record['gender'] == 'Female' %}selected{% endif %}>Female</option>
+                                    <option value="Other" {% if record['gender'] == 'Other' %}selected{% endif %}>Other</option>
+                                </select>
                                 {% endif %}
                             </div>
                         </div>
@@ -217,7 +245,7 @@
                                 <label for="caste">Category
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['caste'] }}</span>
                                 {% else %}
@@ -233,92 +261,44 @@
                                 <label for="your_caste">Caste/Tribe
                                         <span class="text-danger">*</span>
                                     </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['your_caste'] }}</span>
                                 {% else %}
-                                   <select name="your_caste" id="your_caste" class="form-control" required>
-                                        <option value="" selected>-- Select Caste --</option>
+                                <select name="your_caste" id="your_caste" class="form-control" required>
+                                    <option value="" {% if not record['your_caste'] %}selected{% endif %}>-- Select Caste --</option>
                                     {% for castes in all_caste %}
-                                            <option
-                                                data-hidden="{{ castes['unique_number'] }}"
-                                                value="{{ castes['caste_name'] }}"
-                                            >
+                                        <option
+                                            data-hidden="{{ castes['unique_number'] }}"
+                                            value="{{ castes['caste_name'] }}"
+                                            {% if record['your_caste'] == castes['caste_name'] %}selected{% endif %}
+                                        >
                                             {{ castes['caste_name'] }}
-                                            </option>
+                                        </option>
                                     {% endfor %}
+                                </select>
                                 </select>
                                 {% endif %}
                             </div>
                         </div>
-<!--                        <div class="col-md-4 mt-2">-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="pvtg" data-bs-toggle="tooltip" data-bs-placement="top"-->
-<!--                                       title="PVTG stands for Particularly Vulnerable Tribal Groups. Select 'Yes' if applicable.">-->
-<!--                                    Belong to PVTG? <span class="text-danger">*</span>-->
-<!--                                </label>-->
-<!--                                <span class="mdi mdi-information-variant-circle-outline"></span>-->
-<!--                                {% if record['section1'] == 'filled' %}-->
-<!--                                    <br>-->
-<!--                                    <span class="text-dark">{{ record['pvtg'] }}</span>-->
-<!--                                {% else %}-->
-<!--                                   <select name="pvtg" id="pvtg" class="form-control" onchange="toggleAdditionalField(this)" required>-->
-<!--                                        <option value="" selected>&#45;&#45; Select Option &#45;&#45;</option>-->
-<!--                                        <option value="Yes">Yes</option>-->
-<!--                                        <option value="No">No</option>-->
-<!--                                    </select>-->
-<!--                                {% endif %}-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                         <div class="col-md-4 mt-3 d-none" id="additionalField">-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="pvtg_caste">Select Tribe for PVTG<span class="text-danger">*</span></label>-->
-<!--                                {% if record['section1'] == 'filled' %}-->
-<!--                                    <br>-->
-<!--                                    <span class="text-dark">{{ record['pvtg_caste'] }}</span>-->
-<!--                                {% else %}-->
-<!--                                   <select name="pvtg_caste" id="pvtg_caste" class="form-control">-->
-<!--                                        <option value="" selected>&#45;&#45; Select PVTG Tribe &#45;&#45;</option>-->
-<!--                                        <option value="Katkari">Katkari</option>-->
-<!--                                        <option value="Kolam">Kolam</option>-->
-<!--                                        <option value="Madia">Madia</option>-->
-<!--                                    </select>-->
-<!--                                {% endif %}-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                      <div class="row m-0">
-<!--                            <div class="col-md-4 mt-2">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="subcaste">Sub Caste/Tribe-->
-<!--                                        <span class="text-danger">*</span>-->
-<!--                                    </label>-->
-<!--                                    {% if record['section1'] == 'filled' %}-->
-<!--                                        <br>-->
-<!--                                        <span class="text-dark">{{ record['subcaste'] }}</span>-->
-<!--                                    {% else %}-->
-<!--                                       <select name="subcaste" id="subcaste" class="form-control" required>-->
-<!--                                            <option value="" selected>&#45;&#45; Select Option &#45;&#45;</option>-->
-<!--                                       </select>-->
-<!--                                    {% endif %}-->
-<!--                                </div>-->
-<!--                            </div>-->
                             <div class="col-md-4 mt-2">
                                 <div class="form-group">
                                     <label for="marital_status">Marital Status
                                         <span class="text-danger">*</span>
                                     </label>
-                                    {% if record['section1'] == 'filled' %}
+                                    {% if record['lock_application_form'] == 'locked' %}
                                         <br>
                                         <span class="text-dark">{{ record['marital_status'] }}</span>
                                     {% else %}
                                        <select name="marital_status" id="marital_status" class="form-control" required>
-                                            <option value="" selected disabled>-- Select Option --</option>
-                                            <option value="Single">Single</option>
-                                            <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Widowed">Widowed</option>
-                                            <option value="Seperated">Seperated</option>
+                                            <option value="" {% if not record['marital_status'] %}selected{% endif %} disabled>-- Select Option --</option>
+                                            <option value="Single" {% if record['marital_status'] == 'Single' %}selected{% endif %} >Single</option>
+                                            <option value="Married" {% if record['marital_status'] == 'Married' %}selected{% endif %}>Married</option>
+                                            <option value="Divorced" {% if record['marital_status'] == 'Divorced' %}selected{% endif %}>Divorced</option>
+                                            <option value="Widowed" {% if record['marital_status'] == 'Widowed' %}selected{% endif %}>Widowed</option>
+                                            <option value="Seperated" {% if record['marital_status'] == 'Seperated' %}selected{% endif %}>Seperated</option>
                                         </select>
                                     {% endif %}
                                 </div>
@@ -330,18 +310,28 @@
                     <div class="btn btn-dark btn-lg text-center">
                         <h6 class="text-white fw-bold">Address Details</h6>
                     </div>
+                    <div class="row m-0 mx-2 mt-2"> 
+                        {% if record['lock_application_form'] != 'locked' and record['section1'] == "filled" %}
+                        <label for="add_1"><span class="text-danger">Note: </span>
+                            Edit Pincode only if you need to update Village, Taluka, District, 
+                            or State fields, as changing the Pincode will clear these fields for re-entry.
+                        </label>
+                        <br>
+                        {% endif %}
+                    </div>
                     <div class="row m-0">
                         <div class="col-md-9 mt-2">
                             <div class="form-group">
                                 <label for="add_1">Permanent Address
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['add_1'] }}</span>
                                 {% else %}
-                                   <textarea name="add_1" id="add_1" class="form-control"
-                                        placeholder="Enter your Permanent Address." required></textarea>
+                                <textarea name="add_1" id="add_1" class="form-control" placeholder="Enter your Permanent Address." 
+                                oninput="validateName(this)" required>{{ record['add_1'] }}</textarea>
                                 {% endif %}
                             </div>
                         </div>
@@ -350,12 +340,12 @@
                                 <label for="pincode">Pincode
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['pincode'] }}</span>
                                 {% else %}
                                    <input type="text" name="pincode" id="pincode" class="form-control"
-                                        placeholder="Enter your Pincode" required>
+                                        placeholder="Enter your Pincode" value="{{ record['pincode'] }}" required >
                                 {% endif %}
                             </div>
                         </div>
@@ -367,30 +357,38 @@
                                        title="Enter Pincode, all the villages will autopopulate">
                                     Select Permanent Village <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['village'] }}</span>
-                                {% else %}
-                                    <select id="village" name="village" class="form-control" required>
+                                    {% else %}
+                                    <select id="village" name="village" class="form-control" required
+                                    onclick="selectAddressVillage()">
+                                        
+                                        {% if record['village'] %}
+                                        <option {% if record['village'] %}selected{% endif %}>{{ record['village'] }}</option>
+                                        {% else %}
                                         <option value="" selected>-- Select Village --</option>
+                                        {% endif %}
                                         <!-- Village options will be populated via the API -->
                                     </select>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-md-3 mt-2 d-none" id="other_village_container">
+                        <div class="col-md-3 mt-2 {% if record['village'] != 'Other' %}d-none{% endif %}" id="other_village_container">
                             <div class="form-group">
                                 <label for="other_village">Other Village <span class="text-danger">*</span></label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['other_village'] }}</span>
                                 {% else %}
                                     <input class="form-control" name="other_village" id="other_village"
-                                           oninput="validateName(this)" maxlength="30" placeholder="Enter Other Village Name">
+                                           oninput="validateName(this)" 
+                                           value="{{ record['other_village'] }}"
+                                           maxlength="30" placeholder="Enter Other Village Name">
                                 {% endif %}
                             </div>
                         </div>
-                        {% if record.section1 == 'filled' and record.other_village %}
+                        {% if record.lock_application_form == 'locked' and record.other_village %}
                             <div class="col-md-3 mt-2">
                                 <div class="form-group">
                                     <label for="other_village">
@@ -407,12 +405,13 @@
                                 <label for="taluka">Taluka
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['taluka'] }}</span>
                                 {% else %}
                                    <input type="text" name="taluka" id="taluka" class="form-control"
-                                       placeholder="Select Village" oninput="validateName(this)" maxlength="30" readonly>
+                                       placeholder="Select Village" oninput="validateName(this)" 
+                                       value="{{ record['taluka'] }}" maxlength="30" readonly>
                                 {% endif %}
                             </div>
                         </div>
@@ -421,12 +420,13 @@
                                 <label for="district">District
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['district'] }}</span>
                                 {% else %}
                                    <input type="text" name="district" id="district" class="form-control"
-                                        placeholder="Select Village" oninput="validateName(this)" maxlength="30" readonly>
+                                        placeholder="Select Village" oninput="validateName(this)" 
+                                        value="{{ record['district'] }}" maxlength="30" readonly>
                                 {% endif %}
                             </div>
                         </div>
@@ -435,34 +435,36 @@
                                 <label for="state">State
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['state'] }}</span>
                                 {% else %}
                                    <input type="text" name="state" id="state" class="form-control"
-                                        placeholder="Select Village" oninput="validateName(this)" maxlength="30" readonly>
+                                        placeholder="Select Village" oninput="validateName(this)" 
+                                        value="{{ record['state'] }}" maxlength="30" readonly>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
-                    {% if not record['section1'] == 'filled' %}
+                    {% if record['lock_application_form'] == 'locked' %}
+                    <div class="form-check ms-2">
+                            <label class="form-check-label text-primary font-13" for="sameAddress" id="same_check_en">
+                                Is Communication Address same as Permanent Address?:
+                                <span class="text-dark">{{ record['same_address'] }}</span>
+                            </label>
+                        </div>
+                    {% else %}
                         <div class="form-check ms-2" style="padding:2rem;">
                             <input type="hidden" id="same_address" name="same_address" value="No">
-                            <input 
-                                class="form-check-input" 
-                                type="checkbox" 
-                                id="sameAddress" 
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="sameAddress"
+                                name="same_address"
                                 value="Yes"
                                 onchange="updateSameAddress()">
                             <label class="form-check-label text-primary font-13" for="sameAddress" id="same_check_en">
                                 Tick if Communication Address is same as Permanent Address.
-                            </label>
-                        </div>
-                    {% else %}
-                        <div class="form-check ms-2">
-                            <label class="form-check-label text-primary font-13" for="sameAddress" id="same_check_en">
-                                Is Communication Address same as Permanent Address?: 
-                                <span class="text-dark">{{ record['same_address'] }}</span>
                             </label>
                         </div>
                     {% endif %}
@@ -472,12 +474,12 @@
                                 <label for="comm_add_1">Communication Address / University Address
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['comm_add_1'] }}</span>
                                 {% else %}
-                                <textarea name="comm_add_1" id="comm_add_1" class="form-control"
-                                        placeholder="Enter your Communication address (Where your University is located)." required></textarea>
+                                <textarea name="comm_add_1" id="comm_add_1" class="form-control" oninput="validateName(this)"
+                                placeholder="Enter your Communication address (Where your University is located)." required>{{ record['comm_add_1'] }}</textarea>
                                 {% endif %}
                             </div>
                         </div>
@@ -486,12 +488,13 @@
                                 <label for="comm_pincode">Pincode
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section1'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['comm_pincode'] }}</span>
                                 {% else %}
                                    <input type="text" name="comm_pincode" id="comm_pincode"
-                                       placeholder="Enter your pincode" class="form-control" required>
+                                       placeholder="Enter your pincode" class="form-control" 
+                                       value="{{ record['comm_pincode'] }}" required>
                                 {% endif %}
                             </div>
                         </div>
@@ -502,30 +505,36 @@
                             <label for="comm_village">Select Communication Village
                                 <span class="text-danger">*</span>
                             </label>
-                            {% if record['section1'] == 'filled' %}
+                            {% if record['lock_application_form'] == 'locked' %}
                                 <br>
                                 <span class="text-dark">{{ record['comm_village'] }}</span>
                             {% else %}
-                               <select id="comm_village" name="comm_village"  class="form-control" required>
+                            <select id="comm_village" name="comm_village" class="form-control" required>
+                                {% if record['comm_village'] %}
+                                    <option {% if record['comm_village'] %}selected{% endif %}>{{ record['comm_village'] }}</option>
+                                {% else %}
                                     <option value="" selected>-- Select Village --</option>
                                     <!-- Village options will be populated via the API -->
-                                </select>
+                                {% endif %}
+                            </select>
+                                
                             {% endif %}
                         </div>
                     </div>
-                    <div class="col-md-3 mt-2 d-none" id="comm_other_village_container">
+                    <div class="col-md-3 mt-2 {% if record['comm_village'] != 'Other' %}d-none{% endif %}" id="comm_other_village_container">
                         <div class="form-group">
                             <label for="comm_other_village">Other Village <span class="text-danger">*</span></label>
-                            {% if record['section1'] == 'filled' %}
+                            {% if record['lock_application_form'] == 'locked' %}
                                 <br>
                                 <span class="text-dark">{{ record['comm_other_village'] }}</span>
                             {% else %}
                                 <input class="form-control" name="comm_other_village" id="comm_other_village"
-                                       oninput="validateName(this)" maxlength="30" placeholder="Enter Other Village Name">
+                                        value="{{ record['comm_other_village'] }}"
+                                        oninput="validateName(this)" maxlength="30" placeholder="Enter Other Village Name">
                             {% endif %}
                         </div>
                     </div>
-                    {% if record.section1 == 'filled' and record.comm_other_village %}
+                    {% if record.lock_application_form == 'locked' and record.comm_other_village %}
                         <div class="col-md-3 mt-2">
                             <div class="form-group">
                                 <label for="comm_other_village">
@@ -542,12 +551,13 @@
                             <label for="comm_taluka">Taluka
                                 <span class="text-danger">*</span>
                             </label>
-                            {% if record['section1'] == 'filled' %}
+                            {% if record['lock_application_form'] == 'locked' %}
                                 <br>
                                 <span class="text-dark">{{ record['comm_taluka'] }}</span>
                             {% else %}
                                <input type="text" name="comm_taluka" id="comm_taluka" class="form-control"
-                                    placeholder="Select Village"  oninput="validateName(this)" maxlength="30"  required readonly>
+                                    placeholder="Select Village"  oninput="validateName(this)" maxlength="30" 
+                                    value="{{ record['comm_taluka'] }}" required readonly>
                             {% endif %}
                         </div>
                     </div>
@@ -556,12 +566,13 @@
                             <label for="comm_district">District
                                 <span class="text-danger">*</span>
                             </label>
-                            {% if record['section1'] == 'filled' %}
+                            {% if record['lock_application_form'] == 'locked' %}
                                 <br>
                                 <span class="text-dark">{{ record['comm_district'] }}</span>
                             {% else %}
                                <input type="text" name="comm_district" id="comm_district" class="form-control"
-                                    placeholder="Select Village" oninput="validateName(this)" maxlength="30"  required readonly>
+                                    placeholder="Select Village" oninput="validateName(this)" maxlength="30"
+                                    value="{{ record['comm_district'] }}"  required readonly>
                             {% endif %}
                         </div>
                     </div>
@@ -570,44 +581,46 @@
                             <label for="comm_state">State
                                 <span class="text-danger">*</span>
                             </label>
-                            {% if record['section1'] == 'filled' %}
+                            {% if record['lock_application_form'] == 'locked' %}
                                 <br>
                                 <span class="text-dark">{{ record['comm_state'] }}</span>
                             {% else %}
                                <input type="text" name="comm_state" id="comm_state" class="form-control"
-                                    placeholder="Select Village" oninput="validateName(this)" maxlength="30"  required readonly>
+                                    placeholder="Select Village" oninput="validateName(this)"
+                                    value="{{ record['comm_state'] }}" maxlength="30"  required readonly>
                             {% endif %}
                         </div>
                     </div>
                 </div>
                 </div>
 
-                {% if record['section1'] == 'filled' %}
-
-                {% else %}
-                   <div class="form-check ms-2" style="padding:2rem;">
-                        <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
+                <div class="m-0 ">
+                    {% if record['lock_application_form'] == 'locked' %}
+                    <div class="text-center">
+                        <a href="/section2" class="btn btn-primary btn-sm ms-2">Next</a>
+                    </div>
+                    {% elif record['section1'] == 'filled' %}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-sm ms-2">Update</button>
+                        <a href="/section2" class="btn btn-primary btn-sm ms-2">Next</a>
+                    </div>
+                    {% else %}
+                        <div class="form-check ms-2" style="padding:2rem;">
+                            <input class="form-check-input" type="checkbox" value="" id="verifyDetails" required>
                             <label class="form-check-label" for="verifyDetails">
                                 Please verify that the details entered in the First Section are correct before submitting. You will not be able to make any edit once submitted.
                             </label>
-
-                        <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
+                            <br>
+                
+                            <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi" required>
                             <label class="form-check-label" for="verifyDetailsHindi">
                                 कृपया प्रथम विभाग सबमिट करण्यापूर्वी आपली दिलेली माहिती तपासा. एकदा सबमिट केल्यानंतर तुम्ही त्यात बदल करू शकणार नाही.
                             </label>
-                    </div>
-                {% endif %}
-
-                <div class="m-0 text-center">
-                    {% if record['section1'] == 'filled' %}
-                        <a href="/section2" class="btn btn-primary btn-sm ms-2">Next</a>
-                    {% else %}
-<!--                        <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields()">Save and Next</button>-->
-                        {% if not record['section2']|default(None) %}
+                        </div>
+                        <div class="text-center">
                             <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields()" disabled>Save and Next</button>
-                        {% else %}
-                            <a href="/section2" class="btn btn-primary btn-sm ms-2">Next</a>
-                        {% endif %}
+                        </div>
+                        
                     {% endif %}
                 </div>
 

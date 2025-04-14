@@ -188,7 +188,7 @@ document.getElementById('phd_registration_date').addEventListener('blur', functi
 
 
 // ---------------- Show and Hide Field on d-none ----------------------------
-// This function is for PVTG Caste
+// This function is responsible for displaying and hiding the Other Faculty  option based on the Faculty selected in Section2 
 function toggleAdditionalFieldFaculty(select) {
     const additionalField = document.getElementById('additionalField'); // Fixed typo
     const inputField = document.getElementById('other_faculty'); // Fixed typo in variable name
@@ -435,6 +435,33 @@ function toggleOtherQualification() {
     } else {
         additionalField.classList.add('d-none');
         otherInput.required = false;
-        otherInput.value = ''; // Clear input if unchecked
+        otherInput.value = ''; // Clear input if unch ecked
     }
 }
+
+function validateQualifications() {
+    const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
+    let isChecked = false;
+
+    checkboxes.forEach(cb => {
+        if (cb.checked) isChecked = true;
+    });
+
+    const submitButton = document.getElementById('submit');
+    const qualificationHelp = document.getElementById('qualificationHelp');
+
+    if (!isChecked) {
+        qualificationHelp.style.display = 'block';
+        submitButton.disabled = true;
+    } else {
+        qualificationHelp.style.display = 'none';
+        submitButton.disabled = false;
+    }
+}
+
+// Run validation on page load and whenever checkboxes change
+window.onload = function () {
+    validateQualifications();
+    const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
+    checkboxes.forEach(cb => cb.addEventListener('change', validateQualifications));
+};
