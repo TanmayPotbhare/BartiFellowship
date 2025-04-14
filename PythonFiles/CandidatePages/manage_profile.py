@@ -52,8 +52,11 @@ def manage_profile_auth(app):
 
         return render_template('CandidatePages/manage_profile.html', title="Manage Profile", records=records,
                                user=user, photo=photo, finally_approved=finally_approved, formatted_Application_date=formatted_Application_date)
+
+
     def hash_password(password):
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
     
     @manage_profile_blueprint.route('/change_password_user', methods=['POST'])
     def change_password_user():
@@ -127,6 +130,7 @@ def manage_profile_auth(app):
 
         data = request.get_json()
         current_password = data.get('password')
+        current_mobile = data.get('registered_mobile')
 
         # Connect to the database
         host = HostConfig.host
@@ -135,7 +139,7 @@ def manage_profile_auth(app):
 
         try:
             # Fetch the stored password
-            query = 'SELECT password FROM signup WHERE email = %s'
+            query = 'SELECT password, mobile_number FROM signup WHERE email = %s'
             cursor.execute(query, (email,))
             result = cursor.fetchone()
 
@@ -152,6 +156,7 @@ def manage_profile_auth(app):
 
             if result:
                 stored_password = result['password']
+                stored_mobile = result['mobile_number']
 
                 # Check if stored_password is hashed (bcrypt hash starts with "$2")
                 if stored_password.startswith('$2b$') or stored_password.startswith('$2a$'):
@@ -169,6 +174,56 @@ def manage_profile_auth(app):
             else:
                 return jsonify({'valid': False, 'message': 'User not found.'})
                 
+
+        except Exception as e:
+            return jsonify({'valid': False, 'message': f'Error: {str(e)}'})
+
+        finally:
+            cursor.close()
+            cnx.close()
+
+    @manage_profile_blueprint.route('/check-current-mobile', methods=['POST'])
+    def check_current_mobile():
+        email = session.get('email')
+
+        if not email:
+            return jsonify({'valid': False, 'message': 'Session expired. Please log in again.'})
+
+        data = request.get_json()
+        current_mobile = data.get('registered_mobile')
+
+        # Connect to the database
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect(use_dict=True)
+
+        try:
+            # Fetch the stored password
+            query = 'SELECT mobile_number FROM signup WHERE email = %s'
+            cursor.execute(query, (email,))
+            result = cursor.fetchone()
+
+            # if result:
+            #     stored_hashed_password = result['password']
+
+            #     if bcrypt.checkpw(current_password.encode('utf-8'), stored_hashed_password.encode('utf-8')):
+            #         return jsonify({'valid': True, 'message': 'Current password verified successfully.'})
+            #     else:
+            #         return jsonify({'valid': False, 'message': 'Incorrect current password.'})
+            # else:
+            #     return jsonify({'valid': False, 'message': 'User not found.'})
+
+            if result:
+                stored_mobile = result['mobile_number']
+
+                if stored_mobile == current_mobile:
+                    return jsonify({'valid': True, 'message': 'Current Mobile verified successfully.'})
+                else:
+                    return jsonify({'valid': False, 'message': 'Incorrect current Mobile Number.'})
+
+            else:
+                return jsonify({'valid': False, 'message': 'User not found.'})
+
 
         except Exception as e:
             return jsonify({'valid': False, 'message': f'Error: {str(e)}'})

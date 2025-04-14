@@ -38,7 +38,7 @@ def homepage_auth(app):
         # print("old user 2022",old_user_22)
         news_record = news_fetch()
         print(news_record)
-        return render_template('Homepage/homepage.html', total_count=total_count, fellow_awarded=fellow_awarded,
+        return render_template('Homepage/landing.html', total_count=total_count, fellow_awarded=fellow_awarded,
                                total_appl_22=total_appl_22, total_appl_23=total_appl_23,
                                language=language, multilingual_content=multilingual_content, news_record=news_record)
 
