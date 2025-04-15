@@ -13,6 +13,8 @@ multilingual_content = {
         'english': 'English',
         'marathi': 'Marathi',
         'trti_header':'Dr. Babasaheb Ambedkar Research and Training Institute (BARTI)',
+        'barti_subtitle' : "(An Autonomous Institute of the Department of Social Justice and Special Assistance, Government of Maharashtra)",
+        'banrf' : "National Research Fellowship (BANRF)",
         'admin_login_btn':'Admin Login',
         'fellowship': 'Fellowship',
 
@@ -56,6 +58,9 @@ multilingual_content = {
         'this_yrs_application' : 'Total Application 2021',
         'get_your_fellowship_now' : 'Dr. Babasaheb Ambedkar National Research Fellowship (BANRF)',
         'enroll_here' : 'Enroll Here',
+        'latest_update' : "Latest updates",
+        'register_btn' : "Dr. Babasaheb Ambedkar National Research Fellowship (BANRF)",
+        'register_btn1' : "Register here",
 
         #------------------------ About --------------------------
         'about_the_institute' : 'About The Institution',
@@ -87,6 +92,7 @@ multilingual_content = {
         'tribal_development_department' : 'Forms',
         'tribal_commissionerate' : 'Contact Us',
         'aaple_sarkar' : 'Careers',
+        'careers': "careers",
         'ministry_of_tribal_affairs' : 'Ministry of Tribal Affairs- Govt of India',
         'my_gov' : 'My Gov',
         'security_brand' : 'SECURITY & BRAND',
@@ -111,7 +117,9 @@ multilingual_content = {
         'monday_friday' : 'Monday - Friday',
         'year_wise_total':'Year Wise Total Application',
         'gender_ratio': 'Gender Ratio',
-        'disability_count': 'Disability Count'
+        'disability_count': 'Disability Count',
+        'forms': 'Forms',
+        'call_us' : 'Call Us On',
 
     },
     'marathi': {
@@ -127,8 +135,11 @@ multilingual_content = {
         'english': 'इंग्रजी',
         'marathi': 'मराठी',
         'trti_header':'डॉ. बाबासाहेब आंबेडकर संशोधन व प्रशिक्षण संस्था (बार्टी)',
+        'barti_subtitle' : "(महाराष्ट्र शासनाच्या सामाजिक न्याय व विशेष सहाय्य विभागाची स्वायत्त संस्था)",
+        'banrf' : "राष्ट्रीय संशोधन फेलोशिप (BANRF)",
         'admin_login_btn':'प्रशासक लॉगिन',
         'fellowship': 'अधिछात्रवृत्ती',
+        'forms': 'फॉर्म',
 
         # -----------------------Leaders ----------------------
         'eknath_shinde': 'श्री. एकनाथ शिंदे',
@@ -160,6 +171,9 @@ multilingual_content = {
         'margadarshak':'मार्गदर्शक सूचना',
         'circulars':'परिपत्रके',
         'shcolarship_regulations':'अधिछात्रवृत्ती नियमावली',
+        'latest_update' : "नवीनतम अद्यतने",
+        'register_btn' : "डॉ. बाबासाहेब आंबेडकर राष्ट्रीय संशोधन फेलोशिप (BANRF)",
+        'register_btn1' : "येथे नोंदणी करा",
         # ------------------ Banner Section ---------------------
         'total_applications' : "एकूण अर्ज",
         'total_applications_2022' : "एकूण अर्ज 2022",
@@ -231,7 +245,11 @@ multilingual_content = {
         'monday_friday' : 'सोमवार-शुक्रवार',
         'year_wise_total':'वर्षनिहाय एकूण अर्ज',
         'gender_ratio': 'लिंग गुणोत्तर',
-        'disability_count': 'अपंगत्व संख्या'
+        'disability_count': 'अपंगत्व संख्या',
+        'forms': 'फॉर्म',
+        'careers': "करिअर",
+        
+        
     },
     # Add more languages and content as needed.
 }

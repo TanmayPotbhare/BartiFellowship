@@ -1,388 +1,169 @@
-<!doctype html>
-<html class="scroll-smooth">
+{% extends "Homepage/layout/layout.html" %}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+{% block content %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-
-    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
-
-    <title>BARTI | Home</title>
-    <style type="text/tailwindcss">
-        @theme {
-          --color-gold: #DABA9B;
-          --color-light-gray: #F0F0F0;
-          --font-primary : "Playfair Display", serif;
-          --font-secondary : "Poppins", sans-serif;
-          --font-third : "Platypi", serif;
-          --font-fourth : "Playfair", serif;
-          --font-play : "Play", sans-serif;
-        }
-    </style>
-    <link rel="stylesheet" href="/static/carousel/assets/owl.carousel.min.css">
-    <script src="https://unpkg.com/taos@1.0.5/dist/taos.js"></script>
-
-</head>
-
-<body class="overflow-x-hidden">
-    <!-- Header Code -->
-    <header>
-        <!-- top head section -->
-        <div class="py-1 bg-blue-950 px-10 flex items-center justify-between">
-            <div class="flex">
-                <h5 class="text-clifford font-primary text-base tracking-wider text-xs mb-1 me-4 text-white">
-                    <span class="material-symbols-rounded !text-sm mb-0 me-1">
-                        mail
-                    </span>
-                    helpdesk@barti.in
-                </h5>
-                <h5 class="text-clifford font-secondary text-base tracking-wider text-xs text-white">
-                    <span class="material-symbols-rounded !text-sm mb-0 me-1">
-                        phone_in_talk
-                    </span>
-                    020-26333330, 26333339, 26343600
-                </h5>
-            </div>
-            <div class="flex items-center">
-                <span class="text-white font-primary text-xs me-3">Skip to Main Content</span>
-                <div>
-                    <span class="text-xs font-primary text-white px-3 border-l">A-</span>
-                    <span class="text-xs font-primary text-white px-3 border-l">A</span>
-                    <span class="text-xs font-primary text-white px-3 border-l">A+</span>
-                    <span class="text-xs font-primary text-white px-3 border-l">English</span>
-                    <span class="text-xs font-primary text-white px-3 border-l">Marathi</span>
-                    <span class="text-xs font-primary text-white px-3 border-l">Admin Login</span>
+<!-- Scroll News -->
+<section>
+    <div class="scrolling-text-container-top">
+        <div class="scrolling-text-inner font-third text-sm" style="--marquee-speed: 35s; --direction:scroll-left"
+            role="marquee">
+            <div class="scrolling-text-top">
+                {% for row in news_record %}
+                <div class="scrolling-text-item text-sm flex">{{ row['title'] }}
+                    <img src="https://trti.maharashtra.gov.in/homepage/images/new.gif" class="w-8 mx-2" alt="">
                 </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
+</section>
 
-
-        <!-- Logo and branding section -->
-        <div class="py-10 bg-slate-100">
-            <div class="w-[95%] mx-auto flex justify-between">
-                <div class="flex">
-                    <img src="http://192.168.10.65/assets/img/emblem_logo.svg" class="h-20 object-contain mx-3" alt="">
-                    <img src="/static/carousel/images/barti-2.png" class="h-20 object-contain mx-3" alt="">
-                </div>
-                <div class="leading-7 text-center">
-                    <h5 class="text-[30px] font-primary font-bold text-blue-950 mb-0 ">
-                        Dr. Babasaheb Ambedkar Research and Training Institute
-                    </h5>
-                    <p class="text-blue-950 text-sm font-primary mt-1">
-                        (An Autonomous Institute of the Department of Social Justice and Special Assistance, Government
-                        of Maharashtra)
-                    </p>
-                    <h5 class="font-secondary font-semibold text-sky-700 text-[27px] mt-3">
-                        National Research Fellowship (BANRF)
-                    </h5>
-                </div>
-                <div class="flex">
-                    <img src="https://www.barti.in/assets/barti/header_logo/666972c404631.svg"
-                        class="h-20 object-contain mx-3" alt="">
-                    <img src="https://www.barti.in/assets/barti/header_logo/675a864ad4d63.jpeg"
-                        class="h-20 object-contain mx-3" alt="">
-                </div>
-            </div>
+<!-- Hero Section -->
+<section id="hero">
+    <div class=" bg-blue-200 grid grid-cols-3">
+        <div class="banner h-full flex-4 col-span-2">
+            <img src="/static/carousel/images/banner.png" class="h-full w-full object-cover" alt="">
         </div>
-
-        <!-- leader section -->
-        <div class="py-3 px-10  " data-taos-offset="0">
-            <div class="owl-carousel owl-theme px-3">
-                <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
-                    <div class="grid grid-cols-4 gap-1 place-items-center">
-                        <div class="">
-                            <img src="http://192.168.10.69:85/static/assets/img/leaders/devpha.png" class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
-                        </div>
-                        <div class="col-span-3">
-                            <h4 class="font-fourth font-bold text-base text-blue-950">
-                                Shri. Devendra Fadnavis
-                            </h4>
-                            <p class="text-xs font-poppins text-sky-700">
-                                Hon'ble Chief Minister, Maharashtra State
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
-                    <div class="grid grid-cols-4 gap-1 place-items-center">
-                        <div class="">
-                            <img src="http://192.168.10.69:85/static/assets/img/leaders/ekshi.png" class="!w-15 !h-15 object-contain shadow-xl rounded-full" alt="User">
-                        </div>
-                        <div class="col-span-3">
-                            <h4 class="font-fourth font-bold text-base text-blue-950">
-                                Shri. Eknath Shinde
-                            </h4>
-                            <p class="text-xs font-poppins text-sky-700">
-                                Hon'ble Deputy Chief Minister, Maharashtra State
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
-                    <div class="grid grid-cols-4 gap-1 place-items-center">
-                        <div class="">
-                            <img src="http://192.168.10.69:85/static/assets/img/leaders/ajitpawar.jpg" class="!w-15 !h-15 object-contain shadow-xl rounded-full" alt="User">
-                        </div>
-                        <div class="col-span-3">
-                            <h4 class="font-fourth font-bold text-base text-blue-950">
-                                Shri. Ajit Pawar
-                            </h4>
-                            <p class="text-xs font-poppins text-sky-700">
-                                Hon'ble Deputy Chief Minister, Maharashtra State
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
-                    <div class="grid grid-cols-4 gap-1 place-items-center">
-                        <div class="">
-                            <img src="https://www.barti.in/assets/barti/members/6767ea76310e8.jpg" class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
-                        </div>
-                        <div class="col-span-3">
-                            <h4 class="font-fourth font-bold text-base text-blue-950">
-                                Mr. Sanjay Shirsat
-                            </h4>
-                            <p class="text-xs font-poppins text-sky-700">
-                                Hon'ble Minister of Social Justice, Government of Maharashtra
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
-                    <div class="grid grid-cols-4 gap-1 place-items-center">
-                        <div class="">
-                            <img src="https://www.barti.in/assets/barti/members/6767ed65de550.jpg" class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
-                        </div>
-                        <div class="col-span-3">
-                            <h4 class="font-fourth font-bold text-base text-blue-950">
-                                Mrs. Madhuri Misal
-                            </h4>
-                            <p class="text-xs font-poppins text-sky-700">
-                                Hon'ble State Minister of Social Justice, Government of Maharashtra
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
-                    <div class="grid grid-cols-4 gap-1 place-items-center">
-                        <div class="">
-                            <img src="http://192.168.10.69:85/static/assets/img/leaders/HarshdeepKamble.jpeg" class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
-                        </div>
-                        <div class="col-span-3">
-                            <h4 class="font-fourth font-bold text-base text-blue-950">
-                                Dr. Harshdeep Kamble, I.A.S.
-                            </h4>
-                            <p class="text-xs font-poppins text-sky-700">
-                                Honb'le Principal secretary, Social Justice and Special Assistance Department
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
-                    <div class="grid grid-cols-4 gap-1 place-items-center">
-                        <div class="">
-                            <img src="https://www.barti.in/assets/barti/members/6767eebd61294.png" class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
-                        </div>
-                        <div class="col-span-3">
-                            <h4 class="font-fourth font-bold text-base text-blue-950">
-                                Mr. Sunil Ware, IRAS
-                            </h4>
-                            <p class="text-xs font-poppins text-sky-700">
-                                Director General, Dr. Babasaheb Ambedkar Research and Training Institute (BARTI), Pune
-                            </p>
-                        </div>
-                    </div>
-                </div>
+        <div class="bg-slate-100 h-full flex-2 ">
+            <div class="py-2 bg-blue-950">
+                <h4 class="text-white font-primary text-xl text-center">{{
+                    multilingual_content[language]['latest_update'] }}</h4>
             </div>
-        </div>
+            <div class="h-full ">
+                <section class="h-full relative">
+                    <div class="scrolling-text-container-top h-7/10">
 
-        <!-- menu section -->
-        <div class="bg-sky-600">
-            <!-- Desktop Nav menu -->
-            <div class="flex justify-between w-[95%] mx-auto items-center">
-                <ul class=" flex items-center">
-                    <a href="/">
-                        <li class="py-2 px-4 bg-white border border-sky-700 rounded font-third text-blue-950">
-                            Home
-                        </li>
-                    </a>
-                    <a href="/aboutus">
-                        <li
-                            class="py-2 px-4 border-1 border-transparent rounded font-third text-white hover:bg-white
-                             transition-all duration-300 hover:text-blue-950 hover:border-1 hover:border-sky-700">
-                            About us
-                        </li>
-                    </a>
-                    <a href="/gr_page">
-                        <li
-                            class="py-2 px-4 border-1 border-transparent rounded font-third text-white hover:bg-white
-                             transition-all duration-300 hover:text-blue-950 hover:border-1 hover:border-sky-700">
-                            Circulars/Orders
-                        </li>
-                    </a>
-                    <a href="/contact">
-                        <li
-                            class="py-2 px-4 border-1 border-transparent rounded font-third text-white hover:bg-white
-                             transition-all duration-300 hover:text-blue-950 hover:border-1 hover:border-sky-700">
-                            Contact Us
-                        </li>
-                    </a>
-                </ul>
-
-                <div>
-                    <a href="/login" class="py-2 px-4 bg-white rounded hover:bg-slate-100 transition-all duration-200">
-                        <span class="material-symbols-rounded mb-0 !text-sm">
-                            login
-                        </span>
-                        Login | Signup</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <!-- Scroll News -->
-        <section>
-            <div class="scrolling-text-container-top">
-                <div class="scrolling-text-inner font-third text-sm"
-                    style="--marquee-speed: 15s; --direction:scroll-left" role="marquee">
-                    <div class="scrolling-text-top">
-                        {% for row in news_record %}
-                        <div class="scrolling-text-item text-sm flex">{{ row['title'] }}
-                            <img src="https://trti.maharashtra.gov.in/homepage/images/new.gif"
-                                 class="w-8 mx-2" alt="">
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Hero Section -->
-        <section id="hero">
-            <div class=" bg-blue-200 grid grid-cols-3">
-                <div class="banner h-full flex-4 col-span-2">
-                    <img src="/static/carousel/images/banner.png" class="h-full w-full object-cover" alt="">
-                </div>
-                <div class="bg-slate-100 h-full flex-2 ">
-                    <div class="py-2 bg-blue-950">
-                        <h4 class="text-white font-primary text-xl text-center">Latest updates</h4>
-                    </div>
-                    <div class="h-full ">
-                        <section class="h-full relative">
-                            <div class="scrolling-text-container-top h-7/10">
-
-                                <div class="scrolling-text-inner font-third text-sm h-full"
-                                    style="--marquee-speed: 15s; --direction:scroll-up" role="marquee">
-                                    <div class="">
-                                        {% for row in news_record %}
-                                        <div
-                                            class="scrolling-text-item text-sm text-wrap  border-dashed border-sky-700 border-b !py-3 flex">
-                                            {{ row['title'] }}
-                                            <img src="https://trti.maharashtra.gov.in/homepage/images/new.gif" class="w-8 mx-2" alt="">
-                                        </div>
-                                        {% endfor %}
-                                    </div>
+                        <div class="scrolling-text-inner font-third text-sm h-full"
+                            style="--marquee-speed: 15s; --direction:scroll-up" role="marquee">
+                            <div class="">
+                                {% for row in news_record %}
+                                <div
+                                    class="scrolling-text-item text-sm text-wrap  border-dashed border-sky-700 border-b !py-3 flex">
+                                    {{ row['title'] }}
+                                    <img src="https://trti.maharashtra.gov.in/homepage/images/new.gif" class="w-8 mx-2"
+                                        alt="">
                                 </div>
+                                {% endfor %}
+                            </div>
+                        </div>
 
-                            </div>
-                            <div class="flex items-center overflow-hidden absolute w-full bottom-12">
-                                <button
-                                    class="w-full py-3 px-2 h-full bg-sky-600 font-primary font-bold text-lg text-white tracking-wider duration-[600ms] taos:translate-y-[100%] taos:opacity-0">
-                                    Dr. Babasaheb Ambedkar National Research Fellowship (BANRF) <br> Register here
-                                    <span class="material-symbols-rounded !text-2xl">
-                                        trending_flat
-                                    </span>
-                                </button>
-                            </div>
-                        </section>
                     </div>
-                </div>
-            </div>
-        </section>
+                    <div class="flex items-center overflow-hidden absolute w-full bottom-12">
+                        <button
+                            class="w-full py-3 px-2 h-full bg-sky-600 font-primary font-bold text-lg text-white tracking-wider duration-[600ms] taos:translate-y-[100%] taos:opacity-0">
+                            {{ multilingual_content[language]['register_btn'] }}
+                            <br>
+                            {{ multilingual_content[language]['register_btn1'] }}
 
-        <!-- Count section -->
-        <section id="count">
-            <div class="grid grid-cols-4">
-                <div>
-                    <h4 class="count text-center text-[60px]" data-target="{{ total_count }}">{{ total_count }}</h4>
-                    <p class="text-center delay-[400ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{ multilingual_content[language]['total_applications'] }}</p>
-                </div>
-                <div>
-                    <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ fellow_awarded }}">{{ fellow_awarded }}</h4>
-                    <p class="text-center delay-[450ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{ multilingual_content[language]['fellowship_awarded'] }}</p>
-                </div>
-                <div>
-                    <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ total_appl_22 }}">{{ total_appl_22 }}</h4>
-                    <p class="text-center delay-[500ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{ multilingual_content[language]['total_applications_2022'] }}</p>
-                </div>
-                <div>
-                    <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ total_appl_2 }}">{{ total_appl_2 }}</h4>
-                    <p class="text-center delay-[550ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{ multilingual_content[language]['this_yrs_application'] }}</p>
-                </div>
+                            <span class="material-symbols-rounded !text-2xl">
+                                trending_flat
+                            </span>
+                        </button>
+                    </div>
+                </section>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <section id="about_barti" class="py-10">
-            <div class="grid grid-cols-3">
-                <div class="pl-10">
-                    <h3
-                        class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                        About The Institution</h3>
-                    <h3
-                        class="text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                        Dr. Babasaheb Ambedkar Research and
-                        Training Institute (BARTI), Pune</h3>
-                    <p
-                        class="text-justify font-fourth my-6 delay-[400ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                        To realize the vision of the architect of the Constitution of India, Dr. Babasaheb Ambedkar; To
-                        achieve the objectives enshrined in the Constitution of India viz. Justice, Liberty, Equality,
-                        Fraternity among the peoples of our nation; To uplift the disadvantaged sections of the society,
-                        from the vortex of blind faith, superstition, communal hatred, caste bias, To obliterate
-                        disparity
-                        based on sects or gender and develop brotherhood, Scientific temperament and Communal harmony,
-                        the
-                        Government of Maharashtra in Cultural Affairs, Sports & Tourism Department, vide No. UTA,
-                    </p>
-                    <button
-                        class="w-full mt-3 py-3 bg-blue-950 rounded font-fourth text-white text-lg rounded-lg delay-[420ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">Read
-                        more</button>
-                </div>
-                <div class="col-span-2">
-                    <img src="static/carousel/images/barti_building.png" class="float-right" alt="">
-                </div>
-            </div>
-        </section>
+<!-- Count section -->
+<section id="count">
+    <div class="grid grid-cols-4">
+        <div>
+            <h4 class="count text-center text-[60px]" data-target="{{ total_count }}">{{ total_count }}</h4>
+            <p class="text-center delay-[400ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
+                multilingual_content[language]['total_applications'] }}</p>
+        </div>
+        <div>
+            <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ fellow_awarded }}">{{
+                fellow_awarded }}</h4>
+            <p class="text-center delay-[450ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
+                multilingual_content[language]['fellowship_awarded'] }}</p>
+        </div>
+        <div>
+            <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ total_appl_22 }}">{{
+                total_appl_22 }}</h4>
+            <p class="text-center delay-[500ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
+                multilingual_content[language]['total_applications_2022'] }}</p>
+        </div>
+        <div>
+            <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ total_appl_2 }}">{{
+                total_appl_2 }}</h4>
+            <p class="text-center delay-[550ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
+                multilingual_content[language]['this_yrs_application'] }}</p>
+        </div>
+    </div>
+</section>
 
-        <section id="criteria">
-            <div class="pt-8 px-10">
-                <h3
-                    class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                    Criteria</h3>
-                <div>
+<section id="about_barti" class="py-10">
+    <div class="grid grid-cols-3">
+        <div class="pl-10">
+            <h3
+                class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                {{ multilingual_content[language]['about_the_institute'] }}</h3>
+            <h3
+                class="text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                {{ multilingual_content[language]['about_title'] }}</h3>
+            <p
+                class="text-justify font-fourth my-6 delay-[400ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                {% if(language == 'english') %}
+                <span class="h3">T</span>o realize the vision of the architect of the Constitution of India,
+                Dr. Babasaheb Ambedkar; To achieve the objectives enshrined in the Constitution of India viz.
+                Justice, Liberty, Equality, Fraternity among the peoples of our nation; To uplift the disadvantaged
+                sections of the society, from the vortex of blind faith, superstition, communal hatred, caste bias,
+                To obliterate disparity based on sects or gender and develop brotherhood, Scientific temperament and
+                Communal harmony, the Government of Maharashtra in Cultural Affairs, Sports & Tourism Department,
+                vide No. UTA, 1078 / D-XXV dated 22nd December, 1978 established “Dr. Babasaheb Ambedkar Samata Vichar
+                Peeth”.
+                This Samta Peeth started functioning on 12th March 1979 from the premises of Mahatma Phule
+                Backward Classes Development Corporation Ltd, Mumbai. By Govt. order, Dr. Babasaheb Ambedkar
+                Samata Vichar Peeth was relocated to Pune at the present address- 28, Queens Garden, Pune,
+                on 11th February 1987.
+                {% else %}
+                <span class="h3">भा</span>रतीय राज्यघटनेचे शिल्पकार डॉ.बाबासाहेब आंबेडकर यांची दूरदृष्टी साकार
+                करण्यासाठी; ला भारतीय
+                राज्यघटनेत नमूद केलेली उद्दिष्टे साध्य करणे उदा. न्याय, स्वातंत्र्य, समानता, आपल्या राष्ट्रातील
+                लोकांमध्ये बंधुभाव; समाजातील वंचित
+                घटकांच्या उन्नतीसाठी, अंधश्रद्धा, अंधश्रद्धा, जातीय द्वेष, जातीय भेदभाव यांच्या भोवऱ्यातून, विषमता नष्ट
+                करण्यासाठी पंथ किंवा लिंग यावर
+                आधारित आणि बंधुता, वैज्ञानिक स्वभाव आणि सांप्रदायिक सौहार्द विकसित करणे, महाराष्ट्र शासन सांस्कृतिक
+                कार्य, क्रीडा आणि पर्यटन विभाग,
+                क्रमांक UTA, 1078 / द्वारे D-XXV दिनांक 22 डिसेंबर 1978 ची स्थापना “डॉ. बाबासाहेब आंबेडकर समता विचार
+                पीठ”. हा समता पीठाचे
+                कामकाज 12 मार्च 1979 रोजी महात्मा फुले मागासवर्गीयांच्या आवारातून सुरू झाले. डेव्हलपमेंट कॉर्पोरेशन
+                लिमिटेड, मुंबई. शासनाकडून आदेश,
+                डॉ.बाबासाहेब आंबेडकर समता विचार पीठ होते 11 फेब्रुवारी 1987 रोजी पुण्यात सध्याच्या पत्त्यावर - 28,
+                क्वीन्स गार्डन, पुणे येथे स्थलांतरित झाले.
+                {% endif %}
+            </p>
+            <button
+                class="w-full mt-3 py-3 bg-blue-950 rounded font-fourth text-white text-lg rounded-lg delay-[420ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">{{
+                multilingual_content[language]['read_more'] }}</button>
+        </div>
+        <div class="col-span-2">
+            <img src="static/carousel/images/barti_building.png" class="float-right" alt="">
+        </div>
+    </div>
+</section>
+
+<section id="criteria">
+    <div class="pt-8 px-10">
+        <h3
+            class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+            {{ multilingual_content[language]['criteria'] }}</h3>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-sky-100 rounded-lg overflow-hidden">
+                <img src="https://blackhawknetwork.com/sites/default/files/2021-07/benefit-schemes-blog.jpg"
+                    class="w-full h-2/4 object-cover" alt="">
+                <div class="px-3">
                     <h3
                         class="text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-8">
-                        Scheme Benefits</h3>
+                        {{ multilingual_content[language]['scheme_benefits'] }}</h3>
 
                     <div>
+                        {% if(language == 'english') %}
                         <p
                             class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
                             Junior Research Fellowhsip will get Rs. 31,000/- each Quarter for 2 Years.</p>
@@ -404,337 +185,210 @@
                         </p>
                         <p
                             class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                            Escort Reader for Disabled candidate will be 2000/- per month.</p>
+                            Escort Reader for Disabled candidate will be 2000/- per month.
+                        </p>
+                        {% else %}
+
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            कनिष्ठ संशोधन फेलोशिपला 2 वर्षांसाठी प्रत्येक तिमाहीत रु. 31,000/- मिळतील.</p>
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            वरिष्ठ संशोधन फेलोशिपला 3 वर्षांसाठी प्रत्येक तिमाहीत रु. 35,000/- मिळतील.</p>
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            सुधारित फेलोशिप रकमेनुसार, जेआरएफसाठी 37,000/- आणि एसआरएफसाठी 42,000/- आहेत.</p>
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[250ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            जेआरएफसाठी आकस्मिकता 10,000/- आणि सामाजिक विज्ञान आणि विज्ञानसाठी अनुक्रमे 12,000/- असेल.
+                        </p>
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            एसआरएफसाठी आकस्मिकता 20,500/- आणि सामाजिक विज्ञान आणि विज्ञानसाठी अनुक्रमे 25,000/- असेल.
+                        </p>
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            दिव्यांग उमेदवारासाठी एस्कॉर्ट रीडरला प्रति महिना 2000/- मिळतील.
+                        </p>
+                        {% endif %}
+
                         <div class="text-end">
-                            <button
-                                class="px-8 py-1 bg-blue-950 mt-3 rounded-lg text-white delay-[350ms] duration-[600ms] taos:translate-x-[100%] taos:opacity-0">Read
-                                more
+                            <!-- <button
+                                class="px-8 py-1 bg-blue-950 mt-3 rounded-lg text-white delay-[350ms] duration-[600ms] taos:translate-x-[100%] taos:opacity-0">{{
+                                multilingual_content[language]['read_more'] }}
                                 <span class="material-symbols-outlined !text-sm ">
                                     keyboard_double_arrow_right
                                 </span>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
-                <div class="mt-15">
+            </div>
+
+
+            <div class="bg-blue-100 rounded-lg overflow-hidden">
+                <img src="https://www.sandipuniversity.edu.in/images/header-national/eligibility.jpg"
+                    class="w-full h-2/4 object-cover" alt="">
+                <div class="px-3">
                     <h3
                         class="text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-8">
-                        Eligibility Criteria</h3>
+                        {{ multilingual_content[language]['eligibility_criteria'] }}
+                    </h3>
 
                     <div>
+                        {% if(language == 'english') %}
                         <p
                             class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                            The applicant should be a resident of the state of Maharashtra.</p>
+                            The applicant should be a resident of the state of Maharashtra.
+                        </p>
                         <p
                             class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
                             It is necessary for the community of the applicant to be included in the list of Scheduled
                             Caste
-                            in the state of Maharashtra.</p>
+                            in the state of Maharashtra.
+                        </p>
                         <p
                             class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
                             For this scheme, it is mandatory for the applicant to have a valid Caste certificate and
-                            Validity Certificate of scheduled Caste at the time of applying.</p>
+                            Validity Certificate of scheduled Caste at the time of applying.
+                        </p>
+                        {% else %}
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            अर्जदार महाराष्ट्राचा रहिवासी असावा.
+                        </p>
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            अर्जदाराच्या समुदायाचा महाराष्ट्रातील अनुसूचित जातीच्या यादीत समावेश असणे आवश्यक आहे.
+                        </p>
+                        <p
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            या योजनेसाठी, अर्जदाराकडे अर्ज करताना अनुसूचित जातीचे वैध जाती प्रमाणपत्र आणि वैधता
+                            प्रमाणपत्र
+                            असणे
+                            अनिवार्य आहे.
+                        </p>
+                        {% endif %}
                         <div class="text-end">
-                            <button
+                            <!-- <button
                                 class="px-8 py-1 bg-blue-950 mt-3 rounded-lg text-white delay-[350ms] duration-[600ms] taos:translate-x-[100%] taos:opacity-0">Read
                                 more
                                 <span class="material-symbols-outlined !text-sm ">
                                     keyboard_double_arrow_right
                                 </span>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section id="how_to_apply" class="px-10 mt-25 mb-10">
-            <h3
-                class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                Criteria</h3>
 
-            <div>
-                <div class="grid grid-cols-5">
-                    <div class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                        <h4 class="font-play text-2xl font-semibold">Step 1</h4>
-                        <p class="font-secondary text-sm w-3/4 mt-8"> Create Your Login or Sign on site</p>
-                        <h4
-                            class="font-play text-[220px] font-bold text-light-gray text-end pe-3 absolute top-10 left-20 leading-0 -z-1">
-                            1</h4>
-                    </div>
-                    <div class="relative h-full mt-20 delay-[450ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                        <h4 class="font-play text-2xl font-semibold">Step 2</h4>
-                        <p class="font-secondary text-sm w-3/4 mt-8"> Fill Application Form</p>
-                        <h4
-                            class="font-play text-[220px] font-bold text-light-gray text-end pe-3 absolute top-10 left-20 leading-0 -z-1">
-                            2</h4>
-                    </div>
-                    <div class="relative h-full mt-20 delay-[550ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                        <h4 class="font-play text-2xl font-semibold">Step 3</h4>
-                        <p class="font-secondary text-sm w-3/4 mt-8"> Get Selected by Admin</p>
-                        <h4
-                            class="font-play text-[220px] font-bold text-light-gray text-end pe-3 absolute top-10 left-20 leading-0 -z-1">
-                            3</h4>
-                    </div>
-                    <div class="relative h-full mt-20 delay-[650ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                        <h4 class="font-play text-2xl font-semibold">Step 4</h4>
-                        <p class="font-secondary text-sm w-3/4 mt-8"> Upload Joining Letter of PhD</p>
-                        <h4
-                            class="font-play text-[220px] font-bold text-light-gray text-end pe-3 absolute top-10 left-20 leading-0 -z-1">
-                            4</h4>
-                    </div>
-                    <div class="relative h-full mt-20 delay-[550ms] duration-[750ms] -taos:translate-x-[100%] taos:opacity-0">
-                        <h4 class="font-play text-2xl font-semibold">Step 5</h4>
-                        <p class="font-secondary text-sm w-3/4 mt-8"> Upload Joining Letter of PhD</p>
-                        <h4
-                            class="font-play text-[220px] font-bold text-light-gray text-end pe-3 absolute top-10 left-20 leading-0 -z-1">
-                            5</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
+    </div>
+</section>
 
-        <!-- FAQ section  -->
-        <section id="faq" class="px-10 mt-25">
-            <h3
-                class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                FAQ</h3>
+<section id="how_to_apply" class="px-10 mt-25 mb-10">
+    <h3
+        class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+        {{ multilingual_content[language]['how_to_enroll'] }}
+    </h3>
+
+    <div>
+        <div class="grid grid-cols-5">
             <div
-                class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-5">
-                <h4 class="text-lg font-semibold">How many Fellows do you select ?</h4>
-                <p>We hire 100 students every year</p>
+                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-green-500 flex flex-col justify-center px-5 rounded !h-65">
+                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 1
+                </h4>
+                <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{
+                    multilingual_content[language]['step_1_content'] }}</p>
+                <h4
+                    class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
+                    1</h4>
+                <h5
+                    class="w-10 h-10 flex justify-center items-center bg-green-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                    <span class="material-symbols-outlined !text-white">
+                        arrow_forward
+                    </span>
+                </h5>
             </div>
             <div
-                class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-                <h4 class="text-lg font-semibold">I wasn’t selected, can I receive feedback on my application ?</h4>
-                <p>We will send you feedback through email, and it will be reflected on your dashboard as well.</p>
+                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-blue-500 flex flex-col justify-center px-5 rounded !h-65">
+                <h4 class="font-play text-2xl font-semibold text-white">
+                    <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }}
+                        2</h4>
+                    <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{
+                        multilingual_content[language]['step_2_content'] }}
+                    </p>
+                    <h4
+                        class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
+                        2</h4>
+                    <h5
+                        class="w-10 h-10 flex justify-center items-center bg-blue-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                        <span class="material-symbols-outlined !text-white">
+                            arrow_forward
+                        </span>
+                    </h5>
             </div>
-        </section>
-    </main>
-
-    <footer class="mt-15">
-        <section id="top_header" class=" py-10 bg-slate-100 px-10">
-            <div class="grid grid-cols-3">
-                <div>
-                    <div class="">
-                        <img src="/static/carousel/images/barti-2.png" class="h-15 object-contain">
-                        <h4 class="font-third w-75 leading-5 mt-3 text-sm text-blue-950">
-                            Dr. Babasaheb Ambedkar Research and Training Institute (BANRF)
-                        </h4>
-
-                        <p class="text-sky-600 font-third text-xs mt-5 w-8/10">
-                            28, Queen's Garden Rd, Near Old Circuit House, Camp, Pune, Maharashtra, 411001
-                        </p>
-                    </div>
-                </div>
-                <div class="col-span-2">
-                    <div class="grid grid-cols-3">
-
-
-                        <div>
-                            <h4 class="font-primary font-bold text-blue-950">
-                                Quick Links
-                            </h4>
-                            <ul class="mt-5 pl-1">
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Tenders
-                                    </a>
-                                </li>
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Forms
-                                    </a>
-                                </li>
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Contact Us
-                                    </a>
-                                </li>
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Careers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 class="font-primary font-bold text-blue-950">
-                                Legal
-                            </h4>
-                            <ul class="mt-5 pl-1">
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Terms and Conditions
-                                    </a>
-                                </li>
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Privacy Policy
-                                    </a>
-                                </li>
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Copyright Policy
-                                    </a>
-                                </li>
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Hyperlink Policy
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 class="font-primary font-bold text-blue-950">
-                                Contact Us
-                            </h4>
-                            <ul class="mt-5 pl-1">
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <span class="material-symbols-outlined !text-base">
-                                        phone_in_talk
-                                    </span>
-                                    020-26333330, 26333339, 26343600
-                                </li>
-                                <li class="font-third text-sky-600 text-sm my-2">
-                                    <span class="material-symbols-outlined !text-base">
-                                        mail
-                                    </span>
-                                    helpdesk@barti.in
-                                </li>
-                                <!-- <li class="font-third text-sky-600 text-sm my-2">
-                                    <a href="">
-                                        Copyright Policy
-                                    </a>
-                                    <a href="">
-                                        Copyright Policy
-                                    </a>
-                                </li> -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div
+                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-yellow-500 flex flex-col justify-center px-5 rounded !h-65">
+                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 3
+                </h4>
+                <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{
+                    multilingual_content[language]['step_3_content'] }}</p>
+                <h4
+                    class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
+                    3</h4>
+                <h5
+                    class="w-10 h-10 flex justify-center items-center bg-yellow-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                    <span class="material-symbols-outlined !text-white">
+                        arrow_forward
+                    </span>
+                </h5>
             </div>
+            <div
+                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-fuchsia-500 flex flex-col justify-center px-5 rounded !h-65">
+                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 4</h4>
+                <p class="font-secondary text-sm w-3/4 mt-8 text-white">{{ multilingual_content[language]['step_4_content'] }}</p>
+                <h4
+                    class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
+                    4</h4>
+                <h5
+                    class="w-10 h-10 flex justify-center items-center bg-fuchsia-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                    <span class="material-symbols-outlined !text-white">
+                        arrow_forward
+                    </span>
+                </h5>
+            </div>
+            <div
+                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-amber-500 flex flex-col justify-center px-5 rounded !h-65">
+                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 5</h4>
+                <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{ multilingual_content[language]['step_5_content'] }}</p>
+                <h4
+                    class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
+                    5</h4>
+            </div>
+        </div>
+    </div>
+</section>
 
-        </section>
-        <section id="copyright" class="py-2 bg-sky-600 px-10">
-            <h4 class="font-third text-white text-sm">Website Content Owned & Managed by Dr. Babasaheb Ambedkar Research
-                and Training Institute&nbsp;|&nbsp;Maharashtra, India</h4>
-        </section>
-    </footer>
-</body>
-
-<style>
-    /* Container styles */
-    .scrolling-text-container-top {
-        /* background-color: #eff5ff; */
-        border-radius: 4px;
-        overflow: hidden;
-    }
-
-    /* Inner container styles */
-    .scrolling-text-inner {
-        display: flex;
-        white-space: nowrap;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 8px 0;
-    }
-
-    /* Text styles */
-    .scrolling-text-top {
-        display: flex;
-    }
-
-    .scrolling-text-item {
-        padding: 0 30px;
-    }
-
-    /* Apply the animation to the text items */
-    .scrolling-text-inner>div {
-        animation: var(--direction) var(--marquee-speed) linear infinite;
-    }
-
-    /* Pause the animation when a user hovers over it */
-    .scrolling-text-container-top:hover .scrolling-text-inner>div {
-        animation-play-state: paused;
-    }
-
-    /* Setting the Animation using Keyframes */
-    @keyframes scroll-left {
-        0% {
-            transform: translateX(100vw);
-        }
-
-        100% {
-            transform: translateX(-100%);
-        }
-    }
-
-    @keyframes scroll-right {
-        0% {
-            transform: translateX(-100%);
-        }
-
-        100% {
-            transform: translateX(0%);
-        }
-    }
-
-    @keyframes scroll-up {
-        0% {
-            transform: translateY(100%);
-        }
-
-        100% {
-            transform: translateY(-100%);
-        }
-    }
-</style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/static/carousel/owl.carousel.min.js"></script>
-<script>
-    $('.owl-carousel').owlCarousel({
-        autoplay: true,
-        smartSpeed: 500,
-        margin: 5,
-        loop: false, // Enable infinite loop
-        center: false,
-        dots: false,
-        nav: false,
-        rewind: true,
-        responsive: {
-            0: { items: 1 },
-            576: { items: 1 },
-            768: { items: 2 },
-            992: { items: 4 },
-            1500: { items: 4 },
-            1900: { items: 4 },
-        }
-    })
+<!-- FAQ section  -->
+<section id="faq" class="px-10 mt-25">
+    <h3
+        class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+        {{ multilingual_content[language]['faq'] }}</h3>
+    <div
+        class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-5">
+        <h4 class="text-lg font-semibold">{{ multilingual_content[language]['q1']
+            }}</h4>
+        <p>{{ multilingual_content[language]['ans1'] }}</p>
+    </div>
+    <div
+        class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+        <h4 class="text-lg font-semibold">{{ multilingual_content[language]['q2']
+            }}</h4>
+        <p>{{ multilingual_content[language]['ans2'] }}</p>
+    </div>
+</section>
 
 
-    const counters = document.querySelectorAll(".counter");
-
-    counters.forEach((counter) => {
-        counter.innerText = "0";
-        const updateCounter = () => {
-            const target = +counter.getAttribute("data-target");
-            const count = +counter.innerText;
-            const increment = target / 200;
-            if (count < target) {
-                counter.innerText = `${Math.ceil(count + increment)}`;
-                setTimeout(updateCounter, 25);
-            } else counter.innerText = target;
-        };
-        updateCounter();
-    });
-
-</script>
-
-</html>
+{% endblock %}

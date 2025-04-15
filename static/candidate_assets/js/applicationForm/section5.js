@@ -171,3 +171,25 @@ window.onload = function() {
     // Call function initially to check if the button should be enabled or not
     enableDisabledFields4();
 };
+
+function confirmLock(event) { // Add 'event' as a parameter
+    return Swal.fire({
+        title: 'Do you want to Lock the application form?',
+        text: "You will not be able to Edit further.",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#800080',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Submit & Lock Application',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //  The form will submit because confirmLock returns true
+            return true;
+        } else {
+            //  The form will not submit because confirmLock returns false
+            event.preventDefault(); // Prevent form submission
+            return false;
+        }
+    });
+}

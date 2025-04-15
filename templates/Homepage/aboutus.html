@@ -2,142 +2,193 @@
 
 {% block content %}
 
-    <!-- main Content is here -->
-    <main id="aboutus">
-        <!-- ======= Breadcrumbs ======= -->
-        <section class="breadcrumbs">
-            <div class="container">
+<!-- main Content is here -->
+<!-- ======= Breadcrumbs ======= -->
+<section class="breadcrumbs px-10 my-5 font-third">
+    <div class="container">
 
+        <ol class="flex items-center">
+            <li class="mx-2"><a href="/">{{multilingual_content[language]['home']}}</a></li>
+            <li class="text-black mx-2">
+                <span class="material-symbols-outlined !text-gray-500 !text-base">
+                    arrow_forward
+                </span>
+            </li>
+            <li class="text-black mx-2">{{multilingual_content[language]['about']}}</li>
+        </ol>
+        <h2 class="mt-10 text-blue-950 text-lg font-semibold">{{multilingual_content[language]['about_the_institute']}}
+        </h2>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+<div class="content mt-10 px-10 ">
+    <div class="container about-us-container ">
+        <!-- <h2 class="text-center text-theme mb-5 fw-bold">ABOUT THE INSTITUTION</h2> -->
+        <div class="row">
+            {% if(language == 'english') %}
+            <div class="col-md-12">
+                <img src="https://barti.in/assets/barti/sliders/6761697b8956c.jpg"
+                    class="building rounded float-end ms-3" alt="trti_building"
+                    style="max-width:700px; height: 400px; ">
+                <h3 class="tri-heading ">Dr. Babasaheb Ambedkar Research and Training Institute (BARTI), Pune</h3>
+                <p class="first-part font-14 text-justify">
+                    To realize the vision of the architect of the Constitution of India, Dr.Babasaheb Ambedkar;
+                    To achieve the objectives enshrined in the Constitution of India viz. Justice, Liberty,
+                    Equality, Fraternity among the peoples of our nation; To uplift the disadvantaged sections
+                    of the society, from the vortex of blind faith, superstition, communal hatred, caste bias,
+                    To obliterate disparity based on sects or gender and develop brotherhood, Scientific
+                    temperament and Communal harmony, the Government of Maharashtra in Cultural Affairs,
+                    Sports & Tourism Department, vide No. UTA, 1078 / D-XXV dated 22nd December, 1978
+                    established “Dr. Babasaheb Ambedkar Samata Vichar Peeth”. This Samta Peeth started
+                    functioning on 12th March 1979 from the premises of Mahatma Phule Backward Classes
+                    Development Corporation Ltd, Mumbai. By Govt. order, Dr. Babasaheb Ambedkar Samata
+                    Vichar Peeth was relocated to Pune at the present address- 28, Queens Garden, Pune,
+                    on 11th February 1987.
+                </p>
+                <h3 class="font-20 text-theme fw-bold">Organization's Objectives and Functions</h3>
+                <p class="points font-14">
                 <ol>
-                    <li><a href="/">{{multilingual_content[language]['home']}}</a></li>
-                    <li class="text-white">{{multilingual_content[language]['about']}}</li>
+                    <li class="font-14 text-justify">To provide an opportunity for SC youths from Maharashtra in various
+                        sectors, to work or to start their own micro enterprises with great results and building success
+                        stories.
+                    </li>
+                    <li class="font-14 text-justify">To train the underprivileged, unemployed, unskilled, semi-skilled
+                        trainee from the SC community and to make them skilled and employable.
+                    </li>
+                    <li class="font-14 text-justify">To develop & maintain Samata Vichar in society & do research in
+                        various spheres of “Equity & Social Justice “</li>
+                    <li class="font-14 text-justify">Implementation of different schemes, projects and activities for
+                        furthering the ideology and to spread the thoughts of Dr. Babasaheb Ambedkar.</li>
+                    <li class="font-14 text-justify">Facilitate hassle-free arrangement to provide Caste Validity
+                        certificate through online Caste Certificate Verification Information System for citizen of
+                        Maharashtra state.</li>
+                    <li class="font-14 text-justify">To do Scanning, Digitization, Indexing, Archiving & Searching of
+                        Caste Validity certificates with their supporting documents for old caste validity cases</li>
+                    <li class="font-14 text-justify">To promote in all areas concerned to Social Justice, Equity, and
+                        help the Government to formulate and modify the schemes and policies</li>
+                    <li class="font-14 text-justify">To improve brotherhood amongst the various sections of society &
+                        establish nation hood integration.</li>
+                    <li class="font-14 text-justify">To undertake & provide for the publication of books, journals,
+                        periodicals & research papers in furtherance of the avowed object.</li>
+                    <li class="font-14 text-justify">To conduct Interdepartmental trainings</li>
+                    <li class="font-14 text-justify">To spread the good thoughts & social message from the cultural
+                        activities</li>
+                    <li class="font-14 text-justify">To spread awareness about government policies & acts to SC
+                        community by conducting various program</li>
+                    <li class="font-14 text-justify">To compile authentic data for the development of SC’s through
+                        research and to promote research through fellowship, collaboration, conferences, seminars and
+                        workshops.</li>
+                    <li class="font-14 text-justify">To appeal to collect funds for social activities</li>
                 </ol>
-                <h2>{{multilingual_content[language]['about_the_institute']}}</h2>
-
+                </p>
             </div>
-        </section><!-- End Breadcrumbs -->
-        <div class="content mt-3">
-            <div class="container about-us-container">
-                <!-- <h2 class="text-center text-theme mb-5 fw-bold">ABOUT THE INSTITUTION</h2> -->
-                <div class="row">
-                    {% if(language == 'english') %}
-                    <div class="col-md-12">
-                         <img src="https://barti.in/assets/barti/sliders/6761697b8956c.jpg" class="building rounded float-end ms-3"
-                            alt="trti_building" style="max-width:700px; height: 400px; ">
-                        <h3 class="tri-heading ">Dr. Babasaheb Ambedkar Research and Training Institute (BARTI), Pune</h3>
-                        <p class="first-part font-14">
-                            To realize the vision of the architect of the Constitution of India, Dr.Babasaheb Ambedkar;
-                            To achieve the objectives enshrined in the Constitution of India viz. Justice, Liberty,
-                            Equality, Fraternity among the peoples of our nation; To uplift the disadvantaged sections
-                            of the society, from the vortex of blind faith, superstition, communal hatred, caste bias,
-                            To obliterate disparity based on sects or gender and develop brotherhood, Scientific
-                            temperament and Communal harmony, the Government of Maharashtra in Cultural Affairs,
-                            Sports & Tourism Department, vide No. UTA, 1078 / D-XXV dated 22nd December, 1978
-                            established “Dr. Babasaheb Ambedkar Samata Vichar Peeth”. This Samta Peeth started
-                            functioning on 12th March 1979 from the premises of Mahatma Phule Backward Classes
-                            Development Corporation Ltd, Mumbai. By Govt. order, Dr. Babasaheb Ambedkar Samata
-                            Vichar Peeth was relocated to Pune at the present address- 28, Queens Garden, Pune,
-                            on 11th February 1987.
-                        </p>
-                        <h3 class="font-20 text-theme fw-bold">Organization's Objectives and Functions</h3>
-                        <p class="points font-14">
-                        <ol>
-                            <li class="font-14 text-justify">To provide an opportunity for SC youths from Maharashtra in various sectors, to work or to start their own micro enterprises with great results and building success stories.</li>
-                            <li class="font-14 text-justify">To train the underprivileged, unemployed, unskilled, semi-skilled trainee from the SC community and to make them skilled and employable.</li>
-                            <li class="font-14 text-justify">To develop & maintain Samata Vichar in society & do research in various spheres of “Equity & Social Justice “</li>
-                            <li class="font-14 text-justify">Implementation of different schemes, projects and activities for furthering the ideology and to spread the thoughts of Dr. Babasaheb Ambedkar.</li>
-                            <li class="font-14 text-justify">Facilitate hassle-free arrangement to provide Caste Validity certificate through online Caste Certificate Verification Information System for citizen of Maharashtra state.</li>
-                            <li class="font-14 text-justify">To do Scanning, Digitization, Indexing, Archiving & Searching of Caste Validity certificates with their supporting documents for old caste validity cases</li>
-                            <li class="font-14 text-justify">To promote in all areas concerned to Social Justice, Equity, and help the Government to formulate and modify the schemes and policies</li>
-                            <li class="font-14 text-justify">To improve brotherhood amongst the various sections of society & establish nation hood integration.</li>
-                            <li class="font-14 text-justify">To undertake & provide for the publication of books, journals, periodicals & research papers in furtherance of the avowed object.</li>
-                            <li class="font-14 text-justify">To conduct Interdepartmental trainings</li>
-                            <li class="font-14 text-justify">To spread the good thoughts & social message from the cultural activities</li>
-                            <li class="font-14 text-justify">To spread awareness about government policies & acts to SC community by conducting various program</li>
-                            <li class="font-14 text-justify">To compile authentic data for the development of SC’s through research and to promote research through fellowship, collaboration, conferences, seminars and workshops.</li>
-                            <li class="font-14 text-justify">To appeal to collect funds for social activities</li>
-                        </ol>
-                        </p>
-                    </div>
-<!--                    <div class="col-md-6">-->
-<!--                        <img src="https://barti.in/assets/barti/sliders/6761697b8956c.jpg" class="building w-100 rounded"-->
-<!--                            alt="trti_building" style="height:400px">-->
-<!--                    </div>-->
-                    <p class="balboa font-14">
-                        The said organization, subsequently, became autonomous, under its present name- Dr.
-                        Babasaheb Ambedkar Research & Training Institute (BARTI), Pune, the Department of Social
-                        Justice and Special Assistance, Govt. of Maharashtra in the year 2008. This Institute is
-                        committed to the cause of equality and social justice through scientific research, evaluation
-                        of schemes meant for socially disadvantaged sections, policy advocacy, training, skills
-                        development etc.
+            <!--                    <div class="col-md-6">-->
+            <!--                        <img src="https://barti.in/assets/barti/sliders/6761697b8956c.jpg" class="building w-100 rounded"-->
+            <!--                            alt="trti_building" style="height:400px">-->
+            <!--                    </div>-->
+            <p class="balboa font-14 text-justify">
+                The said organization, subsequently, became autonomous, under its present name- Dr.
+                Babasaheb Ambedkar Research & Training Institute (BARTI), Pune, the Department of Social
+                Justice and Special Assistance, Govt. of Maharashtra in the year 2008. This Institute is
+                committed to the cause of equality and social justice through scientific research, evaluation
+                of schemes meant for socially disadvantaged sections, policy advocacy, training, skills
+                development etc.
 
-                    </p>
-                    <p class="balboa font-14">
-                        Vide Govt. of Maharashtra, Social Justice and Special Assistance Department Resolution No.
-                        AaPraSa- 2005/ Case No. 383/ MAVAKA dated 30.4.2008, approval has been granted for registration
-                        under the Indian Society Registration Act, 1860 and Indian Public Trusts Act, 1950 to Dr.
-                        Babasaheb Ambedkar Research & Training Institute, Pune, and thus, the name of the society
-                        came to be known as Dr. Babasaheb Ambedkar Research & Training Institute, (BARTI), Pune,
-                        having its registered office at 28, Queens Garden, Near Old Circuit House, Pune – 411 001.
+            </p>
+            <p class="balboa font-14 text-justify">
+                Vide Govt. of Maharashtra, Social Justice and Special Assistance Department Resolution No.
+                AaPraSa- 2005/ Case No. 383/ MAVAKA dated 30.4.2008, approval has been granted for registration
+                under the Indian Society Registration Act, 1860 and Indian Public Trusts Act, 1950 to Dr.
+                Babasaheb Ambedkar Research & Training Institute, Pune, and thus, the name of the society
+                came to be known as Dr. Babasaheb Ambedkar Research & Training Institute, (BARTI), Pune,
+                having its registered office at 28, Queens Garden, Near Old Circuit House, Pune – 411 001.
 
-                    </p>
-                    {% else %}
-                    <div class="col-md-12">
-                        <img src="https://barti.in/assets/barti/sliders/6761697b8956c.jpg" class="building rounded float-end ms-3"
-                            alt="trti_building" style="max-width:700px; height: 400px; ">
-                        <h3 class="tri-heading ">डॉ. बाबासाहेब आंबेडकर संशोधन व प्रशिक्षण संस्था (बार्टी), पुणे</h3>
-                        <p class="first-part font-14 lh-base">
-                            भारतीय राज्यघटनेचे शिल्पकार डॉ.बाबासाहेब आंबेडकर यांची दूरदृष्टी साकार करण्यासाठी; ला भारतीय राज्यघटनेत नमूद केलेली
-                            उद्दिष्टे साध्य करणे उदा. न्याय, स्वातंत्र्य, समानता, आपल्या राष्ट्रातील लोकांमध्ये बंधुभाव; समाजातील वंचित घटकांच्या
-                            उन्नतीसाठी, अंधश्रद्धा, अंधश्रद्धा, जातीय द्वेष, जातीय भेदभाव यांच्या भोवऱ्यातून, विषमता नष्ट करण्यासाठी पंथ किंवा लिंग
-                            यावर आधारित आणि बंधुता, वैज्ञानिक स्वभाव आणि सांप्रदायिक सौहार्द विकसित करणे, महाराष्ट्र शासन सांस्कृतिक कार्य,
-                            क्रीडा आणि पर्यटन विभाग, क्रमांक UTA, 1078 / द्वारे D-XXV दिनांक 22 डिसेंबर 1978 ची स्थापना “डॉ. बाबासाहेब
-                            आंबेडकर समता विचार पीठ”. हा समता पीठाचे कामकाज 12 मार्च 1979 रोजी महात्मा फुले मागासवर्गीयांच्या आवारातून सुरू
-                            झाले. डेव्हलपमेंट कॉर्पोरेशन लिमिटेड, मुंबई. शासनाकडून आदेश, डॉ.बाबासाहेब आंबेडकर समता विचार पीठ होते 11 फेब्रुवारी
-                            1987 रोजी पुण्यात सध्याच्या पत्त्यावर - 28, क्वीन्स गार्डन, पुणे येथे स्थलांतरित झाले.
-                        </p>
-                        <h3 class="font-20 text-theme fw-bold">संस्थेची उदिष्टये व कार्य</h3>
-                        <p class="points font-14 ">
-                        <ol class="lh-25">
-                            <li class="font-14 text-justify">महाराष्ट्रातील अनुसूचित जाती तरुणांना विविध क्षेत्रात काम करण्याची किंवा सुरुवात करण्याची संधी उपलब्ध करून देणे त्यांचे स्वतःचे उत्कृष्ट परिणामांसह सूक्ष्म उपक्रम आणि यशोगाथा तयार करणे.</li>
-                            <li class="font-14 text-justify">अनुसूचित जाती जमातीतील वंचित, बेरोजगार, अकुशल, अर्धकुशल प्रशिक्षणार्थी यांना प्रशिक्षण देणे आणि करण्यासाठी ते कुशल आणि रोजगारक्षम.</li>
-                            <li class="font-14 text-justify">विकसित करण्यासाठी & समाजात समता विचार कायम ठेवा आणि विविध क्षेत्रात संशोधन करा “इक्विटी & सामाजिक न्याय "</li>
-                            <li class="font-14 text-justify">विचारधारा पुढे नेण्यासाठी विविध योजना, प्रकल्प आणि उपक्रम राबवणे आणि पसरवण्यासाठी डॉ.बाबासाहेब आंबेडकरांचे विचार.</li>
-                            <li class="font-14 text-justify">ऑनलाइन जातीद्वारे जात वैधता प्रमाणपत्र प्रदान करण्यासाठी त्रास-मुक्त व्यवस्था सुलभ करा प्रमाणपत्र महाराष्ट्र राज्यातील नागरिकांसाठी पडताळणी माहिती प्रणाली.</li>
-                            <li class="font-14 text-justify">स्कॅनिंग, डिजिटायझेशन, इंडेक्सिंग, संग्रहण & सोबत जात वैधता प्रमाणपत्रांचा शोध त्यांचे जुन्या जात वैधता प्रकरणांसाठी आधारभूत कागदपत्रे</li>
-                            <li class="font-14 text-justify">सामाजिक न्याय, समानतेशी संबंधित सर्व क्षेत्रांमध्ये प्रोत्साहन देणे आणि सरकारला तयार करण्यात मदत करणे आणि सुधारित करा योजना आणि धोरणे</li>
-                            <li class="font-14 text-justify">समाजातील विविध घटकांमधील बंधुभाव वाढवण्यासाठी & राष्ट्र हुड एकीकरण स्थापित करा.</li>
-                            <li class="font-14 text-justify">हाती घेणे & पुस्तके, जर्नल्स, नियतकालिके आणि मध्ये शोधनिबंध च्या पुढे वाढवणे मंजूर वस्तू.</li>
-                            <li class="font-14 text-justify">आंतरविभागीय प्रशिक्षण आयोजित करणे</li>
-                            <li class="font-14 text-justify">चांगल्या विचारांचा प्रसार करण्यासाठी & सांस्कृतिक उपक्रमांमधून सामाजिक संदेश</li>
-                            <li class="font-14 text-justify">सरकारी धोरणांबद्दल जागरूकता पसरवण्यासाठी & विविध कार्यक्रम आयोजित करून अनुसूचित जाती जमातीसाठी कार्य करते</li>
-                            <li class="font-14 text-justify">संशोधनाद्वारे अनुसूचित जातींच्या विकासासाठी प्रामाणिक डेटा संकलित करणे आणि फेलोशिप, सहयोग, परिषद, परिसंवाद आणि कार्यशाळेद्वारे संशोधनास प्रोत्साहन देणे.</li>
-                            <li class="font-14 text-justify">सामाजिक उपक्रमांसाठी निधी जमा करण्याचे आवाहन</li>
-                        </ol>
-                        </p>
-                    </div>
-<!--                    <div class="col-md-6">-->
-<!--                        <img src="/static/assets/img/trti_building.jpg" class="building w-100 rounded"-->
-<!--                            alt="trti_building">-->
-<!--                    </div>-->
-                    <p class="balboa font-14 mt-3">
-                        ही संघटना नंतर स्वायत्त झाली, तिच्या सध्याच्या नावाने- डॉ. बाबासाहेब आंबेडकर संशोधन & प्रशिक्षण संस्था (बार्टी), पुणे,
-                        सामाजिक न्याय आणि विशेष विभाग सहाय्य, शासन. महाराष्ट्राच्या 2008 मध्ये. ही संस्था यासाठी कटिबद्ध आहे वैज्ञानिक
-                        संशोधनाद्वारे समता आणि सामाजिक न्याय, सामाजिकदृष्ट्या असलेल्या योजनांचे मूल्यमापन वंचित विभाग, धोरण वकिली,
-                        प्रशिक्षण, कौशल्य विकास इ.
-                    </p>
-                    <p class="balboa font-14">
-                        व्हीडी सरकार महाराष्ट्र, सामाजिक न्याय व विशेष सहाय्य विभाग ठराव क्र. AaPraSa- 2005/ प्रकरण क्रमांक 383/ MAVAKA
-                        दिनांक 30.4.2008, या अंतर्गत नोंदणीसाठी मान्यता देण्यात आली आहे. भारतीय सोसायटी नोंदणी कायदा, 1860 आणि भारतीय
-                        सार्वजनिक विश्वस्त कायदा, 1950 डॉ. बाबासाहेब आंबेडकरांना संशोधन & ट्रेनिंग इन्स्टिट्यूट, पुणे आणि त्यामुळे सोसायटीचे नाव डॉ.
-                        बाबासाहेब आंबेडकर संशोधन & प्रशिक्षण संस्था, (बार्टी), पुणे, 28 येथे नोंदणीकृत कार्यालय आहे, क्वीन्स गार्डन, जुन्या सर्किट
-                        हाऊसजवळ, पुणे – ४११ ००१.
-                    </p>
-                    {% endif %}
-
-                </div>
+            </p>
+            {% else %}
+            <div class="col-md-12">
+                <img src="https://barti.in/assets/barti/sliders/6761697b8956c.jpg"
+                    class="building rounded float-end ms-3" alt="trti_building"
+                    style="max-width:700px; height: 400px; ">
+                <h3 class="tri-heading ">डॉ. बाबासाहेब आंबेडकर संशोधन व प्रशिक्षण संस्था (बार्टी), पुणे</h3>
+                <p class="first-part font-14 lh-base">
+                    भारतीय राज्यघटनेचे शिल्पकार डॉ.बाबासाहेब आंबेडकर यांची दूरदृष्टी साकार करण्यासाठी; ला भारतीय
+                    राज्यघटनेत नमूद केलेली
+                    उद्दिष्टे साध्य करणे उदा. न्याय, स्वातंत्र्य, समानता, आपल्या राष्ट्रातील लोकांमध्ये बंधुभाव;
+                    समाजातील वंचित घटकांच्या
+                    उन्नतीसाठी, अंधश्रद्धा, अंधश्रद्धा, जातीय द्वेष, जातीय भेदभाव यांच्या भोवऱ्यातून, विषमता नष्ट
+                    करण्यासाठी पंथ किंवा लिंग
+                    यावर आधारित आणि बंधुता, वैज्ञानिक स्वभाव आणि सांप्रदायिक सौहार्द विकसित करणे, महाराष्ट्र शासन
+                    सांस्कृतिक कार्य,
+                    क्रीडा आणि पर्यटन विभाग, क्रमांक UTA, 1078 / द्वारे D-XXV दिनांक 22 डिसेंबर 1978 ची स्थापना “डॉ.
+                    बाबासाहेब
+                    आंबेडकर समता विचार पीठ”. हा समता पीठाचे कामकाज 12 मार्च 1979 रोजी महात्मा फुले मागासवर्गीयांच्या
+                    आवारातून सुरू
+                    झाले. डेव्हलपमेंट कॉर्पोरेशन लिमिटेड, मुंबई. शासनाकडून आदेश, डॉ.बाबासाहेब आंबेडकर समता विचार पीठ
+                    होते 11 फेब्रुवारी
+                    1987 रोजी पुण्यात सध्याच्या पत्त्यावर - 28, क्वीन्स गार्डन, पुणे येथे स्थलांतरित झाले.
+                </p>
+                <h3 class="font-20 text-theme fw-bold">संस्थेची उदिष्टये व कार्य</h3>
+                <p class="points font-14 ">
+                <ol class="lh-25">
+                    <li class="font-14 text-justify">महाराष्ट्रातील अनुसूचित जाती तरुणांना विविध क्षेत्रात काम करण्याची
+                        किंवा सुरुवात करण्याची संधी उपलब्ध करून देणे त्यांचे स्वतःचे उत्कृष्ट परिणामांसह सूक्ष्म उपक्रम
+                        आणि यशोगाथा तयार करणे.</li>
+                    <li class="font-14 text-justify">अनुसूचित जाती जमातीतील वंचित, बेरोजगार, अकुशल, अर्धकुशल
+                        प्रशिक्षणार्थी यांना प्रशिक्षण देणे आणि करण्यासाठी ते कुशल आणि रोजगारक्षम.</li>
+                    <li class="font-14 text-justify">विकसित करण्यासाठी & समाजात समता विचार कायम ठेवा आणि विविध क्षेत्रात
+                        संशोधन करा “इक्विटी & सामाजिक न्याय "</li>
+                    <li class="font-14 text-justify">विचारधारा पुढे नेण्यासाठी विविध योजना, प्रकल्प आणि उपक्रम राबवणे
+                        आणि पसरवण्यासाठी डॉ.बाबासाहेब आंबेडकरांचे विचार.</li>
+                    <li class="font-14 text-justify">ऑनलाइन जातीद्वारे जात वैधता प्रमाणपत्र प्रदान करण्यासाठी
+                        त्रास-मुक्त व्यवस्था सुलभ करा प्रमाणपत्र महाराष्ट्र राज्यातील नागरिकांसाठी पडताळणी माहिती
+                        प्रणाली.</li>
+                    <li class="font-14 text-justify">स्कॅनिंग, डिजिटायझेशन, इंडेक्सिंग, संग्रहण & सोबत जात वैधता
+                        प्रमाणपत्रांचा शोध त्यांचे जुन्या जात वैधता प्रकरणांसाठी आधारभूत कागदपत्रे</li>
+                    <li class="font-14 text-justify">सामाजिक न्याय, समानतेशी संबंधित सर्व क्षेत्रांमध्ये प्रोत्साहन देणे
+                        आणि सरकारला तयार करण्यात मदत करणे आणि सुधारित करा योजना आणि धोरणे</li>
+                    <li class="font-14 text-justify">समाजातील विविध घटकांमधील बंधुभाव वाढवण्यासाठी & राष्ट्र हुड एकीकरण
+                        स्थापित करा.</li>
+                    <li class="font-14 text-justify">हाती घेणे & पुस्तके, जर्नल्स, नियतकालिके आणि मध्ये शोधनिबंध च्या
+                        पुढे वाढवणे मंजूर वस्तू.</li>
+                    <li class="font-14 text-justify">आंतरविभागीय प्रशिक्षण आयोजित करणे</li>
+                    <li class="font-14 text-justify">चांगल्या विचारांचा प्रसार करण्यासाठी & सांस्कृतिक उपक्रमांमधून
+                        सामाजिक संदेश</li>
+                    <li class="font-14 text-justify">सरकारी धोरणांबद्दल जागरूकता पसरवण्यासाठी & विविध कार्यक्रम आयोजित
+                        करून अनुसूचित जाती जमातीसाठी कार्य करते</li>
+                    <li class="font-14 text-justify">संशोधनाद्वारे अनुसूचित जातींच्या विकासासाठी प्रामाणिक डेटा संकलित
+                        करणे आणि फेलोशिप, सहयोग, परिषद, परिसंवाद आणि कार्यशाळेद्वारे संशोधनास प्रोत्साहन देणे.</li>
+                    <li class="font-14 text-justify">सामाजिक उपक्रमांसाठी निधी जमा करण्याचे आवाहन</li>
+                </ol>
+                </p>
             </div>
+            <!--                    <div class="col-md-6">-->
+            <!--                        <img src="/static/assets/img/trti_building.jpg" class="building w-100 rounded"-->
+            <!--                            alt="trti_building">-->
+            <!--                    </div>-->
+            <p class="balboa font-14 mt-3">
+                ही संघटना नंतर स्वायत्त झाली, तिच्या सध्याच्या नावाने- डॉ. बाबासाहेब आंबेडकर संशोधन & प्रशिक्षण संस्था
+                (बार्टी), पुणे,
+                सामाजिक न्याय आणि विशेष विभाग सहाय्य, शासन. महाराष्ट्राच्या 2008 मध्ये. ही संस्था यासाठी कटिबद्ध आहे
+                वैज्ञानिक
+                संशोधनाद्वारे समता आणि सामाजिक न्याय, सामाजिकदृष्ट्या असलेल्या योजनांचे मूल्यमापन वंचित विभाग, धोरण
+                वकिली,
+                प्रशिक्षण, कौशल्य विकास इ.
+            </p>
+            <p class="balboa font-14">
+                व्हीडी सरकार महाराष्ट्र, सामाजिक न्याय व विशेष सहाय्य विभाग ठराव क्र. AaPraSa- 2005/ प्रकरण क्रमांक 383/
+                MAVAKA
+                दिनांक 30.4.2008, या अंतर्गत नोंदणीसाठी मान्यता देण्यात आली आहे. भारतीय सोसायटी नोंदणी कायदा, 1860 आणि
+                भारतीय
+                सार्वजनिक विश्वस्त कायदा, 1950 डॉ. बाबासाहेब आंबेडकरांना संशोधन & ट्रेनिंग इन्स्टिट्यूट, पुणे आणि
+                त्यामुळे सोसायटीचे नाव डॉ.
+                बाबासाहेब आंबेडकर संशोधन & प्रशिक्षण संस्था, (बार्टी), पुणे, 28 येथे नोंदणीकृत कार्यालय आहे, क्वीन्स
+                गार्डन, जुन्या सर्किट
+                हाऊसजवळ, पुणे – ४११ ००१.
+            </p>
+            {% endif %}
+
         </div>
-    </main>
+    </div>
+</div>
 
 {% endblock %}
