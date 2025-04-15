@@ -650,3 +650,15 @@ window.onload = function() {
     // Call function initially to check if the button should be enabled or not
     enableDisabledFields();
 };
+
+function selectAddressVillage() {
+    // Get the elements
+    const commVillageField = document.getElementById("comm_village");
+    const sameAddressCheckbox = document.getElementById("sameAddress");
+
+    // Empty the comm_village field
+    commVillageField.value = "";
+
+    // Uncheck the sameAddress checkbox
+    sameAddressCheckbox.checked = false;
+}

@@ -22,14 +22,14 @@
                                 <label for="father_name">Are you Salaried?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['salaried'] }}</span>
                                 {% else %}
                                     <select name="salaried" id="salaried" class="form-control" required>
                                         <option value="" selected>-- Select Option --</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option value="Yes" {% if record['salaried'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                        <option value="No" {% if record['salaried'] == 'No' %}selected{% endif %}>No</option>
                                     </select>
                                 {% endif %}
                             </div>
@@ -39,53 +39,53 @@
                                 <label for="father_name">Are you Disabled?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['disability'] }}</span>
                                 {% else %}
                                     <select name="disability" id="disability" class="form-control"
                                         onchange="toggleDisabilityField(this)" required>
                                         <option value="" selected>-- Select Option --</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option value="Yes" {% if record['disability'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                        <option value="No" {% if record['disability'] == 'No' %}selected{% endif %}>No</option>
                                     </select>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="disability_type_div">
+                        <div class="col-md-4 mt-2 {% if record['disability'] == 'No' %}d-none{% endif %}" id="disability_type_div">
                             <div class="form-group">
                                 <label for="type_of_disability" data-bs-toggle="tooltip" data-bs-placement="top"
                                        title="Select the Type of Disability">
                                         Type of Disability
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['type_of_disability'] }}</span>
                                 {% else %}
                                     <select name="type_of_disability" id="type_of_disability" class="form-control">
                                         <option value="" selected>-- Select Option --</option>
-                                        <option value="Visual Disability">Visual Disability</option>
-                                        <option value="Hearing Disability">Hearing Disability</option>
-                                        <option value="Speech and Language Disability">Speech and Language Disability</option>
-                                        <option value="Locomotor Disability">Locomotor Disability</option>
-                                        <option value="Intellectual Disability">Intellectual Disability</option>
-                                        <option value="Mental Illness">Mental Illness</option>
-                                        <option value="Autism Spectrum Disorder">Autism Spectrum Disorder</option>
-                                        <option value="Cerebral Palsy">Cerebral Palsy</option>
-                                        <option value="Muscular Dystrophy">Muscular Dystrophy</option>
-                                        <option value="Chronic Neurological Conditions">Chronic Neurological Conditions</option>
-                                        <option value="Multiple Sclerosis">Multiple Sclerosis</option>
-                                        <option value="Thalassemia">Thalassemia</option>
-                                        <option value="Hemophilia">Hemophilia</option>
-                                        <option value="Sickle Cell Disease">Sickle Cell Disease</option>
-                                        <option value="Multiple Disabilities">Multiple Disabilities</option>
-                                        <option value="Other">Other</option>
+                                        <option value="Visual Disability" {% if record['type_of_disability'] == 'Visual Disability' %}selected{% endif %}>Visual Disability</option>
+                                        <option value="Hearing Disability" {% if record['type_of_disability'] == 'Hearing Disability' %}selected{% endif %}>Hearing Disability</option>
+                                        <option value="Speech and Language Disability" {% if record['type_of_disability'] == 'Speech and Language Disability' %}selected{% endif %}>Speech and Language Disability</option>
+                                        <option value="Locomotor Disability" {% if record['type_of_disability'] == 'Locomotor Disability' %}selected{% endif %}>Locomotor Disability</option>
+                                        <option value="Intellectual Disability" {% if record['type_of_disability'] == 'Intellectual Disability' %}selected{% endif %}>Intellectual Disability</option>
+                                        <option value="Mental Illness" {% if record['type_of_disability'] == 'Mental Illness' %}selected{% endif %}>Mental Illness</option>
+                                        <option value="Autism Spectrum Disorder" {% if record['type_of_disability'] == 'Autism Spectrum Disorder' %}selected{% endif %}>Autism Spectrum Disorder</option>
+                                        <option value="Cerebral Palsy" {% if record['type_of_disability'] == 'Cerebral Palsy' %}selected{% endif %}>Cerebral Palsy</option>
+                                        <option value="Muscular Dystrophy" {% if record['type_of_disability'] == 'Muscular Dystrophy' %}selected{% endif %}>Muscular Dystrophy</option>
+                                        <option value="Chronic Neurological Conditions" {% if record['type_of_disability'] == 'Chronic Neurological Conditions' %}selected{% endif %}>Chronic Neurological Conditions</option>
+                                        <option value="Multiple Sclerosis" {% if record['type_of_disability'] == 'Multiple Sclerosis' %}selected{% endif %}>Multiple Sclerosis</option>
+                                        <option value="Thalassemia" {% if record['type_of_disability'] == 'Thalassemia' %}selected{% endif %}>Thalassemia</option>
+                                        <option value="Hemophilia" {% if record['type_of_disability'] == 'Hemophilia' %}selected{% endif %}>Hemophilia</option>
+                                        <option value="Sickle Cell Disease" {% if record['type_of_disability'] == 'Sickle Cell Disease' %}selected{% endif %}>Sickle Cell Disease</option>
+                                        <option value="Multiple Disabilities" {% if record['type_of_disability'] == 'Multiple Disabilities' %}selected{% endif %}>Multiple Disabilities</option>
+                                        <option value="Other" {% if record['type_of_disability'] == 'Other' %}selected{% endif %}>Other</option>
                                     </select>
                                 {% endif %}
                             </div>
                         </div>
-                        {% if record.section4 == 'filled' and record.disability == 'Yes' %}
+                        {% if record.lock_application_form == 'locked' and record.disability == 'Yes' %}
                             <div class="col-md-4 mt-2">
                                 <div class="form-group">
                                     <label for="type_of_disability">
@@ -97,21 +97,21 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <div class="col-md-4 mt-2 d-none" id="disability_perc_div">
+                        <div class="col-md-4 mt-2 {% if record['disability'] == 'No' %}d-none{% endif %}" id="disability_perc_div">
                             <div class="form-group">
                                 <label for="perc_of_disability" data-bs-toggle="tooltip" data-bs-placement="top"
                                        title="Select 'Yes' only if your disability is greater than or equal to 40%">
                                         Is your disability greater than or equal to 40% ?
                                     <span class="text-danger">*</span>
                                 </label>
-                                    <select name="perc_of_disability" id="perc_of_disability" class="form-control" required>
+                                    <select name="perc_of_disability" id="perc_of_disability" class="form-control">
                                         <option value="" selected>-- Select Option --</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option value="Yes" {% if record['disability_percentage'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                        <option value="No" {% if record['disability_percentage'] == 'No' %}selected{% endif %}>No</option>
                                     </select>
                             </div>
                         </div>
-                        {% if record.section4 == 'filled' and record.disability == 'Yes' %}
+                        {% if record.lock_application_form == 'locked' and record.disability == 'Yes' %}
                             <div class="col-md-4 mt-2">
                                 <div class="form-group">
                                     <label for="perc_of_disability">
@@ -125,8 +125,7 @@
                         {% endif %}
                      </div>
                  </div>
-                    {% if record['section4'] == 'filled' %}
-                        {% else %}
+                    {% if record['section4'] != 'filled' %}
                         <div class="form-check ms-2" style="padding:2rem;">
                             <input class="form-check-input" type="checkbox" value="" id="verifySalaryDeclaration">
                                 <label class="form-check-label" for="verifySalaryDeclaration">
@@ -149,13 +148,16 @@
                                 <label for="father_name">Father's Full name
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['father_name'] }}</span>
                                 {% else %}
                                 <input type="text" name="father_name" id="father_name" required
-                                       placeholder="Firstname Middlename Surname" class="form-control"
-                                       oninput="validateName(this)">
+                                        placeholder="Firstname Middlename Surname" class="form-control"
+                                        oninput="validateName(this)" 
+                                        {% if record['section4'] == 'filled' %}
+                                            value="{{ record['father_name'] }}" 
+                                        {% endif %}>    
                                 {% endif %}
                             </div>
                         </div>
@@ -164,13 +166,16 @@
                                 <label for="mother_name">Mother's Full name
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['mother_name'] }}</span>
                                 {% else %}
                                 <input type="text" name="mother_name" id="mother_name" required
-                                       placeholder="Firstname Middlename Surname" class="form-control"
-                                       oninput="validateName(this)">
+                                        placeholder="Firstname Middlename Surname" class="form-control"
+                                        oninput="validateName(this)"
+                                        {% if record['section4'] == 'filled' %}
+                                            value="{{ record['mother_name'] }}" 
+                                        {% endif %}>
                                 {% endif %}
                             </div>
                         </div>
@@ -181,20 +186,21 @@
                                     Any Government Employee in Family?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['work_in_government'] }}</span>
                                 {% else %}
                                 <select name="work_in_government" id="work_in_government" class="form-control"
                                         onchange="toggleGovField(this)" required>
                                     <option value="" selected>-- Select Option --</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="Yes" {% if record['work_in_government'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                    <option value="No" {% if record['work_in_government'] == 'No' %}selected{% endif %}>No</option>
                                 </select>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="open_no_of_gov_emp">
+                        {% set work_gov = record.get('work_in_government', '') %}
+                        <div class="col-md-4 mt-2 {% if work_gov != 'Yes' %}d-none{% endif %}" id="open_no_of_gov_emp">
                             <div class="form-group">
                                 <label for="no_of_gov_employee" data-bs-toggle="tooltip" data-bs-placement="top"
                                        title="Select yes only if someone from your family works in the Government.">
@@ -203,13 +209,13 @@
                                 </label>
                                 <select name="no_of_gov_employee" id="no_of_gov_employee" class="form-control">
                                     <option value="" selected>-- Select Option --</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="1"{% if record['no_of_gov_employee'] == '1' %}selected{% endif %}>1</option>
+                                    <option value="2"{% if record['no_of_gov_employee'] == '2' %}selected{% endif %}>2</option>
+                                    <option value="3"{% if record['no_of_gov_employee'] == '3' %}selected{% endif %}>3</option>
                                 </select>
                             </div>
                         </div>
-                        {% if record['section4'] == 'filled' and record['no_of_gov_employee']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['no_of_gov_employee']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="no_of_gov_employee">
@@ -225,35 +231,44 @@
                     <div class="row m-0">
 
                         <!-- Employee 1 Details -->
-                        <div class="col-md-4 mt-2 d-none" id="name_emp_1">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] in ['1', '2', '3'] %} {% else %} d-none {% endif %}" id="name_emp_1">
                             <div class="form-group">
                                 <label for="emp1_name">Name of Employee 1
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp1_name" id="emp1_name"
-                                            placeholder="Enter Name of Employee 1" oninput="validateName(this)">
+                                            placeholder="Enter Name of Employee 1" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp1_name'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="position_emp_1">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] in ['1', '2', '3'] %} {% else %} d-none {% endif %}" id="position_emp_1">
                             <div class="form-group">
                                 <label for="emp1_position">Position of Employee 1
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp1_position" id="emp1_position"
-                                            placeholder="Enter Position of Employee 1" oninput="validateName(this)">
+                                            placeholder="Enter Position of Employee 1" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp1_position'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="relation_emp_1">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] in ['1', '2', '3'] %} {% else %} d-none {% endif %}" id="relation_emp_1">
                             <div class="form-group">
                                 <label for="emp1_relation">Relation with candidate
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp1_relation" id="emp1_relation"
-                                            placeholder="Enter Relation with candidate" oninput="validateName(this)">
+                                            placeholder="Enter Relation with candidate" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp1_relation'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
                         <!-- View Employee 1 Details -->
-                        {% if record['section4'] == 'filled' and record['emp1_name']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['emp1_name']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="emp1_name">
@@ -288,35 +303,44 @@
 
 
                         <!-- Employee 2 Details -->
-                        <div class="col-md-4 mt-2 d-none" id="name_emp_2">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] in ['2', '3'] %} {% else %} d-none {% endif %}" id="name_emp_2">
                             <div class="form-group">
                                 <label for="emp2_name">Name of Employee 2
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp2_name" id="emp2_name"
-                                            placeholder="Enter Name of Employee 2" oninput="validateName(this)">
+                                            placeholder="Enter Name of Employee 2" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp2_name'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="position_emp_2">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] in ['2', '3'] %} {% else %} d-none {% endif %}" id="position_emp_2">
                             <div class="form-group">
                                 <label for="emp2_position">Position of Employee 2
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp2_position" id="emp2_position"
-                                            placeholder="Enter Position of Employee 2" oninput="validateName(this)">
+                                            placeholder="Enter Position of Employee 2" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp2_position'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="relation_emp_2">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] in ['2', '3'] %} {% else %} d-none {% endif %}" id="relation_emp_2">
                             <div class="form-group">
                                 <label for="emp2_relation">Relation with candidate
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp2_relation" id="emp2_relation"
-                                            placeholder="Enter Relation with candidate" oninput="validateName(this)">
+                                            placeholder="Enter Relation with candidate" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp2_relation'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
 
-                        {% if record['section4'] == 'filled' and record['emp2_name']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['emp2_name']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="emp2_name">
@@ -349,35 +373,44 @@
                         </div>
                         {% endif %}
                         <!-- Employee 3 Details -->
-                        <div class="col-md-4 mt-2 d-none" id="name_emp_3">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] == '3' %} {% else %} d-none {% endif %}" id="name_emp_3">
                             <div class="form-group">
                                 <label for="emp3_name">Name of Employee 3
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp3_name" id="emp3_name"
-                                            placeholder="Enter Name of Employee 3" oninput="validateName(this)">
+                                            placeholder="Enter Name of Employee 3" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp3_name'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="position_emp_3">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] == '3' %} {% else %} d-none {% endif %}" id="position_emp_3">
                             <div class="form-group">
                                 <label for="emp3_position">Position of Employee 3
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp3_position" id="emp3_position"
-                                            placeholder="Enter Position of Employee 3" oninput="validateName(this)">
+                                            placeholder="Enter Position of Employee 3" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp3_position'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="relation_emp_3">
+                        <div class="col-md-4 mt-2 {% if record['no_of_gov_employee'] == '3' %} {% else %} d-none {% endif %}" id="relation_emp_3">
                             <div class="form-group">
                                 <label for="emp3_relation">Relation with candidate
                                     <span class="text-danger">*</span>
                                 </label>
                                     <input type="text" class="form-control" name="emp3_relation" id="emp3_relation"
-                                            placeholder="Enter Relation with candidate" oninput="validateName(this)">
+                                            placeholder="Enter Relation with candidate" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['emp3_relation'] }}" 
+                                            {% endif %} oninput="validateName(this)">
                             </div>
                         </div>
 
-                        {% if record['section4'] == 'filled' and record['emp3_name']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['emp3_name']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="emp2_name">
@@ -431,13 +464,16 @@
                                 <label for="account_number">Account Number
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['account_number'] }}</span>
                                 {% else %}
                                 <input type="text" name="account_number" id="account_number" class="form-control"
                                         placeholder="Enter Bank Account Number" maxlength="20"
-                                        oninput="validateAccountNumber()" required>
+                                        oninput="validateAccountNumber()" 
+                                        {% if record['section4'] == 'filled' %}
+                                            value="{{ record['account_number'] }}" 
+                                        {% endif %} required>
                                 {% endif %}
                             </div>
                         </div>
@@ -446,13 +482,16 @@
                                 <label for="account_holder_name">Account Holder Name
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['account_holder_name'] }}</span>
                                 {% else %}
                                 <input type="text" name="account_holder_name" id="account_holder_name"
                                        placeholder="First Middle Surname" class="form-control"
-                                        onchange="validateAccountHolderName()" oninput="validateName(this)" required>
+                                        onchange="validateAccountHolderName()" oninput="validateName(this)"
+                                        {% if record['section4'] == 'filled' %}
+                                            value="{{ record['account_holder_name'] }}" 
+                                        {% endif %} required>
                                 {% endif %}
                             </div>
                         </div>
@@ -463,72 +502,99 @@
                                 <label for="ifsc_code">IFSC Code
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['ifsc_code'] }}</span>
                                 {% else %}
                                     <input type="text" name="ifsc_code" id="ifsc_code" class="form-control"
-                                            placeholder="11 digit Alphanumeric" onchange="validateIFSC()" required>
+                                            placeholder="11 digit Alphanumeric" onchange="validateIFSC()" 
+                                            {% if record['section4'] == 'filled' %}
+                                                value="{{ record['ifsc_code'] }}" 
+                                            {% endif %} required>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="bank_name">Bank Name<span class="text-danger">*</span></label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['bank_name'] }}</span>
                                 {% else %}
                                     <input type="text" name="bank_name" id="bank_name"
-                                        placeholder="Enter IFSC Code" class="form-control" readonly required>
+                                        placeholder="Enter IFSC Code" class="form-control" 
+                                        {% if record['section4'] == 'filled' %}
+                                            value="{{ record['bank_name'] }}" 
+                                        {% endif %} readonly required>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="micr">MICR Code<span class="text-danger">*</span></label>
-                                {% if record['section4'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['micr'] }}</span>
                                 {% else %}
                                     <input type="text" name="micr" id="micr"
-                                        placeholder="Enter IFSC Code" class="form-control" readonly required>
+                                        placeholder="Enter IFSC Code" class="form-control" 
+                                        {% if record['section4'] == 'filled' %}
+                                            value="{{ record['micr'] }}" 
+                                        {% endif %}
+                                        readonly required>
                                 {% endif %}
                             </div>
                         </div>
                      </div>
                  </div>
 
-                {% if record['section4'] == 'filled' %}
 
-                {% else %}
-                   <div class="form-check ms-2" style="padding:2rem;">
-                        <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
-                            <label class="form-check-label" for="verifyDetails">
-                                Please verify that the details entered in the Fourth Section are correct before submitting. You will not be able to make any edits once submitted.
-                            </label>
-
-                        <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
-                            <label class="form-check-label" for="verifyDetailsHindi">
-                                कृपया चौथा विभाग सबमिट करण्यापूर्वी आपली दिलेली माहिती तपासा. एकदा सबमिट केल्यानंतर तुम्ही त्यात बदल करू शकणार नाही.
-                            </label>
-                    </div>
+                {% if record['lock_application_form'] == 'locked' %}
+                <div class="text-center">
+                    <a href="/section5" class="btn btn-primary btn-sm ms-2">Next</a>
+                </div>
+                {% elif record['section4'] == 'filled' %}
+                <div class="text-center">
+                    <a href="/section3" class="btn btn-primary btn-sm ms-2">Previous</a>
+                    <button type="submit" class="btn btn-primary btn-sm ms-2">Update</button>
+                    <a href="/section5" class="btn btn-primary btn-sm ms-2">Next</a>
+                </div>
                 {% endif %}
 
-                <div class="m-0 text-center">
+
+                <div class="m-0 ">
                     {% if record['section4'] == 'filled' %}
-                        <a href="/section3" class="btn btn-primary btn-sm ms-2">Previous</a>
-                        <a href="/section5" class="btn btn-primary btn-sm ms-2">Next</a>
-                    {% else %}
-<!--                        <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields4()">Save and Next</button>-->
-                        {% if not record['section5']|default(None) %}
-                            <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields4()" disabled>Save and Next</button>
                         {% else %}
-                            <a href="/section5" class="btn btn-primary btn-sm ms-2">Next</a>
-                        {% endif %}
+                        <!-- <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields()">Save and Next</button>-->
+                            {% if not record['section4']|default(None) %}
+                                {% else %}
+                                    <a href="/section5" class="btn btn-primary btn-sm ms-2">Next</a>
+                            {% endif %}
+                  </div>
+
+                  <div class="m-0">
+                    <div class="form-check ms-2" style="padding:2rem;">
+                        <input class="form-check-input" type="checkbox" value="" 
+                        id="verifyDetails" required>
+                        <label class="form-check-label" for="verifyDetails">
+                            Please verify that the details entered in the Fourth Section are correct before submitting. You will be able to make changes until you submit Section 5.
+
+                        </label>
+                        <br>
+            
+                        <input class="form-check-input" type="checkbox" value="" 
+                        id="verifyDetailsHindi" required>
+                        <label class="form-check-label" for="verifyDetailsHindi">
+                            कृपया चौथा विभाग सबमिट करण्यापूर्वी आपली दिलेली माहिती तपासा. तुम्ही विभाग ५ सबमिट करेपर्यंत बदल करू शकणार आहात.
+
+                        </label>
+                    </div> 
+                    <div class="text-center">
+                        <a href="/section3" class="btn btn-primary btn-sm ms-2">Previous</a>
+                        <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields4()" disabled>Save and Next</button>
+                    </div>
                     {% endif %}
                 </div>
-
              </form>
 
         </div>

@@ -4,7 +4,7 @@ import os
 from classes.caste import casteController
 from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, make_response, jsonify
-
+import mysql
 
 section4_blueprint = Blueprint('section4', __name__)
 
@@ -36,7 +36,7 @@ def section4_auth(app):
             return redirect(url_for('login_signup.login'))
 
         if session.get('show_flashed_section3', True):  # Retrieve and clear the flag
-            flash('Certificate Details section has been successfully saved.', 'success')
+            flash('Certificate Details section have been successfully saved.', 'success')
             # set the flag to "False" to prevent the flash message from being diaplayed repetitively displayed
             session['show_flashed_section3'] = False
 
@@ -95,72 +95,147 @@ def section4_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        # Check if a record already exists for this user
-        cursor.execute("""
-            SELECT section4 FROM application_page WHERE email = %s
-        """, (email,))
-        record = cursor.fetchone()
-        filled_section4 = record['section4']
-        # Initialize an empty dictionary if no record is found
-        # if record is None:
-        #     record = {}
+        try:
+            # Check if the application form is locked
+            cursor.execute("SELECT lock_application_form FROM application_page WHERE email = %s", (email,))
+            lock_status = cursor.fetchone()
 
-        if request.method == 'POST':
-            salaried = request.form['salaried']
-            disability = request.form['disability']
-            type_of_disability = request.form['type_of_disability']
-            perc_of_disability = request.form['perc_of_disability']
-            father_name = request.form['father_name']
-            mother_name = request.form['mother_name']
-            work_in_government = request.form['work_in_government']
+            if lock_status and lock_status['lock_application_form'] == 'locked':
+                flash("Your application form is locked. You cannot edit this section.", 'warning')
+                return redirect(url_for('section4.section4'))
 
-            no_of_gov_employee = request.form['no_of_gov_employee']
+            if request.method == 'POST':
+                salaried = request.form['salaried']
+                disability = request.form['disability']
+                type_of_disability = request.form['type_of_disability']
+                perc_of_disability = request.form['perc_of_disability']
+                father_name = request.form['father_name']
+                mother_name = request.form['mother_name']
+                work_in_government = request.form['work_in_government']
+                no_of_gov_employee = request.form['no_of_gov_employee']
+                emp1_name = request.form['emp1_name']
+                emp1_position = request.form['emp1_position']
+                emp1_relation = request.form['emp1_relation']
+                emp2_name = request.form['emp2_name']
+                emp2_position = request.form['emp2_position']
+                emp2_relation = request.form['emp2_relation']
+                emp3_name = request.form['emp3_name']
+                emp3_position = request.form['emp3_position']
+                emp3_relation = request.form['emp3_relation']
+                bank_name = request.form['bank_name']
+                account_number = request.form['account_number']
+                ifsc_code = request.form['ifsc_code']
+                account_holder_name = request.form['account_holder_name']
+                micr = request.form['micr']
+                section4 = 'filled'
 
-            emp1_name = request.form['emp1_name']
-            emp1_position = request.form['emp1_position']
-            emp1_relation = request.form['emp1_relation']
-
-            emp2_name = request.form['emp2_name']
-            emp2_position = request.form['emp2_position']
-            emp2_relation = request.form['emp2_relation']
-
-            emp3_name = request.form['emp3_name']
-            emp3_position = request.form['emp3_position']
-            emp3_relation = request.form['emp3_relation']
-
-            bank_name = request.form['bank_name']
-            account_number = request.form['account_number']
-            ifsc_code = request.form['ifsc_code']
-            account_holder_name = request.form['account_holder_name']
-            micr = request.form['micr']
-            section4 = 'filled'
-
-            if filled_section4 != 'filled':
-                # Save the form data to the database
+                # Update the existing record
                 sql = """
                         UPDATE application_page
                         SET
-                            salaried = %s, disability = %s, type_of_disability = %s, disability_percentage= %s,
-                            father_name = %s, mother_name = %s, work_in_government = %s, no_of_gov_employee = %s,
-                            emp1_name =  %s, emp1_position = %s, emp1_relation = %s,
-                            emp2_name =  %s, emp2_position = %s, emp2_relation = %s,
-                            emp3_name =  %s, emp3_position = %s, emp3_relation = %s,
-                            bank_name = %s,account_number = %s,ifsc_code = %s, account_holder_name = %s, micr = %s, section4 = %s
-                        WHERE email = %s
-                    """
+                            salaried = %s, disability = %s, type_of_disability = %s, disability_percentage = %s, father_name = %s, mother_name = %s,
+                            work_in_government = %s, no_of_gov_employee = %s, 
+                            emp1_name = %s, emp1_position = %s, emp1_relation = %s,
+                            emp2_name = %s, emp2_position = %s, emp2_relation = %s, 
+                            emp3_name = %s, emp3_position = %s, emp3_relation = %s,
+                            bank_name = %s, account_number = %s, ifsc_code = %s, account_holder_name = %s, micr = %s,
+                            section4 = %s
+                        WHERE
+                            email = %s
+                        """
                 values = (
-                    salaried, disability, type_of_disability, perc_of_disability,
-                    father_name, mother_name, work_in_government, no_of_gov_employee,
-                    emp1_name, emp1_position, emp1_relation,
+                    salaried, disability, type_of_disability, perc_of_disability, father_name, mother_name, 
+                    work_in_government, no_of_gov_employee, 
+                    emp1_name, emp1_position, emp1_relation, 
                     emp2_name, emp2_position, emp2_relation,
                     emp3_name, emp3_position, emp3_relation,
-                    bank_name, account_number, ifsc_code, account_holder_name, micr, section4, email
+                    bank_name, account_number, ifsc_code, account_holder_name, micr,
+                    section4, email,
                 )
 
                 cursor.execute(sql, values)
                 cnx.commit()
-                session['show_flashed_section4'] = True
+                flash("Bank details updated successfully!", "success")
+                # session['show_flashed_section4'] = True
                 return redirect(url_for('section5.section5'))
-                # Check if the user is approved for fellowship no matter the year to show the desired sidebar.
-        else:
+
+            else:
+                return redirect(url_for('section4.section4'))
+        except mysql.connector.Error as e:
+            flash(f"Database error: {e}", "error")
+            if cnx:
+                cnx.rollback()
             return redirect(url_for('section4.section4'))
+        finally:
+            cursor.close()
+            cnx.close()
+
+        # # Check if a record already exists for this user
+        # cursor.execute("""
+        #     SELECT section4 FROM application_page WHERE email = %s
+        # """, (email,))
+        # record = cursor.fetchone()
+        # filled_section4 = record['section4']
+        # # Initialize an empty dictionary if no record is found
+        # # if record is None:
+        # #     record = {}
+
+        # if request.method == 'POST':
+        #     salaried = request.form['salaried']
+        #     disability = request.form['disability']
+        #     type_of_disability = request.form['type_of_disability']
+        #     perc_of_disability = request.form['perc_of_disability']
+        #     father_name = request.form['father_name']
+        #     mother_name = request.form['mother_name']
+        #     work_in_government = request.form['work_in_government']
+
+        #     no_of_gov_employee = request.form['no_of_gov_employee']
+
+        #     emp1_name = request.form['emp1_name']
+        #     emp1_position = request.form['emp1_position']
+        #     emp1_relation = request.form['emp1_relation']
+
+        #     emp2_name = request.form['emp2_name']
+        #     emp2_position = request.form['emp2_position']
+        #     emp2_relation = request.form['emp2_relation']
+
+        #     emp3_name = request.form['emp3_name']
+        #     emp3_position = request.form['emp3_position']
+        #     emp3_relation = request.form['emp3_relation']
+
+        #     bank_name = request.form['bank_name']
+        #     account_number = request.form['account_number']
+        #     ifsc_code = request.form['ifsc_code']
+        #     account_holder_name = request.form['account_holder_name']
+        #     micr = request.form['micr']
+        #     section4 = 'filled'
+
+        #     if filled_section4 != 'filled':
+        #         # Save the form data to the database
+        #         sql = """
+        #                 UPDATE application_page
+        #                 SET
+        #                     salaried = %s, disability = %s, type_of_disability = %s, disability_percentage= %s,
+        #                     father_name = %s, mother_name = %s, work_in_government = %s, no_of_gov_employee = %s,
+        #                     emp1_name =  %s, emp1_position = %s, emp1_relation = %s,
+        #                     emp2_name =  %s, emp2_position = %s, emp2_relation = %s,
+        #                     emp3_name =  %s, emp3_position = %s, emp3_relation = %s,
+        #                     bank_name = %s,account_number = %s,ifsc_code = %s, account_holder_name = %s, micr = %s, section4 = %s
+        #                 WHERE email = %s
+        #             """
+        #         values = (
+        #             salaried, disability, type_of_disability, perc_of_disability,
+        #             father_name, mother_name, work_in_government, no_of_gov_employee,
+        #             emp1_name, emp1_position, emp1_relation,
+        #             emp2_name, emp2_position, emp2_relation,
+        #             emp3_name, emp3_position, emp3_relation,
+        #             bank_name, account_number, ifsc_code, account_holder_name, micr, section4, email
+        #         )
+
+        #         cursor.execute(sql, values)
+        #         cnx.commit()
+        #         session['show_flashed_section4'] = True
+        #         return redirect(url_for('section5.section5'))
+        #         # Check if the user is approved for fellowship no matter the year to show the desired sidebar.
+        # else:
+        #     return redirect(url_for('section4.section4'))

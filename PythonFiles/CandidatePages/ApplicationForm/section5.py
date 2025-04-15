@@ -145,6 +145,7 @@ def section5_auth(app):
             research_letter_doc = uploaded_files['research_letter_doc']
 
             section5 = 'filled'
+            lock_application_status = 'locked'
 
             if filled_section5 != 'filled':
                 print('No Records just insert')
@@ -159,7 +160,7 @@ def section5_auth(app):
                         guideAllotment_doc = %s, guideAccept_doc = %s, rac_doc = %s, confirmation_doc = %s, 
                         joining_doc = %s, annexureA_doc = %s, annexureB_doc = %s, annexureC_doc = %s, 
                         annexureD_doc = %s, disable_doc = %s, gazete_doc = %s, selfWritten_doc = %s,
-                        research_letter_doc = %s, section5 = %s
+                        research_letter_doc = %s, section5 = %s, lock_application_form  = %s
                     WHERE email = %s
                 """
                 values = (
@@ -167,7 +168,7 @@ def section5_auth(app):
                     ssc_doc, hsc_doc, grad_doc, post_grad_doc, entrance_doc, phd_reciept_doc, guideAllotment_doc,
                     guideAccept_doc, rac_doc, confirmation_doc, joining_doc, annexureA_doc, annexureB_doc, 
                     annexureC_doc, annexureD_doc, disable_doc, gazete_doc, selfWritten_doc, research_letter_doc,
-                    section5, email  # Include `email` to identify the record
+                    section5, lock_application_status, email  # Include `email` to identify the record
                 )
 
                 cursor.execute(sql, values)
@@ -270,7 +271,6 @@ def section5_auth(app):
             current_date = datetime.datetime.now().strftime('%Y-%m-%d')
             current_time = datetime.datetime.now().strftime('%H:%M:%S')
 
-            print(current_date)
             status = 'accepted'
             scrutiny_status = 'accepted'
             final_approval = 'accepted'
@@ -563,7 +563,7 @@ def section5_auth(app):
                 cursor.execute(insert_query, values)
 
             cnx.commit()
-            return flash('Record Inserted Successfully', 'success')
+            return flash('Application form locked and submitted successfully', 'success')
         else:
             error = flash('No record Found', 'error')
             return error

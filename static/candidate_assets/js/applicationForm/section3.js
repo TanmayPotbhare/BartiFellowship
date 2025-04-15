@@ -171,87 +171,208 @@ document.getElementById('validity_issuing_district').addEventListener('change', 
 });
 
 
+// $('#domicile').on('change', function () {
+//     if($(this).val() == 'Yes'){
+//         $('#domicile_number').attr('disabled',false)
+//         $('#domicile_issuing_authority').attr('disabled',false)
+//         $('#domicile_issuing_district').attr('disabled',false)
+//         $('#domicile_issuing_taluka').attr('disabled',false)
+//         $('#domicile_barcode').attr('disabled',false)
+//     }else if($(this).val() == 'No'){
+//         Swal.fire({
+//                 title: "Sorry!",
+//                 text: "Sorry, you cannot apply for the Fellowship. A Domicile Certificate is mandatory.Thank you for your interest.",
+//                 icon: "error"
+//             });
+//         $('#domicile_number').attr('disabled',true)
+//         $('#domicile_issuing_authority').attr('disabled',true)
+//         $('#domicile_issuing_district').attr('disabled',true)
+//         $('#domicile_issuing_taluka').attr('disabled',true)
+//         $('#domicile_barcode').attr('disabled',true)
+//         $('#domicile').val('')
+//         $('#domicile_number').val('')
+//         $('#domicile_issuing_authority').val('')
+//         $('#domicile_issuing_district').val('')
+//         $('#domicile_issuing_taluka').val('')
+//         $('#domicile_barcode').val('')
+//     }
+// })
+
 $('#domicile').on('change', function () {
-    if($(this).val() == 'Yes'){
-        $('#domicile_number').attr('disabled',false)
-        $('#domicile_issuing_authority').attr('disabled',false)
-        $('#domicile_issuing_district').attr('disabled',false)
-        $('#domicile_issuing_taluka').attr('disabled',false)
-        $('#domicile_barcode').attr('disabled',false)
-    }else if($(this).val() == 'No'){
+    if ($(this).val() == 'Yes') {
+        $('#domicile_number').removeClass('disable');
+        $('#domicile_issuing_authority').removeClass('disable');
+        $('#domicile_issuing_district').removeClass('disable');
+        $('#domicile_issuing_taluka').removeClass('disable');
+        $('#domicile_barcode').removeClass('disable');
+         $('#domicile_number').prop('disabled', false);
+        $('#domicile_issuing_authority').prop('disabled', false);
+        $('#domicile_issuing_district').prop('disabled', false);
+        $('#domicile_issuing_taluka').prop('disabled', false);
+        $('#domicile_barcode').prop('disabled', false);
+
+    } else if ($(this).val() == 'No') {
         Swal.fire({
-                title: "Sorry!",
-                text: "Sorry, you cannot apply for the Fellowship. A Domicile Certificate is mandatory.Thank you for your interest.",
-                icon: "error"
-            });
-        $('#domicile_number').attr('disabled',true)
-        $('#domicile_issuing_authority').attr('disabled',true)
-        $('#domicile_issuing_district').attr('disabled',true)
-        $('#domicile_issuing_taluka').attr('disabled',true)
-        $('#domicile_barcode').attr('disabled',true)
-        $('#domicile').val('')
-        $('#domicile_number').val('')
-        $('#domicile_issuing_authority').val('')
-        $('#domicile_issuing_district').val('')
-        $('#domicile_issuing_taluka').val('')
-        $('#domicile_barcode').val('')
+            title: "Sorry!",
+            text: "Sorry, you cannot apply for the Fellowship. A Domicile Certificate is mandatory. Thank you for your interest.",
+            icon: "error"
+        });
+        $('#domicile_number').addClass('disable');
+        $('#domicile_issuing_authority').addClass('disable');
+        $('#domicile_issuing_district').addClass('disable');
+        $('#domicile_issuing_taluka').addClass('disable');
+        $('#domicile_barcode').addClass('disable');
+
+        $('#domicile_number').prop('disabled', true);
+        $('#domicile_issuing_authority').prop('disabled', true);
+        $('#domicile_issuing_district').prop('disabled', true);
+        $('#domicile_issuing_taluka').prop('disabled', true);
+        $('#domicile_barcode').prop('disabled', true);
+
+
+        $('#domicile').val('');
+        $('#domicile_number').val('');
+        $('#domicile_issuing_authority').val('');
+        $('#domicile_issuing_district').val('');
+        $('#domicile_issuing_taluka').val('');
+        $('#domicile_barcode').val('');
     }
-})
+});
+
+
+
+// $('#caste_certf').on('change', function () {
+//     if($(this).val() == 'Yes'){
+//         $('#caste_certf_number').attr('disabled',false)
+//         $('#caste_issuing_authority').attr('disabled',false)
+//         $('#issuing_district').attr('disabled',false)
+//         $('#caste_issuing_taluka').attr('disabled',false)
+//         $('#caste_barcode').attr('disabled',false)
+//     }else if($(this).val() == 'No'){
+//         Swal.fire({
+//                 title: "Sorry!",
+//                 text: "Sorry, you cannot apply for the Fellowship. A Caste/Tribe Certificate is mandatory.Thank you for your interest.",
+//                 icon: "error"
+//             });
+//         $('#caste_certf_number').attr('disabled',true)
+//         $('#caste_issuing_authority').attr('disabled',true)
+//         $('#issuing_district').attr('disabled',true)
+//         $('#caste_issuing_taluka').attr('disabled',true)
+//         $('#caste_barcode').attr('disabled',true)
+
+//         $('#caste_certf').val('')
+//         $('#caste_certf_number').val('')
+//         $('#caste_issuing_authority').val('')
+//         $('#issuing_district').val('')
+//         $('#caste_issuing_taluka').val('')
+//         $('#caste_barcode').val('')
+//     }
+// })
 
 
 
 $('#caste_certf').on('change', function () {
-    if($(this).val() == 'Yes'){
-        $('#caste_certf_number').attr('disabled',false)
-        $('#caste_issuing_authority').attr('disabled',false)
-        $('#issuing_district').attr('disabled',false)
-        $('#caste_issuing_taluka').attr('disabled',false)
-        $('#caste_barcode').attr('disabled',false)
-    }else if($(this).val() == 'No'){
-        Swal.fire({
-                title: "Sorry!",
-                text: "Sorry, you cannot apply for the Fellowship. A Caste/Tribe Certificate is mandatory.Thank you for your interest.",
-                icon: "error"
-            });
-        $('#caste_certf_number').attr('disabled',true)
-        $('#caste_issuing_authority').attr('disabled',true)
-        $('#issuing_district').attr('disabled',true)
-        $('#caste_issuing_taluka').attr('disabled',true)
-        $('#caste_barcode').attr('disabled',true)
+    if ($(this).val() == 'Yes') {
+        $('#caste_certf_number').removeClass('disable');
+        $('#caste_issuing_authority').removeClass('disable');
+        $('#issuing_district').removeClass('disable');
+        $('#caste_issuing_taluka').removeClass('disable');
+        $('#caste_barcode').removeClass('disable');
 
-        $('#caste_certf').val('')
-        $('#caste_certf_number').val('')
-        $('#caste_issuing_authority').val('')
-        $('#issuing_district').val('')
-        $('#caste_issuing_taluka').val('')
-        $('#caste_barcode').val('')
+        $('#caste_certf_number').prop('disabled', false);
+        $('#caste_issuing_authority').prop('disabled', false);
+        $('#issuing_district').prop('disabled', false);
+        $('#caste_issuing_taluka').prop('disabled', false);
+        $('#caste_barcode').prop('disabled', false);
+
+    } else if ($(this).val() == 'No') {
+        Swal.fire({
+            title: "Sorry!",
+            text: "Sorry, you cannot apply for the Fellowship. A Caste/Tribe Certificate is mandatory. Thank you for your interest.",
+            icon: "error"
+        });
+        $('#caste_certf_number').addClass('disable');
+        $('#caste_issuing_authority').addClass('disable');
+        $('#issuing_district').addClass('disable');
+        $('#caste_issuing_taluka').addClass('disable');
+        $('#caste_barcode').addClass('disable');
+
+        $('#caste_certf_number').prop('disabled', true);
+        $('#caste_issuing_authority').prop('disabled', true);
+        $('#issuing_district').prop('disabled', true);
+        $('#caste_issuing_taluka').prop('disabled', true);
+        $('#caste_barcode').prop('disabled', true);
+
+        $('#caste_certf').val('');
+        $('#caste_certf_number').val('');
+        $('#caste_issuing_authority').val('');
+        $('#issuing_district').val('');
+        $('#caste_issuing_taluka').val('');
+        $('#caste_barcode').val('');
     }
-})
+});
+
+
+// $('#validity_certificate').on('change', function () {
+//     if($(this).val() == 'Yes'){
+//         $('#validity_cert_number').attr('disabled',false).prop('required', true);
+//         $('#validity_issuing_authority').attr('disabled',false).prop('required', true);
+//         $('#validity_issuing_district').attr('disabled',false).prop('required', true);
+//         $('#validity_issuing_taluka').attr('disabled',false).prop('required', true);
+//         $('#validity_barcode').attr('disabled',false).prop('required', true);
+
+//     }else if($(this).val() == 'No'){
+//         $('#validity_cert_number').attr('disabled',true).prop('required', false);
+//         $('#validity_issuing_authority').attr('disabled',true).prop('required', false);
+//         $('#validity_issuing_district').attr('disabled',true).prop('required', false);
+//         $('#validity_issuing_taluka').attr('disabled',true).prop('required', false);
+//         $('#validity_barcode').attr('disabled',true).prop('required', false);
+
+//         $('#validity_cert_number').val('')
+//         $('#validity_issuing_authority').val('')
+//         $('#validity_issuing_district').val('')
+//         $('#validity_issuing_taluka').val('')
+//         $('#validity_barcode').val('')
+//     }
+// })
 
 
 
 $('#validity_certificate').on('change', function () {
-    if($(this).val() == 'Yes'){
-        $('#validity_cert_number').attr('disabled',false).prop('required', true);
-        $('#validity_issuing_authority').attr('disabled',false).prop('required', true);
-        $('#validity_issuing_district').attr('disabled',false).prop('required', true);
-        $('#validity_issuing_taluka').attr('disabled',false).prop('required', true);
-        $('#validity_barcode').attr('disabled',false).prop('required', true);
+    if ($(this).val() == 'Yes') {
+        $('#validity_cert_number').removeClass('disable').prop('required', true);
+        $('#validity_issuing_authority').removeClass('disable').prop('required', true);
+        $('#validity_issuing_district').removeClass('disable').prop('required', true);
+        $('#validity_issuing_taluka').removeClass('disable').prop('required', true);
+        $('#validity_barcode').removeClass('disable').prop('required', true);
 
-    }else if($(this).val() == 'No'){
-        $('#validity_cert_number').attr('disabled',true).prop('required', false);
-        $('#validity_issuing_authority').attr('disabled',true).prop('required', false);
-        $('#validity_issuing_district').attr('disabled',true).prop('required', false);
-        $('#validity_issuing_taluka').attr('disabled',true).prop('required', false);
-        $('#validity_barcode').attr('disabled',true).prop('required', false);
+         $('#validity_cert_number').prop('disabled', false);
+        $('#validity_issuing_authority').prop('disabled', false);
+        $('#validity_issuing_district').prop('disabled', false);
+        $('#validity_issuing_taluka').prop('disabled', false);
+        $('#validity_barcode').prop('disabled', false);
 
-        $('#validity_cert_number').val('')
-        $('#validity_issuing_authority').val('')
-        $('#validity_issuing_district').val('')
-        $('#validity_issuing_taluka').val('')
-        $('#validity_barcode').val('')
+    } else if ($(this).val() == 'No') {
+        $('#validity_cert_number').addClass('disable').prop('required', false);
+        $('#validity_issuing_authority').addClass('disable').prop('required', false);
+        $('#validity_issuing_district').addClass('disable').prop('required', false);
+        $('#validity_issuing_taluka').addClass('disable').prop('required', false);
+        $('#validity_barcode').addClass('disable').prop('required', false);
+
+        $('#validity_cert_number').prop('disabled', true);
+        $('#validity_issuing_authority').prop('disabled', true);
+        $('#validity_issuing_district').prop('disabled', true);
+        $('#validity_issuing_taluka').prop('disabled', true);
+        $('#validity_barcode').prop('disabled', true);
+
+        $('#validity_cert_number').val('');
+        $('#validity_issuing_authority').val('');
+        $('#validity_issuing_district').val('');
+        $('#validity_issuing_taluka').val('');
+        $('#validity_barcode').val('');
     }
-})
+});
+
 
 // Function to enable or disable the submit button
 function enableDisabledFields3() {
@@ -389,7 +510,7 @@ function toggleIncomeBarcodefield(select) {
         issueDateField.removeAttribute('required');
         issueDateField.value = ''; // Clear input field
 
-    } else {
+    } else if (select.value === 'No'){
        
         incomeDiv.classList.add('d-none'); // Hide field
         numberField.value = ''; // Clear input field
@@ -400,4 +521,31 @@ function toggleIncomeBarcodefield(select) {
 
     }
 }
-// ----------------------------------------------------
+
+function editDomicileDetails() {
+    $('#domicile_barcode').removeClass('disable').prop('disabled', false);
+    $('#domicile_number').removeClass('disable').prop('disabled', false);
+    $('#domicile_issuing_authority').removeClass('disable').prop('disabled', false);
+    $('#domicile_issuing_district').removeClass('disable').prop('disabled', false);
+    $('#domicile_issuing_taluka').removeClass('disable').prop('disabled', false);
+}
+
+function editCasteDetails() {
+    $('#caste_barcode').removeClass('disable').prop('disabled', false);
+    $('#caste_certf_number').removeClass('disable').prop('disabled', false);
+    $('#caste_issuing_authority').removeClass('disable').prop('disabled', false);
+    $('#issuing_district').removeClass('disable').prop('disabled', false);
+    $('#caste_issuing_taluka').removeClass('disable').prop('disabled', false);
+}
+
+function editValidityDetails() {
+    $('#validity_barcode').removeClass('disable').prop('disabled', false);
+    $('#validity_cert_number').removeClass('disable').prop('disabled', false);
+    $('#validity_issuing_authority').removeClass('disable').prop('disabled', false);
+    $('#validity_issuing_district').removeClass('disable').prop('disabled', false);
+    $('#validity_issuing_taluka').removeClass('disable').prop('disabled', false);
+    $('#validity_certificate').val('');
+}
+
+
+// --------------------1--------------------------------
