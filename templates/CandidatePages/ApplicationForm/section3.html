@@ -2,7 +2,12 @@
 {% block content %}
 
 {% include 'CandidatePages/layout/steps.html' %}
-
+<style>
+    .disable{
+        pointer-events:none;
+        background:rgb(236, 231, 231);
+        }
+</style>
 <div class="container mt-5">
     <!-- Section 1: Personal Details Form -->
     <div class="card">
@@ -22,13 +27,16 @@
                                 <label for="family_annual_income">Family Annual Income
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">₹ {{ record['family_annual_income'] }} (INR)</span>
                                 {% else %}
-                                    <input type="text" name="family_annual_income" id="family_annual_income"
+                                    <input type="text" name="family_annual_income" id="family_annual_income"l
                                        placeholder="Enter your Family Income (Per year)" class="form-control"
-                                        onblur="validateIncome()" maxlength="10" required>
+                                        onblur="validateIncome()" maxlength="10" 
+                                        {% if record['section3'] == 'filled' %}
+                                            value="{{ record['family_annual_income'] }}" 
+                                        {% endif %} required>
                                 {% endif %}
                             </div>
                         </div>
@@ -37,37 +45,41 @@
                                 <label for="income_barcode">Do you have barcode on the certificate?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['income_barcode'] }}</span>
                                 {% else %}
                                 <select class="form-control" name="income_barcode" id="income_barcode" 
                                 onchange="toggleIncomeBarcodefield(this)" required>
                                     <option value="">-- Select Option --</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="Yes" {% if record['income_barcode'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                    <option value="No" {% if record['income_barcode'] == 'No' %}selected{% endif %}>No</option>
                                 </select>
                                 {% endif %}
                             </div>
                         </div>
 
-                        <div class="col-md-4 mt-2 d-none" id="income_number_div">
+                        <div class="col-md-4 mt-2 {% if record['income_barcode'] != 'Yes' %}d-none{% endif %}" id="income_number_div">
                             <div class="form-group">
                                 <label for="income_certificate_number">Income Certificate Number (Barcode)
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['income_certificate_number'] }}</span>
                                 {% else %}
                                     <input type="text" name="income_certificate_number" id="income_certificate_number"
                                        placeholder="Enter Income Cert. Barcode Number" class="form-control"
-                                        oninput="validateIncomeCertificateNumber()" required>
+                                        oninput="validateIncomeCertificateNumber()" 
+                                        {% if record['section3'] == 'filled' %}
+                                            value="{{ record['income_certificate_number'] }}" 
+                                        {% endif %}
+                                        {% if record['income_barcode'] == 'Yes' %} required {% endif %}>
                                 {% endif %}
                             </div>
                         </div>
 
-                        {% if record['section3'] == 'filled' and record['income_certificate_number']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['income_certificate_number']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="income_certificate_number">
@@ -80,21 +92,23 @@
                         </div>
                         {% endif %}
 
-                        <div class="col-md-4 mt-2 d-none" id="income_issue_date_div">
+                        <div class="col-md-4 mt-2 {% if record['income_barcode'] != 'No' %}d-none{% endif %}"  id="income_issue_date_div">
                             <div class="form-group">
                                 <label for="income_barcode_issue_date">Barcode Certificate Issue Date
+                                    <span class="text-danger" {% if record['income_barcode'] == 'No' %} {% endif %}>*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['income_barcode_issue_date'] }}</span>
                                 {% else %}
                                 <input type="date" name="income_barcode_issue_date" id="income_barcode_issue_date"
-                                class="form-control">
+                                class="form-control" value="{{ record['income_barcode_issue_date'] }}"
+                                {% if record['income_barcode'] == 'No' %} required {% endif %}>
                                 {% endif %}
                             </div>
                         </div>
 
-                        {% if record['section3'] == 'filled' and record['income_barcode_issue_date']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['income_barcode_issue_date']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="income_barcode_issue_date">
@@ -113,7 +127,7 @@
                                 <label for="issuing_authority">Issuing Authority
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['issuing_authority'] }}</span>
                                 {% else %}
@@ -127,7 +141,7 @@
                                 <label for="income_issuing_district">Issuing District
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['income_issuing_district'] }}</span>
                                 {% else %}
@@ -135,8 +149,8 @@
                                             id="income_issuing_district" required>
                                         <option value="" selected disabled>-- Select District --</option>
                                         {% for uni in districts %}
-                                            <option data-hidden="{{ uni['district_id'] }}"
-                                                    value="{{ uni['district'] }}">
+                                            <option data-hidden="{{ uni['district_id'] }}" value="{{ uni['district'] }}"
+                                                    {% if record['income_issuing_district'] == uni['district'] %}selected{% endif %}>
                                                 {{ uni['district'] }}
                                             </option>
                                         {% endfor %}
@@ -149,13 +163,16 @@
                                 <label for="income_issuing_taluka">Issuing Taluka
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['income_issuing_taluka'] }}</span>
                                 {% else %}
                                     <select class="form-control" name="income_issuing_taluka" id="income_issuing_taluka"
                                             required>
                                             <option value="">-- Select Taluka --</option>
+                                            {% if record['lock_application_form'] == 'unlocked' and record['section3'] == "filled" %}
+                                            <option value="{{ record['income_issuing_taluka'] }}" selected>{{ record['income_issuing_taluka'] }}</option>
+                                            {% endif %}
                                     </select>
                                 {% endif %}
                             </div>
@@ -167,19 +184,26 @@
                         <h6 class="text-white fw-bold">Domicile Details</h6>
                      </div>
                      <div class="row m-0">
+                        {% if record['section3'] == 'filled' and record['lock_application_form'] != 'lock' %}
+                            <div class="text-center mx-2 mt-2 mb-2">
+                                <button type="button" class="btn btn-primary btn-sm ms-2" onclick="editDomicileDetails()">Edit Domicile Details</button>
+                            </div>
+                        {% endif %}
+                     </div>
+                     <div class="row m-0">
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="domicile">Domicile of Maharashtra Available?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['domicile'] }}</span>
                                 {% else %}
                                     <select class="form-control" name="domicile" id="domicile" required>
                                             <option value="">-- Select Option --</option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
+                                            <option value="Yes"  {% if record['domicile'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                            <option value="No" {% if record['domicile'] == 'No' %}selected{% endif %}>No</option>
                                     </select>
                                 {% endif %}
                             </div>
@@ -189,30 +213,39 @@
                                 <label for="domicile_barcode">Do you have barcode on the certificate?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['domicile_barcode'] }}</span>
                                 {% else %}
-                                <select class="form-control" name="domicile_barcode" id="domicile_barcode" 
-                                onchange="toggleDomicileBarcodefield(this)" disabled required>
+                                <select class="form-control disable " name="domicile_barcode" id="domicile_barcode" 
+                                onchange="toggleDomicileBarcodefield(this)" required >
                                     <option value="">-- Select Option --</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="Yes" {% if record['domicile_barcode'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                    <option value="No" {% if record['domicile_barcode'] == 'No' %}selected{% endif %}>No</option>
                                 </select>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="domicile_num_div">
+                        <div class="col-md-4 mt-2 {% if record['domicile_barcode'] != 'Yes' or record['lock_application_form'] != 'locked' %}d-none{% endif %}" id="domicile_num_div">
                             <div class="form-group">
                                 <label for="domicile_number">Domicile Certificate Number (Barcode)
                                     <span class="text-danger">*</span>
                                 </label>
+                                {% if record['lock_application_form'] == 'locked' %}
+                                    <br>
+                                    <span class="text-dark">{{ record['domicile_number'] }}</span>
+                                {% else %}
+
                                     <input type="text" name="domicile_number" id="domicile_number"
-                                       placeholder="Enter Domicile Cert. Barcode Number" class="form-control"
-                                       oninput="validateDomicileCertificateNumber()" disabled>
+                                       placeholder="Enter Domicile Cert. Barcode Number" class="form-control disable"
+                                       oninput="validateDomicileCertificateNumber()" 
+                                       {% if record['section3'] == 'filled' %}
+                                            value="{{ record['domicile_number'] }}" 
+                                        {% endif %} >
+                                {% endif %}
                             </div>
                         </div>
-                        {% if record['section3'] == 'filled' and record['domicile_number']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['domicile_number']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="domicile_number">
@@ -224,22 +257,25 @@
                             </div>
                         </div>
                         {% endif %}
-                        <div class="col-md-4 mt-2 d-none" id="domicile_isssue_date_div">
+                        <div class="col-md-4 mt-2 {% if record['domicile_barcode'] != 'No' %}d-none{% endif %}" id="domicile_isssue_date_div">
                             <div class="form-group">
                                 <label for="domicile_barcode_issue_date">Certificate Issue Date
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['domicile_barcode_issue_date'] }}</span>
                                 {% else %}
+
                                 <input type="date" name="domicile_barcode_issue_date" id="domicile_barcode_issue_date"
-                                class="form-control">
-                                {% endif %}
+                                class="form-control"  value="{{ record['domicile_barcode_issue_date'] }}"
+                                {% if record['domicile_barcode'] == 'No' %} required {% endif %}>
+                                {% endif %} 
+
                             </div>
                         </div>
 
-                        {% if record['section3'] == 'filled' and record['domicile_barcode_issue_date']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['domicile_barcode_issue_date']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="domicile_barcode_issue_date">
@@ -256,15 +292,15 @@
                                 <label for="domicile_issuing_authority">Domicile Issuing Authority
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['domicile_issuing_authority'] }}</span>
                                 {% else %}
-                                    <select class="form-control" name="domicile_issuing_authority"
-                                        id="domicile_issuing_authority" disabled required>
+                                    <select class="form-control disable" name="domicile_issuing_authority"
+                                        id="domicile_issuing_authority" required>
                                             <option value="">-- Select Option --</option>
-                                            <option value="Sub-Divisional Officer (SDO)">Sub-Divisional Officer (SDO)</option>
-                                            <option value="Tehsildar">Tehsildar</option>
+                                            <option value="Sub-Divisional Officer (SDO)"  {% if record['domicile_issuing_authority'] == 'Sub-Divisional Officer (SDO)' %}selected{% endif %} >Sub-Divisional Officer (SDO)</option>
+                                            <option value="Tehsildar"  {% if record['domicile_issuing_authority'] == 'Tehsildar' %}selected{% endif %}>Tehsildar</option>
                                     </select>
                                 {% endif %}
                             </div>
@@ -274,16 +310,16 @@
                                 <label for="domicile_issuing_district">Issuing District
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['domicile_issuing_district'] }}</span>
                                 {% else %}
-                                    <select class="form-control" name="domicile_issuing_district"
-                                        id="domicile_issuing_district" disabled required>
+                                    <select class="form-control disable" name="domicile_issuing_district"
+                                        id="domicile_issuing_district"  required>
                                             <option value="" selected disabled>-- Select District --</option>
                                         {% for uni in districts %}
-                                            <option data-hidden="{{ uni['district_id'] }}"
-                                                    value="{{ uni['district'] }}">
+                                            <option data-hidden="{{ uni['district_id'] }}" value="{{ uni['district'] }}"
+                                            {% if record['domicile_issuing_district'] == uni['district'] %}selected{% endif %}>
                                                 {{ uni['district'] }}
                                             </option>
                                         {% endfor %}
@@ -296,13 +332,16 @@
                                 <label for="domicile_issuing_taluka">Issuing Taluka
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['domicile_issuing_taluka'] }}</span>
                                 {% else %}
-                                    <select class="form-control" name="domicile_issuing_taluka"
-                                            id="domicile_issuing_taluka" disabled required>
+                                    <select class="form-control disable" name="domicile_issuing_taluka"
+                                            id="domicile_issuing_taluka" required>
                                             <option value="">-- Select Taluka --</option>
+                                            {% if record['lock_application_form'] == 'unlocked' and record['section3'] == "filled" %}
+                                            <option value="{{ record['domicile_issuing_taluka'] }}" selected>{{ record['domicile_issuing_taluka'] }}</option>
+                                            {% endif %}
                                     </select>
                                 {% endif %}
                             </div>
@@ -311,7 +350,14 @@
                  </div>
                  <div class="card shadow-sm mb-4">
                      <div class="btn btn-dark btn-lg text-center">
-                        <h6 class="text-white fw-bold">Caste/Tribe Details</h6>
+                        <h6 class="text-white fw-bold">Caste Details</h6>
+                     </div>
+                     <div class="row m-0">
+                        {% if record['section3'] == 'filled' and record['lock_application_form'] != 'locked' %}
+                            <div class="text-center mx-2 mt-2 mb-2">
+                                <button type="button" class="btn btn-primary btn-sm ms-2" onclick="editCasteDetails()">Edit Caste Details</button>
+                            </div>
+                        {% endif %}
                      </div>
                      <div class="row m-0">
                         <div class="col-md-4 mt-2">
@@ -319,14 +365,14 @@
                                 <label for="caste_certf">Caste Certificate Available?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['caste_certf'] }}</span>
                                 {% else %}
                                     <select class="form-control" name="caste_certf" id="caste_certf" required>
                                             <option value="">-- Select Option --</option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
+                                            <option value="Yes" {% if record['caste_certf'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                            <option value="No" {% if record['caste_certf'] == 'No' %}selected{% endif %}>No</option>
                                     </select>
                                 {% endif %}
                             </div>
@@ -336,35 +382,38 @@
                                 <label for="caste_barcode">Do you have barcode on the certificate?
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['caste_barcode'] }}</span>
                                 {% else %}
-                                <select class="form-control" name="caste_barcode" id="caste_barcode" 
-                                onchange="toggleCasteBarcodefield(this)" disabled required>
+                                <select class="form-control disable" name="caste_barcode" id="caste_barcode" 
+                                onchange="toggleCasteBarcodefield(this)"  required>
                                     <option value="">-- Select Option --</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="Yes" {% if record['caste_barcode'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                    <option value="No" {% if record['caste_barcode'] == 'No' %}selected{% endif %}>No</option>
                                 </select>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="caste_num_div">
+                        <div class="col-md-4 mt-2 {% if record['caste_barcode'] != 'Yes' %}d-none{% endif %}" id="caste_num_div">
                             <div class="form-group">
                                 <label for="caste_certf_number">Caste Certificate Number (Barcode)
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['caste_certf_number'] }}</span>
                                 {% else %}
                                     <input type="text" name="caste_certf_number" id="caste_certf_number"
-                                       placeholder="Enter Caste Cert. Barcode Number" class="form-control"
-                                        oninput="validateCasteCertificateNumber()" disabled required>
+                                       placeholder="Enter Caste Cert. Barcode Number" class="form-control disable"
+                                        oninput="validateCasteCertificateNumber()"
+                                        {% if record['section3'] == 'filled' %}
+                                            value="{{ record['caste_certf_number'] }}" 
+                                        {% endif %} >
                                 {% endif %}
                             </div>
                         </div>
-                        {% if record['section3'] == 'filled' and record['caste_certf_number']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['caste_certf_number']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="caste_certf_number">
@@ -377,22 +426,23 @@
                         </div>
                         {% endif %}
 
-                        <div class="col-md-4 mt-2 d-none" id="caste_issue_date_div">
+                        <div class="col-md-4 mt-2 {% if record['caste_barcode'] != 'No' %}d-none{% endif %}"" id="caste_issue_date_div">
                             <div class="form-group">
                                 <label for="caste_barcode_issue_date">Certificate Issue Date
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['caste_barcode_issue_date'] }}</span>
                                 {% else %}
                                 <input type="date" name="caste_barcode_issue_date" id="caste_barcode_issue_date"
-                                class="form-control">
+                                class="form-control" value="{{ record['caste_barcode_issue_date'] }}"
+                                {% if record['caste_barcode'] == 'No' %} required {% endif %}>
                                 {% endif %}
                             </div>
                         </div>
 
-                        {% if record['section3'] == 'filled' and record['caste_barcode_issue_date']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['caste_barcode_issue_date']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="caste_barcode_issue_date">
@@ -409,15 +459,16 @@
                                 <label for="caste_issuing_authority">Issuing Authority
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['caste_issuing_authority'] }}</span>
                                 {% else %}
-                                    <select class="form-control" name="caste_issuing_authority"
-                                            id="caste_issuing_authority" disabled required>
+                                    <select class="form-control disable" name="caste_issuing_authority"
+                                            id="caste_issuing_authority" required>
                                             <option value="">-- Select Option --</option>
-                                            <option value="Sub-Divisional Officer (SDO)">Sub-Divisional Officer (SDO)</option>
-                                            <option value="Deputy Collector">Deputy Collector</option>
+                                            <option value="Sub-Divisional Officer (SDO)" {% if record['caste_issuing_authority'] == 'Sub-Divisional Officer (SDO)' %}selected{% endif %}>Sub-Divisional Officer (SDO)</option>
+                                            <option value="Deputy Collector" {% if record['caste_issuing_authority'] == 'Deputy Collector' %}selected{% endif %}>Deputy Collector</option>
+                                            <option value="Special Land Acquisition Officer (LAO)" {% if record['caste_issuing_authority'] == 'Special Land Acquisition Officer (LAO)' %}selected{% endif %}>Special Land Acquisition Officer (LAO)</option>
                                     </select>
                                 {% endif %}
                             </div>
@@ -427,16 +478,16 @@
                                 <label for="issuing_district">Issuing District
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['issuing_district'] }}</span>
                                 {% else %}
-                                    <select class="form-control" name="issuing_district"
-                                            id="issuing_district" disabled required>
+                                    <select class="form-control disable" name="issuing_district"
+                                            id="issuing_district" required>
                                             <option value="" selected disabled>-- Select District --</option>
                                         {% for uni in districts %}
-                                            <option data-hidden="{{ uni['district_id'] }}"
-                                                    value="{{ uni['district'] }}">
+                                            <option data-hidden="{{ uni['district_id'] }}" value="{{ uni['district'] }}"
+                                            {% if record['issuing_district'] == uni['district'] %}selected{% endif %}>
                                                 {{ uni['district'] }}
                                             </option>
                                         {% endfor %}
@@ -449,13 +500,16 @@
                                 <label for="caste_issuing_taluka">Issuing Taluka
                                     <span class="text-danger">*</span>
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['caste_issuing_taluka'] }}</span>
                                 {% else %}
-                                    <select class="form-control" name="caste_issuing_taluka"
-                                            id="caste_issuing_taluka" disabled required>
+                                    <select class="form-control disable" name="caste_issuing_taluka"
+                                            id="caste_issuing_taluka" required>
                                             <option value="">-- Select Taluka --</option>
+                                            {% if record['lock_application_form'] == 'unlocked' and record['section3'] == "filled" %}
+                                            <option value="{{ record['caste_issuing_taluka'] }}" selected>{{ record['caste_issuing_taluka'] }}</option>
+                                            {% endif %}
                                     </select>
                                 {% endif %}
                             </div>
@@ -467,19 +521,24 @@
                      <div class="btn btn-dark btn-lg text-center">
                         <h6 class="text-white fw-bold">Validity Details</h6>
                      </div>
+                     {% if record['section3'] == 'filled' and record['lock_application_form'] != 'lock' %}
+                            <div class="text-left mx-2 mt-2 mb-2">
+                                <button type="button" class="btn btn-primary btn-sm ms-2" onclick="editValidityDetails()">Edit Validity Details</button>
+                            </div>
+                        {% endif %}
                      <div class="row m-0">
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="validity_certificate">Validity Certificate Available?
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['validity_certificate'] }}</span>
                                 {% else %}
                                     <select class="form-control" name="validity_certificate" id="validity_certificate" required>
                                             <option value="">-- Select Option --</option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
+                                            <option value="Yes" {% if record['validity_certificate'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                            <option value="No" {% if record['validity_certificate'] == 'No' %}selected{% endif %}>No</option>
                                     </select>
                                 {% endif %}
                             </div>
@@ -488,35 +547,38 @@
                             <div class="form-group">
                                 <label for="validity_barcode">Do you have barcode on the certificate?
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['validity_barcode'] }}</span>
                                 {% else %}
-                                <select class="form-control" name="validity_barcode" id="validity_barcode" 
-                                onchange="toggleValidityBarcodefield(this)" disabled>
+                                <select class="form-control disable" name="validity_barcode" id="validity_barcode" 
+                                onchange="toggleValidityBarcodefield(this)">
                                     <option value="">-- Select Option --</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="Yes" {% if record['validity_barcode'] == 'Yes' %}selected{% endif %}>Yes</option>
+                                    <option value="No" {% if record['validity_barcode'] == 'No' %}selected{% endif %}>No</option>
                                 </select>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-md-4 mt-2 d-none" id="validity_num_div">
+                        <div class="col-md-4 mt-2 {% if record['validity_barcode'] != 'Yes' %}d-none{% endif %}" id="validity_num_div">
                             <div class="form-group">
                                 <label for="validity_cert_number">Validity Certificate Number (Barcode)
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['validity_cert_number'] }}</span>
                                 {% else %}
                                     <input type="text" name="validity_cert_number" id="validity_cert_number"
-                                       placeholder="Enter Validity Cert. Barcode Number" class="form-control"
-                                        oninput="validateValidityCertificateNumber()" minlength="20" disabled>
+                                       placeholder="Enter Validity Cert. Barcode Number" class="form-control disable"
+                                        oninput="validateValidityCertificateNumber()" minlength="20" 
+                                        {% if record['section3'] == 'filled' %}
+                                            value="{{ record['validity_cert_number'] }}" 
+                                        {% endif %} >
                                 {% endif %}
                             </div>
                         </div>
 
-                        {% if record['section3'] == 'filled' and record['validity_cert_number']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['validity_cert_number']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="validity_cert_number">
@@ -529,21 +591,21 @@
                         </div>
                         {% endif %}
 
-                        <div class="col-md-4 mt-2 d-none" id="validity_issue_date_div">
+                        <div class="col-md-4 mt-2 {% if record['validity_barcode'] != 'No' %}d-none{% endif %}"" id="validity_issue_date_div">
                             <div class="form-group">
                                 <label for="validity_barcode_issue_date">Certificate Issue Date
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['validity_barcode_issue_date'] }}</span>
                                 {% else %}
                                 <input type="date" name="validity_barcode_issue_date" id="validity_barcode_issue_date"
-                                class="form-control">
+                                class="form-control" value="{{ record['validity_barcode_issue_date'] }}">
                                 {% endif %}
                             </div>
                         </div>
 
-                        {% if record['section3'] == 'filled' and record['validity_barcode_issue_date']  %}
+                        {% if record['lock_application_form'] == 'locked' and record['validity_barcode_issue_date']  %}
                         <div class="col-md-4 mt-2">
                             <div class="form-group">
                                 <label for="validity_barcode_issue_date">
@@ -561,15 +623,16 @@
                             <div class="form-group">
                                 <label for="validity_issuing_authority">Issuing Authority
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['validity_issuing_authority'] }}</span>
                                 {% else %}
                                     <select name="validity_issuing_authority" id="validity_issuing_authority"
-                                            class="form-control" disabled>
+                                            class="form-control disable">
                                         <option value="" selected>-- Select Authority --</option>
                                         {% for auth in validity %}
-                                            <option value="{{ auth['authority_name'] }}">
+                                            <option value="{{ auth['authority_name'] }}"
+                                            {% if record['validity_issuing_authority'] == auth['authority_name'] %}selected{% endif %}>
                                                 {{ auth['authority_name'] }}
                                             </option>
                                         {% endfor %}
@@ -581,16 +644,16 @@
                             <div class="form-group">
                                 <label for="validity_issuing_district">Issuing District
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['validity_issuing_district'] }}</span>
                                 {% else %}
-                                     <select class="form-control" name="validity_issuing_district"
-                                            id="validity_issuing_district" disabled>
+                                     <select class="form-control disable" name="validity_issuing_district"
+                                            id="validity_issuing_district">
                                             <option value="" selected disabled>-- Select District --</option>
                                         {% for uni in districts %}
-                                            <option data-hidden="{{ uni['district_id'] }}"
-                                                    value="{{ uni['district'] }}">
+                                            <option data-hidden="{{ uni['district_id'] }}" value="{{ uni['district'] }}"
+                                            {% if record['validity_issuing_district'] == uni['district'] %}selected{% endif %}>
                                                 {{ uni['district'] }}
                                             </option>
                                         {% endfor %}
@@ -602,13 +665,16 @@
                             <div class="form-group">
                                 <label for="validity_issuing_taluka">Issuing Taluka
                                 </label>
-                                {% if record['section3'] == 'filled' %}
+                                {% if record['lock_application_form'] == 'locked' %}
                                     <br>
                                     <span class="text-dark">{{ record['validity_issuing_taluka'] }}</span>
                                 {% else %}
-                                     <select class="form-control" name="validity_issuing_taluka"
-                                            id="validity_issuing_taluka" disabled>
-                                            <option value="">-- Select Taluka --</option>
+                                     <select class="form-control disable" name="validity_issuing_taluka"
+                                            id="validity_issuing_taluka">
+                                            <option value="" >-- Select Taluka --</option>
+                                            {% if record['lock_application_form'] == 'unlocked' and record['section3'] == "filled" %}
+                                            <option value="{{ record['validity_issuing_taluka'] }}" selected>{{ record['validity_issuing_taluka'] }}</option>
+                                            {% endif %}
                                     </select>
                                 {% endif %}
                             </div>
@@ -616,34 +682,53 @@
                      </div>
                  </div>
 
-                {% if record['section3'] == 'filled' %}
-                {% else %}
-                   <div class="form-check ms-2" style="padding:2rem;">
-                        <input class="form-check-input" type="checkbox" value="" id="verifyDetails">
-                            <label class="form-check-label" for="verifyDetails">
-                                Please verify that the details entered in the Third Section are correct before submitting. You will not be able to make any edits once submitted.
-                            </label>
-
-                        <input class="form-check-input" type="checkbox" value="" id="verifyDetailsHindi">
-                            <label class="form-check-label" for="verifyDetailsHindi">
-                                कृपया तिसऱ्या विभागातील तपशील सबमिट करण्यापूर्वी योग्य असल्याची खात्री करा. एकदा सबमिट केल्यानंतर, तुम्ही त्यात कोणतेही सुधारणा करू शकणार नाही.
-                            </label>
-                    </div>
+                {% if record['lock_application_form'] == 'locked' %}
+                <div class="text-center">
+                    <a href="/section4" class="btn btn-primary btn-sm ms-2">Next</a>
+                </div>
+                {% elif record['section3'] == 'filled' %}
+                <div class="text-center">
+                    <a href="/section2" class="btn btn-primary btn-sm ms-2">Previous</a>
+                    <button type="submit" class="btn btn-primary btn-sm ms-2">Update</button>
+                    <a href="/section4" class="btn btn-primary btn-sm ms-2">Next</a>
+                </div>
                 {% endif %}
+                
+               
 
-                  <div class="m-0 text-center">
+                  <div class="m-0 ">
                     {% if record['section3'] == 'filled' %}
-                        <a href="/section2" class="btn btn-primary btn-sm ms-2">Previous</a>
-                        <a href="/section4" class="btn btn-primary btn-sm ms-2">Next</a>
                     {% else %}
-<!--                        <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields()">Save and Next</button>-->
-                        {% if not record['section3']|default(None) %}
-                            <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields3()" disabled>Save and Next</button>
-                        {% else %}
-                            <a href="/section4" class="btn btn-primary btn-sm ms-2">Next</a>
-                        {% endif %}
+                    <!-- <button type="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields()">Save and Next</button>-->
+                    {% if not record['section3']|default(None) %}
+                    {% else %}
+                    <a href="/section4" class="btn btn-primary btn-sm ms-2">Next</a>
                     {% endif %}
                   </div>
+
+                  <div class="m-0">
+                    <div class="form-check ms-2" style="padding:2rem;">
+                        <input class="form-check-input" type="checkbox" value="" 
+                        id="verifyDetails" required>
+                        <label class="form-check-label" for="verifyDetails">
+                            Please verify that the details entered in the Third Section are correct before submitting.
+                            You will be able to make changes until you submit Section 5.
+                        </label>
+                        <br>
+            
+                        <input class="form-check-input" type="checkbox" value="" 
+                        id="verifyDetailsHindi" required>
+                        <label class="form-check-label" for="verifyDetailsHindi">
+                            कृपया तिसऱ्या विभागातील तपशील सबमिट करण्यापूर्वी योग्य असल्याची खात्री करा.
+                            तुम्ही विभाग ५ सबमिट करेपर्यंत बदल करू शकणार आहात.
+                        </label>
+                    </div> 
+                    <div class="text-center">
+                        <a href="/section2" class="btn btn-primary btn-sm ms-2">Previous</a>
+                        <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields3()" disabled>Save and Next</button>
+                    </div>
+                    {% endif %}
+                </div>
 
 
              </form>
