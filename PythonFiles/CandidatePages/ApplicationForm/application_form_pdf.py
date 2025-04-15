@@ -52,6 +52,7 @@ def app_pdf_auth(app):
             response = Response(pdf_file.read(), content_type="application/pdf")
             response.headers['Content-Disposition'] = 'inline; filename=Application Form.pdf'
 
+
         return response
 
     def generate_pdf_with_styling(data, filename):
@@ -303,7 +304,6 @@ def app_pdf_auth(app):
             "Domicile Certificate Number": data['domicile_number'],
             "Do you have Caste/Tribe Certificate": data['caste_certf'],
             "Caste | Tribe": data['your_caste'],
-            "Sub Caste/Tribe": data['subcaste'],
             "Caste Certificate Number": data['caste_certf_number'],
             "Caste Certificate Issuing District": data['issuing_district'],
             "Caste Certificate Issuing Authority": data['caste_issuing_authority'],

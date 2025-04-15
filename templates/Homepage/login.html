@@ -98,7 +98,7 @@
                             <div>
                                 <label class="text-slate-800 text-sm font-medium mb-2 block">First Name</label>
                                 <div class="relative flex items-center">
-                                    <input name="first_name" type="text" required
+                                    <input name="first_name" type="text" required id="first_name"
                                         class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
                                         placeholder="Enter first name"  oninput="validateSignupName(this)" maxlength="15"  />
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
@@ -114,7 +114,7 @@
                             <div>
                                 <label class="text-slate-800 text-sm font-medium mb-2 block">Middle Name</label>
                                 <div class="relative flex items-center">
-                                    <input name="middle_name" type="text" required
+                                    <input name="middle_name" type="text" required id="middle_name"
                                         class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
                                         placeholder="Enter middle name"  oninput="validateSignupName(this)" maxlength="15"  />
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
@@ -130,7 +130,7 @@
                             <div>
                                 <label class="text-slate-800 text-sm font-medium mb-2 block">Last Name</label>
                                 <div class="relative flex items-center">
-                                    <input name="last_name" type="text" required
+                                    <input name="last_name" type="text" required id="last_name"
                                         class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
                                         placeholder="Enter last name"  oninput="validateSignupName(this)" maxlength="15"  />
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
@@ -273,12 +273,24 @@
     $(document).ready(function () {
         $('#year').on('change', function () {
             var year = $('#year').val()
+            if (year === '2023' || year === '2024') {
+                Swal.fire({
+                    icon: "info",
+                    title: "Process not started",
+                    text: "Your process has not been started. Please wait for the news to be published by BARTI for BANRF 2023.",
+                });
+                $('#year').val('');
+                $('#first_name').val('');
+                $('#middle_name').val('');
+                $('#last_name').val('');
+                $('#email').val('');
+                $('#mobile_number').val('');
+            }
             if (year === '2021' || year === '2022') {
                 Swal.fire({
                     icon: "info",
                     title: "Old User",
                     text: "Login is already created. Please Login with the registered email ID and Password recieved via email.",
-
                 });
                 $('#year').val('');
                 $('#first_name').val('');
@@ -289,6 +301,7 @@
             }
         })
     })
+
 </script>
 <script src="/static/Homepage/homepage.js"></script>
 {% endblock %}
