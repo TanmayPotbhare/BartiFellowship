@@ -1,178 +1,121 @@
-<!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
 
-  <!-- <div class="footer-newsletter">
-    </div> -->
+<footer class="mt-15">
+  <section id="top_header" class=" py-10 bg-slate-100 px-10">
+      <div class="grid grid-cols-3">
+          <div>
+              <div class="">
+                  <img src="/static/carousel/images/barti-2.png" class="h-15 object-contain">
+                  <h4 class="font-third w-75 leading-5 mt-3 text-sm text-blue-950">
+                    {{ multilingual_content[language]['banrf'] }}
+                  </h4>
 
-  <div class="footer-top">
-    <div class="container">
-      <div class="row gy-4">
-        <div class="col-lg-5 col-md-12 footer-info">
-          <a href="/" class="logo d-flex align-items-center">
-            <!-- <img src="/static/assets/img/fellow_logo_1.png" class="fellow-logo" alt="Fellowship Logo"> -->
-            <span class="text-theme footer-header">{{ multilingual_content[language]['fellowship'] }}</span>
-          </a>
-          <!-- <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies
-              darta donna mare fermentum iaculis eu non diam phasellus.</p> -->
-          <div class="social-links mt-5">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                  <p class="text-sky-600 font-third text-xs mt-5 w-8/10">
+                    {{ multilingual_content[language]['address_text'] }}
+                      
+                  </p>
+              </div>
           </div>
-        </div>
+          <div class="col-span-2">
+              <div class="grid grid-cols-3">
 
-        <div class="col-lg-2 col-6 footer-links">
-          <h4 class="text-theme-sec footer-subtitle">{{ multilingual_content[language]['related_links'] }}</h4>
-          <ul>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="https://www.barti.in/tender"  target="_blank">{{
-                multilingual_content[language]['national_portal_of_india'] }}</a></li>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="https://www.barti.in/"  target="_blank">{{
-                multilingual_content[language]['tribal_development_department'] }}</a></li>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="https://www.barti.in/barti/contact-us"  target="_blank">{{
-                multilingual_content[language]['tribal_commissionerate'] }}</a></li>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="https://www.barti.in/barti/careers"  target="_blank">{{
-                multilingual_content[language]['aaple_sarkar'] }}</a>
-            </li>
-          </ul>
-        </div>
 
-        <div class="col-lg-2 col-6 footer-links">
-          <h4 class="text-theme-sec footer-subtitle">{{ multilingual_content[language]['security_brands'] }}</h4>
-          <ul>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="/t_and_c">{{
-                multilingual_content[language]['terms_and_conditions'] }}</a></li>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="/privacy_policy">{{
-                multilingual_content[language]['privacy_policy'] }}</a></li>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="/copyright_policy">{{
-                multilingual_content[language]['copyright_policy'] }}</a></li>
-            <li class="footer-link"><i class="bi bi-chevron-right"></i> <a href="/wmp_policy">{{
-                multilingual_content[language]['website_monitoring_policy'] }}</a></li>
-          </ul>
-        </div>
+                  <div>
+                      <h4 class="font-primary font-bold text-blue-950">
+                          {{ multilingual_content[language]['related_links'] }}
+                      </h4>
+                      <ul class="mt-5 pl-1">
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['national_portal_of_india'] }}
+                              </a>
+                          </li>
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['forms'] }}
+                              </a>
+                          </li>
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['contact_us'] }}
+                              </a>
+                          </li>
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['careers'] }}
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
 
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4 class="text-theme-sec footer-subtitle">{{ multilingual_content[language]['contact_us'] }}</h4>
-          <p class="text-theme-sec footer-link">
-           <span class="fw-bold"> {{ multilingual_content[language]['address'] }} : </span>
-            {{ multilingual_content[language]['address_text'] }}  <br><br>
-            <strong>{{ multilingual_content[language]['phone'] }}:</strong> 020-26333330, 26333339, 26343600<br>
-            <strong>{{ multilingual_content[language]['email'] }}:</strong> helpdesk@barti.in<br>
-          </p>
+                  <div>
+                      <h4 class="font-primary font-bold text-blue-950">
+                        {{ multilingual_content[language]['security_brands'] }}
+                      </h4>
+                      <ul class="mt-5 pl-1">
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['terms_and_conditions'] }}
+                              </a>
+                          </li>
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['privacy_policy'] }}
+                              </a>
+                          </li>
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['copyright_policy'] }}
+                              </a>
+                          </li>
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                {{
+                                  multilingual_content[language]['website_monitoring_policy'] }}
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
 
-        </div>
-
+                  <div>
+                      <h4 class="font-primary font-bold text-blue-950">
+                        {{ multilingual_content[language]['contact_us'] }}
+                      </h4>
+                      <ul class="mt-5 pl-1">
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <span class="material-symbols-outlined !text-base">
+                                  phone_in_talk
+                              </span>
+                              020-26333330, 26333339, 26343600
+                          </li>
+                          <li class="font-third text-sky-600 text-sm my-2">
+                              <span class="material-symbols-outlined !text-base">
+                                  mail
+                              </span>
+                              helpdesk@barti.in
+                          </li>
+                          <!-- <li class="font-third text-sky-600 text-sm my-2">
+                              <a href="">
+                                  Copyright Policy
+                              </a>
+                              <a href="">
+                                  Copyright Policy
+                              </a>
+                          </li> -->
+                      </ul>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-  </div>
 
-  <div class="container">
-    <div class="copyright text-white copyrightlink">
-      {{ multilingual_content[language]['footer_text'] }}
-    </div>
-  </div>
-</footer><!-- End Footer -->
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-    class="bi bi-arrow-up-short"></i></a>
-
-<!-- Vendor JS Files -->
-<script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="/static/assets/vendor/aos/aos.js"></script>
-<script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="/static/assets/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/static/assets/js/main.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // Get the current page's
-    var currentPageURL = window.location.href;
-    var lastPathSegment = currentPageURL.substr(currentPageURL.lastIndexOf('/') + 1);
-    // Loop through the menu items and compare their href attributes to the current URL
-    $('#navbar li a').each(function () {
-      var menuItemURL = $(this).attr('href');
-      if (currentPageURL.includes(menuItemURL) && menuItemURL != '/') {
-        // If the current URL includes the menu item's URL, add the 'active' class
-        $(this).closest('li a').addClass('active');
-      } else if (lastPathSegment == '') {
-        $(this).closest('.home_active').addClass('active');
-      }
-    });
-  });
-</script>
-
-    <!-- For Login Page -->
-    <script>
-        $(document).ready(function () {
-            $('#year').on('change',function(){
-                var year=$('#year').val()
-                if (year === '2021' || year === '2022') {
-                          Swal.fire({
-                            icon: "info",
-                            title: "Old User",
-                            text: "Login is already created. Please Login with the registered email ID and Password recieved via email.",
-
-                          });
-                            $('#year').val('');
-                            $('#first_name').val('');
-                            $('#middle_name').val('');
-                            $('#last_name').val('');
-                            $('#email').val('');
-                            $('#mobile_number').val('');
-                }
-            })
-        })
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#signup_wrapper').hide()
-            // Get the current page's URL
-            var currentPageURL = window.location.href;
-
-            // Loop through the menu items and compare their href attributes to the current URL
-            $('#navbar li a').each(function () {
-                var menuItemURL = $(this).attr('href');
-                if (currentPageURL.includes(menuItemURL)) {
-                    // If the current URL includes the menu item's URL, add the 'active' class
-                    $(this).closest('li a').addClass('active');
-                }
-            });
-
-            $('#signup').on('click', function () {
-                $('#login_wrapper').animate({
-                    opacity: 0, // Target opacity value (0 to 1 for fading in)
-                    top: '0', // Target left position (e.g., 100px from the left)
-                    // width: '0px', // Target width (e.g., 200px)
-                }, 1000, function () {
-                    $('#login_wrapper').hide()
-                    $('#signup_wrapper').show().animate({
-                        opacity: 1, // Target opacity value (0 to 1 for fading in)
-                        top: '0',
-                        // width: '80%',
-                    }, 1100);
-                });
-            })
-            $('#login_switch').on('click', function () {
-                $('#signup_wrapper').animate({
-                    opacity: 0, // Target opacity value (0 to 1 for fading in)
-                    // width: '0',
-                }, 1500, function () {
-                    $('#signup_wrapper').hide()
-                    $('#login_wrapper').show().animate({
-                        opacity: 1, // Target opacity value (0 to 1 for fading in)
-                        bottom: '0',
-                        // width: '80%',
-                    }, 1000);
-                });
-            })
-
-        });
-
-    </script>
-<script src="/static/admin_assets/js/jquery.jfontsize-1.0.js"></script>
+  </section>
+  <section id="copyright" class="py-2 bg-sky-600 px-10">
+      <h4 class="font-third text-white text-sm">{{ multilingual_content[language]['footer_text'] }}</h4>
+  </section>
+</footer>
