@@ -1,186 +1,294 @@
 {% extends "Homepage/layout/layout.html" %}
 
 {% block content %}
+<div class="breadcrumbs px-10 my-5 font-third">
+    <ol class="flex items-center">
+        <li class="mx-2"><a href="/" cla>{{multilingual_content[language]['home']}}</a></li>
+        <li class="text-black mx-2">
+            <span class="material-symbols-outlined !text-gray-500 !text-base">
+                arrow_forward
+            </span>
+        </li>
+        <li class="text-black mx-2">{{multilingual_content[language]['login_sign_btn']}}</li>
+    </ol>
+</div>
 
-
-    <main id="main">
-
-        <!-- ======= Breadcrumbs ======= -->
-        <section class="breadcrumbs">
-            <div class="container">
-
-                <ol>
-                    <li><a href="index">Home</a></li>
-                    <li>Login | Signup</li>
-                </ol>
-                <h2>Login | Signup</h2>
-
-            </div>
-        </section><!-- End Breadcrumbs -->
-
-        <section class="inner-page container-fluid">
-            <div class="card col-md-10 m-auto shadow p-5 border-0 overflow-hidden" id="login_wrapper">
-                <div class="card-body">
-<!--                    <div class="col-md-6 d-flex align-items-center">-->
-<!--                        <a href="static/notice.pdf" target="_blank"><span class="fw-bold text-warning" style="font-size:30px">Application for STRF closed as of 31st May.</span></a>-->
-<!--                    </div>-->
-                    <div class="row">
-                        <div class="col-md-6 d-flex align-items-center">
-<!--                             <div class="text-white fw-bold">सन 2023-24 च्या संशोधक विद्यार्थ्याने अर्ज करण्याकरिता प्रथमतः येथे sign up करावे  <i class="bi bi-arrow-right f-arrow-right"></i></div>-->
+<div class="min-h-screen flex w-full items-center justify-center">
+    <div class="py-6 flex-1">
+        <div class=" ">
+            <div class="relative  min-h-screen w-1/2 mx-auto h-full">
+                <div
+                    class="border border-slate-300 rounded-lg p-6 shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto transition-all duration-600 w-3/5 mx-auto  sign_in_page  top-0 left-50 absolute ">
+                    <form class="space-y-6" action="/login" method="POST">
+                        <div class="mb-12">
+                            <h3 class="text-slate-900 text-3xl font-semibold">Sign in</h3>
+                            <p class="text-slate-500 text-sm mt-6 leading-relaxed">Sign in to your account.</p>
                         </div>
-                        <div class="col-md-6 login-form-bg">
-                            <div class="col-md-12 mt-5 position-relative d-flex align-items-center justify-content-around">
-                                <form action="/login" class="login form-index p-2" method="POST" autocomplete="off">
-                                    <h2 class="login_logo_name text-center">User Login</h2>
-                                    <div class="form-group row">
-                                        <div class="col-md-12 mb-3">
-                                            <label class="text-white">Email</label><span class="text-danger">*</span>
-                                            <input type="text" name="email" class="form-control login-input"
-                                                autocomplete="off" placeholder="Email Address" required="">
-                                        </div>
-                                        <div class="col-md-12 mb-3">
-                                            <label class="text-white">Password</label><span class="text-danger">*</span>
-                                            <input type="password" class="form-control login-input" name="password"
-                                                autocomplete="off" id="passwordInput"  placeholder="Password" required="">
-                                        </div>
-                                    </div>
-                                    <div class=" justify-content-md-between mb-3 text-center">
-                                        <div class="pass-link text-end">
-                                                <a href="#" title="forget-password" class="text-white" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot password?</a>
-                                        </div>
 
-                                    </div>
-
-                                    <p style="color: white;">
-                                        {% if error %}
-                                        <strong>{{ error }}</strong>
-                                        {% endif %}
-                                    </p>
-                                   <!-- <div class="form-group">
-                                        <div class="form-group col-sm-6 flex-column d-flex">
-                                          <img src="../static/Images/captcha/user_captcha.png" width="100px" height="50px"  alt=""> </div>
-                                        <div class="form-group col-sm-6 flex-column d-flex">
-                                           <label class="form-control-label px-3"><span class="text-danger"></span></label>
-                                          <input type="text" id="capt" placeholder="Enter Captcha here" name="inserted_login_captcha" onblur="validate(4)">
-                                        </div>
-                                        <div class="form-group">
-                                            <a href="/refresh_login_captcha" id="refreshCaptcha">Refresh Captcha</a>
-                                        </div>
-                                     </div>
-                                     ... -->
-                                    <div class="text-center">
-                                        <button type="submit" id="togglePasswordVisibility" class="btn btn-login text-white">Login</button>
-                                        <button type="button" class="btn bg-new-theme-dark theme-shadow text-white"
-                                            id="signup">Sign up</button>
-                                    </div>
-                                </form>
-
+                        <div>
+                            <label class="text-slate-800 text-sm font-medium mb-2 block">Email</label>
+                            <div class="relative flex items-center">
+                                <input name="email" type="email" required
+                                    class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                    placeholder="Enter email" />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
+                                    class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
+                                    <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+                                    <path
+                                        d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
+                                        data-original="#000000"></path>
+                                </svg>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-
-            <div class="card shadow p-3 mt-5 border-0 col-md-10 m-auto overflow-hidden" id="signup_wrapper">
-                <div class="card-body">
-                    <div class="row">
-
-                        <div class="col-md-8">
-                            <div class="col-md-12 login-form-bg p-5">
-                                <form action="/signup" class="signup_form" method="POST" autocomplete="off">
-                                    <h2 class="login_logo_name text-center">Sign Up</h2>
-                                    <div class="form-group row col-md-10 m-auto">
-                                        <div class="col-md-4 mb-3">
-                                            <label class="text-white">First Name</label><span class="text-danger">*</span>
-                                            <input type="text" class="form-control login-input" name="first_name" id="first_name"
-                                                placeholder="First Name" oninput="validateSignupName(this)" maxlength="15" required="">
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label class="text-white">Middle Name</label><span class="text-danger">*</span>
-                                            <input type="text" class="form-control login-input" name="middle_name" id="middle_name"
-                                                placeholder="Middle Name" oninput="validateSignupName(this)" maxlength="15" required="">
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label class="text-white">Last Name</label><span class="text-danger">*</span>
-                                            <input type="text" class="form-control login-input" name="last_name" id="last_name"
-                                                placeholder="Last Name" oninput="validateSignupName(this)" maxlength="15" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row col-md-10 m-auto">
-                                        <div class="col-md-6 mb-3">
-                                            <label class="text-white">Email</label><span class="text-danger">*</span>
-                                            <input type="text" class="form-control login-input" name="email" id="email"
-                                                placeholder="Email Address" required="" onblur="validateEmailInput(this)">
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label class="text-white">Registration year</label><span class="text-danger">*</span>
-                                            <select name="year" id="year" class="form-control login-input" required>
-                                                <option value="">--- Select Registration Year ---</option>
-                                                {% if value in ['2021', '2022'] %}
-                                                    <option value="2021" disabled>BANRF - 2021</option>
-                                                    <option value="2022" disabled>BANRF - 2022</option>
-                                                    {# Display an error message or any other logic here #}
-                                                {% else %}
-                                                    <option value="2021">BANRF - 2021</option>
-                                                    <option value="2022">BANRF - 2022</option>
-                                                {% endif %}
-                                                <option value="2023">BANRF - 2023</option>
-                                                <option value="2024">BANRF - 2024</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label class="text-white">Mobile Number</label><span class="text-danger">*</span>
-                                            <input type="text" class="form-control login-input" name="mobile_number"
-                                                placeholder="Mobile Number" onchange="validateMobileNumber(this)"
-                                                minlength="10" maxlength="10" id="mobile_number" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row col-md-10 m-auto">
-                                        <div class="col-md-6 mb-3">
-                                            <label class="text-white">Password</label><span class="text-danger">*</span>
-                                            <input type="password" class="form-control login-input" name="signup_password" id="password" 
-                                                placeholder="Password" required="" onblur="validatePasswords()"/>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label class="text-white">Confirm Password</label><span class="text-danger">*</span>
-                                            <input type="password" class="form-control login-input"
-                                                name="confirm_password" id="confirm_password"
-                                                placeholder="Confirm password" required="" onblur="validatePasswords()"/>
-                                        </div>
-                                        <p style="color: white;">
-                                        {% if error %}
-                                        <strong>{{ error }}</strong>
-                                        {% endif %}
-                                        </p>
-                                        <div>
-                                            <button type="submit" class="btn bg-new-theme-dark theme-shadow text-white">
-                                                Signup </button>
-                                            <button type="button" id="login_switch"
-                                                class="btn btn-login text-white">Login</button>
-                                        </div>
-                                    </div>
-                                </form>
-
+                        <div>
+                            <label class="text-slate-800 text-sm font-medium mb-2 block">Password</label>
+                            <div class="relative flex items-center">
+                                <input name="password" type="password" required
+                                    class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                    placeholder="Enter password" />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
+                                    class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
+                                    <path
+                                        d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
+                                        data-original="#000000"></path>
+                                </svg>
                             </div>
                         </div>
-                        <div class="col-md-6 d-flex align-items-end justify-content-center flex-column">
+
+                        <div class="flex flex-wrap items-center justify-end gap-4">
+                            <!-- <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox"
+                            class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" />
+                        <label for="remember-me" class="ml-3 block text-sm text-slate-500">
+                            Remember me
+                        </label>
+                    </div> -->
+
+                            <div class="text-sm">
+                                <a href="jajvascript:void(0);" class="text-blue-600 hover:underline font-medium">
+                                    Forgot your password?
+                                </a>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="!mt-12">
+                            <button type="submit"
+                                class="w-full shadow-xl py-2.5 px-4 text-[15px] font-medium tracking-wide rounded-lg text-white bg-sky-600 hover:bg-sky-700 focus:outline-none transition-all duration-300">
+                                Sign in
+                            </button>
+                            <p class="text-sm !mt-6 text-center text-slate-500">Don't have an account <a
+                                    href="javascript:void(0);"
+                                    class="text-blue-600 font-medium hover:underline ml-1 whitespace-nowrap show_register_page">Register
+                                    here</a></p>
+                        </div>
+                    </form>
                 </div>
-                <p class="text-white text-center p-2">
-                    If you encounter any queries, please contact on the given email with your login Email ID, Your Issue, & the Image related to problem you are facing -
-                    <strong>helpdesk@trti-maha.in</strong>
-                </p>
+
+                <!-- Register User Design -->
+                <div
+                    class="border border-slate-300 rounded-lg p-6  shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto w-full bg-white invisible register_page opacity-0 transition-all duration-600 absolute top-0 translate-x-full">
+                    <form class="space-y-6" action="/signup" method="POST" autocomplete="off">
+                        <div class="mb-12">
+                            <h3 class="text-slate-900 text-3xl font-semibold">Register Page</h3>
+                            <p class="text-slate-500 text-sm mt-6 leading-relaxed"></p>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4">
+
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">First Name</label>
+                                <div class="relative flex items-center">
+                                    <input name="first_name" type="text" required
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        placeholder="Enter first name"  oninput="validateSignupName(this)" maxlength="15"  />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
+                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
+                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+                                        <path
+                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
+                                            data-original="#000000"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">Middle Name</label>
+                                <div class="relative flex items-center">
+                                    <input name="middle_name" type="text" required
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        placeholder="Enter middle name"  oninput="validateSignupName(this)" maxlength="15"  />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
+                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
+                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+                                        <path
+                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
+                                            data-original="#000000"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">Last Name</label>
+                                <div class="relative flex items-center">
+                                    <input name="last_name" type="text" required
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        placeholder="Enter last name"  oninput="validateSignupName(this)" maxlength="15"  />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
+                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
+                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+                                        <path
+                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
+                                            data-original="#000000"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">Email</label>
+                                <div class="relative flex items-center">
+                                    <input name="email" type="text" required
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        placeholder="Enter email"  onblur="validateEmailInput(this)" />
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
+                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
+                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+                                        <path
+                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
+                                            data-original="#000000"></path> -->
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">Registration year</label>
+                                <div class="relative flex items-center">
+                                    <select name="year" id="year"
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        required="">
+                                        <option value="">--- Select Registration Year ---</option>
+                                        <option value="2021">BANRF - 2021</option>
+                                        <option value="2022">BANRF - 2022</option>
+                                        <option value="2023">BANRF - 2023</option>
+                                        <option value="2024">BANRF - 2024</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">Mobile Number</label>
+                                <div class="relative flex items-center">
+                                    <input name="mobile_number" type="text" required
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        placeholder="Enter Mobile Number"  onchange="validateMobileNumber(this)" minlength="10" maxlength="10" id="mobile_number" />
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">Password</label>
+                                <div class="relative flex items-center">
+                                    <input name="signup_password" type="password" required
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        placeholder="Enter Password" id="password" onblur="validatePasswords()"  />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-slate-800 text-sm font-medium mb-2 block">Confirm Password</label>
+                                <div class="relative flex items-center">
+                                    <input name="confirm_password" type="password" required
+                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                                        placeholder="Confirm Password" id="confirm_password" onblur="validatePasswords()" />
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="!mt-12">
+                            <button type="submit"
+                                class="w-full shadow-xl py-2.5 px-4 text-[15px] font-medium tracking-wide rounded-lg text-white bg-sky-600 hover:bg-sky-700 focus:outline-none transition-all duration-300">
+                                Register
+                            </button>
+                            <p class="text-sm !mt-6 text-center text-slate-500">Already have an account <a
+                                    href="javascript:void(0);"
+                                    class="text-blue-600 font-medium hover:underline ml-1 whitespace-nowrap show_sign_in_page">Sign
+                                    In</a></p>
+                        </div>
+                        <p>
+                            If you encounter any queries, please contact on the given email with your login Email ID, Your Issue, & the Image related to problem you are facing - <span class="text-blue-600">bartfellowship2023@gmail.com</span>
+                        </p>
+                    </form>
+                </div>
             </div>
-            <!-- <img src="assets/img/circle-image.svg" alt="warli" class="warli-login"> -->
-        </section>
-    </main><!-- End #main -->
+        </div>
+    </div>
+</div>
 
+<script>
+    $(document).on('click', '.show_register_page', function () {
+        // $('.register_page').removeClass('translate-x-full')
+        $('.register_page').removeClass('invisible')
+        // $('.register_page').removeClass('absolute')
+        // $('.sign_in_page').addClass('absolute')
+        $('.sign_in_page').addClass('-translate-x-full')
+        setTimeout(() => {
+            $('.register_page').addClass('opacity-100')
+            $('.register_page').removeClass('opacity-0')
+            $('.register_page').removeClass('translate-x-full')
+            $('.sign_in_page').addClass('invisible')
+            $('.sign_in_page').addClass('opacity-0')
 
+        }, 600)
+    })
+    $(document).on('click', '.show_sign_in_page', function () {
+        // $('.register_page').removeClass('translate-x-full')
+        $('.register_page').addClass('invisible')
+        // $('.register_page').removeClass('absolute')
+        // $('.sign_in_page').addClass('absolute')
+        $('.register_page').addClass('translate-x-full')
+
+        setTimeout(() => {
+            $('.register_page').removeClass('opacity-100')
+            $('.register_page').addClass('opacity-0')
+            $('.sign_in_page').removeClass('-translate-x-full')
+            $('.sign_in_page').removeClass('invisible')
+            $('.sign_in_page').addClass('opacity-100')
+            $('.sign_in_page').removeClass('opacity-0')
+
+        }, 600)
+    })
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#year').on('change', function () {
+            var year = $('#year').val()
+            if (year === '2021' || year === '2022') {
+                Swal.fire({
+                    icon: "info",
+                    title: "Old User",
+                    text: "Login is already created. Please Login with the registered email ID and Password recieved via email.",
+
+                });
+                $('#year').val('');
+                $('#first_name').val('');
+                $('#middle_name').val('');
+                $('#last_name').val('');
+                $('#email').val('');
+                $('#mobile_number').val('');
+            }
+        })
+    })
+</script>
+<script src="/static/Homepage/homepage.js"></script>
 {% endblock %}
-
-
-
