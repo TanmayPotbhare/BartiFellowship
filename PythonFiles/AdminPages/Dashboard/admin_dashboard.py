@@ -177,13 +177,12 @@ def admin_dashboard_auth(app):
             'rejected_appl_count': rejected_applications(year),
             'male_count': male_applications(year),
             'female_count': female_applications(year),
-            'pvtg_applications': pvtg_applications(),
             'disabled_count': disabled_applications(year),
             'not_disabled_count': notdisabled_applications(year)
         }
 
-        katkari, kolam, madia = get_individual_counts_pvtg()  # Use the function you created earlier
-        counts = {'katkari': katkari, 'kolam': kolam, 'madia': madia}
+        # katkari, kolam, madia = get_individual_counts_pvtg()  # Use the function you created earlier
+        # counts = {'katkari': katkari, 'kolam': kolam, 'madia': madia}
 
         science, arts, commerce, other = get_individual_counts_faculty(year)  # Use the function you created earlier
         faculty_counts = {'science': science, 'arts': arts, 'commerce': commerce, 'other': other}
@@ -209,10 +208,8 @@ def admin_dashboard_auth(app):
             surname = result['surname']
             username = first_name + ' ' + surname
 
-        return render_template('AdminPages/admin_dashboard.html', data=data, counts=counts,
-                               faculty_counts=faculty_counts, username=username, 
-                               admin_year=admin_year,year_selected=year_selected,admin_username=admin_username,
-                               years=years)
+        return render_template('AdminPages/admin_dashboard.html', data=data, faculty_counts=faculty_counts, username=username, 
+                               admin_year=admin_year,year_selected=year_selected,admin_username=admin_username, years=years)
 
     # END Admin Dashboard
     # ----------------------------------------------------------------
