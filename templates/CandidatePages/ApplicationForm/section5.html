@@ -46,7 +46,7 @@
                                             <i class="mdi mdi-eye"></i>
                                           </a>
                                         {% else %}
-                                          <span class="text-danger">No document added</span>
+                                          <span id="no_doc_msg_signature" class="text-danger">No document added</span>
                                         {% endif %}
                                       </td>
                                   
@@ -64,7 +64,7 @@
                                               <i class="mdi mdi-eye"></i>
                                             </a>
                                           {% else %}
-                                            <span class="text-danger me-2">No document added</span>
+                                            <span id="no_doc_msg_signature" class="text-danger me-2">No document added</span>
                                           {% endif %}
                                   
                                           <!-- Optional replacement (not required) -->
@@ -72,6 +72,7 @@
                                                  name="signature"
                                                  id="signature"
                                                  class="form-control accept_img ms-2"
+                                                 {% if record['signature'] == '' %}required{% endif %}
                                                  onchange="toggleViewImageButton(this, 'view_signature_btn')">
                                   
                                           <button id="view_signature_btn"
@@ -155,6 +156,7 @@
                                                        name="adhaar_card_doc"
                                                        id="adhaar_card_doc"
                                                        class="form-control accept_pdf ms-2"
+                                                       {% if record['adhaar_card_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_adhaar_btn')">
                                 
                                                 <button id="view_adhaar_btn"
@@ -236,6 +238,7 @@
                                                        name="pan_card_doc"
                                                        id="pan_card_doc"
                                                        class="form-control accept_pdf ms-2"
+                                                       {% if record['pan_card_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_PAN_btn')">
                                 
                                                 <button id="view_PAN_btn"
@@ -315,6 +318,7 @@
                                                     name="domicile_doc"
                                                     id="domicile_doc"
                                                     class="form-control accept_pdf ms-2"
+                                                    {% if record['domicile_doc'] == '' %}required{% endif %}
                                                     onchange="toggleViewDocumentButton(this, 'view_domicile_btn')">
 
                                                 <button id="view_domicile_btn"
@@ -395,7 +399,9 @@
                                                 <input type="file"
                                                        name="caste_doc"
                                                        id="caste_doc"
+                                                       {% if record['caste_doc'] == '' %}required{% endif %}
                                                        class="form-control accept_pdf ms-2"
+                                                       
                                                        onchange="toggleViewDocumentButton(this, 'view_caste_btn')">
                                 
                                                 <button id="view_caste_btn"
@@ -477,7 +483,7 @@
                                                        name="validity_doc"
                                                        id="validity_doc"
                                                        class="form-control accept_pdf ms-2"
-                                                       {% if record['validity_certificate'] == 'Yes' %}required{% endif %}
+                                                       {% if record['validity_certificate'] == 'Yes' and record['validity_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_validity_btn')">
                                 
                                                 <button id="view_validity_btn"
@@ -641,7 +647,8 @@
                                                     <span class="text-danger me-2">No document added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="ssc_doc" id="ssc_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="ssc_doc" id="ssc_doc" class="form-control accept_pdf ms-2" 
+                                                        {% if record['ssc_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_ssc_btn')">
                                 
                                                 <button id="view_ssc_btn"
@@ -709,7 +716,8 @@
                                                     <span class="text-danger me-2">No document added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="hsc_doc" id="hsc_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="hsc_doc" id="hsc_doc" class="form-control accept_pdf ms-2"
+                                                       {% if record['hsc_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_hsc_doc_btn')">
                                 
                                                 <button id="view_hsc_doc_btn"
@@ -778,7 +786,8 @@
                                                     <span class="text-danger me-2">No Document Added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="grad_doc" id="grad_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="grad_doc" id="grad_doc" class="form-control accept_pdf ms-2" 
+                                                       {% if record['grad_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_graduation_btn')">
                                 
                                                 <button id="view_graduation_btn"
@@ -848,7 +857,8 @@
                                                     <span class="text-danger me-2">No Document Added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="post_grad_doc" id="post_grad_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="post_grad_doc" id="post_grad_doc" class="form-control accept_pdf ms-2" 
+                                                        {% if record['post_grad_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_post_graduation_btn')">
                                 
                                                 <button id="view_post_graduation_btn"
@@ -922,7 +932,8 @@
                                                     <span class="text-danger me-2">No Document Added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="entrance_doc" id="entrance_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="entrance_doc" id="entrance_doc" class="form-control accept_pdf ms-2" 
+                                                       {% if record['entrance_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_entrance_doc_btn')">
                                 
                                                 <button id="view_entrance_doc_btn"
@@ -1012,7 +1023,8 @@
                                                     <span class="text-danger me-2">No document added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="phd_reciept_doc" id="phd_reciept_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="phd_reciept_doc" id="phd_reciept_doc" class="form-control accept_pdf ms-2" 
+                                                       {% if record['phd_reciept_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_phd_reciept_btn')">
                                 
                                                 <button id="view_phd_reciept_btn"
@@ -1202,7 +1214,8 @@
                                                     <span class="text-danger me-2">No document added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="confirmation_doc" id="confirmation_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="confirmation_doc" id="confirmation_doc" class="form-control accept_pdf ms-2" 
+                                                        {% if record['confirmation_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_confirmation_btn')">
                                 
                                                 <button id="view_confirmation_btn"
@@ -1271,7 +1284,8 @@
                                                     <span class="text-danger me-2">No Document Added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="joining_doc" id="joining_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="joining_doc" id="joining_doc" class="form-control accept_pdf ms-2" 
+                                                       {% if record['joining_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_joining_btn')">
                                 
                                                 <button id="view_joining_btn"
@@ -1543,7 +1557,8 @@
                                                     <span class="text-danger me-2">No Document Added</span>
                                                 {% endif %}
                                 
-                                                <input type="file" name="annexureD_doc" id="annexureD_doc" class="form-control accept_pdf ms-2" required
+                                                <input type="file" name="annexureD_doc" id="annexureD_doc" class="form-control accept_pdf ms-2" 
+                                                       {% if record['annexureD_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_annexureD_btn')">
                                 
                                                 <button id="view_annexureD_btn"
@@ -1653,7 +1668,7 @@
                                                 {% endif %}
                                 
                                                 <input type="file" name="disable_doc" id="disable_doc" class="form-control accept_pdf ms-2"
-                                                       {% if record['disability'] == 'Yes' %}required{% endif %}
+                                                       {% if record['disability'] == 'Yes' and record['disable_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_disable_btn')">
                                 
                                                 <button id="view_disable_btn"
@@ -1855,6 +1870,7 @@
                                                        name="research_letter_doc"
                                                        id="research_letter_doc"
                                                        class="form-control accept_pdf ms-2"
+                                                       {% if record['research_letter_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_research_letter_doc_btn')">
                                 
                                                 <button id="view_research_letter_doc_btn"

@@ -302,8 +302,8 @@ def app_pdf_auth(app):
             "Are you Domicile of Maharashtra": data['domicile'],
             "Domicile Certificate": data['domicile_certificate'],
             "Domicile Certificate Number": data['domicile_number'],
-            "Do you have Caste/Tribe Certificate": data['caste_certf'],
-            "Caste | Tribe": data['your_caste'],
+            "Do you have Caste Certificate": data['caste_certf'],
+            "Caste ": data['your_caste'],
             "Caste Certificate Number": data['caste_certf_number'],
             "Caste Certificate Issuing District": data['issuing_district'],
             "Caste Certificate Issuing Authority": data['caste_issuing_authority'],
@@ -630,7 +630,7 @@ def app_pdf_auth(app):
         pdf.set_text_color(255, 255, 255)  # White color
         # Add the text inside the box
         pdf.cell(0, 10,
-                 f"Caste/Tribe & Validity Details",
+                 f"Caste & Validity Details",
                  align="C", ln=True, fill=True)
         pdf.set_text_color(0, 0, 0)
         pdf.set_font("Arial", size=10)

@@ -166,7 +166,7 @@
                 </tr>
 
                 <tr>
-                  <th scope="col">Caste/Tribe</th>
+                  <th scope="col">Caste</th>
                   <td>{{ record['your_caste'] }}</td>
                   <td>
                       <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='your_caste') }}" method="POST">
@@ -182,8 +182,8 @@
                     </td>
                 </tr>
 
-                <tr>
-                  <th scope="col">Sub Caste/Tribe</th>
+                <!-- <tr>
+                  <th scope="col">Sub Caste</th>
                   <td>{{ record['subcaste'] }}</td>
                   <td>
                       <form action="{{ url_for('managestudents.update_field', id=record['id'], field_name='subcaste') }}" method="POST">
@@ -197,7 +197,7 @@
                             <button type="submit" class="btn btn-info btn-sm">Delete</button>
                         </form>
                       </td>
-                </tr>
+                </tr> -->
 
                 <tr>
                   <th scope="col">Marital Status</th>
@@ -940,7 +940,7 @@
                 </tr>
                 <tr>
                     <th colspan="4" class="text-center bg-theme text-white">
-                         Caste/Tribe & Validity Details
+                         Caste & Validity Details
                     </th>
                 </tr>
                 <tr>

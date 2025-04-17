@@ -238,10 +238,10 @@ def generate_pdf_with_styling(data, filename):
             "Gender": data['gender'],
             "Age": data['age'],
             "Category": data['caste'],
-            "Caste/Tribe ": data['your_caste'],
-            "Sub Caste/Tribe": data['subcaste'],
-            "Do you belong to PVTG?": data['pvtg'],
-            "Which caste/tribe you belong in PVTG?": data['pvtg_caste']
+            "Caste ": data['your_caste']
+            # "Sub Caste": data['subcaste'],
+            # "Do you belong to PVTG?": data['pvtg'],
+            # "Which caste you belong in PVTG?": data['pvtg_caste']
 
             # Add more fields as needed
         }
@@ -323,9 +323,9 @@ def generate_pdf_with_styling(data, filename):
             "Are you Domicile of Maharashtra": data['domicile'],
             "Domicile Certificate": data['domicile_certificate'],
             "Domicile Certificate Number": data['domicile_number'],
-            "Do you have Caste/Tribe Certificate": data['caste_certf'],
-            "Caste | Tribe": data['your_caste'],
-            "Sub Caste/Tribe": data['subcaste'],
+            "Do you have Caste Certificate": data['caste_certf'],
+            "Caste": data['your_caste'],
+            # "Sub Caste": data['subcaste'],
             "Caste Certificate Number": data['caste_certf_number'],
             "Caste Certificate Issuing District": data['issuing_district'],
             "Caste Certificate Issuing Authority": data['caste_issuing_authority'],
@@ -465,7 +465,7 @@ def generate_pdf_with_styling(data, filename):
 
         # Personal Details
         pdf.set_font("Arial", "B", size=12)
-        pdf.cell(0, 10, "Caste/Tribe Details", ln=True)
+        pdf.cell(0, 10, "Caste Details", ln=True)
         pdf.ln(2)  # Adjust this value to control the space after the line
         pdf.line(10, pdf.get_y(), 200, pdf.get_y())  # Draw a line from left (10) to right (200)
         pdf.header_added = True  # Set to True after adding the header

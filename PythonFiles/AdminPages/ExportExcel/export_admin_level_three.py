@@ -127,8 +127,8 @@ def adminlevels_Three_auth(app):
 
         cursor.execute(
             "  SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
-            "date_of_birth, gender, age, caste, your_caste, subcaste, pvtg, pvtg_caste, marital_status,"
-            "dependents, state, district, taluka, village, city, add_1, add_2, pincode,"
+            "date_of_birth, gender, age, caste, your_caste, marital_status,"
+            "state, district, taluka, village, city, add_1, add_2, pincode,"
             "ssc_passing_year, ssc_percentage, ssc_school_name, ssc_stream, ssc_attempts, ssc_total,"
             "hsc_passing_year, hsc_percentage, hsc_school_name, hsc_stream, hsc_attempts, hsc_total,"
             "graduation_passing_year, graduation_percentage, graduation_school_name, grad_stream,"
@@ -153,8 +153,8 @@ def adminlevels_Three_auth(app):
 
         ws.append(
             ['Applicant Id', 'Adhaar Card Number', 'First Name', 'Middle Name', 'Last Name', 'Mobile Number', 'Email',
-             'Date Of Birth', 'Gender', 'Age', 'Caste/Tribe', 'Sub Caste', 'Are you PVTG', 'PVTG Caste/Tribe',
-             'Marital Status', 'dependents', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
+             'Date Of Birth', 'Gender', 'Age', 'Caste',
+             'Marital Status', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
              'pincode', 'SSC Passing Year', 'SSC Percentage', 'SSC School Name', 'SSC Stream', 'SSC Attempts',
              'SSC Total', 'HSC Passing Year', 'HSC Percentage', 'HSC School Name', 'HSC Stream', 'HSC Attempts',
              'HSC Total',
@@ -200,9 +200,9 @@ def adminlevels_Three_auth(app):
         cnx, cursor = connect_param.connect()
 
         cursor.execute(
-            "  SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
-            "date_of_birth, gender, age, caste, your_caste, subcaste, pvtg, pvtg_caste, marital_status,"
-            "dependents, state, district, taluka, village, city, add_1, add_2, pincode,"
+            "SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
+            "date_of_birth, gender, age, caste, your_caste, marital_status,"
+            "state, district, taluka, village, city, add_1, add_2, pincode,"
             "ssc_passing_year, ssc_percentage, ssc_school_name, ssc_stream, ssc_attempts, ssc_total,"
             "hsc_passing_year, hsc_percentage, hsc_school_name, hsc_stream, hsc_attempts, hsc_total,"
             "graduation_passing_year, graduation_percentage, graduation_school_name, grad_stream,"
@@ -227,8 +227,8 @@ def adminlevels_Three_auth(app):
 
         ws.append(
             ['Applicant Id', 'Adhaar Card Number', 'First Name', 'Middle Name', 'Last Name', 'Mobile Number', 'Email',
-             'Date Of Birth', 'Gender', 'Age', 'Caste/Tribe', 'Sub Caste', 'Are you PVTG', 'PVTG Caste/Tribe',
-             'Marital Status', 'dependents', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
+             'Date Of Birth', 'Gender', 'Age', 'Caste',
+             'Marital Status', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
              'pincode', 'SSC Passing Year', 'SSC Percentage', 'SSC School Name', 'SSC Stream', 'SSC Attempts',
              'SSC Total', 'HSC Passing Year', 'HSC Percentage', 'HSC School Name', 'HSC Stream', 'HSC Attempts',
              'HSC Total',
@@ -274,9 +274,9 @@ def adminlevels_Three_auth(app):
         cnx, cursor = connect_param.connect()
 
         cursor.execute(
-            "  SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
-            "date_of_birth, gender, age, caste, your_caste, subcaste, pvtg, pvtg_caste, marital_status,"
-            "dependents, state, district, taluka, village, city, add_1, add_2, pincode,"
+            "SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
+            "date_of_birth, gender, age, caste, your_caste, marital_status,"
+            "state, district, taluka, village, city, add_1, add_2, pincode,"
             "ssc_passing_year, ssc_percentage, ssc_school_name, ssc_stream, ssc_attempts, ssc_total,"
             "hsc_passing_year, hsc_percentage, hsc_school_name, hsc_stream, hsc_attempts, hsc_total,"
             "graduation_passing_year, graduation_percentage, graduation_school_name, grad_stream,"
@@ -301,8 +301,8 @@ def adminlevels_Three_auth(app):
 
         ws.append(
             ['Applicant Id', 'Adhaar Card Number', 'First Name', 'Middle Name', 'Last Name', 'Mobile Number', 'Email',
-             'Date Of Birth', 'Gender', 'Age', 'Caste/Tribe', 'Sub Caste', 'Are you PVTG', 'PVTG Caste/Tribe',
-             'Marital Status', 'dependents', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
+             'Date Of Birth', 'Gender', 'Age', 'Caste',
+             'Marital Status', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
              'pincode', 'SSC Passing Year', 'SSC Percentage', 'SSC School Name', 'SSC Stream', 'SSC Attempts',
              'SSC Total', 'HSC Passing Year', 'HSC Percentage', 'HSC School Name', 'HSC Stream', 'HSC Attempts',
              'HSC Total',
@@ -349,8 +349,8 @@ def adminlevels_Three_auth(app):
 
         cursor.execute(
             "  SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
-            "date_of_birth, gender, age, caste, your_caste, subcaste, pvtg, pvtg_caste, marital_status,"
-            "dependents, state, district, taluka, village, city, add_1, add_2, pincode,"
+            "date_of_birth, gender, age, caste, your_caste, marital_status,"
+            "state, district, taluka, village, city, add_1, add_2, pincode,"
             "ssc_passing_year, ssc_percentage, ssc_school_name, ssc_stream, ssc_attempts, ssc_total,"
             "hsc_passing_year, hsc_percentage, hsc_school_name, hsc_stream, hsc_attempts, hsc_total,"
             "graduation_passing_year, graduation_percentage, graduation_school_name, grad_stream,"
@@ -375,8 +375,8 @@ def adminlevels_Three_auth(app):
 
         ws.append(
             ['Applicant Id', 'Adhaar Card Number', 'First Name', 'Middle Name', 'Last Name', 'Mobile Number', 'Email',
-             'Date Of Birth', 'Gender', 'Age', 'Caste/Tribe', 'Sub Caste', 'Are you PVTG', 'PVTG Caste/Tribe',
-             'Marital Status', 'dependents', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
+             'Date Of Birth', 'Gender', 'Age', 'Caste',
+             'Marital Status', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
              'pincode', 'SSC Passing Year', 'SSC Percentage', 'SSC School Name', 'SSC Stream', 'SSC Attempts',
              'SSC Total', 'HSC Passing Year', 'HSC Percentage', 'HSC School Name', 'HSC Stream', 'HSC Attempts',
              'HSC Total',
@@ -422,9 +422,9 @@ def adminlevels_Three_auth(app):
         cnx, cursor = connect_param.connect()
 
         cursor.execute(
-            "  SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
-            "date_of_birth, gender, age, caste, your_caste, subcaste, pvtg, pvtg_caste, marital_status,"
-            "dependents, state, district, taluka, village, city, add_1, add_2, pincode,"
+            " SELECT applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number, email, "
+            "date_of_birth, gender, age, caste, your_caste, marital_status,"
+            "state, district, taluka, village, city, add_1, add_2, pincode,"
             "ssc_passing_year, ssc_percentage, ssc_school_name, ssc_stream, ssc_attempts, ssc_total,"
             "hsc_passing_year, hsc_percentage, hsc_school_name, hsc_stream, hsc_attempts, hsc_total,"
             "graduation_passing_year, graduation_percentage, graduation_school_name, grad_stream,"
@@ -449,8 +449,8 @@ def adminlevels_Three_auth(app):
 
         ws.append(
             ['Applicant Id', 'Adhaar Card Number', 'First Name', 'Middle Name', 'Last Name', 'Mobile Number', 'Email',
-             'Date Of Birth', 'Gender', 'Age', 'Caste/Tribe', 'Sub Caste', 'Are you PVTG', 'PVTG Caste/Tribe',
-             'Marital Status', 'dependents', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
+             'Date Of Birth', 'Gender', 'Age', 'Caste',
+             'Marital Status', 'state', 'district', 'taluka', 'village', 'city', 'add_1', 'add_2',
              'pincode', 'SSC Passing Year', 'SSC Percentage', 'SSC School Name', 'SSC Stream', 'SSC Attempts',
              'SSC Total', 'HSC Passing Year', 'HSC Percentage', 'HSC School Name', 'HSC Stream', 'HSC Attempts',
              'HSC Total',

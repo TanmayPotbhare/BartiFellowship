@@ -97,6 +97,7 @@
                                 </div>
                             </div>
                         {% endif %}
+                        {% if record['lock_application_form'] != "locked"%}
                         <div class="col-md-4 mt-2 {% if record['disability'] == 'No' %}d-none{% endif %}" id="disability_perc_div">
                             <div class="form-group">
                                 <label for="perc_of_disability" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -111,6 +112,7 @@
                                     </select>
                             </div>
                         </div>
+                        {% endif %}
                         {% if record.lock_application_form == 'locked' and record.disability == 'Yes' %}
                             <div class="col-md-4 mt-2">
                                 <div class="form-group">

@@ -210,11 +210,11 @@
                                                   <div class="col-md-8">{{ record['caste'] }}</div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Caste/Tribe</div>
+                                                  <div class="col-md-4 label ">Caste</div>
                                                   <div class="col-md-8">{{ record['your_caste'] }}</div>
                                                 </div>
                                                 <!-- <div class="row">
-                                                  <div class="col-md-4 label ">Sub Caste/Tribe</div>
+                                                  <div class="col-md-4 label ">Sub Caste</div>
                                                   <div class="col-md-8">{{ record['subcaste'] }}</div>
                                                 </div> -->
                                                 <div class="row">
@@ -516,7 +516,7 @@
                                                 <h6 class="card-title mt-2">Caste Certificate Details</h6>
 
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Do you have Caste/Tribe Certificate?</div>
+                                                  <div class="col-md-4 label ">Do you have Caste Certificate?</div>
                                                   <div class="col-md-8"> {{ record['caste_certf'] }}</div>
                                                 </div>
                                                 <div class="row">
@@ -524,11 +524,11 @@
                                                   <div class="col-md-8">{{ record['caste'] }} </div>
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-4 label ">Caste/Tribe</div>
+                                                  <div class="col-md-4 label ">Caste</div>
                                                   <div class="col-md-8">{{ record['your_caste'] }} </div>
                                                 </div>
                                                 <!-- <div class="row">
-                                                  <div class="col-md-4 label ">Sub Caste/Tribe</div>
+                                                  <div class="col-md-4 label ">Sub Caste</div>
                                                   <div class="col-md-8">{{ record['subcaste'] }} </div>
                                                 </div> -->
                                                 <div class="row">
@@ -710,7 +710,25 @@
                                                 <h5 class="card-title">Attached Documents</h5>
 
                                                       <div class="row align-items-center">
-                                                        <div class="col-md-8 label "><span class="text-dark">Adhaar Card</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Your Signature</span><span class="text-danger">*</span></div>
+                                                        <div class="col-md-4">
+                                                          {% if record['signature'] != "Save File" %}
+                                                            <a
+                                                              href="{{ record['signature'] }}" target="_blank"
+                                                              class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="View signature "><span><i class="mdi mdi-eye"></i></span>
+                                                            </a>
+                                                          {% else %}
+                                                            <a
+                                                              class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
+                                                            </a>
+                                                          {% endif %}
+                                                        </div>
+                                                      </div>
+                                                      
+                                                      <div class="row align-items-center mt-1">
+                                                        <div class="col-md-8 label "><span class="text-dark">Adhaar Card</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['adhaar_card_doc'] != "Save File" %}
                                                             <a
@@ -721,14 +739,14 @@
                                                           {% else %}
                                                             <a
                                                               class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                              data-bs-original-title="No Document uploaded"><span> No Documentassa Uplaoded</span>
+                                                              data-bs-original-title="No Document uploaded"><span> No Document Uplaoded</span>
                                                             </a>
                                                           {% endif %}
                                                         </div>
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">PAN Card</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">PAN Card</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['pan_card_doc'] != "Save File" %}
                                                             <a
@@ -746,7 +764,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Domicile Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Domicile Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['domicile_doc'] != "Save File" %}
                                                             <a
@@ -764,7 +782,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Caste Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Caste Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['caste_doc'] != "Save File" %}
                                                             <a
@@ -782,7 +800,11 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Caste Validity Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Caste Validity Certificate
+                                                          {% if record['validity_certificate'] == "Yes" %}
+                                                          <span class="text-danger">*</span>
+                                                          {% endif %}
+                                                          <small class="form-text text-muted">(If you have selected "Yes" for Validity Certificate)</small></span></div>
                                                         <div class="col-md-4">
                                                           {% if record['validity_doc'] != "Save File" %}
                                                             <a
@@ -818,7 +840,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">10th Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">10th Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['ssc_doc'] != "Save File" %}
                                                             <a
@@ -836,7 +858,7 @@
                                                       </div>
 
                                                      <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">12th Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">12th Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['hsc_doc'] != "Save File" %}
                                                             <a
@@ -854,7 +876,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Graduation Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Graduation Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['grad_doc'] != "Save File" %}
                                                             <a
@@ -872,7 +894,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Post-Graduation Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Post-Graduation Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['post_grad_doc'] != "Save File" %}
                                                             <a
@@ -890,7 +912,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">M.Phil/PET/SET/NET/GATE Marksheet & Passing Certificate</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">M.Phil/PET/SET/NET/GATE Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['entrance_doc'] != "Save File" %}
                                                             <a
@@ -908,7 +930,7 @@
                                                       </div>
 
                                                        <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Ph.D Admission Reciept</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Ph.D Admission Reciept</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['phd_reciept_doc'] != "Save File" %}
                                                             <a
@@ -925,7 +947,7 @@
                                                         </div>
                                                       </div>
 
-                                                      <div class="row align-items-center mt-1">
+                                                      <!-- <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Guide Allotment Letter</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['guideAllotment_doc'] != "Save File" %}
@@ -941,7 +963,7 @@
                                                             </a>
                                                           {% endif %}
                                                         </div>
-                                                      </div>
+                                                      </div> -->
 
                                                       <!-- <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Guide Acceptance Letter</span></div>
@@ -961,7 +983,7 @@
                                                         </div>
                                                       </div> -->
 
-                                                       <div class="row align-items-center mt-1">
+                                                       <!-- <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Letter of Accpetance from RAC/RRC</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['rac_doc'] != "Save File" %}
@@ -977,10 +999,10 @@
                                                             </a>
                                                           {% endif %}
                                                         </div>
-                                                      </div>
+                                                      </div> -->
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Confirmation Letter</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Confirmation Letter</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['confirmation_doc'] != "Save File" %}
                                                             <a
@@ -998,7 +1020,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "><span class="text-dark">Research Center Joining Report</span></div>
+                                                        <div class="col-md-8 label "><span class="text-dark">Research Center Joining Report</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['joining_doc'] != "Save File" %}
                                                             <a
@@ -1070,7 +1092,7 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label "> <span class="text-dark">Annexure <span class="text-danger">D</span> - Non Beneficiary Certificate</span></div>
+                                                        <div class="col-md-8 label "> <span class="text-dark">Annexure <span class="text-danger">D</span> - Non Beneficiary Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['annexureD_doc'] != "Save File"%}
                                                             <a
@@ -1088,7 +1110,12 @@
                                                       </div>
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class=" col-md-8 label "><span class="text-dark">If Disabled - Disability Certificate</span></div>
+                                                        <div class=" col-md-8 label "><span class="text-dark">If Disabled - Disability Certificate
+                                                          {% if record['disability'] == "Yes" %}
+                                                          <span class="text-danger">*</span>
+                                                          {% endif %}
+                                                          <small class="form-text text-muted">(If you have selected "Yes" for disability)</small>
+                                                        </span></div>
                                                         <div class=" col-md-4">
                                                           {% if record['disable_doc'] != "Save File" %}
                                                             <a
@@ -1142,7 +1169,7 @@
                 <!--                                                      </div>-->
 
                                                       <div class="row align-items-center mt-1">
-                                                        <div class="col-md-8 label"><span class="text-dark">Research Synopsis/ Research Center Allotment letter</span></div>
+                                                        <div class="col-md-8 label"><span class="text-dark">Research Synopsis/ Research Center Allotment letter</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
                                                           {% if record['research_letter_doc'] != "Save File"%}
                                                             <a
