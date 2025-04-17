@@ -439,29 +439,29 @@ function toggleOtherQualification() {
     }
 }
 
-function validateQualifications() {
-    const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
-    let isChecked = false;
+// function validateQualifications() {
+//     const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
+//     let isChecked = false;
 
-    checkboxes.forEach(cb => {
-        if (cb.checked) isChecked = true;
-    });
+//     checkboxes.forEach(cb => {
+//         if (cb.checked) isChecked = true;
+//     });
 
-    const submitButton = document.getElementById('submit');
-    const qualificationHelp = document.getElementById('qualificationHelp');
+//     const submitButton = document.getElementById('submit');
+//     const qualificationHelp = document.getElementById('qualificationHelp');
 
-    if (!isChecked) {
-        qualificationHelp.style.display = 'block';
-        submitButton.disabled = true;
-    } else {
-        qualificationHelp.style.display = 'none';
-        submitButton.disabled = false;
-    }
-}
+//     if (!isChecked) {
+//         qualificationHelp.style.display = 'block';
+//         submitButton.disabled = true;
+//     } else {
+//         qualificationHelp.style.display = 'none';
+//         submitButton.disabled = false;
+//     }
+// }
 
-// Run validation on page load and whenever checkboxes change
-window.onload = function () {
-    validateQualifications();
-    const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
-    checkboxes.forEach(cb => cb.addEventListener('change', validateQualifications));
-};
+// // Run validation on page load and whenever checkboxes change
+// window.onload = function () {
+//     validateQualifications();
+//     const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
+//     checkboxes.forEach(cb => cb.addEventListener('change', validateQualifications));
+// };

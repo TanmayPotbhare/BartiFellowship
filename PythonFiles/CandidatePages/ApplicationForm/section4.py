@@ -36,7 +36,7 @@ def section4_auth(app):
             return redirect(url_for('login_signup.login'))
 
         if session.get('show_flashed_section3', True):  # Retrieve and clear the flag
-            flash('Certificate Details section have been successfully saved.', 'success')
+            flash('Certificate Details saved successfully.', 'success')
             # set the flag to "False" to prevent the flash message from being diaplayed repetitively displayed
             session['show_flashed_section3'] = False
 

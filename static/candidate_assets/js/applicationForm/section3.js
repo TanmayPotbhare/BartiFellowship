@@ -251,7 +251,7 @@ $('#domicile').on('change', function () {
 //     }else if($(this).val() == 'No'){
 //         Swal.fire({
 //                 title: "Sorry!",
-//                 text: "Sorry, you cannot apply for the Fellowship. A Caste/Tribe Certificate is mandatory.Thank you for your interest.",
+//                 text: "Sorry, you cannot apply for the Fellowship. A Caste Certificate is mandatory.Thank you for your interest.",
 //                 icon: "error"
 //             });
 //         $('#caste_certf_number').attr('disabled',true)
@@ -288,7 +288,7 @@ $('#caste_certf').on('change', function () {
     } else if ($(this).val() == 'No') {
         Swal.fire({
             title: "Sorry!",
-            text: "Sorry, you cannot apply for the Fellowship. A Caste/Tribe Certificate is mandatory. Thank you for your interest.",
+            text: "Sorry, you cannot apply for the Fellowship. A Caste Certificate is mandatory. Thank you for your interest.",
             icon: "error"
         });
         $('#caste_certf_number').addClass('disable');

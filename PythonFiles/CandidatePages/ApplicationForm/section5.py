@@ -78,19 +78,149 @@ def section5_auth(app):
                                title='Application Form (Upload Documents)')
 
     @section5_blueprint.route('/section5_submit', methods=['GET', 'POST'])
+    # def section5_submit():
+    #     if not session.get('logged_in_from_login'):
+    #         # Redirect to the admin login page if the user is not logged in
+    #         return redirect(url_for('login_signup.login'))
+
+    #     email = session['email']
+    #     # print('I am here', email)
+    #     host = HostConfig.host
+    #     connect_param = ConnectParam(host)
+    #     cnx, cursor = connect_param.connect(use_dict=True)
+
+    #     # Check if a record already exists for this user
+    #     cursor.execute("SELECT first_name, last_name, section5 FROM application_page WHERE email = %s", (email,))
+    #     record = cursor.fetchone()
+    #     filled_section5 = record['section5']
+
+    #     first_name = record['first_name']
+    #     last_name = record['last_name']
+
+    #     if request.method == 'POST':
+    #         print('Got a Post Request')
+
+    #         # Handling file uploads
+    #         file_fields = [
+    #             'signature', 'adhaar_card_doc', 'pan_card_doc', 'domicile_doc', 'caste_doc', 'validity_doc',
+    #             'income_doc',
+    #             'ssc_doc', 'hsc_doc', 'grad_doc', 'post_grad_doc', 'entrance_doc', 'phd_reciept_doc',
+    #             'guideAllotment_doc',
+    #             'guideAccept_doc', 'rac_doc', 'confirmation_doc', 'joining_doc', 'annexureA_doc', 'annexureB_doc',
+    #             'annexureC_doc', 'annexureD_doc', 'disable_doc', 'gazete_doc', 'selfWritten_doc', 'research_letter_doc'
+    #         ]
+
+    #         uploaded_files = {}
+
+    #         for field in file_fields:
+    #             uploaded_files[field] = applicant_pdf_upload_section_five(request.files.get(field), first_name,
+    #                                                                       last_name)
+
+    #         # Extract all uploaded files from the dictionary
+    #         signature = uploaded_files['signature']
+    #         adhaar_card_doc = uploaded_files['adhaar_card_doc']
+    #         pan_card_doc = uploaded_files['pan_card_doc']
+    #         domicile_doc = uploaded_files['domicile_doc']
+    #         caste_doc = uploaded_files['caste_doc']
+    #         validity_doc = uploaded_files['validity_doc']
+    #         income_doc = uploaded_files['income_doc']
+    #         ssc_doc = uploaded_files['ssc_doc']
+    #         hsc_doc = uploaded_files['hsc_doc']
+    #         grad_doc = uploaded_files['grad_doc']
+    #         post_grad_doc = uploaded_files['post_grad_doc']
+    #         entrance_doc = uploaded_files['entrance_doc']
+    #         phd_reciept_doc = uploaded_files['phd_reciept_doc']
+    #         guideAllotment_doc = uploaded_files['guideAllotment_doc']
+    #         guideAccept_doc = uploaded_files['guideAccept_doc']
+    #         rac_doc = uploaded_files['rac_doc']
+    #         confirmation_doc = uploaded_files['confirmation_doc']
+    #         joining_doc = uploaded_files['joining_doc']
+    #         annexureA_doc = uploaded_files['annexureA_doc']
+    #         annexureB_doc = uploaded_files['annexureB_doc']
+    #         annexureC_doc = uploaded_files['annexureC_doc']
+    #         annexureD_doc = uploaded_files['annexureD_doc']
+    #         disable_doc = uploaded_files['disable_doc']
+    #         gazete_doc = uploaded_files['gazete_doc']
+    #         selfWritten_doc = uploaded_files['selfWritten_doc']
+    #         research_letter_doc = uploaded_files['research_letter_doc']
+
+    #         section5 = 'filled'
+    #         lock_application_status = 'locked'
+
+    #         if filled_section5 != 'filled':
+    #             print('No Records just insert')
+    #             # Save the form data to the database
+    #             print('Inserting new record for:' + email)
+    #             sql = """
+    #                 UPDATE application_page 
+    #                 SET 
+    #                     signature = %s, adhaar_card_doc = %s, pan_card_doc = %s, domicile_doc = %s, 
+    #                     caste_doc = %s, validity_doc = %s, income_doc = %s, ssc_doc = %s, hsc_doc = %s,
+    #                     grad_doc = %s, post_grad_doc = %s, entrance_doc = %s, phd_reciept_doc = %s, 
+    #                     guideAllotment_doc = %s, guideAccept_doc = %s, rac_doc = %s, confirmation_doc = %s, 
+    #                     joining_doc = %s, annexureA_doc = %s, annexureB_doc = %s, annexureC_doc = %s, 
+    #                     annexureD_doc = %s, disable_doc = %s, gazete_doc = %s, selfWritten_doc = %s,
+    #                     research_letter_doc = %s, section5 = %s, lock_application_form  = %s
+    #                 WHERE email = %s
+    #             """
+    #             values = (
+    #                 signature, adhaar_card_doc, pan_card_doc, domicile_doc, caste_doc, validity_doc, income_doc,
+    #                 ssc_doc, hsc_doc, grad_doc, post_grad_doc, entrance_doc, phd_reciept_doc, guideAllotment_doc,
+    #                 guideAccept_doc, rac_doc, confirmation_doc, joining_doc, annexureA_doc, annexureB_doc, 
+    #                 annexureC_doc, annexureD_doc, disable_doc, gazete_doc, selfWritten_doc, research_letter_doc,
+    #                 section5, lock_application_status, email  # Include `email` to identify the record
+    #             )
+
+    #             cursor.execute(sql, values)
+    #             cnx.commit()
+
+    #             cursor.execute("SELECT first_name, last_name, email, user, year FROM signup WHERE email = %s",
+    #                            (email,))
+    #             old_user = cursor.fetchone()
+    #             cnx.commit()
+
+    #             print(old_user)
+
+    #             year_check = str(old_user['year'])
+    #             print(year_check)
+    #             user_check = old_user['user']
+
+    #             if year_check in ['2021', '2022'] and user_check == 'Old User':
+    #                 print('Updating Old User Record')
+    #                 # Enter Old User Applicant ID
+    #                 enter_old_applicant_id(email)
+    #                 # Enter Old Presenty Record
+    #                 enter_presenty_record(email)
+    #                 insert_payment_sheet_record(email)
+    #             else:
+    #                 print('email', email)
+    #                 # Inserts three differnet flags with applicant ID.
+    #                 enter_applicant_id(email)
+    #                 # Checks the email in Presenty and if not inserts it.
+    #                 enter_presenty_record(email)
+
+    #             # Send Email of Completion
+    #             # send_email_of_completion(email)
+    #             return redirect(url_for('section5.completed_application'))
+    #             # Check if the user is approved for fellowship no matter the year to show the desired sidebar.
+    #         else:
+    #             return redirect(url_for('section5.section5'))
+    #     else:
+    #         # Handle GET request (display empty form, or previously filled data if necessary)
+    #         return redirect(url_for('section5.section5'))
+
+    @section5_blueprint.route('/section5/submit', methods=['GET', 'POST'])
     def section5_submit():
         if not session.get('logged_in_from_login'):
-            # Redirect to the admin login page if the user is not logged in
             return redirect(url_for('login_signup.login'))
 
         email = session['email']
-        # print('I am here', email)
         host = HostConfig.host
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        # Check if a record already exists for this user
-        cursor.execute("SELECT first_name, last_name, section5 FROM application_page WHERE email = %s", (email,))
+        # Fetch existing record
+        cursor.execute("SELECT * FROM application_page WHERE email = %s", (email,))
         record = cursor.fetchone()
         filled_section5 = record['section5']
 
@@ -100,113 +230,99 @@ def section5_auth(app):
         if request.method == 'POST':
             print('Got a Post Request')
 
-            # Handling file uploads
+            # List of all file fields
             file_fields = [
                 'signature', 'adhaar_card_doc', 'pan_card_doc', 'domicile_doc', 'caste_doc', 'validity_doc',
-                'income_doc',
-                'ssc_doc', 'hsc_doc', 'grad_doc', 'post_grad_doc', 'entrance_doc', 'phd_reciept_doc',
-                'guideAllotment_doc',
-                'guideAccept_doc', 'rac_doc', 'confirmation_doc', 'joining_doc', 'annexureA_doc', 'annexureB_doc',
-                'annexureC_doc', 'annexureD_doc', 'disable_doc', 'gazete_doc', 'selfWritten_doc', 'research_letter_doc'
+                'income_doc', 'ssc_doc', 'hsc_doc', 'grad_doc', 'post_grad_doc', 'entrance_doc', 'phd_reciept_doc',
+                'guideAllotment_doc', 'guideAccept_doc', 'rac_doc', 'confirmation_doc', 'joining_doc',
+                'annexureA_doc', 'annexureB_doc', 'annexureC_doc', 'annexureD_doc', 'disable_doc', 'gazete_doc',
+                'selfWritten_doc', 'research_letter_doc'
             ]
 
             uploaded_files = {}
 
             for field in file_fields:
-                uploaded_files[field] = applicant_pdf_upload_section_five(request.files.get(field), first_name,
-                                                                          last_name)
+                file = request.files.get(field)
+                if file and file.filename:
+                    # New file uploaded
+                    uploaded_files[field] = applicant_pdf_upload_section_five(file, first_name, last_name)
+                else:
+                    # Use existing file from DB
+                    uploaded_files[field] = record[field]
 
-            # Extract all uploaded files from the dictionary
-            signature = uploaded_files['signature']
-            adhaar_card_doc = uploaded_files['adhaar_card_doc']
-            pan_card_doc = uploaded_files['pan_card_doc']
-            domicile_doc = uploaded_files['domicile_doc']
-            caste_doc = uploaded_files['caste_doc']
-            validity_doc = uploaded_files['validity_doc']
-            income_doc = uploaded_files['income_doc']
-            ssc_doc = uploaded_files['ssc_doc']
-            hsc_doc = uploaded_files['hsc_doc']
-            grad_doc = uploaded_files['grad_doc']
-            post_grad_doc = uploaded_files['post_grad_doc']
-            entrance_doc = uploaded_files['entrance_doc']
-            phd_reciept_doc = uploaded_files['phd_reciept_doc']
-            guideAllotment_doc = uploaded_files['guideAllotment_doc']
-            guideAccept_doc = uploaded_files['guideAccept_doc']
-            rac_doc = uploaded_files['rac_doc']
-            confirmation_doc = uploaded_files['confirmation_doc']
-            joining_doc = uploaded_files['joining_doc']
-            annexureA_doc = uploaded_files['annexureA_doc']
-            annexureB_doc = uploaded_files['annexureB_doc']
-            annexureC_doc = uploaded_files['annexureC_doc']
-            annexureD_doc = uploaded_files['annexureD_doc']
-            disable_doc = uploaded_files['disable_doc']
-            gazete_doc = uploaded_files['gazete_doc']
-            selfWritten_doc = uploaded_files['selfWritten_doc']
-            research_letter_doc = uploaded_files['research_letter_doc']
-
+            # Status fields
             section5 = 'filled'
             lock_application_status = 'locked'
 
+            print('Updating or inserting data for:', email)
+            sql = """
+                UPDATE application_page 
+                SET 
+                    signature = %s, adhaar_card_doc = %s, pan_card_doc = %s, domicile_doc = %s, caste_doc = %s, validity_doc = %s, income_doc = %s, ssc_doc = %s,
+                    hsc_doc = %s, grad_doc = %s, post_grad_doc = %s, entrance_doc = %s, phd_reciept_doc = %s, guideAllotment_doc = %s, guideAccept_doc = %s, 
+                    rac_doc = %s, confirmation_doc = %s, joining_doc = %s, annexureA_doc = %s, annexureB_doc = %s, annexureC_doc = %s, annexureD_doc = %s, 
+                    disable_doc = %s, gazete_doc = %s, selfWritten_doc = %s, research_letter_doc = %s, section5 = %s, lock_application_form = %s
+                WHERE email = %s
+            """
+
+            values = (
+                uploaded_files['signature'],
+                uploaded_files['adhaar_card_doc'],
+                uploaded_files['pan_card_doc'],
+                uploaded_files['domicile_doc'],
+                uploaded_files['caste_doc'],
+                uploaded_files['validity_doc'],
+                uploaded_files['income_doc'],
+                uploaded_files['ssc_doc'],
+                uploaded_files['hsc_doc'],
+                uploaded_files['grad_doc'],
+                uploaded_files['post_grad_doc'],
+                uploaded_files['entrance_doc'],
+                uploaded_files['phd_reciept_doc'],
+                uploaded_files['guideAllotment_doc'],
+                uploaded_files['guideAccept_doc'],
+                uploaded_files['rac_doc'],
+                uploaded_files['confirmation_doc'],
+                uploaded_files['joining_doc'],
+                uploaded_files['annexureA_doc'],
+                uploaded_files['annexureB_doc'],
+                uploaded_files['annexureC_doc'],
+                uploaded_files['annexureD_doc'],
+                uploaded_files['disable_doc'],
+                uploaded_files['gazete_doc'],
+                uploaded_files['selfWritten_doc'],
+                uploaded_files['research_letter_doc'],
+                section5,
+                lock_application_status,
+                email
+            )
+
+            cursor.execute(sql, values)
+            cnx.commit()
+
+            # Only do these actions on first fill (not for updates)
             if filled_section5 != 'filled':
-                print('No Records just insert')
-                # Save the form data to the database
-                print('Inserting new record for:' + email)
-                sql = """
-                    UPDATE application_page 
-                    SET 
-                        signature = %s, adhaar_card_doc = %s, pan_card_doc = %s, domicile_doc = %s, 
-                        caste_doc = %s, validity_doc = %s, income_doc = %s, ssc_doc = %s, hsc_doc = %s,
-                        grad_doc = %s, post_grad_doc = %s, entrance_doc = %s, phd_reciept_doc = %s, 
-                        guideAllotment_doc = %s, guideAccept_doc = %s, rac_doc = %s, confirmation_doc = %s, 
-                        joining_doc = %s, annexureA_doc = %s, annexureB_doc = %s, annexureC_doc = %s, 
-                        annexureD_doc = %s, disable_doc = %s, gazete_doc = %s, selfWritten_doc = %s,
-                        research_letter_doc = %s, section5 = %s, lock_application_form  = %s
-                    WHERE email = %s
-                """
-                values = (
-                    signature, adhaar_card_doc, pan_card_doc, domicile_doc, caste_doc, validity_doc, income_doc,
-                    ssc_doc, hsc_doc, grad_doc, post_grad_doc, entrance_doc, phd_reciept_doc, guideAllotment_doc,
-                    guideAccept_doc, rac_doc, confirmation_doc, joining_doc, annexureA_doc, annexureB_doc, 
-                    annexureC_doc, annexureD_doc, disable_doc, gazete_doc, selfWritten_doc, research_letter_doc,
-                    section5, lock_application_status, email  # Include `email` to identify the record
-                )
-
-                cursor.execute(sql, values)
-                cnx.commit()
-
-                cursor.execute("SELECT first_name, last_name, email, user, year FROM signup WHERE email = %s",
-                               (email,))
+                cursor.execute("SELECT first_name, last_name, email, user, year FROM signup WHERE email = %s", (email,))
                 old_user = cursor.fetchone()
-                cnx.commit()
-
-                print(old_user)
 
                 year_check = str(old_user['year'])
-                print(year_check)
                 user_check = old_user['user']
 
                 if year_check in ['2021', '2022'] and user_check == 'Old User':
                     print('Updating Old User Record')
-                    # Enter Old User Applicant ID
                     enter_old_applicant_id(email)
-                    # Enter Old Presenty Record
                     enter_presenty_record(email)
                     insert_payment_sheet_record(email)
                 else:
-                    print('email', email)
-                    # Inserts three differnet flags with applicant ID.
                     enter_applicant_id(email)
-                    # Checks the email in Presenty and if not inserts it.
                     enter_presenty_record(email)
 
-                # Send Email of Completion
-                # send_email_of_completion(email)
-                return redirect(url_for('section5.completed_application'))
-                # Check if the user is approved for fellowship no matter the year to show the desired sidebar.
-            else:
-                return redirect(url_for('section5.section5'))
+            # Optional: send_email_of_completion(email)
+
+            flash('Document Section submitted successfully and the Application form is locked.', 'success')
+            return redirect(url_for('section5.completed_application'))
+
         else:
-            # Handle GET request (display empty form, or previously filled data if necessary)
             return redirect(url_for('section5.section5'))
 
     def applicant_pdf_upload_section_five(file, firstname, lastname):
