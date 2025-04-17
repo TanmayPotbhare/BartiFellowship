@@ -118,7 +118,7 @@ def app_pdf_auth(app):
                     # Insert the image to the right
                     photo = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['applicant_photo']
                     # photo = data['applicant_photo']
-                    modified_path = photo[1:] if photo.startswith("/") else photo
+                    # modified_path = photo[1:] if photo.startswith("/") else photo
                     # Define image size (width, height)
                     image_width = 25
                     image_height = 25
@@ -128,7 +128,7 @@ def app_pdf_auth(app):
                     self.rect(image_x - border_padding, image_y - border_padding, image_width + 2 * border_padding,
                               image_height + 2 * border_padding)  # Draw border around the image
                     # Insert the image inside the border
-                    self.image(modified_path, image_x, image_y, image_width, image_height)
+                    self.image(photo, image_x, image_y, image_width, image_height)
                     # ----------------- END Image --------------------------------
 
                     # ----------------------------------------------------
