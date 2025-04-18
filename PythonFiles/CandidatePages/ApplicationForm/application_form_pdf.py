@@ -844,9 +844,9 @@ def app_pdf_auth(app):
             pdf.cell(key_width, key_value_spacing, key, align="L", ln=False)
 
             if value:
-                image_path = app.config['absolute_path'] + 'static/assets/img/logo/check_mark.png'
+                image_path = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/check_mark.png'
             else:
-                image_path = app.config['absolute_path'] + 'static/assets/img/logo/cross_icon.png'
+                image_path = 'var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/cross_icon.png'
 
             # print('Value of Doc:', value)
 
