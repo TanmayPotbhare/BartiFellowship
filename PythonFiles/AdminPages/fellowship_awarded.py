@@ -111,7 +111,7 @@ def fellowship_awarded_auth(app):
         try:
             # email = session['email']
             # output_filename = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/pdf_application_form/award_letter.pdf'
-            output_filename = 'static/pdf_application_form/pdfform.pdf'
+            output_filename = app.config['AWARD_LETTER']
 
             host = HostConfig.host
             connect_param = ConnectParam(host)
