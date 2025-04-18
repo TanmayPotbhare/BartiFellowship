@@ -17,686 +17,701 @@
 
 <div>
 
-    <div class="grid grid-cols-2 gap-4 px-10 gap-4 font-third">
-        <div class="p-3 bg-blue-300 rounded  ">
-            <div class="flex items-center">
-                <div class="mx-2">
-                    <span class="material-symbols-outlined !text-blue-900 !text-2xl">
-                        list_alt_check
-                    </span>
-                </div>
-                <h4 class="text-xl font-semibold text-blue-900">
-                    {{multilingual_content[language]['government_decision'] }}
-                </h4>
-            </div>
-
-            <div class="px-3 py-5 bg-white rounded my-2">
-                <div class="flex items-center gap-4">
-                    <div>
-                        <div class="w-8 h-8 flex items-center justify-center bg-blue-300 rounded-full">
-                            <span class="material-symbols-outlined !text-xl !text-blue-900">
-                                description
-                            </span>
-                        </div>
+    <div class="px-10">
+        <!-- Accordion Item 1 -->
+        <div class="border-b border-slate-200">
+            <button onclick="toggleAccordion(1)" class="w-full flex justify-between items-center py-5 text-slate-800">
+                <div class="flex items-center">
+                    <div class="mx-2">
+                        <span class="material-symbols-outlined !text-gray-600 !text-xl">
+                            list_alt_check
+                        </span>
                     </div>
-                    <div>
-                        <h5 class="text-blue-900 font-semibold">
-                            Government Resolution (GR)
-                        </h5>
-                        <p class="text-sm">Click to view the official government resolution document.</p>
+                    <h4 class="text-lg font-semibold text-gray-700 font-third">
+                        {{multilingual_content[language]['government_decision'] }}
+                    </h4>
+                </div>
+                <span id="icon-1" class="text-slate-800 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                        <path
+                            d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+                    </svg>
+                </span>
+            </button>
+            <div id="content-1"
+                class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-sky-100 px-10">
+                <div class="bg-white overflow-auto">
+                    <table class=" w-full  rounded-lg my-4">
+                        <thead>
+                            <tr>
+                                <th class="font-medium border font-third  border-gray-300 py-2 px-2">S.No</th>
+                                <th class="font-medium border font-third border-gray-300 py-2  px-2">Description</th>
+                                <th class="font-medium border font-third border-gray-300 py-2  px-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center border font-secondary text-sm border-gray-300 py-2">1</td>
+                                <td class="border font-secondary text-sm border-gray-300 py-2 px-3">
+                                    <span class="text-sm font-medium">Government Resolution (GR)</span>
+                                    <br>
+                                    <span class="text-xs">
+                                        Click to view the official government resolution document.
+                                    </span>
+                                </td>
+                                <td class="text-center border font-secondary text-sm border-gray-300 py-2 px-2">
+                                    <a href="/static/gr_page_docs/GR.pdf" target="_blank"
+                                        class="w-8 h-8 flex justify-center items-center mx-auto bg-blue-300 rounded">
+                                        <span class="material-symbols-outlined !text-blue-900">
+                                            link
+                                        </span>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="border-b border-slate-200">
+            <button onclick="toggleAccordion(2)" class="w-full flex justify-between items-center py-5 text-slate-800">
+                <div class="flex items-center">
+                    <div class="mx-2">
+                        <span class="material-symbols-outlined !text-gray-600 !text-xl">
+                            list_alt_check
+                        </span>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-700 font-third">
+                        {{multilingual_content[language]['circulars'] }}
+                    </h4>
+                </div>
+                <span id="icon-2" class="text-slate-800 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                        <path
+                            d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+                    </svg>
+                </span>
+            </button>
+            <div id="content-2"
+                class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-10 bg-sky-100">
+                <div class="bg-white">
+                    <table class=" w-full  rounded-lg my-4">
+                        <thead>
+                            <tr>
+                                <th class="font-medium border font-third  border-gray-300 py-2">S.No</th>
+                                <th class="font-medium border font-third border-gray-300 py-2">Description</th>
+                                <th class="font-medium border font-third border-gray-300 py-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="text-center border font-secondary text-sm border-gray-300 py-2">
+                                    <p class="font-secondary text-sm font-medium">No Information Available</p>
+                                    <p class="text-xs">Currently, there is nothing to view here. Once content is
+                                        uploaded,
+                                        it
+                                        will appear on this page.</p>
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="border-b border-slate-200">
+            <button onclick="toggleAccordion(3)" class="w-full flex justify-between items-center py-5 text-slate-800">
+                <div class="flex items-center">
+                    <div class="mx-2">
+                        <span class="material-symbols-outlined !text-gray-600 !text-xl">
+                            list_alt_check
+                        </span>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-700 font-third">
+                        <p class="text-left">
+                            {{multilingual_content[language]['shcolarship_regulations'] }}
+                        </p>
+                        <p class="text-gray-500 text-sm">Documents Needed for application form
+                            submission.
+                        </p>
+                    </h4>
+                </div>
+                <span id="icon-3" class="text-slate-800 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                        <path
+                            d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+                    </svg>
+                </span>
+            </button>
+            <div id="content-3" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out ">
+                <div class="w-full overflow-auto px-10 bg-sky-100">
+                    <div class="bg-white overflow-auto">
+                        <table class=" w-full  rounded-lg my-4">
+                            <thead>
+                                <tr>
+                                    <th class="font-medium border font-third  border-gray-300 py-2 px-2">S.No</th>
+                                    <th class="font-medium border font-third border-gray-300 py-2 px-2">Document</th>
+                                    <th class="font-medium border font-third border-gray-300 py-2 px-2">Is required?
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        1
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap ">
+                                        Adhaar Card / आधार कार्ड
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        2
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        PAN Card / पॅन कार्ड
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        3
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Domicile Certificate / अधिवास प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        4
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Caste Certificate / जातिचा दाखला
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        5
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Caste Validity Certificate / जात वैधता प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        6
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Income Certificate / उत्पन्नाचा दाखला
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        7
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        10th Marksheet & Passing Certificate / 10वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        8
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        12th Marksheet & Passing Certificate / 12वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        9
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Diploma Marksheet & Passing Certificate / डिप्लोमा मार्कशीट आणि उत्तीर्ण
+                                        प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        10
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Graduation Marksheet & Passing Certificate / पदवी मार्कशीट आणि उत्तीर्ण
+                                        प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        11
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Post-Graduation Marksheet & Passing Certificate / पदव्युत्तर मार्कशीट आणि
+                                        उत्तीर्ण
+                                        प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        12
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        NET/SET/PET/M.Phil Marksheet & Passing Certificate / नेट/सेट/पीईटी/एम.फिल
+                                        मार्कशीट
+                                        आणि
+                                        उत्तीर्ण प्रमाणपत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        13
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Ph.D Admission Receipt / पीएच.डी प्रवेशाची पावती
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        14
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Guide Allotment Letter / मार्गदर्शक वाटप पत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        15
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Guide Acceptance Letter / मार्गदर्शक स्वीकृती पत्र
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">16</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Letter of Acceptance from RAC/RRC / RAC/RRC कडून मान्यतेचे पत्र</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">17</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Confirmation Letter / पुष्टीकरण पत्र</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">18</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Research Center Joining Report / संशोधन केंद्र जॉईनिंग रिपोर्ट</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">19</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Kendra Pramukh - Sanyukta Pramanpatra / केंद्रप्रमुख - संयुक्त प्रमाणपत्र</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">20</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        If Disabled - Disability Certificate / अक्षम असल्यास - अपंगत्व प्रमाणपत्र</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">21</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Change in Name - Gazette / नावात बदल - राजपत्र</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">22</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Acknowledgement of not getting scholarship from anywhere / कुठूनही शिष्यवृत्ती न
+                                        मिळाल्याची पावती</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">23</td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Research Synopsis/ Research Center Allotment letter / संशोधन सारांश/ संशोधन
+                                        केंद्र
+                                        वाटप
+                                        पत्र</td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">check_circle</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="p-3 bg-amber-300 rounded  ">
-            <div class="flex items-center">
-                <div class="mx-2">
-                    <span class="material-symbols-outlined !text-amber-900 !text-2xl">
-                        list_alt_check
-                    </span>
-
-                </div>
-                <h4 class="text-xl font-semibold text-amber-900">
-                    {{ multilingual_content[language]['circulars'] }}
-                </h4>
-                <p></p>
-            </div>
-
-            <div class="px-3 py-5 bg-white rounded my-2">
-                <div class="flex items-center gap-4">
-                    <div>
-
-                        <div class="w-8 h-8 flex items-center justify-center bg-amber-300 rounded-full">
-                            <span class="material-symbols-outlined !text-xl !text-amber-900">
-                                help
-                            </span>
-                        </div>
+        <!-- Accordion Item 4 -->
+        <div class="border-b border-slate-200">
+            <button onclick="toggleAccordion(4)" class="w-full flex justify-between items-center py-5 text-slate-800">
+                <div class="flex items-center gap-2">
+                    <div class="mx-2">
+                        <span class="material-symbols-outlined !text-gray-600 !text-xl">
+                            breaking_news_alt_1
+                        </span>
                     </div>
-                    <div>
-                        <h5 class="text-amber-900 font-semibold">
-                            No Information Available
-                        </h5>
-                        <p class="text-sm">Currently, there is nothing to view here. Once content is uploaded, it will
-                            appear on this
-                            page.</p>
-                    </div>
+                    <h4 class="text-base font-semibold font-third text-gray-700 ">
+                        Important Documents
+                    </h4>
                 </div>
-            </div>
-        </div>
-
-        <div class="p-3 bg-violet-300 rounded  ">
-            <div class="flex items-center gap-2">
-                <div class="mx-2">
-                    <span class="material-symbols-outlined !text-violet-900 !text-2xl">
-                        school
-                    </span>
-
-                </div>
-                <h4 class="text-xl font-semibold text-violet-900">
-                    {{ multilingual_content[language]['shcolarship_regulations'] }}
-                </h4>
-
-
-
-            </div>
-            <p class="text-violet-900">Documents Needed for application form submission.</p>
-            <div class="grid grid-cols-2 gap-x-4 gap-y-2">
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <!-- <span class="material-symbols-outlined ">
-                                    picture_as_pdf
-                                </span> -->
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">1</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Adhaar Card / आधार कार्ड
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full font-play">
-                                <!-- <span class="material-symbols-outlined !text-xl !text-violet-900">
-                                    picture_as_pdf
-                                </span> -->
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">2</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                PAN Card / पॅन कार्ड
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">3</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Domicile Certificate / अधिवास प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">4</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Caste Certificate / जातीचा दाखला
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">5</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Caste Validity Certificate / जात वैधता प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">6</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Income Certificate
-                                / उत्पन्नाचा दाखला
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">7</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                10th Marksheet & Passing Certificate
-                                / 10वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">8</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                12th Marksheet & Passing Certificate
-                                / 12वी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">9</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Diploma Marksheet & Passing Certificate
-                                / डिप्लोमा मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">10</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Graduation Marksheet & Passing Certificate
-                                / पदवी मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">11</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Post-Graduation Marksheet & Passing Certificate /
-                                पदव्युत्तर मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">12</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                NET/SET/PET/M.Phil Marksheet & Passing Certificate /
-                                नेट/सेट/पीईटी/एम.फिल मार्कशीट आणि उत्तीर्ण प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">13</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Ph.D Admission Receipt /
-                                पीएच.डी प्रवेशाची पावती
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">14</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Guide Allotment Letter /
-                                मार्गदर्शक वाटप पत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">15</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Guide Acceptance Letter / मार्गदर्शक स्वीकृती पत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">16</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Letter of Acceptance from RAC/RRC / RAC/RRC कडून मान्यतेचे पत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">17</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Confirmation Letter / पुष्टीकरण पत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">18</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Research Center Joining Report / संशोधन केंद्र जॉईनिंग रिपोर्ट
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">19</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Kendra Pramukh - Sanyukta Pramanpatra / केंद्रप्रमुख - संयुक्त प्रमानपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">20</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                If Disabled - Disability Certificate / अक्षम असल्यास - अपंगत्व प्रमाणपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">21</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Change in Name - Gazette / नावात बदल - राजपत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">22</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Acknowledgement of not getting scholarship from anywhere / कुठूनही शिष्यवृत्ती न
-                                मिळाल्याची पावती
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center h-full gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-violet-300 rounded-full">
-                                <h3 class="!text-base !text-violet-900 font-bold font-play">23</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-violet-900 font-semibold">
-                                Research Synopsis/ Research Center Allotment letter / संशोधन सारांश/ संशोधन केंद्र वाटप
-                                पत्र
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-
-        <div class="p-3 bg-rose-400 rounded ">
-
-            <div class="flex items-center gap-2">
-                <div class="mx-2">
-                    <span class="material-symbols-outlined !text-rose-900 !text-2xl">
-                        breaking_news_alt_1
-                    </span>
-                </div>
-                <h4 class="text-xl font-semibold text-rose-900">
-                    Important Documents
-                </h4>
-            </div>
-
-
-            <div class="grid grid-cols-2 gap-4">
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">1</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Joining Certificate: - Annexure –I (A)
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">2</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Joining Certificate: - Annexure –I (B)
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">3</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Half Yearly Progress Report- Annexure -II
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">4</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                House Rent Allowance (HRA) - Annexure - III
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">5</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Utilization Certificate for Contingency Amount - Annexure -IV
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">6</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Up-gradation Certificate- Annexure V
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">7</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Extension Certificate - Annexure VI
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">8</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Attendance Certificate - Annexure VII
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">9</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Fellowship/ House Rent Allowance Utilization Certificate - Annexure VIII
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">10</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Research proposal /Synopsis - Annexure IX
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-5 bg-white rounded my-2">
-                    <div class="flex items-center gap-4">
-                        <div>
-
-                            <div class="w-8 h-8 flex items-center justify-center bg-rose-300 rounded-full">
-                                <h3 class="!text-base !text-rose-900 font-bold font-play">11</h3>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-rose-900 font-semibold">
-                                Continuation certificate - Annexure X
-                            </h5>
-                        </div>
+                <span id="icon-4" class="text-slate-800 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                        <path
+                            d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+                    </svg>
+                </span>
+            </button>
+            <div id="content-4" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out ">
+                <div class="px-10 bg-sky-100 py-3">
+                    <div class="bg-white overflow-auto">
+                        <table class="w-full rounded-lg my-4">
+                            <thead>
+                                <tr>
+                                    <th class="font-medium border font-third  border-gray-300 py-2 px-2">S.No</th>
+                                    <th class="font-medium border font-third border-gray-300 py-2 px-2">Document</th>
+                                    <th class="font-medium border font-third border-gray-300 py-2 px-2">Is required?
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        1
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap ">
+                                        Joining Certificate: - Annexure –I (A)
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        2
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Joining Certificate: - Annexure –I (B)
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        3
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Half Yearly Progress Report- Annexure -II
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        4
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        House Rent Allowance (HRA) - Annexure - III
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        5
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Utilization Certificate for Contingency Amount - Annexure -IV
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        6
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Up-gradation Certificate- Annexure V
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        7
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Extension Certificate - Annexure VI
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        8
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Attendance Certificate - Annexure VII
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        9
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Fellowship/ House Rent Allowance Utilization Certificate - Annexure VIII
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        10
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Research proposal /Synopsis - Annexure IX
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        11
+                                    </td>
+                                    <td
+                                        class="text-center border font-secondary text-xs border-gray-300 py-2 whitespace-nowrap">
+                                        Continuation certificate - Annexure X
+                                    </td>
+                                    <td class="text-center border font-secondary text-xs border-gray-300 py-2">
+                                        <span class="material-symbols-outlined !text-green-600">
+                                            check_circle
+                                        </span>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
 
     </div>
+    <script>
+        function toggleAccordion(index) {
+            const content = document.getElementById(`content-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+
+            // SVG for Minus icon
+            const minusSVG = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+          <path d="M3.75 7.25a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Z" />
+        </svg>
+      `;
+
+            // SVG for Plus icon
+            const plusSVG = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+          <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+        </svg>
+      `;
+
+            // Toggle the content's max-height for smooth opening and closing
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0';
+                icon.innerHTML = plusSVG;
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.innerHTML = minusSVG;
+            }
+        }
+    </script>
 
 </div>
 

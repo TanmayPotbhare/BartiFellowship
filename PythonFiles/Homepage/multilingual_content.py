@@ -92,7 +92,7 @@ multilingual_content = {
         'tribal_development_department' : 'Forms',
         'tribal_commissionerate' : 'Contact Us',
         'aaple_sarkar' : 'Careers',
-        'careers': "careers",
+        'careers': "Careers",
         'ministry_of_tribal_affairs' : 'Ministry of Tribal Affairs- Govt of India',
         'my_gov' : 'My Gov',
         'security_brand' : 'SECURITY & BRAND',
