@@ -32,7 +32,7 @@ def generate_award_letter(data, filename):
                 self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti_new.png', 10, 25,20)
                 # Replace with the path to your symbol image
                 # self.image('static/assets/img/logo/barti_new.png', 180, 28, 20)
-                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 180, 28,20)
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 180, 25,20)
                 # Replace with the path to your symbol image
                 # self.ln(1)
                 # self.ln(0)  # Reduce the space below the address
