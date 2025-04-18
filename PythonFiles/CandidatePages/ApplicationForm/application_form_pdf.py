@@ -65,14 +65,12 @@ def app_pdf_auth(app):
                     self.set_font("Arial", "B", 12)
                     # self.cell(0, 10, "Fellowship ", align="C", ln=True)
                     # Add space by changing the second parameter (e.g., 20)
-                    # Insert an image (symbol) at the center of the header
 
-                    # self.image('static/assets/img/logo/barti_new.png', 10, 10, 23)
-                    # self.image('static/assets/img/logo/diya.png', 175, 10, 23)
-                    # self.image('static/admin_assets/images/b-r-ambedkar.png', 95, 10, 13)  # Center the image
-                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti_new.png', 10, 10, 23)
-                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/diya.png', 175, 10, 23)
-                    self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/admin_assets/images/b-r-ambedkar.png', 95, 10, 13)  # Center the image
+                    # Insert an image (symbol) at the center of the header
+                    self.image(app.config['barti_image'], 10, 10, 23)
+                    self.image(app.config['diya_image'], 175, 10, 23)
+                    self.image(app.config['dr_ambedkar_image'], 95, 10, 13)  # Center the image
+
                     self.ln(8)
                     self.set_font("Arial", size=12)  # Larger font for the main heading
                     # self.cell(0, 20)
@@ -116,8 +114,8 @@ def app_pdf_auth(app):
                     image_x = 173  # Adjust this to place the image further to the right if needed
                     image_y = self.get_y()  # Current y-position of the cursor after the blue box
                     # Insert the image to the right
-                    photo = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['applicant_photo']
-                    # photo = data['applicant_photo']
+                    photo = app.config['absolute_path'] + data['applicant_photo']
+                    # photo = '/static/assets/img/leaders/ajitpawar.jpg'
                     # modified_path = photo[1:] if photo.startswith("/") else photo
                     # Define image size (width, height)
                     image_width = 25
@@ -148,8 +146,8 @@ def app_pdf_auth(app):
                         ("Applicant ID:", f"BARTI/BANRF{data.get('phd_registration_year', 'XXXX')}/{data.get('id', 'XXXX')}"),
                         ("Full Name:",
                          f"{data.get('first_name', '')} {data.get('middle_name', '')} {data.get('last_name', '')}"),
-                        ("Submitted Date:", str(data.get('application_date', 'N/A'))),
-                        ("Submitted Time:", str(data.get('application_time', 'N/A')))
+                        ("Submitted Date:", str(data.get('application_date', 'N/A')) + ' ' +  '(YYYY-MM-DD)'),
+                        ("Submitted Time:", str(data.get('application_time', 'N/A')) + ' ' +  '(HH:MM:SS)')
                     ]
 
                     # Add space before key-value fields
@@ -190,14 +188,18 @@ def app_pdf_auth(app):
             "Last Name:": data['last_name'],
             "Mobile Number:": data['mobile_number'],
             "Email:": data['email'],
-            "Date of Birth:": data['date_of_birth'],
+            "Date of Birth:": str(data['date_of_birth']) + ' ' +'(YYYY-MM-DD)',
             "Gender:": data['gender'],
-            "Age:": data['age'],
+            "Age:": str(data['age']) + ' ' + 'Years',
             "Category:": 'Scheduled Caste',
-            "Caste: ": data['your_caste']
-
+            "Caste: ": data['your_caste'],
+            "Salaried": data['salaried'],
+            "Disability": data['disability']
             # Add more fields as needed
         }
+
+        if 'disability' in data and data['disability'] == 'Yes':
+            personal_details["Type of Disability:"] = data['type_of_disability']
 
         address_details = {
             "Permanent Address:": data['add_1'],
@@ -223,36 +225,36 @@ def app_pdf_auth(app):
             "SSC Passing Year:": data['ssc_passing_year'],
             "SSC School Name:": data['ssc_school_name'],
             "SSC Stream:": data['ssc_stream'],
-            "SSC Attempts:": data['ssc_attempts'],
-            "SSC Total Marks:": data['ssc_total'],
-            "SSC Percentage:": data['ssc_percentage']
+            "SSC Attempts:": str(data['ssc_attempts']) + ' ' + 'Attempt',
+            "SSC Total Marks:": str(data['ssc_total']) + ' ' + '(Obtained Marks)',
+            "SSC Percentage:": str(data['ssc_percentage']) + '%'
         }
 
         hsc = {
             "HSC Passing Year:": data['hsc_passing_year'],
             "HSC School Name:": data['hsc_school_name'],
             "HSC Stream:": data['hsc_stream'],
-            "HSC Attempts:": data['hsc_attempts'],
-            "HSC Total Marks:": data['hsc_total'],
-            "HSC Percentage:": data['hsc_percentage']
+            "HSC Attempts:": str(data['hsc_attempts']) + ' ' + 'Attempt',
+            "HSC Total Marks:": str(data['hsc_total']) + ' ' + '(Obtained Marks)',
+            "HSC Percentage:": str(data['hsc_percentage']) + '%'
         }
 
         grad = {
             "Graduation Passing Year:": data['graduation_passing_year'],
             "Graduation College Name:": data['graduation_school_name'],
             "Graduation Stream:": data['grad_stream'],
-            "Graduation Attempts:": data['grad_attempts'],
-            "Graduation Total Marks:": data['grad_total'],
-            "Graduation Percentage:": data['graduation_percentage']
+            "Graduation Attempts:": str(data['grad_attempts']) + ' ' + 'Attempt',
+            "Graduation Total Marks:": str(data['grad_total']) + ' ' + '(Obtained Marks)',
+            "Graduation Percentage:": str(data['graduation_percentage']) + '%'
         }
 
         postgrad = {
             "Post Grad. Passing Year:": data['phd_passing_year'],
             "Post Grad. College Name:": data['phd_school_name'],
             "Post Grad. Stream:": data['pg_stream'],
-            "Post Grad. Attempts:": data['pg_attempts'],
-            "Post Grad. Total Marks:": data['pg_total'],
-            "Post Grad. Percentage:": data['phd_percentage'],
+            "Post Grad. Attempts:": str(data['pg_attempts']) + ' ' + 'Attempt',
+            "Post Grad. Total Marks:": str(data['pg_total']) + ' ' + '(Obtained Marks)',
+            "Post Grad. Percentage:": str(data['phd_percentage']) + '%',
             "Competitve Exam given:": data['have_you_qualified']
             # Add more fields as needed
         }
@@ -266,10 +268,10 @@ def app_pdf_auth(app):
                 postgrad["Other Competitive Exam:"] = "Not Specified"
 
         phd_details = {
-            "P.H.D Registration Date:": data['phd_registration_date'],
+            "P.H.D Registration Date:": str(data['phd_registration_date']) + ' ' +'(YYYY-MM-DD)',
             "P.H.D Registration Year:": data['phd_registration_year'],
-            "Age at Ph.D. Registration:": data['phd_registration_age'],
-            "Fellowship Application Year:": data['fellowship_application_year'],
+            "Age at Ph.D. Registration:": str(data['phd_registration_age']) + ' ' + 'Years',
+            "Fellowship Application Year:": 'STRF' + ' ' + data['fellowship_application_year'],
             "Department Name:": data['department_name'],
             "Topic of Ph.D.:": data['topic_of_phd'],
             "Name of Guide:": data['name_of_guide'],
@@ -291,97 +293,157 @@ def app_pdf_auth(app):
 
 
         income_details = {
-            "Family Annual Income": data['family_annual_income'],
-            "Income Certificate Number": data['income_certificate_number'],
-            "Income Certificate Issuing Authority": data['issuing_authority'],
-            "Income Certificate Issuing District": data['income_issuing_district'],
-            "Income Certificate Issuing Taluka": data['income_issuing_taluka']
+            "Family Annual Income:": 'INR' + ' ' + str(data['family_annual_income']),
         }
+        if 'income_certificate_number' in data and data['income_certificate_number'] in ['', None]:
+            income_details["Income Certificate Present:"] = 'No Certificate'
+            income_details["Income Certificate Issue Date:"] = data['income_barcode_issue_date'] + ' ' +'(YYYY-MM-DD)'
+            income_details["Income Certificate Issuing Authority:"] = data['issuing_authority']
+            income_details["Income Certificate Issuing District:"] = data['income_issuing_district']
+            income_details["Income Certificate Issuing Taluka:"] = data['income_issuing_taluka']
+        else:
+            income_details["Income Certificate Present:"] = 'Yes'
+            income_details["Income Certificate Number:"] = data['income_certificate_number']
+            income_details["Income Certificate Issuing Authority:"] = data['issuing_authority']
+            income_details["Income Certificate Issuing District:"] = data['income_issuing_district']
+            income_details["Income Certificate Issuing Taluka:"] = data['income_issuing_taluka']
 
-        caste = {
-            "Are you Domicile of Maharashtra": data['domicile'],
-            "Domicile Certificate": data['domicile_certificate'],
-            "Domicile Certificate Number": data['domicile_number'],
-            "Do you have Caste Certificate": data['caste_certf'],
-            "Caste ": data['your_caste'],
-            "Caste Certificate Number": data['caste_certf_number'],
-            "Caste Certificate Issuing District": data['issuing_district'],
-            "Caste Certificate Issuing Authority": data['caste_issuing_authority'],
-            "Validity Certificate": data['validity_certificate'],
-            "Validity Certificate Number": data['validity_cert_number'],
-            "Validity Certificate Issuing District": data['validity_issuing_district'],
-            "Validity Certificate Issuing Taluka": data['validity_issuing_taluka'],
-            "Validity Certificate Issuing Authority": data['validity_issuing_authority']
+        domicile_details = {
+            "Are you Domicile of Maharashtra:": data['domicile'],
         }
+        if 'domicile_number' in data and data['domicile_number'] in ['', None]:
+            domicile_details["Domicile Certificate Present:"] = 'No Certificate'
+            domicile_details["Domicile Certificate Issue Date:"] = data['domicile_barcode_issue_date'] + ' ' +'(YYYY-MM-DD)'
+            domicile_details["Domicile Certificate Issuing Authority:"] = data['domicile_issuing_authority']
+            domicile_details["Domicile Certificate Issuing District:"] = data['domicile_issuing_district']
+            domicile_details["Domicile Certificate Issuing Taluka:"] = data['domicile_issuing_taluka']
+        else:
+            domicile_details["Domicile Certificate Present:"] = 'Yes'
+            domicile_details["Domicile Certificate Number:"] = data['domicile_number']
+            domicile_details["Domicile Certificate Issuing Authority:"] = data['domicile_issuing_authority']
+            domicile_details["Domicile Certificate Issuing District:"] = data['domicile_issuing_district']
+            domicile_details["Domicile Certificate Issuing Taluka:"] = data['domicile_issuing_taluka']
+
+        caste_details = {
+            "Do you have Caste Certificate:": data['caste_certf'],
+        }
+        if 'caste_certf_number' in data and data['caste_certf_number'] in ['', None]:
+            caste_details["Caste Certificate Present:"] = 'No Certificate'
+            caste_details["Caste Certificate Issue Date:"] = data['caste_barcode_issue_date'] + ' ' + '(YYYY-MM-DD)'
+            caste_details["Caste Certificate Issuing Authority:"] = data['caste_issuing_authority']
+            caste_details["Caste Certificate Issuing District:"] = data['issuing_district']
+            caste_details["Caste Certificate Issuing Taluka:"] = data['caste_issuing_taluka']
+        else:
+            caste_details["Caste Certificate Present:"] = 'Yes'
+            caste_details["Caste Certificate Number:"] = data['caste_certf_number']
+            caste_details["Caste Certificate Issuing Authority:"] = data['caste_issuing_authority']
+            caste_details["Caste Certificate Issuing District:"] = data['issuing_district']
+            caste_details["Caste Certificate Issuing Taluka:"] = data['caste_issuing_taluka']
+
+        validity_details = {
+            "Do you have Validity Certificate:": data['validity_certificate'],
+        }
+        if 'validity_certificate' in data and data['validity_certificate'] == 'Yes':
+            if 'validity_cert_number' in data and data['validity_cert_number'] in ['', None]:
+                validity_details["Validity Certificate Present:"] = 'No Certificate'
+                validity_details["Validity Certificate Issue Date:"] = data['validity_barcode_issue_date'] + ' ' + '(YYYY-MM-DD)'
+                validity_details["Validity Certificate Issuing Authority:"] = data['validity_issuing_authority']
+                validity_details["Validity Certificate Issuing District:"] = data['validity_issuing_district']
+                validity_details["Validity Certificate Issuing Taluka:"] = data['validity_issuing_taluka']
+            else:
+                validity_details["Validity Certificate Present:"] = 'Yes'
+                validity_details["Validity Certificate Number:"] = data['validity_cert_number']
+                validity_details["Validity Certificate Issuing Authority:"] = data['validity_issuing_authority']
+                validity_details["Validity Certificate Issuing District:"] = data['validity_issuing_district']
+                validity_details["Validity Certificate Issuing Taluka:"] = data['validity_issuing_taluka']
+        else:
+            pass
 
         parent_details = {
-            "Salaried": data['salaried'],
-            "Disability": data['disability'],
-            "Type of Disability": data['type_of_disability'],
-            "Father Name": data['father_name'],
-            "Mother Name": data['mother_name'],
-            "Anyone Work in Government": data['work_in_government'],
-            "IFSC Code": data['ifsc_code'],
-            "Account Number": data['account_number'],
-            "Bank Name": data['bank_name'],
-            "Account Holder Name": data['account_holder_name'],
-            "MICR Code": data['micr']
+            "Father Name:": data['father_name'],
+            "Mother Name:": data['mother_name'],
+            "Anyone Work in Government:": data['work_in_government'],
+            "IFSC Code:": data['ifsc_code'],
+            "Account Number:": data['account_number'],
+            "Bank Name:": data['bank_name'],
+            "Account Holder Name:": data['account_holder_name'],
+            "MICR Code:": data['micr']
         }
 
-        signature_doc = bool(data['signature'])
-        adhaar_doc = bool(data['adhaar_card_doc'])
-        pan_doc = bool(data['pan_card_doc'])
-        domicile_doc = bool(data['domicile_doc'])
-        caste_doc = bool(data['caste_doc'])
-        validity_doc = bool(data['validity_doc'])
-        income_doc = bool(data['income_doc'])
-        ssc_doc = bool(data['ssc_doc'])
-        hsc_doc = bool(data['hsc_doc'])
-        grad_doc = bool(data['grad_doc'])
-        postgrad_doc = bool(data['post_grad_doc'])
-        entrance_doc = bool(data['entrance_doc'])
-        phd_reciept_doc = bool(data['phd_reciept_doc'])
-        guideAllotment_doc = bool(data['guideAllotment_doc'])
-        # guideAccept_doc = bool(data['guideAccept_doc'])
-        rac_doc = bool(data['rac_doc'])
-        confirmation_doc = bool(data['confirmation_doc'])
-        joining_doc = bool(data['joining_doc'])
-        annexureA_doc = bool(data['annexureA_doc'])
-        annexureB_doc = bool(data['annexureB_doc'])
-        annexureC_doc = bool(data['annexureC_doc'])
-        annexureD_doc = bool(data['annexureD_doc'])
-        disable_doc = bool(data['disable_doc'])
-        gazete_doc = bool(data['gazete_doc'])
-        selfWritten_doc = bool(data['selfWritten_doc'])
-        research_letter_doc = bool(data['research_letter_doc'])
+        signature_doc = data.get('signature')
+        adhaar_doc = data.get('adhaar_card_doc')
+        pan_doc = data.get('pan_card_doc')
+        domicile_doc = data.get('domicile_doc')
+        caste_doc = data.get('caste_doc')
+        validity_doc = data.get('validity_doc')
+        income_doc = data.get('income_doc')
+        ssc_doc = data.get('ssc_doc')
+        hsc_doc = data.get('hsc_doc')
+        grad_doc = data.get('grad_doc')
+        postgrad_doc = data.get('post_grad_doc')
+        entrance_doc = data.get('entrance_doc')
+        phd_reciept_doc = data.get('phd_reciept_doc')
+        # guideAllotment_doc = data.get('guideAllotment_doc')
+        # guideAccept_doc = data.get('guideAccept_doc')
+        # rac_doc = data.get('rac_doc')
+        confirmation_doc = data.get('confirmation_doc')
+        joining_doc = data.get('joining_doc')
+        annexureA_doc = data.get('annexureA_doc')
+        annexureB_doc = data.get('annexureB_doc')
+        annexureC_doc = data.get('annexureC_doc')
+        annexureD_doc = data.get('annexureD_doc')
+        disable_doc = data.get('disable_doc')
+        gazete_doc = data.get('gazete_doc')
+        # selfWritten_doc = data.get('selfWritten_doc')
+        research_letter_doc = data.get('research_letter_doc')
+
+        def is_document_present(doc_value):
+            """
+            Checks if a document is considered present based on various criteria.
+
+            Args:
+                doc_value: The value associated with the document (e.g., filename, path, or boolean).
+
+            Returns:
+                True if the document is considered present, False otherwise.
+            """
+            if doc_value is None:
+                return False
+            if isinstance(doc_value, str) and doc_value.strip() == "":  # Check for empty string
+                return False
+            if isinstance(doc_value, str) and doc_value == "Save File":  # Check for "SAVE FILE" (case-insensitive)
+                return False
+            if isinstance(doc_value, bool):  # If it's already a boolean
+                return doc_value
+            return True  # Default to True if none of the above conditions are met
 
         doc_uploaded = {
-            "Signature": signature_doc,
-            "Adhaar Card": adhaar_doc,
-            "Pan Card": pan_doc,
-            "Domicile Certificate": domicile_doc,
-            "Caste Certificate": caste_doc,
-            "Validity Certificate": validity_doc,
-            "Income Certificate": income_doc,
-            "Secondary School Certificate": ssc_doc,
-            "Higher Secondary Certificate": hsc_doc,
-            "Graduation Certificate": grad_doc,
-            "Post Graduation Certificate": postgrad_doc,
-            "SET/GATE/CET Marksheet & Passing Certificate": entrance_doc,
-            "Ph.D Admission Reciept": phd_reciept_doc,
-            "Guide Allotment Letter": guideAllotment_doc,
-            # "Guide Acceptance Letter": guideAccept_doc,
-            "Letter of Accpetance from RAC/RRC": rac_doc,
-            "Confirmation Letter": confirmation_doc,
-            "Research Center Joining Report": joining_doc,
-            "Annexure A - Self Declaration": annexureA_doc,
-            "Annexure B - Undertaking": annexureB_doc,
-            "Annexure C - Affidavit": annexureC_doc,
-            "Annexure D - Non Beneficiary Certificate": annexureD_doc,
-            "Disability Certificate": disable_doc,
-            "Change in Name - Gazzette": gazete_doc,
-            "Self Written Certificate of not getting scholarship from anywhere": selfWritten_doc,
-            "Research Synopsis/ Research Center Allotment letter": research_letter_doc,
+            "Signature": is_document_present(signature_doc),
+            "Adhaar Card": is_document_present(adhaar_doc),
+            "Pan Card": is_document_present(pan_doc),
+            "Domicile Certificate": is_document_present(domicile_doc),
+            "Caste Certificate": is_document_present(caste_doc),
+            "Validity Certificate": is_document_present(validity_doc),
+            "Income Certificate": is_document_present(income_doc),
+            "Secondary School Certificate": is_document_present(ssc_doc),
+            "Higher Secondary Certificate": is_document_present(hsc_doc),
+            "Graduation Certificate": is_document_present(grad_doc),
+            "Post Graduation Certificate": is_document_present(postgrad_doc),
+            "SET/GATE/CET Marksheet & Passing Certificate": is_document_present(entrance_doc),
+            "Ph.D Admission Reciept": is_document_present(phd_reciept_doc),
+            # "Guide Allotment Letter": is_document_present(guideAllotment_doc),
+            # "Guide Acceptance Letter": is_document_present(guideAccept_doc),
+            # "Letter of Accpetance from RAC/RRC": is_document_present(rac_doc),
+            "Confirmation Letter": is_document_present(confirmation_doc),
+            "Research Center Joining Report": is_document_present(joining_doc),
+            "Annexure A - Self Declaration": is_document_present(annexureA_doc),
+            "Annexure B - Undertaking": is_document_present(annexureB_doc),
+            "Annexure C - Affidavit": is_document_present(annexureC_doc),
+            "Annexure D - Non Beneficiary Certificate": is_document_present(annexureD_doc),
+            "Disability Certificate": is_document_present(disable_doc),
+            "Change in Name - Gazzette": is_document_present(gazete_doc),
+            # "Self Written Certificate of not getting scholarship from anywhere": is_document_present(selfWritten_doc),
+            "Research Synopsis/ Research Center Allotment letter": is_document_present(research_letter_doc),
         }
 
         pdf = PDF(orientation='P', format='A4')
@@ -431,51 +493,64 @@ def app_pdf_auth(app):
                  f"Address Details",
                  align="C", ln=True, fill=True)
         pdf.set_text_color(0, 0, 0)
-        pdf.set_font("Arial", size=10)
+        pdf.set_font("Arial", size=10)  # Decreased font size
         pdf.ln(2)
 
         # Set the left margin to ensure proper alignment
         left_margin = 10
-        col_width = 70  # Adjust as needed
-        key_width = 30
-        value_width = col_width - key_width
-        key_value_spacing = 1
-        vertical_line_x = left_margin + col_width
-
-        pdf.set_x(left_margin)
-
-        col_widths =  [90, 90] # Adjust column widths as needed
+        col_widths = [90, 90]  # Adjust column widths as needed
         x_start = left_margin
+        line_height = 4  # Decreased line height
 
         perm_address_data = list(address_details.items())
+        print(perm_address_data)
         comm_address_data = list(com_address_details.items())
 
         max_rows = max(len(perm_address_data), len(comm_address_data))
 
         for i in range(max_rows):
             pdf.set_x(x_start)
+            current_y = pdf.get_y()
+            max_label_height_perm = line_height
+            max_value_height_perm = line_height
+            max_label_height_comm = line_height
+            max_value_height_comm = line_height
 
             # Permanent Address
             if i < len(perm_address_data):
                 label, value = perm_address_data[i]
-                pdf.cell(col_widths[0] / 2, 5, label, align="L")  # Keep cell height for label
-                pdf.cell(col_widths[0] / 2, 5, str(value), align="L", ln=False)  # Keep cell height for value
+                pdf.multi_cell(col_widths[0] / 2, line_height, label, align="L")
+                label_height_perm = pdf.get_y() - current_y
+                max_label_height_perm = max(max_label_height_perm, label_height_perm)
 
+                pdf.set_xy(x_start + col_widths[0] / 2, current_y)
+                pdf.multi_cell(col_widths[0] / 2, line_height, str(value), align="L")
+                value_height_perm = pdf.get_y() - current_y
+                max_value_height_perm = max(max_value_height_perm, value_height_perm)
             else:
-                pdf.cell(col_widths[0] / 2, 5, "", align="L")  # Keep cell height
-                pdf.cell(col_widths[0] / 2, 5, "", align="L", ln=False)
+                pdf.cell(col_widths[0] / 2, line_height, "", align="L")
+                pdf.cell(col_widths[0] / 2, line_height, "", align="L")
 
             # Communication Address
+            pdf.set_xy(x_start + col_widths[0], current_y)
             if i < len(comm_address_data):
                 label, value = comm_address_data[i]
-                pdf.cell(col_widths[1] / 2, 5, label, align="L")  # Keep cell height
-                pdf.cell(col_widths[1] / 2, 5, str(value), align="L", ln=True)  # New line
+                pdf.multi_cell(col_widths[1] / 2, line_height, label, align="L")
+                label_height_comm = pdf.get_y() - current_y
+                max_label_height_comm = max(max_label_height_comm, label_height_comm)
 
+                pdf.set_xy(x_start + col_widths[0] + col_widths[1] / 2, current_y)
+                pdf.multi_cell(col_widths[1] / 2, line_height, str(value), align="L")
+                value_height_comm = pdf.get_y() - current_y
+                max_value_height_comm = max(max_value_height_comm, value_height_comm)
             else:
-                pdf.cell(col_widths[1] / 2, 5, "", align="L")  # Keep cell height
-                pdf.cell(col_widths[1] / 2, 5, "", align="L", ln=True)  # New line
+                pdf.cell(col_widths[1] / 2, line_height, "", align="L")
+                pdf.cell(col_widths[1] / 2, line_height, "", align="L")
 
-        pdf.ln(5)
+            # Move to the next line, taking the maximum height of the current row
+            pdf.ln(max(max_label_height_perm, max_value_height_perm, max_label_height_comm, max_value_height_comm))
+
+        pdf.ln(9)
         # --------------------- END Section 2 -----------------------------------
 
         # ---------------------- Section 3 - Education Details ----------------
@@ -590,7 +665,7 @@ def app_pdf_auth(app):
                          ln=False)  # ln=False here to prevent it going to next line
                 pdf.ln(key_value_spacing)  # manually go to next line
 
-        pdf.ln(5)
+        pdf.ln(9)
         # ----------------------- END Section 4 ------------------------
 
         # ---------------------- Section 4 - Income Details ----------------
@@ -630,7 +705,7 @@ def app_pdf_auth(app):
         pdf.set_text_color(255, 255, 255)  # White color
         # Add the text inside the box
         pdf.cell(0, 10,
-                 f"Caste & Validity Details",
+                 f"Domicile Details",
                  align="C", ln=True, fill=True)
         pdf.set_text_color(0, 0, 0)
         pdf.set_font("Arial", size=10)
@@ -642,7 +717,65 @@ def app_pdf_auth(app):
         value_width = 30  # Remaining width for values (adjust as needed)
 
         key_value_spacing = 5  # Space between key-value pairs
-        for key, value in caste.items():
+        for key, value in domicile_details.items():
+            pdf.set_x(left_margin)  # Set x position to ensure left alignment
+            pdf.cell(key_width, key_value_spacing, key, align="L", ln=False)  # Print the key
+            # Print the value (with remaining width)
+            pdf.cell(value_width, key_value_spacing, str(value), align="L", ln=True)  # Print the value
+
+        pdf.ln(5)
+        # ----------------------- END Section 5 ---------------------------------
+
+        # ---------------------- Section 5 - Income Details ----------------
+        if pdf.get_y() > 270:  # Prevent overflow
+            pdf.add_page()
+        pdf.set_fill_color(0, 0, 139)  # Dark blue RGB
+        # Set the text color to white
+        pdf.set_text_color(255, 255, 255)  # White color
+        # Add the text inside the box
+        pdf.cell(0, 10,
+                 f"Caste Details",
+                 align="C", ln=True, fill=True)
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_font("Arial", size=10)
+        pdf.ln(2)
+
+        # Set the left margin to ensure proper alignment
+        left_margin = 10  # Margin for left alignment
+        key_width = 70  # Fixed width for keys
+        value_width = 30  # Remaining width for values (adjust as needed)
+
+        key_value_spacing = 5  # Space between key-value pairs
+        for key, value in caste_details.items():
+            pdf.set_x(left_margin)  # Set x position to ensure left alignment
+            pdf.cell(key_width, key_value_spacing, key, align="L", ln=False)  # Print the key
+            # Print the value (with remaining width)
+            pdf.cell(value_width, key_value_spacing, str(value), align="L", ln=True)  # Print the value
+
+        pdf.ln(5)
+        # ----------------------- END Section 5 ---------------------------------
+
+        # ---------------------- Section 5 - Income Details ----------------
+        if pdf.get_y() > 270:  # Prevent overflow
+            pdf.add_page()
+        pdf.set_fill_color(0, 0, 139)  # Dark blue RGB
+        # Set the text color to white
+        pdf.set_text_color(255, 255, 255)  # White color
+        # Add the text inside the box
+        pdf.cell(0, 10,
+                 f"Validity Details",
+                 align="C", ln=True, fill=True)
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_font("Arial", size=10)
+        pdf.ln(2)
+
+        # Set the left margin to ensure proper alignment
+        left_margin = 10  # Margin for left alignment
+        key_width = 70  # Fixed width for keys
+        value_width = 30  # Remaining width for values (adjust as needed)
+
+        key_value_spacing = 5  # Space between key-value pairs
+        for key, value in validity_details.items():
             pdf.set_x(left_margin)  # Set x position to ensure left alignment
             pdf.cell(key_width, key_value_spacing, key, align="L", ln=False)  # Print the key
             # Print the value (with remaining width)
@@ -711,11 +844,13 @@ def app_pdf_auth(app):
             pdf.cell(key_width, key_value_spacing, key, align="L", ln=False)
 
             if value:
-                image_path = "var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/check_mark.png"
+                image_path = app.config['absolute_path'] + 'static/assets/img/logo/check_mark.png'
             else:
-                image_path = "var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/cross_icon.png"
+                image_path = app.config['absolute_path'] + 'static/assets/img/logo/cross_icon.png'
 
-            # if value:
+            # print('Value of Doc:', value)
+
+            # if value is True:
             #     image_path = "static/assets/img/logo/check_mark.png"
             # else:
             #     image_path = "static/assets/img/logo/cross_icon.png"
@@ -790,7 +925,7 @@ def app_pdf_auth(app):
 
         # Add Signature Image
         # signature_path = 'static/assets/img/logo/Signature.png'
-        signature_path = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['signature']
+        signature_path = app.config['absolute_path'] + data['signature']
         signature_width = 50  # Set your desired width
         signature_height = 20  # Set your desired height (or calculate it proportionally)
         try:
