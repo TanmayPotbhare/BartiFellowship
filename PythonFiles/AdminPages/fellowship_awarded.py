@@ -113,7 +113,7 @@ def fellowship_awarded_auth(app):
 
             cursor.execute(
                 "SELECT id, applicant_photo, applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number,"
-                " email, date_of_birth, gender, age, caste, your_caste, marital_status, dependents, state, district,"
+                " email, date_of_birth, gender, age, caste, your_caste, marital_status, state, district,"
                 " taluka, village, city, add_1, add_2, pincode, ssc_passing_year,"
                 " ssc_percentage, ssc_school_name, hsc_passing_year, hsc_percentage, hsc_school_name,"
                 " graduation_passing_year, graduation_percentage, graduation_school_name, phd_passing_year,"

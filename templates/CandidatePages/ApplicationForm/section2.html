@@ -588,7 +588,7 @@
                                                 name="qualified_exams[]"
                                                 value="{{ exam }}"
                                                 {% if exam in selected_qualifications %}checked{% endif %}
-                                                onchange="validateQualifications(); toggleOtherQualification();">
+                                                onchange="toggleOtherQualification()">
                                             <label class="form-check-label" for="{{ exam }}">{{ exam }}</label>
                                         </div>
                                     {% endfor %}
@@ -608,7 +608,9 @@
                                     <input class="form-control" name="have_you_qualified_other" id="have_you_qualified_other"
                                         oninput="validateName(this)"
                                         placeholder="Enter Your Qualification"
-                                        value="{{ record['have_you_qualified_other'] }}"
+                                        {% if record['section2'] == 'filled' %}
+                                            value="{{ record['have_you_qualified_other'] }}" 
+                                        {% endif %}
                                         {% if 'OTHER' in selected_qualifications %}required{% endif %}>
                                 {% endif %}
                             </div>
@@ -917,9 +919,7 @@
                                 </label>
                                 {% if record['lock_application_form'] == 'locked' %}
                                 <br>                                    
-                                <select name="faculty" id="faculty" class="form-control"
                                     <span class="text-dark">{{ record['faculty'] }}</span>
-                                </select>
                                 {% else %}
                                     <select name="faculty" id="faculty" class="form-control"
                                         onchange="toggleAdditionalFieldFaculty(this)" required>

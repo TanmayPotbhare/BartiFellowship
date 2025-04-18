@@ -196,27 +196,27 @@ def notdisabled_applications(year):
     return result[0] if result else 0
 
 
-def pvtg_applications():
-    """
-    This function returns the count of rejected applications for a given year.
-    :param year: Year for which the count is required.
-    :return: Count of rejected applications as an integer.
-    """
-    host = HostConfig.host
-    connect_param = ConnectParam(host)
-    cnx, cursor = connect_param.connect(use_dict=True)
+# def pvtg_applications():
+#     """
+#     This function returns the count of rejected applications for a given year.
+#     :param year: Year for which the count is required.
+#     :return: Count of rejected applications as an integer.
+#     """
+#     host = HostConfig.host
+#     connect_param = ConnectParam(host)
+#     cnx, cursor = connect_param.connect(use_dict=True)
 
-    query = """
-               SELECT *
-               FROM application_page 
-               WHERE pvtg='Yes'
-               AND pvtg_caste in ('Katkari', 'Kolam', 'Madia')
-            """
-    cursor.execute(query,)
-    result = cursor.fetchall()
-    cursor.close()
-    cnx.close()
-    return result
+#     query = """
+#                SELECT *
+#                FROM application_page 
+#                WHERE pvtg='Yes'
+#                AND pvtg_caste in ('Katkari', 'Kolam', 'Madia')
+#             """
+#     cursor.execute(query,)
+#     result = cursor.fetchall()
+#     cursor.close()
+#     cnx.close()
+#     return result
 
 
 def get_individual_counts_pvtg():

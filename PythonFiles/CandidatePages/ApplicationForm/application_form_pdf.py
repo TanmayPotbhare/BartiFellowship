@@ -52,6 +52,7 @@ def app_pdf_auth(app):
             response = Response(pdf_file.read(), content_type="application/pdf")
             response.headers['Content-Disposition'] = 'inline; filename=Application Form.pdf'
 
+
         return response
 
     def generate_pdf_with_styling(data, filename):
@@ -117,7 +118,7 @@ def app_pdf_auth(app):
                     # Insert the image to the right
                     photo = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship' + data['applicant_photo']
                     # photo = data['applicant_photo']
-                    modified_path = photo[1:] if photo.startswith("/") else photo
+                    # modified_path = photo[1:] if photo.startswith("/") else photo
                     # Define image size (width, height)
                     image_width = 25
                     image_height = 25
@@ -127,7 +128,7 @@ def app_pdf_auth(app):
                     self.rect(image_x - border_padding, image_y - border_padding, image_width + 2 * border_padding,
                               image_height + 2 * border_padding)  # Draw border around the image
                     # Insert the image inside the border
-                    self.image(modified_path, image_x, image_y, image_width, image_height)
+                    self.image(photo, image_x, image_y, image_width, image_height)
                     # ----------------- END Image --------------------------------
 
                     # ----------------------------------------------------
@@ -301,9 +302,8 @@ def app_pdf_auth(app):
             "Are you Domicile of Maharashtra": data['domicile'],
             "Domicile Certificate": data['domicile_certificate'],
             "Domicile Certificate Number": data['domicile_number'],
-            "Do you have Caste/Tribe Certificate": data['caste_certf'],
-            "Caste | Tribe": data['your_caste'],
-            "Sub Caste/Tribe": data['subcaste'],
+            "Do you have Caste Certificate": data['caste_certf'],
+            "Caste ": data['your_caste'],
             "Caste Certificate Number": data['caste_certf_number'],
             "Caste Certificate Issuing District": data['issuing_district'],
             "Caste Certificate Issuing Authority": data['caste_issuing_authority'],
@@ -630,7 +630,7 @@ def app_pdf_auth(app):
         pdf.set_text_color(255, 255, 255)  # White color
         # Add the text inside the box
         pdf.cell(0, 10,
-                 f"Caste/Tribe & Validity Details",
+                 f"Caste & Validity Details",
                  align="C", ln=True, fill=True)
         pdf.set_text_color(0, 0, 0)
         pdf.set_font("Arial", size=10)
