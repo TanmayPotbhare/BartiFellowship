@@ -304,8 +304,6 @@ function calculateAges() {
 
         // Get the Ph.D. registration year
         const phdYear = phdDate.getFullYear();
-        // alert(phdYear)
-        // alert(dobYear)
 
         let age = phdYear - dobYear;
         // Assuming the birth month and day are Jan 1st, adjust age if the Ph.D. registration date is before the birthday in that year
