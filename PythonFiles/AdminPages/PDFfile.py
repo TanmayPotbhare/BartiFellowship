@@ -18,8 +18,8 @@ def generate_award_letter(data, filename):
                 print(var)
                 # Add a header
                 self.set_font("Arial", "B", 10)
-                self.image('static/Images/satya.png', 94, 10, 15)
-                # self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/admin_assets/images/b-r-ambedkar.png', 94, 10, 15)
+                # self.image('static/Images/satya.png', 94, 10, 15)
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/admin_assets/images/b-r-ambedkar.png', 94, 10, 15)
                 # Replace with the path to your small imag
                 # Calculate the width of the image
                 image_width = 100  # Assuming the width of the image is 100 (adjust if different)
@@ -28,11 +28,11 @@ def generate_award_letter(data, filename):
                 text_y_position = self.get_y() + 20  # Set Y position below the image
                 # Set cursor position
                 self.set_xy(text_x_position, text_y_position)
-                self.image('static/assets/img/logo/mahashasan.jpeg', 10, 25, 20)
-                # self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti_new.png', 10, 10,30)
+                # self.image('static/assets/img/logo/mahashasan.jpeg', 10, 25, 20)
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti_new.png', 10, 25,20)
                 # Replace with the path to your symbol image
-                self.image('static/assets/img/logo/barti_new.png', 180, 28, 20)
-                # self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 165, 10,28)
+                # self.image('static/assets/img/logo/barti_new.png', 180, 28, 20)
+                self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/Images/satya.png', 180, 28,20)
                 # Replace with the path to your symbol image
                 # self.ln(1)
                 # self.ln(0)  # Reduce the space below the address
@@ -217,8 +217,8 @@ def generate_award_letter(data, filename):
 
             self.ln(1)
             self.cell(160,10, "With Regards,", align='R', ln=True)
-            self.image('static/assets/img/logo/signHOD.png', 140, 187, 30)
-            # self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/signHOD.png', 140, 240, 30)
+            # self.image('static/assets/img/logo/signHOD.png', 140, 187, 30)
+            self.image('/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/signHOD.png', 140, 187, 30)
             self.ln(12)
             self.cell(165, 5, "(Umesh Sonawane)", align='R', ln=True)
             self.cell(165, 5, "Head of Department", align='R', ln=True)
