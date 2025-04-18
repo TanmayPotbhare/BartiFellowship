@@ -32,9 +32,8 @@ def withdraw_application_auth(app):
 
         # Fetch the relevant information
         select_query = """
-            SELECT s.*, ps.*, ap.*
+            SELECT s.*, ap.*
             FROM signup s
-            LEFT JOIN payment_sheet_2021 ps ON s.email = ps.email
             LEFT JOIN application_page ap ON s.email = ap.email
             WHERE s.request_withdrawal = '1'
         """
@@ -52,41 +51,37 @@ def withdraw_application_auth(app):
         sorted_years = sorted(result_set_by_year.keys(), reverse=True)
 
         application_2023 = """
-                    SELECT s.*, ps.*, ap.*
+                    SELECT s.*, ap.*
                     FROM signup s
-                    LEFT JOIN payment_sheet_2023 ps ON s.email = ps.email
                     LEFT JOIN application_page ap ON s.email = ap.email
-                    WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2023'
+                    WHERE s.request_withdrawal = '1' and ap.fellowship_application_year = '2023'
                 """
         cursor.execute(application_2023)
         result2023 = cursor.fetchall()
 
         application_2022 = """
-                SELECT s.*, ps.*, ap.*
+                SELECT s.*, ap.*
                 FROM signup s
-                LEFT JOIN payment_sheet_2022 ps ON s.email = ps.email
                 LEFT JOIN application_page ap ON s.email = ap.email
-                WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2022'
+                WHERE s.request_withdrawal = '1' and ap.fellowship_application_year = '2022'
             """
         cursor.execute(application_2022)
         result2022 = cursor.fetchall()
 
         application_2021 = """
-                    SELECT s.*, ps.*, ap.*
+                    SELECT s.*, ap.*
                     FROM signup s
-                    LEFT JOIN payment_sheet_2021 ps ON s.email = ps.email
                     LEFT JOIN application_page ap ON s.email = ap.email
-                    WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2021'
+                    WHERE s.request_withdrawal = '1' and ap.fellowship_application_year = '2021'
                 """
         cursor.execute(application_2021)
         result2021 = cursor.fetchall()
 
         application_2020 = """
-                    SELECT s.*, ps.*, ap.*
+                    SELECT s.*, ap.*
                     FROM signup s
-                    LEFT JOIN payment_sheet_2022 ps ON s.email = ps.email
                     LEFT JOIN application_page ap ON s.email = ap.email
-                    WHERE s.request_withdrawal = '1' and ap.phd_registration_year = '2020'
+                    WHERE s.request_withdrawal = '1' and ap.fellowship_application_year = '2020'
                 """
         cursor.execute(application_2020)
         result2020 = cursor.fetchall()
