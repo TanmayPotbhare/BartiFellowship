@@ -13,226 +13,112 @@
     </ol>
 </div>
 
-<div class="min-h-screen flex w-full items-center justify-center">
-    <div class="py-6 flex-1">
-        <div class=" ">
-            <div class="relative  min-h-screen w-1/2 mx-auto h-full">
-                <div
-                    class="border border-slate-300 rounded-lg p-6 shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto transition-all duration-600 w-3/5 mx-auto  sign_in_page  top-0 left-50 absolute ">
-                    <form class="space-y-6" action="/login" method="POST">
-                        <div class="mb-12">
-                            <h3 class="text-slate-900 text-3xl font-semibold">Sign in</h3>
-                            <p class="text-slate-500 text-sm mt-6 leading-relaxed">Sign in to your account.</p>
-                        </div>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div class="relative w-full max-w-xl bg-white rounded-lg shadow-lg overflow-auto grid grid-cols-1 md:grid-cols-2 transition-all duration-500 "
+        id="authWrapper">
 
-                        <div>
-                            <label class="text-slate-800 text-sm font-medium mb-2 block">Email</label>
-                            <div class="relative flex items-center">
-                                <input name="email" type="email" required
-                                    class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                    placeholder="Enter email" />
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
-                                    class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                                    <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                                    <path
-                                        d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                                        data-original="#000000"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="text-slate-800 text-sm font-medium mb-2 block">Password</label>
-                            <div class="relative flex items-center">
-                                <input name="password" type="password" required
-                                    class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                    placeholder="Enter password" />
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
-                                    class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
-                                    <path
-                                        d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
-                                        data-original="#000000"></path>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap items-center justify-end gap-4">
-                            <!-- <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox"
-                            class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" />
-                        <label for="remember-me" class="ml-3 block text-sm text-slate-500">
-                            Remember me
-                        </label>
-                    </div> -->
-
-                            <div class="text-sm">
-                                <a href="jajvascript:void(0);" class="text-blue-600 hover:underline font-medium">
-                                    Forgot your password?
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="!mt-12">
-                            <button type="submit"
-                                class="w-full shadow-xl py-2.5 px-4 text-[15px] font-medium tracking-wide rounded-lg text-white bg-sky-600 hover:bg-sky-700 focus:outline-none transition-all duration-300">
-                                Sign in
-                            </button>
-                            <p class="text-sm !mt-6 text-center text-slate-500">Don't have an account <a
-                                    href="javascript:void(0);"
-                                    class="text-blue-600 font-medium hover:underline ml-1 whitespace-nowrap show_register_page">Register
-                                    here</a></p>
-                        </div>
-                    </form>
+        <!-- Sign In -->
+        <div id="signInForm" class="p-8 transition-all duration-500 ease-in-out col-span-2">
+            <h3 class="text-3xl font-semibold text-slate-900 mb-6">Sign in</h3>
+            <form action="/login" method="POST" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-800 mb-2">Email</label>
+                    <input name="email" type="email" required placeholder="Enter email"
+                        class="w-full border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
                 </div>
-
-                <!-- Register User Design -->
-                <div
-                    class="border border-slate-300 rounded-lg p-6  shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto w-full bg-white invisible register_page opacity-0 transition-all duration-600 absolute top-0 translate-x-full">
-                    <form class="space-y-6" action="/signup" method="POST" autocomplete="off">
-                        <div class="mb-12">
-                            <h3 class="text-slate-900 text-3xl font-semibold">Register Page</h3>
-                            <p class="text-slate-500 text-sm mt-6 leading-relaxed"></p>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-4">
-
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">First Name</label>
-                                <div class="relative flex items-center">
-                                    <input name="first_name" type="text" required
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        placeholder="Enter first name"  oninput="validateSignupName(this)" maxlength="15"  />
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
-                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                                        <path
-                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                                            data-original="#000000"></path>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">Middle Name</label>
-                                <div class="relative flex items-center">
-                                    <input name="middle_name" type="text" required
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        placeholder="Enter middle name"  oninput="validateSignupName(this)" maxlength="15"  />
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
-                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                                        <path
-                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                                            data-original="#000000"></path>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">Last Name</label>
-                                <div class="relative flex items-center">
-                                    <input name="last_name" type="text" required
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        placeholder="Enter last name"  oninput="validateSignupName(this)" maxlength="15"  />
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
-                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                                        <path
-                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                                            data-original="#000000"></path>
-                                    </svg>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">Email</label>
-                                <div class="relative flex items-center">
-                                    <input name="email" type="text" required
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        placeholder="Enter email"  onblur="validateEmailInput(this)" />
-                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
-                                        class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                                        <path
-                                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                                            data-original="#000000"></path> -->
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">Registration year</label>
-                                <div class="relative flex items-center">
-                                    <select name="year" id="year"
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        required="">
-                                        <option value="">--- Select Registration Year ---</option>
-                                        <option value="2021">BANRF - 2021</option>
-                                        <option value="2022">BANRF - 2022</option>
-                                        <option value="2023">BANRF - 2023</option>
-                                        <option value="2024">BANRF - 2024</option>
-                                    </select>
-
-                                </div>
-
-                            </div>
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">Mobile Number</label>
-                                <div class="relative flex items-center">
-                                    <input name="mobile_number" type="text" required
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        placeholder="Enter Mobile Number"  onchange="validateMobileNumber(this)" minlength="10" maxlength="10" id="mobile_number" />
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">Password</label>
-                                <div class="relative flex items-center">
-                                    <input name="signup_password" type="password" required
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        placeholder="Enter Password" id="password" onblur="validatePasswords()"  />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="text-slate-800 text-sm font-medium mb-2 block">Confirm Password</label>
-                                <div class="relative flex items-center">
-                                    <input name="confirm_password" type="password" required
-                                        class="w-full text-sm text-slate-800 border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
-                                        placeholder="Confirm Password" id="confirm_password" onblur="validatePasswords()" />
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="!mt-12">
-                            <button type="submit"
-                                class="w-full shadow-xl py-2.5 px-4 text-[15px] font-medium tracking-wide rounded-lg text-white bg-sky-600 hover:bg-sky-700 focus:outline-none transition-all duration-300">
-                                Register
-                            </button>
-                            <p class="text-sm !mt-6 text-center text-slate-500">Already have an account <a
-                                    href="javascript:void(0);"
-                                    class="text-blue-600 font-medium hover:underline ml-1 whitespace-nowrap show_sign_in_page">Sign
-                                    In</a></p>
-                        </div>
-                        <p>
-                            If you encounter any queries, please contact on the given email with your login Email ID, Your Issue, & the Image related to problem you are facing - <span class="text-blue-600">bartfellowship2023@gmail.com</span>
-                        </p>
-                    </form>
+                <div>
+                    <label class="block text-sm font-medium text-slate-800 mb-2">Password</label>
+                    <input name="password" type="password" required placeholder="Enter password"
+                        class="w-full border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
                 </div>
-            </div>
+                <div class="text-right text-sm">
+                    <a href="#" class="text-blue-600 hover:underline">Forgot your password?</a>
+                </div>
+                <button type="submit"
+                    class="w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-2.5 rounded-lg transition">
+                    Sign In
+                </button>
+                <p class="text-sm text-center text-slate-500">
+                    Don't have an account?
+                    <a  onclick="showRegister()" class="text-blue-600 hover:underline font-medium cursor-pointer">Register
+                        here</a>
+                </p>
+            </form>
         </div>
+
+        <!-- Register -->
+        <div id="registerForm"
+            class="p-8 transition-all duration-500 ease-in-out translate-x-full absolute top-0 bg-white  md:static md:translate-x-0  opacity-0 invisible md:visible col-span-2 hidden">
+            <h3 class="text-3xl font-semibold text-slate-900 mb-6">Register</h3>
+            <form action="/signup" method="POST" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input name="first_name" placeholder="First name" required maxlength="15"
+                        class="border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
+                    <input name="middle_name" placeholder="Middle name" required maxlength="15"
+                        class="border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
+                    <input name="last_name" placeholder="Last name" required maxlength="15"
+                        class="border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input name="email" type="email" placeholder="Enter email" required
+                        class="border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
+                    <select name="year" required
+                        class="border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600">
+                        <option value="">--- Select Year ---</option>
+                        <option value="2021">BANRF - 2021</option>
+                        <option value="2022">BANRF - 2022</option>
+                        <option value="2023">BANRF - 2023</option>
+                        <option value="2024">BANRF - 2024</option>
+                    </select>
+                </div>
+
+                <input name="mobile_number" placeholder="Mobile Number" minlength="10" maxlength="10" required
+                    class="w-full border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input name="signup_password" type="password" placeholder="Password" required
+                        class="border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
+                    <input name="confirm_password" type="password" placeholder="Confirm Password" required
+                        class="border border-slate-300 rounded-lg py-3 px-4 text-sm outline-blue-600" />
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-2.5 rounded-lg transition">
+                    Register
+                </button>
+                <p class="text-sm text-center text-slate-500">
+                    Already have an account?
+                    <a  onclick="showSignIn()" class="text-blue-600 hover:underline font-medium cursor-pointer">Sign In</a>
+                </p>
+                <p class="text-sm text-slate-500">
+                    Contact: <span class="text-blue-600">bartfellowship2023@gmail.com</span>
+                </p>
+            </form>
+        </div>
+
     </div>
 </div>
+
+<script>
+    function showRegister() {
+        const regForm = document.getElementById('registerForm');
+        const signForm = document.getElementById('signInForm');
+        regForm.classList.remove('translate-x-full', 'opacity-0', 'invisible','hidden','absolute');
+        regForm.classList.add('translate-x-0', 'opacity-100', 'visible');
+        signForm.classList.add('translate-x-full', 'opacity-0', 'invisible','hidden');
+    }
+
+    function showSignIn() {
+        const regForm = document.getElementById('registerForm');
+        const signForm = document.getElementById('signInForm');
+        regForm.classList.add('translate-x-full', 'opacity-0', 'invisible','hidden','absolute');
+        regForm.classList.remove('translate-x-full', 'opacity-100', 'visible');
+        signForm.classList.remove('translate-x-full', 'opacity-0', 'invisible','hidden');
+        signForm.classList.add('translate-x-0', 'opacity-100', 'visible');
+    }
+</script>
+
 
 <script>
     $(document).on('click', '.show_register_page', function () {
