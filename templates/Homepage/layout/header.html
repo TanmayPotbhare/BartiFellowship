@@ -1,7 +1,65 @@
+<!-- mobile menu -->
+<div class="fixed h-screen w-screen top-0 left-0 bg-black/40 z-100 flex justify-start items-center py-3 lg:hidden mobile_menu transition-all duration-600 opacity-0 invisible">
+  <div class="w-3/4 bg-white h-full rounded-r-lg py-3 px-3 mobile_menu_container -translate-x-full duration-600">
+    <div class="text-end">
+      <span class="material-symbols-outlined cursor-pointer !text-gray-600 close_menu">
+        close
+      </span>
+    </div>
+
+    <div class="my-3 px-3">
+      <div class="my-2">
+        <a href="/">
+          <button
+            class="py-2 px-4 w-full bg-white border border-sky-700 rounded font-third text-blue-950 hover:bg-sky-700 hover:text-white cursor-pointer duration-300 transition-all">
+            {{ multilingual_content[language]['home'] }}
+          </button>
+        </a>
+      </div>
+      <div class="my-2">
+        <a href="/aboutus">
+          <button
+            class="py-2 px-4 w-full bg-white border border-sky-700 rounded font-third text-blue-950 hover:bg-sky-700 hover:text-white cursor-pointer duration-300 transition-all">
+            {{ multilingual_content[language]['about'] }}
+          </button>
+        </a>
+      </div>
+      <div class="my-2">
+        <a href="/gr_page">
+          <button
+            class="py-2 px-4 w-full bg-white border border-sky-700 rounded font-third text-blue-950 hover:bg-sky-700 hover:text-white cursor-pointer duration-300 transition-all">
+            {{ multilingual_content[language]['government_regulation'] }}
+          </button>
+        </a>
+      </div>
+      <div class="my-2">
+        <a href="/contact">
+          <button
+            class="py-2 px-4 w-full bg-white border border-sky-700 rounded font-third text-blue-950 hover:bg-sky-700 hover:text-white cursor-pointer duration-300 transition-all">
+            {{ multilingual_content[language]['contact_us'] }}
+          </button>
+        </a>
+      </div>
+      <div class="my-2">
+        <a href="/login">
+          <button
+            class="py-2 px-4 w-full bg-white border border-sky-700 rounded font-third text-blue-950 hover:bg-sky-700 hover:text-white cursor-pointer duration-300 transition-all">
+            <span class="material-symbols-rounded mb-0 !text-sm">
+              login
+            </span>
+            {{ multilingual_content[language]['login_sign_btn'] }}
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 <header>
+
+
   <!-- top head section -->
-  <div class="py-1 bg-blue-950 px-10 flex items-center justify-between">
-    <div class="flex">
+  <div class="py-1 bg-blue-950 px-2 lg:px-10 flex flex-col lg:flex-row items-center justify-between">
+    <div class="flex ">
       <h5 class="text-clifford font-primary text-base tracking-wider text-xs mb-1 me-4 text-white">
         <span class="material-symbols-rounded !text-sm mb-0 me-1">
           mail
@@ -44,7 +102,7 @@
 
 
   <!-- Logo and branding section -->
-  <div class="py-10 bg-slate-100">
+  <div class="py-10 bg-slate-100 hidden lg:block">
     <div class="w-[95%] mx-auto flex justify-between">
       <div class="flex">
         <img src="static/assets/img/logo/emblem_logo.svg" class="h-20 object-contain mx-3" alt="">
@@ -62,10 +120,31 @@
         </h5>
       </div>
       <div class="flex">
-        <img src="static/assets/img/logo/diya.png" class="h-20 object-contain mx-3"
-          alt="">
-        <img src="static/assets/img/logo/mahashasan.jpeg" class="h-20 object-contain mx-3"
-          alt="">
+        <img src="static/assets/img/logo/diya.png" class="h-20 object-contain mx-3" alt="">
+        <img src="static/assets/img/logo/mahashasan.jpeg" class="h-20 object-contain mx-3" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo and branding section -->
+  <div class="py-10 bg-slate-100 block lg:hidden">
+    <div class="w-[95%] mx-auto flex justify-between flex-col">
+      <div class="flex justify-center w-full">
+        <img src="static/assets/img/logo/emblem_logo.svg" class="h-10 max-h-15 object-contain mx-3" alt="">
+        <img src="/static/carousel/images/barti-2.png" class="h-10 max-h-15 object-contain mx-3" alt="">
+        <img src="static/assets/img/logo/diya.png" class="h-10 max-h-15 object-contain mx-3" alt="">
+        <img src="static/assets/img/logo/mahashasan.jpeg" class="h-10 max-h-15 object-contain mx-3" alt="">
+      </div>
+      <div class="leading-7 text-center mt-2">
+        <h5 class="text-base font-primary font-bold text-blue-950 mb-0 ">
+          {{ multilingual_content[language]['trti_header'] }}
+        </h5>
+        <p class="text-blue-950 text-xs font-primary mt-1">
+          {{ multilingual_content[language]['barti_subtitle'] }}
+        </p>
+        <h5 class="font-secondary font-semibold text-sky-700 text-sm mt-3">
+          {{ multilingual_content[language]['banrf'] }}
+        </h5>
       </div>
     </div>
   </div>
@@ -76,8 +155,8 @@
       <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
-            <img src="static/assets/img/leaders/devpha.png"
-              class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
+            <img src="static/assets/img/leaders/devpha.png" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
+              alt="User">
           </div>
           <div class="col-span-3">
             <h4 class="font-fourth font-bold text-base text-blue-950">
@@ -93,8 +172,8 @@
       <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
-            <img src="static/assets/img/leaders/ekshi.png"
-              class="!w-15 !h-15 object-contain shadow-xl rounded-full" alt="User">
+            <img src="static/assets/img/leaders/ekshi.png" class="!w-15 !h-15 object-contain shadow-xl rounded-full"
+              alt="User">
           </div>
           <div class="col-span-3">
             <h4 class="font-fourth font-bold text-base text-blue-950">
@@ -110,8 +189,8 @@
       <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
-            <img src="static/assets/img/leaders/ajitpawar.jpg"
-              class="!w-15 !h-15 object-contain shadow-xl rounded-full" alt="User">
+            <img src="static/assets/img/leaders/ajitpawar.jpg" class="!w-15 !h-15 object-contain shadow-xl rounded-full"
+              alt="User">
           </div>
           <div class="col-span-3">
             <h4 class="font-fourth font-bold text-base text-blue-950">
@@ -127,8 +206,8 @@
       <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
-            <img src="static/assets/img/leaders/sanjay.jpg"
-              class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
+            <img src="static/assets/img/leaders/sanjay.jpg" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
+              alt="User">
           </div>
           <div class="col-span-3">
             <h4 class="font-fourth font-bold text-base text-blue-950">
@@ -144,8 +223,8 @@
       <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
-            <img src="static/assets/img/leaders/madhuri.jpg"
-              class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
+            <img src="static/assets/img/leaders/madhuri.jpg" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
+              alt="User">
           </div>
           <div class="col-span-3">
             <h4 class="font-fourth font-bold text-base text-blue-950">
@@ -178,8 +257,8 @@
       <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
-            <img src="static/assets/img/leaders/sunil.png"
-              class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
+            <img src="static/assets/img/leaders/sunil.png" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
+              alt="User">
           </div>
           <div class="col-span-3">
             <h4 class="font-fourth font-bold text-base text-blue-950">
@@ -197,7 +276,12 @@
   <!-- menu section -->
   <div class="bg-sky-600">
     <!-- Desktop Nav menu -->
-    <div class="flex justify-between w-[95%] mx-auto items-center">
+    <div class="lg:hidden flex justify-start items-center">
+      <span class="material-symbols-outlined !text-xl !text-white/80 cursor-pointer px-2 open_menu">
+        notes
+      </span>
+    </div>
+    <div class=" justify-between w-[95%] mx-auto items-center hidden lg:flex">
       <ul class=" flex items-center">
         <a href="/">
           <li class="py-2 px-4 bg-white border border-sky-700 rounded font-third text-blue-950">

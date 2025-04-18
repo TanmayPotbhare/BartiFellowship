@@ -21,13 +21,13 @@
 
 <!-- Hero Section -->
 <section id="hero">
-    <div class=" bg-blue-200 grid grid-cols-3">
-        <div class="banner h-full flex-4 col-span-2">
+    <div class=" bg-blue-200 grid grid-cols-3 ">
+        <div class="banner h-full col-span-3 lg:col-span-2">
             <img src="/static/carousel/images/banner.png" class="h-full w-full object-cover" alt="">
         </div>
-        <div class="bg-slate-100 h-full flex-2 ">
+        <div class="bg-slate-100 h-full col-span-3 lg:col-span-1">
             <div class="py-2 bg-blue-950">
-                <h4 class="text-white font-primary text-xl text-center">{{
+                <h4 class="text-white font-primary text-xs lg:text-xl text-center">{{
                     multilingual_content[language]['latest_update'] }}</h4>
             </div>
             <div class="h-full ">
@@ -41,8 +41,8 @@
                                 <div
                                     class="scrolling-text-item text-sm text-wrap  border-dashed border-sky-700 border-b !py-3 flex">
                                     {{ row['title'] }}
-                                    <img src="https://trti.maharashtra.gov.in/homepage/images/new.gif" class="w-8 mx-2"
-                                        alt="">
+                                    <img src="https://trti.maharashtra.gov.in/homepage/images/new.gif"
+                                        class="w-5 h-5 object-contain mx-2" alt="">
                                 </div>
                                 {% endfor %}
                             </div>
@@ -51,12 +51,12 @@
                     </div>
                     <div class="flex items-center overflow-hidden absolute w-full bottom-12">
                         <button
-                            class="w-full py-3 px-2 h-full bg-sky-600 font-primary font-bold text-lg text-white tracking-wider duration-[600ms] taos:translate-y-[100%] taos:opacity-0">
+                            class="w-full py-1 invisible lg:visible lg:py-3 px-2 h-full bg-sky-600 font-primary font-bold text-xs lg:text-lg text-white tracking-wider duration-[600ms] sticky bottom-0 taos:opacity-0">
                             {{ multilingual_content[language]['register_btn'] }}
                             <br>
                             {{ multilingual_content[language]['register_btn1'] }}
 
-                            <span class="material-symbols-rounded !text-2xl">
+                            <span class="material-symbols-rounded !text-xl">
                                 trending_flat
                             </span>
                         </button>
@@ -69,26 +69,32 @@
 
 <!-- Count section -->
 <section id="count">
-    <div class="grid grid-cols-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 my-2 lg:my-0">
         <div>
-            <h4 class="count text-center text-[60px]" data-target="{{ total_count }}">{{ total_count }}</h4>
-            <p class="text-center delay-[400ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
-                multilingual_content[language]['total_applications'] }}</p>
+            <h4 class="count text-center text-2xl lg:text-[60px] font-secondary counter text-sky-600 font-semibold" data-target="{{ total_count }}">{{ total_count
+                }}</h4>
+            <p class="text-center delay-[400ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">
+                {{
+                multilingual_content[language]['total_applications'] }}
+            </p>
         </div>
         <div>
-            <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ fellow_awarded }}">{{
+            <h4 class="count text-center text-2xl lg:text-[60px] font-secondary counter text-sky-600 font-semibold"
+                data-target="{{ fellow_awarded }}">{{
                 fellow_awarded }}</h4>
             <p class="text-center delay-[450ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
                 multilingual_content[language]['fellowship_awarded'] }}</p>
         </div>
         <div>
-            <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ total_appl_22 }}">{{
+            <h4 class="count text-center text-2xl lg:text-[60px] font-secondary counter text-sky-600 font-semibold"
+                data-target="{{ total_appl_22 }}">{{
                 total_appl_22 }}</h4>
             <p class="text-center delay-[500ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
                 multilingual_content[language]['total_applications_2022'] }}</p>
         </div>
         <div>
-            <h4 class="count text-center text-[60px] font-secondary counter" data-target="{{ total_appl_2 }}">{{
+            <h4 class="count text-center text-2xl lg:text-[60px] font-secondary counter text-sky-600 font-semibold"
+                data-target="{{ total_appl_2 }}">{{
                 total_appl_2 }}</h4>
             <p class="text-center delay-[550ms] duration-[600ms] taos:translate-y-[100%] taos:opacity-0">{{
                 multilingual_content[language]['this_yrs_application'] }}</p>
@@ -97,18 +103,19 @@
 </section>
 
 <section id="about_barti" class="py-10">
-    <div class="grid grid-cols-3">
-        <div class="pl-10">
+    <div class="grid grid-cols-3 px-3 lg:px-10 gap-4">
+        <div class=" col-span-3 lg:col-span-1">
             <h3
-                class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                class="lg:text-3xl text-lg font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
                 {{ multilingual_content[language]['about_the_institute'] }}</h3>
             <h3
-                class="text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                class=" text-sm lg:text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
                 {{ multilingual_content[language]['about_title'] }}</h3>
             <p
-                class="text-justify font-fourth my-6 delay-[400ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                class="text-justify font-fourth my-6 delay-[400ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                 {% if(language == 'english') %}
-                <span class="h3">T</span>o realize the vision of the architect of the Constitution of India,
+                <span class="h3 text-xs lg:text-base">T</span>o realize the vision of the architect of the Constitution
+                of India,
                 Dr. Babasaheb Ambedkar; To achieve the objectives enshrined in the Constitution of India viz.
                 Justice, Liberty, Equality, Fraternity among the peoples of our nation; To uplift the disadvantaged
                 sections of the society, from the vortex of blind faith, superstition, communal hatred, caste bias,
@@ -121,7 +128,7 @@
                 Samata Vichar Peeth was relocated to Pune at the present address- 28, Queens Garden, Pune,
                 on 11th February 1987.
                 {% else %}
-                <span class="h3">भा</span>रतीय राज्यघटनेचे शिल्पकार डॉ.बाबासाहेब आंबेडकर यांची दूरदृष्टी साकार
+                <span class="h3 ">भा</span>रतीय राज्यघटनेचे शिल्पकार डॉ.बाबासाहेब आंबेडकर यांची दूरदृष्टी साकार
                 करण्यासाठी; ला भारतीय
                 राज्यघटनेत नमूद केलेली उद्दिष्टे साध्य करणे उदा. न्याय, स्वातंत्र्य, समानता, आपल्या राष्ट्रातील
                 लोकांमध्ये बंधुभाव; समाजातील वंचित
@@ -138,76 +145,76 @@
                 {% endif %}
             </p>
             <button
-                class="w-full mt-3 py-3 bg-blue-950 rounded font-fourth text-white text-lg rounded-lg delay-[420ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">{{
+                class="w-full mt-3 py-3 bg-blue-950 rounded font-fourth text-white text-lg rounded-lg delay-[420ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-sm lg:text-base">{{
                 multilingual_content[language]['read_more'] }}</button>
         </div>
-        <div class="col-span-2">
-            <img src="static/carousel/images/barti_building.png" class="float-right" alt="">
+        <div class="col-span-3 lg:col-span-2">
+            <img src="static/carousel/images/barti_building.png" class=" w-full" alt="">
         </div>
     </div>
 </section>
 
 <section id="criteria">
-    <div class="pt-8 px-10">
+    <div class="pt-8 lg:px-10 px-3">
         <h3
-            class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+            class="text-lg lg:text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
             {{ multilingual_content[language]['criteria'] }}</h3>
 
         <div class="grid grid-cols-2 gap-4">
-            <div class="bg-sky-100 rounded-lg overflow-hidden">
+            <div class="bg-sky-100 rounded-lg overflow-hidden col-span-2 lg:col-span-1">
                 <img src="https://blackhawknetwork.com/sites/default/files/2021-07/benefit-schemes-blog.jpg"
-                    class="w-full h-2/4 object-cover" alt="">
-                <div class="px-3">
+                    class="w-full h-auto lg:h-2/4 lg:object-cover object-contain" alt="">
+                <div class="px-3 overflow-y-auto py-3">
                     <h3
-                        class="text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-8">
+                        class="text-lg lg:text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-8">
                         {{ multilingual_content[language]['scheme_benefits'] }}</h3>
 
                     <div>
                         {% if(language == 'english') %}
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             Junior Research Fellowhsip will get Rs. 31,000/- each Quarter for 2 Years.</p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             Senior Research Fellowhsip will get Rs. 35,000/- each Quarter for 3 Years.</p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             As per revised fellowship amount JRF is 37,000/- and SRF is 42,000/-</p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[250ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[250ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             Contingency for JRF will be 10,000/- and 12,000/- for Social Science and Science
                             Respectively.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             Contingency for SRF will be 20,500/- and 25,000/- for Social Science and Science
                             Respectively.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             Escort Reader for Disabled candidate will be 2000/- per month.
                         </p>
                         {% else %}
 
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             कनिष्ठ संशोधन फेलोशिपला 2 वर्षांसाठी प्रत्येक तिमाहीत रु. 31,000/- मिळतील.</p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             वरिष्ठ संशोधन फेलोशिपला 3 वर्षांसाठी प्रत्येक तिमाहीत रु. 35,000/- मिळतील.</p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             सुधारित फेलोशिप रकमेनुसार, जेआरएफसाठी 37,000/- आणि एसआरएफसाठी 42,000/- आहेत.</p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[250ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[250ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             जेआरएफसाठी आकस्मिकता 10,000/- आणि सामाजिक विज्ञान आणि विज्ञानसाठी अनुक्रमे 12,000/- असेल.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             एसआरएफसाठी आकस्मिकता 20,500/- आणि सामाजिक विज्ञान आणि विज्ञानसाठी अनुक्रमे 25,000/- असेल.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             दिव्यांग उमेदवारासाठी एस्कॉर्ट रीडरला प्रति महिना 2000/- मिळतील.
                         </p>
                         {% endif %}
@@ -226,43 +233,43 @@
             </div>
 
 
-            <div class="bg-blue-100 rounded-lg overflow-hidden">
+            <div class="bg-blue-100 rounded-lg overflow-hidden col-span-2 lg:col-span-1">
                 <img src="https://www.sandipuniversity.edu.in/images/header-national/eligibility.jpg"
-                    class="w-full h-2/4 object-cover" alt="">
-                <div class="px-3">
+                    class="w-full h-auto lg:h-2/4 lg:object-cover object-contain" alt="">
+                <div class="px-3 overflow-y-auto">
                     <h3
-                        class="text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-8">
+                        class="text-lg lg:text-xl font-bold text-sky-600 font-fourth leading-6 delay-[350ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-8">
                         {{ multilingual_content[language]['eligibility_criteria'] }}
                     </h3>
 
                     <div>
                         {% if(language == 'english') %}
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             The applicant should be a resident of the state of Maharashtra.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             It is necessary for the community of the applicant to be included in the list of Scheduled
                             Caste
                             in the state of Maharashtra.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             For this scheme, it is mandatory for the applicant to have a valid Caste certificate and
                             Validity Certificate of scheduled Caste at the time of applying.
                         </p>
                         {% else %}
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             अर्जदार महाराष्ट्राचा रहिवासी असावा.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             अर्जदाराच्या समुदायाचा महाराष्ट्रातील अनुसूचित जातीच्या यादीत समावेश असणे आवश्यक आहे.
                         </p>
                         <p
-                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+                            class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[200ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 text-xs lg:text-base">
                             या योजनेसाठी, अर्जदाराकडे अर्ज करताना अनुसूचित जातीचे वैध जाती प्रमाणपत्र आणि वैधता
                             प्रमाणपत्र
                             असणे
@@ -287,16 +294,16 @@
     </div>
 </section>
 
-<section id="how_to_apply" class="px-10 mt-25 mb-10">
+<section id="how_to_apply" class="px-3 lg:px-10 mt-25 mb-10">
     <h3
-        class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+        class=" text-lg lg:text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
         {{ multilingual_content[language]['how_to_enroll'] }}
     </h3>
 
     <div>
         <div class="grid grid-cols-5">
             <div
-                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-green-500 flex flex-col justify-center px-5 rounded !h-65">
+                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-green-500 flex flex-col justify-center px-5 rounded !h-65 col-span-5 lg:col-span-1">
                 <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 1
                 </h4>
                 <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{
@@ -304,15 +311,22 @@
                 <h4
                     class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
                     1</h4>
+
                 <h5
-                    class="w-10 h-10 flex justify-center items-center bg-green-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                    class="w-10 h-10 flex justify-center items-center bg-green-500 rounded-full absolute lg:top-1/2 lg:-right-5 lg:-translate-y-1/2 z-10 lg:visible invisible">
                     <span class="material-symbols-outlined !text-white">
                         arrow_forward
                     </span>
                 </h5>
+                <h5
+                    class="w-10 h-10 flex justify-center items-center bg-green-500 rounded-full absolute -bottom-5 -translate-x-1/2 left-1/2 lg:top-1/2 lg:-right-5 lg:-translate-y-1/2 z-10 lg:invisible">
+                    <span class="material-symbols-outlined !text-white">
+                        arrow_downward
+                    </span>
+                </h5>
             </div>
             <div
-                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-blue-500 flex flex-col justify-center px-5 rounded !h-65">
+                class="relative h-full lg:mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-blue-500 flex flex-col justify-center px-5 rounded !h-65 col-span-5 lg:col-span-1">
                 <h4 class="font-play text-2xl font-semibold text-white">
                     <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }}
                         2</h4>
@@ -323,14 +337,21 @@
                         class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
                         2</h4>
                     <h5
-                        class="w-10 h-10 flex justify-center items-center bg-blue-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                        class="w-10 h-10 flex justify-center items-center bg-blue-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10 invisible lg:visible">
                         <span class="material-symbols-outlined !text-white">
                             arrow_forward
                         </span>
                     </h5>
+                    <h5
+                        class="w-10 h-10 flex justify-center items-center bg-blue-500 rounded-full absolute -bottom-5 -translate-x-1/2 left-1/2 lg:top-1/2 lg:-right-5 lg:-translate-y-1/2 z-10 lg:invisible">
+                        <span class="material-symbols-outlined !text-white">
+                            arrow_downward
+                        </span>
+                    </h5>
+
             </div>
             <div
-                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-yellow-500 flex flex-col justify-center px-5 rounded !h-65">
+                class="relative h-full lg:mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-yellow-500 flex flex-col justify-center px-5 rounded !h-65 col-span-5 lg:col-span-1">
                 <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 3
                 </h4>
                 <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{
@@ -339,30 +360,46 @@
                     class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
                     3</h4>
                 <h5
-                    class="w-10 h-10 flex justify-center items-center bg-yellow-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                    class="w-10 h-10 flex justify-center items-center bg-yellow-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10 invisible lg:visible">
                     <span class="material-symbols-outlined !text-white">
                         arrow_forward
                     </span>
                 </h5>
+                <h5
+                    class="w-10 h-10 flex justify-center items-center bg-yellow-500 rounded-full absolute -bottom-5 -translate-x-1/2 left-1/2 lg:top-1/2 lg:-right-5 lg:-translate-y-1/2 z-10 lg:invisible">
+                    <span class="material-symbols-outlined !text-white">
+                        arrow_downward
+                    </span>
+                </h5>
             </div>
             <div
-                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-fuchsia-500 flex flex-col justify-center px-5 rounded !h-65">
-                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 4</h4>
-                <p class="font-secondary text-sm w-3/4 mt-8 text-white">{{ multilingual_content[language]['step_4_content'] }}</p>
+                class="relative h-full lg:mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-fuchsia-500 flex flex-col justify-center px-5 rounded !h-65 col-span-5 lg:col-span-1">
+                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 4
+                </h4>
+                <p class="font-secondary text-sm w-3/4 mt-8 text-white">{{
+                    multilingual_content[language]['step_4_content'] }}</p>
                 <h4
                     class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
                     4</h4>
                 <h5
-                    class="w-10 h-10 flex justify-center items-center bg-fuchsia-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10">
+                    class="w-10 h-10 flex justify-center items-center bg-fuchsia-500 rounded-full absolute top-1/2 -right-5 -translate-y-1/2 z-10 invisible lg:visible">
                     <span class="material-symbols-outlined !text-white">
                         arrow_forward
                     </span>
                 </h5>
+                <h5
+                    class="w-10 h-10 flex justify-center items-center bg-fuchsia-500 rounded-full absolute -bottom-5 -translate-x-1/2 left-1/2 lg:top-1/2 lg:-right-5 lg:-translate-y-1/2 z-10 lg:invisible">
+                    <span class="material-symbols-outlined !text-white">
+                        arrow_downward
+                    </span>
+                </h5>
             </div>
             <div
-                class="relative h-full mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-amber-500 flex flex-col justify-center px-5 rounded !h-65">
-                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 5</h4>
-                <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{ multilingual_content[language]['step_5_content'] }}</p>
+                class="relative h-full lg:mt-20 delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 bg-amber-500 flex flex-col justify-center px-5 rounded !h-65 col-span-5 lg:col-span-1">
+                <h4 class="font-play text-2xl font-semibold text-white">{{ multilingual_content[language]['step'] }} 5
+                </h4>
+                <p class="font-secondary text-sm w-3/4 mt-8 text-white"> {{
+                    multilingual_content[language]['step_5_content'] }}</p>
                 <h4
                     class="font-play text-[200px] font-bold text-gray-100/50 text-end pe-3 absolute top-1/2 left-[60%] leading-0 z-1">
                     5</h4>
@@ -372,21 +409,21 @@
 </section>
 
 <!-- FAQ section  -->
-<section id="faq" class="px-10 mt-25">
+<section id="faq" class="px-3 lg:px-10 mt-25">
     <h3
-        class="text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
+        class=" text-lg lg:text-3xl font-bold text-blue-950 font-fourth delay-[300ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
         {{ multilingual_content[language]['faq'] }}</h3>
     <div
         class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[100ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0 mt-5">
-        <h4 class="text-lg font-semibold">{{ multilingual_content[language]['q1']
+        <h4 class=" text-sm lg:text-lg font-semibold text-gray-800">{{ multilingual_content[language]['q1']
             }}</h4>
-        <p>{{ multilingual_content[language]['ans1'] }}</p>
+        <p class="text-xs lg:text-base text-gray-800">{{ multilingual_content[language]['ans1'] }}</p>
     </div>
     <div
         class="py-3 border-b pl-1 border-gold font-fourth font-fourth leading-6 delay-[150ms] duration-[600ms] -taos:translate-x-[100%] taos:opacity-0">
-        <h4 class="text-lg font-semibold">{{ multilingual_content[language]['q2']
+        <h4 class="text-sm lg:text-lg font-semibold text-gray-800">{{ multilingual_content[language]['q2']
             }}</h4>
-        <p>{{ multilingual_content[language]['ans2'] }}</p>
+        <p class="text-xs lg:text-base text-gray-800">{{ multilingual_content[language]['ans2'] }}</p>
     </div>
 </section>
 
