@@ -1,7 +1,13 @@
+import base64
+import os
+
+import requests
+
 from classes.database import HostConfig, ConfigPaths, ConnectParam
-from flask import Blueprint, render_template, session, request, redirect, url_for, flash, Response
+from flask import Blueprint, render_template, session, request, redirect, url_for, flash, Response, current_app
 from PythonFiles.AdminPages.PDFfile import *
 import datetime
+from xhtml2pdf import pisa
 
 fellowship_awarded_blueprint = Blueprint('fellowship_awarded', __name__)
 
@@ -104,8 +110,8 @@ def fellowship_awarded_auth(app):
     def generate_award_letter_AA(email):
         try:
             # email = session['email']
-            output_filename = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/pdf_application_form/award_letter.pdf'
-            # output_filename = 'static/pdf_application_form/pdfform.pdf'
+            # output_filename = '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/pdf_application_form/award_letter.pdf'
+            output_filename = app.config['AWARD_LETTER']
 
             host = HostConfig.host
             connect_param = ConnectParam(host)
@@ -114,7 +120,7 @@ def fellowship_awarded_auth(app):
             cursor.execute(
                 "SELECT id, applicant_photo, applicant_id, adhaar_number, first_name, last_name, middle_name, mobile_number,"
                 " email, date_of_birth, gender, age, caste, your_caste, marital_status, state, district,"
-                " taluka, village, city, add_1, add_2, pincode, ssc_passing_year,"
+                " taluka, village, city, add_1, add_2, pincode, ssc_passing_year, outward_number, "
                 " ssc_percentage, ssc_school_name, hsc_passing_year, hsc_percentage, hsc_school_name,"
                 " graduation_passing_year, graduation_percentage, graduation_school_name, phd_passing_year,"
                 " phd_percentage, phd_school_name,have_you_qualified, name_of_college, name_of_guide, topic_of_phd,"
@@ -146,6 +152,7 @@ def fellowship_awarded_auth(app):
 
         return response
 
+
     @fellowship_awarded_blueprint.route('/award_fellowships/<int:id>', methods=['GET', 'POST'])
     def award_fellowships(id):
         # applicant_id = request.view_args['applicant_id']
@@ -162,6 +169,8 @@ def fellowship_awarded_auth(app):
             records = cursor.fetchone()
 
             # print('Recor?ds', records)
+            first_name = records['first_name']
+            last_name = records['last_name']
 
             # Handle case where no record is found
             if not records:
@@ -202,6 +211,8 @@ def fellowship_awarded_auth(app):
                                 fellowship_awarded_date, 'Awarded', current_date, current_time, email))
                 cnx.commit()
 
+                send_award_letter_email(email, first_name, last_name)
+
                 # Set session and redirect
                 # session['change_center'] = True
                 flash("Award Letter has been awarded to the student successfully.", "success")
@@ -222,3 +233,33 @@ def fellowship_awarded_auth(app):
             cursor.close()
             cnx.close()
 
+    def send_award_letter_email(email, first_name, last_name):
+        if not app.config['ZEPTOMAIL_API_KEY']:
+            raise ValueError("ZeptoMail API key is missing. Set it in the environment variables.")
+
+        msg_body = render_template('EmailTemplates/award_letter_email.html',
+                                   email=email, first_name=first_name, last_name=last_name)
+
+        payload = {
+            "from": {"address": "no_reply@barti.in"},
+            "to": [
+                {
+                    "email_address": {
+                        "address": email,
+                        "name": first_name + ' ' + last_name
+                    }
+                }
+            ],
+            "subject": "Verify Email",
+            "htmlbody": msg_body
+        }
+
+        # Headers
+        headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "authorization": app.config['ZEPTOMAIL_API_KEY'],
+        }
+
+        # Send the request
+        response = requests.post(app.config['ZEPTOMAIL_URL'], json=payload, headers=headers)
