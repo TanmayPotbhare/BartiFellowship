@@ -77,7 +77,7 @@ def section5_auth(app):
                                finally_approved=finally_approved, user=user, photo=photo, signup_record=signup_record,
                                title='Application Form (Upload Documents)')
 
-    @section5_blueprint.route('/section5_submit', methods=['GET', 'POST'])
+    # @section5_blueprint.route('/section5_submit', methods=['GET', 'POST'])
     # def section5_submit():
     #     if not session.get('logged_in_from_login'):
     #         # Redirect to the admin login page if the user is not logged in
@@ -209,7 +209,7 @@ def section5_auth(app):
     #         # Handle GET request (display empty form, or previously filled data if necessary)
     #         return redirect(url_for('section5.section5'))
 
-    @section5_blueprint.route('/section5/submit', methods=['GET', 'POST'])
+    @section5_blueprint.route('/section5_submit', methods=['GET', 'POST'])
     def section5_submit():
         if not session.get('logged_in_from_login'):
             return redirect(url_for('login_signup.login'))

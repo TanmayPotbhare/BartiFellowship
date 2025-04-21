@@ -203,7 +203,7 @@
                                     <span class="text-dark">{{ formatted_date_of_birth }}</span>
                                 {% else %}
                                    <input type="date" name="date_of_birth" id="date_of_birth" class="form-control"
-                                      onblur="calculateAge(this)"  value= "{{ record['date_of_birth'] }}" required>
+                                    onchange = "validateYear()" onblur="calculateAge(this)"  value= "{{ record['date_of_birth'] }}" required>
                                 {% endif %}
                             </div>
                         </div>
@@ -633,7 +633,6 @@
     </div>
 </div>
 
-
-
+<script src="/static/candidate_assets/js/applicationForm/section1.js"></script>
 
 {% endblock %}

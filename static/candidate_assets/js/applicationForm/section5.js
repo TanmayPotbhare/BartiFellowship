@@ -107,8 +107,8 @@ $('.accept_pdf').on('change', function () {
 
 })
 
-     // Enable "View" button when an image file is selected
-     function toggleViewImageButton(input, viewButtonId) {
+    // Enable "View" button when an image file is selected
+    function toggleViewImageButton(input, viewButtonId) {
         var viewButton = document.getElementById(viewButtonId);
         var file = input.files[0];
 
@@ -172,24 +172,34 @@ window.onload = function() {
     enableDisabledFields4();
 };
 
-function confirmLock(event) { // Add 'event' as a parameter
-    return Swal.fire({
-        title: 'Do you want to Lock the application form?',
-        text: "You will not be able to Edit further.",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#800080',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Submit & Lock Application',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            //  The form will submit because confirmLock returns true
-            return true;
-        } else {
-            //  The form will not submit because confirmLock returns false
-            event.preventDefault(); // Prevent form submission
-            return false;
-        }
-    });
+function handleSection5Submit() {
+    const form1 = document.getElementById('section5_form');
+    // Use HTML5 checkValidity() to validate the form
+    if (form1.checkValidity()) {
+        // Show the modal if all required fields are filled
+        const modal = new bootstrap.Modal(document.getElementById('lockApplicationModal'));
+        modal.show();
+    } else {
+        // Trigger built-in HTML5 validation messages
+        form1.reportValidity();
+    }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const confirmBtn = document.getElementById("confirmSubmit");
+    confirmBtn.addEventListener("click", function () {
+        const form1 = document.getElementById("section5_form");
+        // Check if the form is actually found and not being shadowed
+        if (form1.checkValidity()) {
+            // form.submit(); 
+            document.getElementById("section5_form").submit();
+        } else {
+            const cancelButn = document.getElementById("closeModal");
+            cancelButn.click()
+            // const modal = new bootstrap.Modal(document.getElementById('lockApplicationModal'));
+            // modal.hide();
+            console.log("Form not found or submit is not a function");
+        }
+
+    });
+});

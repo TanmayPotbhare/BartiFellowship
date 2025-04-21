@@ -314,6 +314,18 @@ function calculateAges() {
 
         // Display the calculated age in the "Age at Ph.D Registration" input field
         document.getElementById('phd_registration_age').value = age;
+
+        // To prevent the user from entering invalid date
+        if (age > 100) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Date!',
+                text: 'Please check the date you have entered.'
+            });
+            document.getElementById('phd_registration_date').value = '';  
+            document.getElementById('phd_registration_age').value = ''; 
+            return; // Exit the function
+        }
         
         if (phdYear > dobYear){
             // Calculate age
@@ -415,11 +427,11 @@ function enableDisabledFields2() {
 // Initialize event listeners
 window.onload = function() {
     // Add event listeners for checkbox change events
-    document.getElementById("verifyDetails").addEventListener('change', enableDisabledFields);
-    document.getElementById("verifyDetailsHindi").addEventListener('change', enableDisabledFields);
+    document.getElementById("verifyDetails").addEventListener('change', enableDisabledFields2);
+    document.getElementById("verifyDetailsHindi").addEventListener('change', enableDisabledFields2);
 
     // Call function initially to check if the button should be enabled or not
-    enableDisabledFields();
+    enableDisabledFields2();
 };
 
 function toggleOtherQualification() {
