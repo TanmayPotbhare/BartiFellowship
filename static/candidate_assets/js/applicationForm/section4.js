@@ -165,32 +165,33 @@ function showAlert() {
 function enableDisabledFields4() {
     const checkbox1 = document.getElementById("verifyDetails");
     const checkbox2 = document.getElementById("verifyDetailsHindi");
-
-    //  Uncomment below checkboxes while enabling the self declaration for Salary in section 4
     const checkbox3 = document.getElementById("verifySalaryDeclaration");
     const checkbox4 = document.getElementById("verifySalaryDeclarationMarathi");
     const submitBtn = document.getElementById("submit");
 
-    // Enable the button if both checkboxes are checked
-    if (checkbox1.checked && checkbox2.checked && checkbox3.checked && checkbox4.checked) {
-        submitBtn.disabled = false;
-    } else {
-        submitBtn.disabled = true;
-    }
+    if (!submitBtn || !checkbox1 || !checkbox2) return;
+
+    const allChecked = checkbox1.checked && checkbox2.checked &&
+        (!checkbox3 || checkbox3.checked) &&
+        (!checkbox4 || checkbox4.checked);
+
+    submitBtn.disabled = !allChecked;
 }
 
 // Initialize event listeners
-window.onload = function() {
-    // Add event listeners for checkbox change events
-    document.getElementById("verifyDetails").addEventListener('change', enableDisabledFields2);
-    document.getElementById("verifyDetailsHindi").addEventListener('change', enableDisabledFields2);
-    document.getElementById("verifySalaryDeclaration").addEventListener('change', enableDisabledFields2);
-    document.getElementById("verifySalaryDeclarationMarathi").addEventListener('change', enableDisabledFields2);
+window.onload = function () {
+    const checkbox1 = document.getElementById("verifyDetails");
+    const checkbox2 = document.getElementById("verifyDetailsHindi");
+    const checkbox3 = document.getElementById("verifySalaryDeclaration");
+    const checkbox4 = document.getElementById("verifySalaryDeclarationMarathi");
 
-    // Call function initially to check if the button should be enabled or not
-    enableDisabledFields3();
+    if (checkbox1) checkbox1.addEventListener('change', enableDisabledFields4);
+    if (checkbox2) checkbox2.addEventListener('change', enableDisabledFields4);
+    if (checkbox3) checkbox3.addEventListener('change', enableDisabledFields4);
+    if (checkbox4) checkbox4.addEventListener('change', enableDisabledFields4);
+
+    enableDisabledFields4();
 };
-
 // This function is for PVTG Caste
 function toggleDisabilityField(select) {
     const disability_div = document.getElementById('disability_type_div');

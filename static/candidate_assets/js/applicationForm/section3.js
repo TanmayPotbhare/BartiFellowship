@@ -10,6 +10,17 @@ function validateIncome() {
         incomeInput.value = incomeInput.value.slice(0, 10);
     }
 
+    // Prevent the number from starting with 0s
+    if (incomeInput.value.startsWith('0') && incomeInput.value.length > 1) {
+        Swal.fire({
+            title: "Invalid Input!",
+            text: "Income cannot start with zero.",
+            icon: "error"
+        });
+        incomeInput.value = '';
+        return;
+    }
+
     // Limit the input to 6 digits
     if (incomeInput.value.length < 4) {
         Swal.fire({
