@@ -712,7 +712,7 @@
                                                       <div class="row align-items-center">
                                                         <div class="col-md-8 label "><span class="text-dark">Your Signature</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['signature'] != "Save File" %}
+                                                          {% if record['signature'] and record['signature'] != "Save File" %}
                                                             <a
                                                               href="{{ record['signature'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -730,7 +730,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Adhaar Card</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['adhaar_card_doc'] != "Save File" %}
+                                                          {% if record['adhaar_card_doc'] and record['adhaar_card_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['adhaar_card_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -748,7 +748,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">PAN Card</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['pan_card_doc'] != "Save File" %}
+                                                          {% if record['pan_card_doc'] and record['pan_card_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['pan_card_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -766,7 +766,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Domicile Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['domicile_doc'] != "Save File" %}
+                                                          {% if record['domicile_doc'] and record['domicile_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['domicile_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -784,7 +784,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Caste Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['caste_doc'] != "Save File" %}
+                                                          {% if record['caste_doc'] and record['caste_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['caste_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -806,7 +806,7 @@
                                                           {% endif %}
                                                           <small class="form-text text-muted">(If you have selected "Yes" for Validity Certificate)</small></span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['validity_doc'] != "Save File" %}
+                                                          {% if record['validity_doc'] and record['validity_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['validity_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -824,7 +824,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Income Certificate</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['income_doc'] != "Save File" %}
+                                                          {% if record['income_doc'] and record['income_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['income_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -842,7 +842,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">10th Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['ssc_doc'] != "Save File" %}
+                                                          {% if record['ssc_doc'] and record['ssc_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['ssc_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -860,7 +860,7 @@
                                                      <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">12th Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['hsc_doc'] != "Save File" %}
+                                                          {% if record['hsc_doc'] and record['hsc_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['hsc_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -878,7 +878,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Graduation Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['grad_doc'] != "Save File" %}
+                                                          {% if record['grad_doc'] and record['grad_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['grad_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -896,7 +896,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Post-Graduation Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['post_grad_doc'] != "Save File" %}
+                                                          {% if record['post_grad_doc'] and record['post_grad_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['post_grad_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -914,11 +914,11 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">M.Phil/PET/SET/NET/GATE Marksheet & Passing Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['entrance_doc'] != "Save File" %}
+                                                          {% if record['entrance_doc'] and record['entrance_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['entrance_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                              data-bs-original-title="View NET/SET/PET/M.Phil Marksheet & Passing Certifcate"><span><i class="mdi mdi-eye"></i></span>
+                                                              data-bs-original-title="View M.Phil/PET/SET/NET/GATE Marksheet & Passing Certificate"><span><i class="mdi mdi-eye"></i></span>
                                                             </a>
                                                           {% else %}
                                                             <a
@@ -932,7 +932,7 @@
                                                        <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Ph.D Admission Reciept</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['phd_reciept_doc'] != "Save File" %}
+                                                          {% if record['phd_reciept_doc'] and record['phd_reciept_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['phd_reciept_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1004,7 +1004,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Confirmation Letter</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['confirmation_doc'] != "Save File" %}
+                                                          {% if record['confirmation_doc'] and record['confirmation_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['confirmation_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1022,7 +1022,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Research Center Joining Report</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['joining_doc'] != "Save File" %}
+                                                          {% if record['joining_doc'] and record['joining_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['joining_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1040,7 +1040,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Annexure <span class="text-danger">A</span> - Self Declaration</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['annexureA_doc'] != "Save File" %}
+                                                          {% if record['annexureA_doc'] and record['annexureA_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['annexureA_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1058,7 +1058,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Annexure <span class="text-danger">B</span> - Undertaking</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['annexureB_doc'] != "Save File" %}
+                                                          {% if record['annexureB_doc'] and record['annexureB_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['annexureB_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1076,7 +1076,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Annexure <span class="text-danger">C</span> - Affidavit </span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['annexureC_doc'] != "Save File" %}
+                                                          {% if record['annexureC_doc'] and record['annexureC_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['annexureC_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1094,7 +1094,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "> <span class="text-dark">Annexure <span class="text-danger">D</span> - Non Beneficiary Certificate</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['annexureD_doc'] != "Save File"%}
+                                                          {% if record['annexureD_doc'] and record['annexureD_doc'] != "Save File"%}
                                                             <a
                                                               href="{{ record['annexureD_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1117,7 +1117,7 @@
                                                           <small class="form-text text-muted">(If you have selected "Yes" for disability)</small>
                                                         </span></div>
                                                         <div class=" col-md-4">
-                                                          {% if record['disable_doc'] != "Save File" %}
+                                                          {% if record['disable_doc'] and record['disable_doc'] != "Save File"%}
                                                             <a
                                                               href="{{ record['disable_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1135,7 +1135,7 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label "><span class="text-dark">Change in Name - Gazzette</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['gazete_doc'] != "Save File" %}
+                                                          {% if record['gazete_doc'] and record['gazete_doc'] != "Save File" %}
                                                             <a
                                                               href="{{ record['gazete_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -1171,11 +1171,11 @@
                                                       <div class="row align-items-center mt-1">
                                                         <div class="col-md-8 label"><span class="text-dark">Research Synopsis/ Research Center Allotment letter</span><span class="text-danger">*</span></div>
                                                         <div class="col-md-4">
-                                                          {% if record['research_letter_doc'] != "Save File"%}
+                                                          {% if record['research_letter_doc'] != "Save File" or record['research_letter_doc'] != " " %}
                                                             <a
                                                               href="{{ record['research_letter_doc'] }}" target="_blank"
                                                               class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                              data-bs-original-title="View Confirmation Letter"><span><i class="mdi mdi-eye"></i></span>
+                                                              data-bs-original-title="View Research Synopsis"><span><i class="mdi mdi-eye"></i></span>
                                                             </a>
                                                           {% else %}
                                                             <a
