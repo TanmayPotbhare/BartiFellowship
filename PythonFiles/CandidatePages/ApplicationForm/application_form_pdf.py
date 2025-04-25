@@ -271,7 +271,7 @@ def app_pdf_auth(app):
             "P.H.D Registration Date:": str(data['phd_registration_date']) + ' ' +'(YYYY-MM-DD)',
             "P.H.D Registration Year:": data['phd_registration_year'],
             "Age at Ph.D. Registration:": str(data['phd_registration_age']) + ' ' + 'Years',
-            "Fellowship Application Year:": 'STRF' + ' ' + data['fellowship_application_year'],
+            "Fellowship Application Year:": 'BANRF' + ' ' + data['fellowship_application_year'],
             "Department Name:": data['department_name'],
             "Topic of Ph.D.:": data['topic_of_phd'],
             "Name of Guide:": data['name_of_guide'],
