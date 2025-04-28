@@ -11,7 +11,7 @@ def total_application_count(year):
     connect_param = ConnectParam(host)
     cnx, cursor = connect_param.connect()
 
-    query = "SELECT COUNT(*) FROM application_page WHERE phd_registration_year=%s"
+    query = "SELECT COUNT(*) FROM application_page WHERE fellowship_application_year=%s"
     cursor.execute(query, (year,))
     result = cursor.fetchone()
     cursor.close()
@@ -31,7 +31,7 @@ def completed_applications(year):
 
     query = """SELECT COUNT(*) 
                FROM application_page 
-               WHERE form_filled = 1 AND phd_registration_year = %s"""
+               WHERE form_filled = 1 AND fellowship_application_year = %s"""
     cursor.execute(query, (year,))
     result = cursor.fetchone()
     cursor.close()
@@ -51,7 +51,7 @@ def incomplete_applications(year):
 
     query = """SELECT COUNT(*) 
                FROM application_page 
-               WHERE form_filled = 0 AND phd_registration_year = %s"""
+               WHERE form_filled = 0 AND fellowship_application_year = %s"""
     cursor.execute(query, (year,))
     result = cursor.fetchone()
     cursor.close()
@@ -71,7 +71,7 @@ def accepted_applications(year):
 
     query = """SELECT COUNT(*) 
                FROM application_page 
-               WHERE final_approval = 'accepted' AND phd_registration_year = %s"""
+               WHERE final_approval = 'accepted' AND fellowship_application_year = %s"""
     cursor.execute(query, (year,))
     result = cursor.fetchone()
     cursor.close()
@@ -92,7 +92,7 @@ def rejected_applications(year):
     query = """
                SELECT COUNT(*) 
                FROM application_page 
-               WHERE phd_registration_year = %s  
+               WHERE fellowship_application_year = %s  
                AND final_approval = 'rejected' 
                OR scrutiny_status = 'rejected' 
                OR status = 'rejected'
@@ -117,7 +117,7 @@ def male_applications(year):
     query = """
                SELECT COUNT(*) 
                FROM application_page 
-               WHERE phd_registration_year = %s  
+               WHERE fellowship_application_year = %s  
                AND gender = 'Male'
             """
     cursor.execute(query, (year,))
@@ -140,7 +140,7 @@ def female_applications(year):
     query = """
                SELECT COUNT(*) 
                FROM application_page 
-               WHERE phd_registration_year = %s  
+               WHERE fellowship_application_year = %s  
                AND gender = 'Female'
             """
     cursor.execute(query, (year,))
@@ -163,7 +163,7 @@ def disabled_applications(year):
     query = """
                SELECT COUNT(*) 
                FROM application_page 
-               WHERE phd_registration_year = %s  
+               WHERE fellowship_application_year = %s  
                AND disability = 'Yes'
             """
     cursor.execute(query, (year,))
@@ -186,7 +186,7 @@ def notdisabled_applications(year):
     query = """
                SELECT COUNT(*) 
                FROM application_page 
-               WHERE phd_registration_year = %s  
+               WHERE fellowship_application_year = %s  
                AND disability = 'No'
             """
     cursor.execute(query, (year,))
@@ -255,22 +255,22 @@ def get_individual_counts_faculty(year):
         query_Science = """
             SELECT COUNT(*) as count 
             FROM application_page 
-            WHERE phd_registration_year = %s AND faculty = 'Science'
+            WHERE fellowship_application_year = %s AND faculty = 'Science'
         """
         query_Arts = """
             SELECT COUNT(*) as count 
             FROM application_page 
-            WHERE phd_registration_year = %s AND faculty = 'Arts'
+            WHERE fellowship_application_year = %s AND faculty = 'Arts'
         """
         query_Commerce = """
             SELECT COUNT(*) as count 
             FROM application_page 
-            WHERE phd_registration_year = %s AND faculty = 'Commerce'
+            WHERE fellowship_application_year = %s AND faculty = 'Commerce'
         """
         query_Other = """
             SELECT COUNT(*) as count 
             FROM application_page 
-            WHERE phd_registration_year = %s AND faculty = 'Other'
+            WHERE fellowship_application_year = %s AND faculty = 'Other'
         """
 
         # Execute queries with the provided year

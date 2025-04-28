@@ -16,6 +16,8 @@ from PythonFiles.CandidatePages.award_letter import award_letter_blueprint, awar
 from PythonFiles.CandidatePages.halfyearly import halfyearly_blueprint, halfyearly_auth
 from PythonFiles.CandidatePages.hra_report import hra_report_blueprint, hra_report_auth
 from PythonFiles.CandidatePages.undertaking_report import undertaking_report_blueprint, undertaking_report_auth
+from PythonFiles.CandidatePages.continuation_report import continuation_report_blueprint, continuation_report_auth
+from PythonFiles.CandidatePages.srf_report import srf_report_blueprint, srf_report_auth
 from PythonFiles.CandidatePages.assessment_report import assessment_report_blueprint, assessment_report_auth
 from PythonFiles.CandidatePages.affidavit import affidavit_report_blueprint, affidavit_auth
 from PythonFiles.CandidatePages.withdraw_fellowship import withdraw_fellowship_blueprint, withdraw_fellowship_auth
@@ -97,6 +99,14 @@ def candidate_blueprints(app, mail):
     # Candidate Undertaking Report
     undertaking_report_auth(app)
     app.register_blueprint(undertaking_report_blueprint)
+
+    # Candidate continuation Report
+    continuation_report_auth(app)
+    app.register_blueprint(continuation_report_blueprint)
+
+    # Candidate SRF Reports
+    srf_report_auth(app)
+    app.register_blueprint(srf_report_blueprint)
 
     # Candidate Assessment Report
     assessment_report_auth(app)

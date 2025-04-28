@@ -107,6 +107,58 @@ $('.accept_pdf').on('change', function () {
 
 })
 
+
+$('.accept_1mb_pdf').on('change', function () {
+    // File extension allowed on site
+    var allowExtensions = ['pdf'];
+
+    // Max file size is defined (1 MB)
+    var maxFileSize = 1024 * 1024; // 1 MB
+
+    // English-only regex (allowing only alphabets, numbers, spaces, and specific punctuation marks)
+    const englishOnlyPattern = /^[A-Za-z0-9.,'"\s\-()]*$/;
+
+    // Get selected file
+    var uploadFile = this.files[0];
+
+    if (uploadFile) {
+        var fileName = uploadFile.name;
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        if (allowExtensions.indexOf(fileExtension) === -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'Invalid file type. Allowed file types are PDF.'
+            });
+            $(this).val('')
+        }
+
+        if (uploadFile.size > maxFileSize) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry',
+                text: 'File size exceeds the maximum allowed size of 250KB.',
+            });
+            $(this).val('')
+        }
+
+        // Check if the filename is in English
+        if (!englishOnlyPattern.test(fileName)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Language Detected',
+                text: 'The file name contains invalid characters. Please use English letters and numbers only.',
+            });
+            $(this).val(''); // Reset file input
+            return;
+        }
+    }
+
+})
+
+
+
     // Enable "View" button when an image file is selected
     function toggleViewImageButton(input, viewButtonId) {
         var viewButton = document.getElementById(viewButtonId);

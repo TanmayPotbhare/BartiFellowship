@@ -209,7 +209,7 @@ def section1_auth(app):
          # Check if the application form is locked
         cursor.execute("SELECT lock_application_form FROM application_page WHERE email = %s", (email,))
         lock_status = cursor.fetchone()
-        print("The Lock sttaus of this application is:", lock_status)
+        print("The Lock status of this application is:", lock_status)
 
         if lock_status and lock_status['lock_application_form'] == 'locked':
             flash("Your application form is locked. You cannot edit this section.", 'warning')

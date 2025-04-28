@@ -15,7 +15,7 @@ COMMON_COLUMNS = [
     "pg_stream", "pg_attempts", "pg_total", "have_you_qualified",
 
     "name_of_college", "other_college_name", "name_of_guide", "topic_of_phd", "concerned_university","other_university",
-    "department_name", "faculty", "other_faculty", "phd_registration_date", "phd_registration_year", "phd_registration_age",
+    "department_name", "faculty", "other_faculty", "phd_registration_date", "phd_registration_year", "phd_registration_age","fellowship_application_year"
 
     "family_annual_income", "income_certificate_number", "issuing_authority", "income_issuing_district", "income_issuing_taluka", 
     "domicile", "domicile_certificate", "domicile_number", "validity_certificate",
@@ -102,6 +102,8 @@ COMMON_HEADERS = {
     "phd_registration_date": "PhD Registration Date",
     "phd_registration_year": "PhD Registration Year",
     "phd_registration_age": "PhD Registration Age",
+    "fellowship_application_year": "Fellowship Application Year",
+    
     
     "family_annual_income": "Family Annual Income",
     "income_certificate_number": "Income Certificate Number",
