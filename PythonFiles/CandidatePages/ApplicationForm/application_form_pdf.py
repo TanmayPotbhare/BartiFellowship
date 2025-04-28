@@ -258,7 +258,7 @@ def app_pdf_auth(app):
             "Competitve Exam given:": data['have_you_qualified']
             # Add more fields as needed
         }
-        if 'have_you_qualified' in data:  # Check if the key exists
+        if 'have_you_qualified' in data and data['have_you_qualified'] is not None:
             if data['have_you_qualified'] in ['', 'None']:
                 pass
             else:
@@ -269,6 +269,8 @@ def app_pdf_auth(app):
                     postgrad["Other Competitive Exam:"] = data['have_you_qualified_other']
                 elif "OTHER" in cleaned_exams:
                     postgrad["Other Competitive Exam:"] = "Not Specified"
+        else:
+            exams = []  # Or handle the case where 'have_you_qualified' is missing or None differently
 
         phd_details = {
             "P.H.D Registration Date:": str(data['phd_registration_date']) + ' ' +'(YYYY-MM-DD)',
