@@ -205,5 +205,22 @@
                 </div>
       </div>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          // When select-all is clicked
+          $('.select-all').on('change', function () {
+              $('.email-input').prop('checked', $(this).prop('checked'));
+          });
+  
+          // If any single checkbox is unchecked, uncheck select-all
+          $('.email-input').on('change', function () {
+              if (!$(this).prop('checked')) {
+                  $('.select-all').prop('checked', false);
+              } else if ($('.email-input:checked').length === $('.email-input').length) {
+                  $('.select-all').prop('checked', true);
+              }
+          });
+      });
+  </script>
 {% endblock %}

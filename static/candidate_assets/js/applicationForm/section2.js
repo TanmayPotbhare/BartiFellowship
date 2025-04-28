@@ -449,29 +449,47 @@ function toggleOtherQualification() {
     }
 }
 
-// function validateQualifications() {
-//     const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
-//     let isChecked = false;
+// // ---------------- Show and Hide Field on d-none ----------------------------
+// // This function is responsible for displaying and hiding the Other Faculty  option based on the Faculty selected in Section2 
+// function toggleAdditionalHscStream(select) {
+//     const additionalHscStream = document.getElementById('additional_hsc_stream'); // Fixed typo
+//     const inputField = document.getElementById('other_hsc_stream'); // Fixed typo in variable name
 
-//     checkboxes.forEach(cb => {
-//         if (cb.checked) isChecked = true;
-//     });
-
-//     const submitButton = document.getElementById('submit');
-//     const qualificationHelp = document.getElementById('qualificationHelp');
-
-//     if (!isChecked) {
-//         qualificationHelp.style.display = 'block';
-//         submitButton.disabled = true;
+//     if (select.value === 'Other') {
+//         additionalHscStream.classList.remove('d-none'); // Show field
+//         inputField.setAttribute('required', 'true'); // Set required on input field
 //     } else {
-//         qualificationHelp.style.display = 'none';
-//         submitButton.disabled = false;
+//         additionalHscStream.classList.add('d-none'); // Hide field
+//         inputField.value = ''; // Clear input field
+//         inputField.removeAttribute('required'); // Remove required from input field
 //     }
 // }
 
-// // Run validation on page load and whenever checkboxes change
-// window.onload = function () {
-//     validateQualifications();
-//     const checkboxes = document.querySelectorAll('input[name="qualified_exams[]"]');
-//     checkboxes.forEach(cb => cb.addEventListener('change', validateQualifications));
-// };
+// function toggleAdditionalGraduationStream(select) {
+//     const additionalGradStream = document.getElementById('additional_grad_stream'); // Fixed typo
+//     const inputField = document.getElementById('other_grad_stream'); // Fixed typo in variable name
+
+//     if (select.value === 'Other') {
+//         additionalGradStream.classList.remove('d-none'); // Show field
+//         inputField.setAttribute('required', 'true'); // Set required on input field
+//     } else {
+//         additionalGradStream.classList.add('d-none'); // Hide field
+//         inputField.value = ''; // Clear input field
+//         inputField.removeAttribute('required'); // Remove required from input field
+//     }
+// }
+
+// function toggleAdditionalPostGraduationStream(select) {
+//     const additionalPostGradStream = document.getElementById('additional_post_grad_stream'); // Fixed typo
+//     const inputField = document.getElementById('other_post_grad_stream'); // Fixed typo in variable name
+
+//     if (select.value === 'Other') {
+//         additionalPostGradStream.classList.remove('d-none'); // Show field
+//         inputField.setAttribute('required', 'true'); // Set required on input field
+//     } else {
+//         additionalPostGradStream.classList.add('d-none'); // Hide field
+//         inputField.value = ''; // Clear input field
+//         inputField.removeAttribute('required'); // Remove required from input field
+//     }
+// }
+// // ----------------------------------------------------------------
