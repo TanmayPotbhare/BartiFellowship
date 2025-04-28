@@ -46,7 +46,7 @@
                                 <div class="row mt-5">
                                     <div class="col-md-6">
                                         {% if hra_utility_report %}
-                                            <h4 class="text-center mb-3">House Rent Allowance Utilization</h4>
+                                            <h4 class="text-center mb-3">Fellowship/House Rent Allowance Utilization</h4>
                                             <div class="row mt-5">
                                                 <div class="col-md-3">
                                                     <label>H.R.A Utility Uploaded Date</label>
@@ -75,7 +75,7 @@
                                             </div>
                                         {% else %}
                                             <form action="/hra_utility_report_submit" method="POST" enctype="multipart/form-data">
-                                                <h4 class="text-center mb-3">House Rent Allowance Utilization</h4>
+                                                <h4 class="text-center mb-3">Fellowship/House Rent Allowance Utilization</h4>
                                                 <div class="mb-3">
                                                     <input type="file" name="hra_utility_report" id="hra_utility_report"
                                                            class="form-control" required>
@@ -89,7 +89,7 @@
 
                                     <div class="col-md-6">
                                         {% if fellowship_utility_report %}
-                                            <h4 class="text-center mb-3">Fellowship/Contingency Utilization</h4>
+                                            <h4 class="text-center mb-3">Contingency Utilization</h4>
                                             <div class="row mt-5">
                                                 <div class="col-md-3">
                                                     <label>Fellowship Utility Uploaded Date</label>
@@ -118,7 +118,7 @@
                                             </div>
                                         {% else %}
                                             <form action="/fellowship_utility_report_submit" method="POST" enctype="multipart/form-data">
-                                                <h4 class="text-center mb-3">Fellowship/Contingency Utilization</h4>
+                                                <h4 class="text-center mb-3">Contingency Utilization</h4>
                                                 <div class="mb-3">
                                                     <input type="file" name="fellowship_utility_report"
                                                            id="fellowship_utility_report" class="form-control"
