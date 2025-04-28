@@ -259,13 +259,16 @@ def app_pdf_auth(app):
             # Add more fields as needed
         }
         if 'have_you_qualified' in data:  # Check if the key exists
-            exams = data['have_you_qualified'].split(',')  # Split the string into a list
-            cleaned_exams = [exam.strip() for exam in exams]  # remove extra spaces
-            if "OTHER" in cleaned_exams and 'have_you_qualified_other' in data and data[
-                'have_you_qualified_other'] != "":
-                postgrad["Other Competitive Exam:"] = data['have_you_qualified_other']
-            elif "OTHER" in cleaned_exams:
-                postgrad["Other Competitive Exam:"] = "Not Specified"
+            if data['have_you_qualified'] in ['', 'None']:
+                pass
+            else:
+                exams = data['have_you_qualified'].split(',')  # Split the string into a list
+                cleaned_exams = [exam.strip() for exam in exams]  # remove extra spaces
+                if "OTHER" in cleaned_exams and 'have_you_qualified_other' in data and data[
+                    'have_you_qualified_other'] != "":
+                    postgrad["Other Competitive Exam:"] = data['have_you_qualified_other']
+                elif "OTHER" in cleaned_exams:
+                    postgrad["Other Competitive Exam:"] = "Not Specified"
 
         phd_details = {
             "P.H.D Registration Date:": str(data['phd_registration_date']) + ' ' +'(YYYY-MM-DD)',
