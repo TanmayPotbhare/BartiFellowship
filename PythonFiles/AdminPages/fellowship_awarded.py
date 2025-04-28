@@ -7,7 +7,7 @@ from classes.database import HostConfig, ConfigPaths, ConnectParam
 from flask import Blueprint, render_template, session, request, redirect, url_for, flash, Response, current_app
 from PythonFiles.AdminPages.PDFfile import *
 import datetime
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa
 
 fellowship_awarded_blueprint = Blueprint('fellowship_awarded', __name__)
 
