@@ -49,8 +49,9 @@
                                                         <tr>
                                                             <th>Sr No</th>
                                                             <th>Start Date</th>
-                                                            <th>End Date</th>
-                                                            <th>Monthly Document Name</th>
+<!--                                                            <th>End Date</th>-->
+                                                            <th>Monthly Report</th>
+                                                            <th>JRF/SRF Status</th>
                                                             <th>Submitted Date</th>
                                                             <th>Submitted Day</th>
                                                             <th>Submitted Time</th>
@@ -58,23 +59,56 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for start_date, end_date in zipped_dates %}
+                                                        {% for start_date, end_date, report_months in zipped_dates %}
                                                         <tr>
-                                                            <td>{{ loop.index }}</td>
-                                                            <td>{{ start_date.strftime('%d-%m-%Y') }}</td>
-                                                            <td>{{ end_date.strftime('%d-%m-%Y') }}</td>
-                                                            <td>Monthly Report {{ loop.index }}</td>
+                                                            <td><span class="text-dark">{{ loop.index }}</span></td>
+                                                            <td class="text-dark">{{ start_date.strftime('%d-%m-%Y') }}</td>
+<!--                                                            <td>{{ end_date.strftime('%d-%m-%Y') }}</td>-->
+                                                            <td class="text-dark">
+                                                                {% if report_months == 1 %}
+                                                                    January Report
+                                                                {% elif report_months == 2 %}
+                                                                    February Report
+                                                                {% elif report_months == 3%}
+                                                                    March Report
+                                                                {% elif report_months == 4 %}
+                                                                    April Report
+                                                                {% elif report_months == 5 %}
+                                                                    May Report
+                                                                {% elif report_months == 6 %}
+                                                                    June Report
+                                                                {% elif report_months == 7 %}
+                                                                    July Report
+                                                                {% elif report_months == 8 %}
+                                                                    August Report
+                                                                {% elif report_months == 9 %}
+                                                                    September Report
+                                                                {% elif report_months == 10 %}
+                                                                    October Report
+                                                                {% elif report_months == 11 %}
+                                                                    November Report
+                                                                {% elif report_months == 12 %}
+                                                                    December Report
+                                                                {% endif %}
+                                                            </td>
                                                             <td>
+                                                                {% if loop.index in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24] %}
+                                                                    <span class="badge badge-warning text-dark">JRF</span>
+                                                                {% else %}
+                                                                    <span class="badge badge-dark text-white">SRF</span>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td class="text-dark">
                                                                 {% if loop.index <= submitted_count %}
                                                                     {{ dates["submission_date_report" ~ loop.index] | default("NA") }}
                                                                 {% endif %}
                                                             </td>
-                                                            <td>
+                                                            <td class="text-dark">
                                                                 {% if loop.index <= submitted_count %}
                                                                     {{ days["submission_day_report" ~ loop.index] | default("NA") }}
                                                                 {% endif %}
                                                             </td>
-                                                            <td>
+                                                            <td class="text-dark">
                                                                 {% if loop.index <= submitted_count %}
                                                                     {{ time["submission_time_" ~ loop.index] | default("NA") }}
                                                                 {% endif %}
