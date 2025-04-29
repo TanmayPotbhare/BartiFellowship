@@ -143,16 +143,15 @@ def login_auth(app, mail):
                             flash('You have withdrawn from Fellowship. Please BARTI office for any queries.', 'info')
                             return redirect(url_for('login_signup.login'))
                         elif unlocked_application_form(email):
-                                session['logged_in_from_login'] = True
-                                print('I am unlocked Application Form') 
-                                return redirect(url_for('section1.section1'))
+                            session['logged_in_from_login'] = True
+                            print('I am unlocked Application Form') 
+                            return redirect(url_for('section1.section1'))
                         elif check_final_approval(email):
                             print('I am here 2')
                             session['final_approval'] = "accepted"
                             session['logged_in_from_login'] = True
                             session['show_login_flash'] = True
                             return redirect(url_for('candidate_dashboard.candidate_dashboard'))
-
                         elif old_user(email):
                             flash('Logged in Succesfully.', 'success')
                             session['logged_in_from_login'] = True
@@ -323,7 +322,7 @@ def login_auth(app, mail):
         cursor.close()
         cnx.close()
         if result:
-            flash('Successfully Logged in', 'success')
+            flash('Successfully Logged in. Your application is unlocked. You may now review and modify your information.', 'success')
         else:
            flash('Please enter correct Email address', 'error')
         return result is not None    
