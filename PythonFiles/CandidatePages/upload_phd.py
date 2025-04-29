@@ -23,8 +23,8 @@ def upload_phd_auth(app):
 
         if session.get('phd_award'):
             # Redirect to the admin login page if the user is not logged in
-            flash('PHD Certificate has been uploaded successfully', 'success')
-
+            email = session['email']
+            
         email = session['email']
 
         host = HostConfig.host
@@ -34,6 +34,10 @@ def upload_phd_auth(app):
         sql = """SELECT * FROM application_page WHERE email = %s"""
         cursor.execute(sql, (email,))
         records = cursor.fetchone()
+
+        sql = """SELECT * FROM documents WHERE email = %s"""
+        cursor.execute(sql, (email,))
+        doc_records = cursor.fetchone()
 
         # Check if the user is approved for fellowship no matter the year to show the desired sidebar.
         if records['final_approval'] == 'accepted':
@@ -49,7 +53,7 @@ def upload_phd_auth(app):
             user = "Admin"
             photo = '/static/assets/img/default_user.png'
         return render_template('CandidatePages/upload_phd.html', title="Change Center Details", records=records,
-                               user=user, photo=photo, finally_approved=finally_approved)
+                               user=user, photo=photo, finally_approved=finally_approved, doc_records=doc_records)
 
     @upload_phd_blueprint.route('/upload_phd_submit', methods=['GET', 'POST'])
     def upload_phd_submit():
@@ -59,29 +63,48 @@ def upload_phd_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        sql = """SELECT phd_award, first_name, last_name FROM application_page WHERE email = %s"""
+        sql = """SELECT applicant_id, first_name, last_name FROM application_page WHERE email = %s"""
+        cursor.execute(sql, (email,))
+        application_data = cursor.fetchone()
+
+        first_name = application_data['first_name']
+        last_name = application_data['last_name']
+        applicant_id = application_data['applicant_id']
+
+        # Check if record exists in documents table
+        sql = """SELECT doc_id FROM documents WHERE email = %s"""
+        cursor.execute(sql, (email,))
+        document_record = cursor.fetchone()
+
+        sql = """SELECT upgradation_doc FROM documents WHERE email = %s"""
         cursor.execute(sql, (email,))
         records = cursor.fetchone()
-
-        first_name = records['first_name']
-        last_name = records['last_name']
 
         if request.method == 'POST':
             phd_award = save_file_pdf_cert(request.files['phd_award'], first_name, last_name)
             current_date = datetime.datetime.now().strftime('%Y-%m-%d')  # Fixed format for date
             current_time = datetime.datetime.now().strftime('%H:%M:%S')  # Fixed format for time
 
-            # Handle case where joining_report is not already uploaded
+            if document_record:
+                # UPDATE existing document
+                update_query = """
+                    UPDATE documents 
+                    SET phd_award = %s, phd_award_uploaded_date = %s, phd_award_uploaded_time = %s 
+                    WHERE email = %s
+                """
+                cursor.execute(update_query, (phd_award, current_date, current_time, email))
+                flash('PHD Award updated successfully.', 'Success')
+            else:
+                # INSERT new document
+                insert_query = """
+                    INSERT INTO documents 
+                    (applicant_id_fk, email, phd_award, phd_award_uploaded_date, phd_award_uploaded_time) 
+                    VALUES (%s, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_query, (applicant_id, email, phd_award, current_date, current_time))
+                flash('PHD Award uploaded successfully.', 'success')
 
-            update_query = """UPDATE application_page 
-                                              SET phd_award=%s, 
-                                              phd_award_uploaded_date=%s, phd_award_uploaded_time=%s 
-                                              WHERE email = %s
-                                      """
-            cursor.execute(update_query,
-                           (phd_award, current_date, current_time, email))
             cnx.commit()
-
             cursor.close()
             cnx.close()
 
