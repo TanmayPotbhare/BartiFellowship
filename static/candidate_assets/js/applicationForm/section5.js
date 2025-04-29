@@ -138,7 +138,7 @@ $('.accept_1mb_pdf').on('change', function () {
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry',
-                text: 'File size exceeds the maximum allowed size of 250KB.',
+                text: 'File size exceeds the maximum allowed size of 1MB.',
             });
             $(this).val('')
         }
