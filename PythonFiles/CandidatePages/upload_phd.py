@@ -52,7 +52,7 @@ def upload_phd_auth(app):
         else:
             user = "Admin"
             photo = '/static/assets/img/default_user.png'
-        return render_template('CandidatePages/upload_phd.html', title="Change Center Details", records=records,
+        return render_template('CandidatePages/upload_phd.html', title="Upload PHD Award", records=records,
                                user=user, photo=photo, finally_approved=finally_approved, doc_records=doc_records)
 
     @upload_phd_blueprint.route('/upload_phd_submit', methods=['GET', 'POST'])
@@ -93,7 +93,7 @@ def upload_phd_auth(app):
                     WHERE email = %s
                 """
                 cursor.execute(update_query, (phd_award, current_date, current_time, email))
-                flash('PHD Award updated successfully.', 'Success')
+                flash('PHD Award updated successfully.', 'success')
             else:
                 # INSERT new document
                 insert_query = """

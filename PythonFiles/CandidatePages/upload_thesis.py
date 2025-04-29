@@ -48,7 +48,7 @@ def upload_thesis_auth(app):
         else:
             user = "Admin"
             photo = '/static/assets/img/default_user.png'
-        return render_template('CandidatePages/upload_thesis.html', title="Change Center Details", records=records,
+        return render_template('CandidatePages/upload_thesis.html', title="Upload Thesis", records=records,
                                user=user, photo=photo, finally_approved=finally_approved, doc_records=doc_records)
 
     @upload_thesis_blueprint.route('/upload_thesis_submit', methods=['GET', 'POST'])
@@ -89,7 +89,7 @@ def upload_thesis_auth(app):
                     WHERE email = %s
                 """
                 cursor.execute(update_query, (phd_thesis, current_date, current_time, email))
-                flash('PHD Thesis Report updated successfully.', 'Success')
+                flash('PHD Thesis Report updated successfully.', 'success')
             else:
                 # INSERT new document
                 insert_query = """
