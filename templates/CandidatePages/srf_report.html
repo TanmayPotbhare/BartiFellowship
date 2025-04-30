@@ -36,7 +36,11 @@
                         <div class="col-md-12">
                                 <div class="row mt-5">
                                     <div class="col-md-6">
-                                        <h4 class="text-center mb-3">Upgradation Report</h4>
+                                        <h4 class="text-center mb-3">Upgradation Report<span class="text-danger">*</span>
+                                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="PDF Format allowed only. The PDF size should be under or equal to 250KB.">
+                                          (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                        </h4>
                                         {% if doc_records and doc_records['upgradation_doc'] %}
                                             <div class="row mt-5">
                                                 <div class="col-md-3">
@@ -78,7 +82,11 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                            <h4 class="text-center mb-3">Three Member Committee Report</h4>
+                                            <h4 class="text-center mb-3">Three Member Committee Report<span class="text-danger">*</span>
+                                                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="PDF Format allowed only. The PDF size should be under or equal to 500KB.">
+                                              (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                            </h4>
                                             {% if doc_records and doc_records['three_member_committee_doc'] %}
                                             <div class="row mt-5">
                                                 <div class="col-md-3">
@@ -110,7 +118,7 @@
                                         <form action="/three_member_committee_report_submit" method="POST" enctype="multipart/form-data">
                                             <div class="mb-3">
                                                     <input type="file" name="three_member_committee_doc" id="three_member_committee_doc"
-                                                           class="form-control accept_pdf" required
+                                                           class="form-control accept_500kb_pdf" required
                                                            placeholder="Enter your Date of Birth">
                                             </div>
                                             <div class="d-grid gap-2">
