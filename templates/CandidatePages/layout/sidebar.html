@@ -100,6 +100,39 @@
 <!--                    </a>-->
 <!--                  </li>-->
                   {% if finally_approved == 'approved' %}
+                        {% if request.path in paths %}
+                            <li>
+                              <a class="sidenav-item-link active" href="#">
+                                <span class="nav-text">Profile Page</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Qualification Page</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Caste Details</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Bank Details</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Documents</span>
+                              </a>
+                            </li>
+
+                        {% else %}
+
                       <li>
                         <a class="sidenav-item-link " href="/installments">
                           <i class="mdi mdi-finance"></i>
@@ -140,9 +173,9 @@
                       </li>
 
                       <li>
-                        <!-- <a class="sidenav-item-link" href="/continuation_report"> -->
-                          <a class="sidenav-item-link" href="#">
-                          <i class="mdi mdi-clipboard-outline"></i>
+                         <a class="sidenav-item-link" href="/continuation_report">
+<!--                          <a class="sidenav-item-link" href="#">-->
+                          <i class="mdi mdi-account-convert"></i>
                           <span class="nav-text">Continuation Report</span>
                         </a>
                       </li>
@@ -241,6 +274,7 @@
                           <span class="nav-text">Give Feedback</span>
                         </a>
                       </li>
+                      {% endif %}
                   {% else %}
                   {% endif %}
 
