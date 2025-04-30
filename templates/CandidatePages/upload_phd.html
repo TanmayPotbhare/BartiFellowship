@@ -66,7 +66,11 @@
                                     <form action="/upload_phd_submit" method="POST" enctype="multipart/form-data">
                                         <div class="row mt-5">
                                             <div class="col-md-2">
-                                                <label>PHD Award</label>
+                                                <label>PHD Award<span class="text-danger">*</span>
+                                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="PDF Format allowed only. The PDF size should be under or equal to 
+                                                250KB.">
+                                                  (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)</label>
                                             </div>
                                             <div class="col-md-10">
                                                 <input type="file" name="phd_award" id="phd_award"
