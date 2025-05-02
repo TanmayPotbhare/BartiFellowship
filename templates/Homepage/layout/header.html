@@ -1,5 +1,6 @@
 <!-- mobile menu -->
-<div class="fixed h-screen w-screen top-0 left-0 bg-black/40 z-100 flex justify-start items-center py-3 lg:hidden mobile_menu transition-all duration-600 opacity-0 invisible">
+<div
+  class="fixed h-screen w-screen top-0 left-0 bg-black/40 z-100 flex justify-start items-center py-3 lg:hidden mobile_menu transition-all duration-600 opacity-0 invisible">
   <div class="w-3/4 bg-white h-full rounded-r-lg py-3 px-3 mobile_menu_container -translate-x-full duration-600">
     <div class="text-end">
       <span class="material-symbols-outlined cursor-pointer !text-gray-600 close_menu">
@@ -83,8 +84,7 @@
         <span class="text-xs font-primary text-white px-3 border-l">A</span>
         <span class="text-xs font-primary text-white px-3 border-l">A+</span> -->
         <a href="{{ url_for('set_session', value='english') }}">
-          <span class="text-xs font-primary text-white px-3 border-l">{{ multilingual_content[language]['english']
-            }}</span>
+          <span class="text-xs font-primary text-white px-3 border-l">English</span>
         </a>
         <a href="{{ url_for('set_session', value='marathi') }}">
           <span class="text-xs font-primary text-white px-3 border-l">{{ multilingual_content[language]['marathi']
@@ -112,10 +112,10 @@
         <h5 class="text-[30px] font-primary font-bold text-blue-950 mb-0 ">
           {{ multilingual_content[language]['trti_header'] }}
         </h5>
-        <p class="text-blue-950 text-sm font-primary mt-1">
+        <p class="text-blue-950 text-xs font-poppins mt-1">
           {{ multilingual_content[language]['barti_subtitle'] }}
         </p>
-        <h5 class="font-secondary font-semibold text-sky-700 text-[27px] mt-3">
+        <h5 class="font-secondary font-semibold text-sky-700 text-[25px] mt-3">
           {{ multilingual_content[language]['banrf'] }}
         </h5>
       </div>
@@ -150,121 +150,121 @@
   </div>
 
   <!-- leader section -->
-  <div class="py-3 px-10  " data-taos-offset="0">
-    <div class="owl-carousel owl-theme px-3">
-      <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
+  <div class="py-3 px-10  bg-linear-to-t from-sky-600 to-sky-100" data-taos-offset="0">
+    <div class="owl-carousel owl-theme px-3 h-full">
+      <div class="item rounded-lg shadow-xl p-3 h-full bg-white ">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
             <img src="static/assets/img/leaders/devpha.png" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
               alt="User">
           </div>
           <div class="col-span-3">
-            <h4 class="font-fourth font-bold text-base text-blue-950">
+            <h4 class="font-secondary font-semibold text-base text-sky-700 text-shadow-lg">
               {{ multilingual_content[language]['dev_phad'] }}
             </h4>
-            <p class="text-xs font-poppins text-sky-700">
+            <p class="text-[9.8px] font-secondary text-gray-600 tracking-wider">
               {{ multilingual_content[language]['dev_phad_desgn'] }}
             </p>
           </div>
         </div>
       </div>
 
-      <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
+      <div class="item  rounded-lg  shadow-xl p-3 h-full bg-white">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
             <img src="static/assets/img/leaders/ekshi.png" class="!w-15 !h-15 object-contain shadow-xl rounded-full"
               alt="User">
           </div>
           <div class="col-span-3">
-            <h4 class="font-fourth font-bold text-base text-blue-950">
+            <h4 class="font-secondary font-semibold text-base text-sky-700 text-shadow-lg">
               {{ multilingual_content[language]['eknath_shinde'] }}
             </h4>
-            <p class="text-xs font-poppins text-sky-700">
+            <p class="text-[9.8px] font-secondary text-gray-600 tracking-wider">
               {{ multilingual_content[language]['eknath_shinde_desgn'] }}
             </p>
           </div>
         </div>
       </div>
 
-      <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
+      <div class="item  rounded-lg  shadow-xl p-3 h-full bg-white">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
             <img src="static/assets/img/leaders/ajitpawar.jpg" class="!w-15 !h-15 object-contain shadow-xl rounded-full"
               alt="User">
           </div>
           <div class="col-span-3">
-            <h4 class="font-fourth font-bold text-base text-blue-950">
+            <h4 class="font-secondary font-semibold text-base text-sky-700 text-shadow-lg">
               {{ multilingual_content[language]['ajit_pawar'] }}
             </h4>
-            <p class="text-xs font-poppins text-sky-700">
+            <p class="text-[9.8px] font-secondary text-gray-600 tracking-wider">
               {{ multilingual_content[language]['ajit_pawar_desgn'] }}
             </p>
           </div>
         </div>
       </div>
 
-      <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
+      <div class="item  rounded-lg  shadow-xl p-3 h-full bg-white">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
-            <img src="static/assets/img/leaders/sanjay.jpg" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
+            <img src="static/assets/img/leaders/sanjay.jpg" class="!w-15 !h-15 object-contain rounded-full shadow-lg"
               alt="User">
           </div>
           <div class="col-span-3">
-            <h4 class="font-fourth font-bold text-base text-blue-950">
+            <h4 class="font-secondary font-semibold text-base text-sky-700 text-shadow-lg">
               {{ multilingual_content[language]['sanjay_shirsat'] }}
             </h4>
-            <p class="text-xs font-poppins text-sky-700">
+            <p class="text-[9.8px] font-secondary text-gray-600 tracking-wider">
               {{ multilingual_content[language]['sanjay_shirsat_design'] }}
             </p>
           </div>
         </div>
       </div>
 
-      <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
+      <div class="item  rounded-lg  shadow-xl p-3 h-full bg-white">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
             <img src="static/assets/img/leaders/madhuri.jpg" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
               alt="User">
           </div>
           <div class="col-span-3">
-            <h4 class="font-fourth font-bold text-base text-blue-950">
+            <h4 class="font-secondary font-semibold text-base text-sky-700 text-shadow-lg">
               {{ multilingual_content[language]['madhuri_misal'] }}
             </h4>
-            <p class="text-xs font-poppins text-sky-700">
+            <p class="text-[9.8px] font-secondary text-gray-600 tracking-wider">
               {{ multilingual_content[language]['madhuri_misal_design'] }}
             </p>
           </div>
         </div>
       </div>
 
-      <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
+      <div class="item  rounded-lg  shadow-xl p-3 h-full bg-white">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
             <img src="static/assets/img/leaders/HarshdeepKamble.jpeg"
               class="!w-15 !h-15 object-contain rounded-full shadow-xl" alt="User">
           </div>
           <div class="col-span-3">
-            <h4 class="font-fourth font-bold text-base text-blue-950">
+            <h4 class="font-secondary font-semibold text-base text-sky-700 text-shadow-lg">
               {{ multilingual_content[language]['vijay_waghmare'] }}
             </h4>
-            <p class="text-xs font-poppins text-sky-700">
+            <p class="text-[9.8px] font-secondary text-gray-600 tracking-wider">
               {{ multilingual_content[language]['vijay_waghmare_desgn'] }}
             </p>
           </div>
         </div>
       </div>
 
-      <div class="item border border-sky-700 rounded-lg shadow p-3 h-full">
+      <div class="item  rounded-lg  shadow-xl p-3 h-full bg-white">
         <div class="grid grid-cols-4 gap-1 place-items-center">
           <div class="">
             <img src="static/assets/img/leaders/sunil.png" class="!w-15 !h-15 object-contain rounded-full shadow-xl"
               alt="User">
           </div>
           <div class="col-span-3">
-            <h4 class="font-fourth font-bold text-base text-blue-950">
+            <h4 class="font-secondary font-semibold text-base text-sky-700 text-shadow-lg">
               {{ multilingual_content[language]['sunil_ware'] }}
             </h4>
-            <p class="text-xs font-poppins text-sky-700">
+            <p class="text-[9.8px] font-secondary text-gray-600 tracking-wider">
               {{ multilingual_content[language]['sunil_ware_design'] }}
             </p>
           </div>
@@ -274,47 +274,51 @@
   </div>
 
   <!-- menu section -->
-  <div class="bg-sky-600">
+  <div class="bg-sky-600 py-1 border-t border-gray-200">
     <!-- Desktop Nav menu -->
     <div class="lg:hidden flex justify-start items-center">
       <span class="material-symbols-outlined !text-xl !text-white/80 cursor-pointer px-2 open_menu">
         notes
       </span>
     </div>
-    <div class=" justify-between w-[95%] mx-auto items-center hidden lg:flex">
-      <ul class=" flex items-center">
+    <div class=" justify-center w-[95%] mx-auto items-center hidden lg:flex  gap-2">
+      <ul class=" flex items-center  justify-around  gap-2">
         <a href="/">
-          <li class="py-2 px-4 bg-white border border-sky-700 rounded font-third text-blue-950">
+          <li class="py-2 px-10 border-1 border-transparent rounded font-third text-white hover:bg-white
+          transition-all duration-300 hover:text-blue-950 hover:border-1 hover:border-sky-700">
             {{ multilingual_content[language]['home'] }}
           </li>
         </a>
         <a href="/aboutus">
-          <li class="py-2 px-4 border-1 border-transparent rounded font-third text-white hover:bg-white
+          <li class="py-2 px-10 border-1 border-transparent rounded font-third text-white hover:bg-white
                        transition-all duration-300 hover:text-blue-950 hover:border-1 hover:border-sky-700">
             {{ multilingual_content[language]['about'] }}
           </li>
         </a>
         <a href="/gr_page">
-          <li class="py-2 px-4 border-1 border-transparent rounded font-third text-white hover:bg-white
+          <li class="py-2 px-10 border-1 border-transparent rounded font-third text-white hover:bg-white
                        transition-all duration-300 hover:text-blue-950 hover:border-1 hover:border-sky-700">
             {{ multilingual_content[language]['government_regulation'] }}
           </li>
         </a>
         <a href="/contact">
-          <li class="py-2 px-4 border-1 border-transparent rounded font-third text-white hover:bg-white
+          <li class="py-2 px-10 border-1 border-transparent rounded font-third text-white hover:bg-white
                        transition-all duration-300 hover:text-blue-950 hover:border-1 hover:border-sky-700">
             {{ multilingual_content[language]['contact_us'] }}
+          </li>
+        </a>
+        <a href="/login" class="py-2 px-10 bg-white rounded hover:bg-slate-100 transition-all duration-200">
+          <li>
+            <span class="material-symbols-rounded mb-0 !text-sm">
+              login
+            </span>
+            {{ multilingual_content[language]['login_sign_btn'] }}
           </li>
         </a>
       </ul>
 
       <div>
-        <a href="/login" class="py-2 px-4 bg-white rounded hover:bg-slate-100 transition-all duration-200">
-          <span class="material-symbols-rounded mb-0 !text-sm">
-            login
-          </span>
-          {{ multilingual_content[language]['login_sign_btn'] }}
-        </a>
+
       </div>
     </div>
   </div>
