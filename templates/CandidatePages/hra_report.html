@@ -50,7 +50,10 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Document Name</th>
-                                <th>Upload Report <span class="text-danger">*</span></th>
+                                <th>Upload Report <span class="text-danger">*</span>
+                                  <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  title="PDF Format allowed only. The PDF size should be under or equal to 250KB.">
+                                (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -88,8 +91,11 @@
                                         {% else %}
                                             <form action="/submit_rent_agreement" method="post" enctype="multipart/form-data">
                                                 <div class="mb-3">
-                                                    <label for="rent_agreement{{ i + 1 }}" class="form-label">H.R.A Report</label>
-                                                    <input type="file" name="rent_agreement{{ i + 1 }}" accept=".pdf" class="form-control file_validation" required
+                                                    <label for="rent_agreement{{ i + 1 }}" class="form-label">H.R.A Report<span class="text-danger">*</span>
+                                                      <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                      title="PDF Format allowed only. The PDF size should be under or equal to 250KB.">
+                                                    (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)</label>
+                                                    <input type="file" name="rent_agreement{{ i + 1 }}" accept=".pdf" class="form-control accept_pdf" required
                                                             {% if 'rent_agreement' ~ (i + 1) in submitted_documents %} disabled {% endif %}>
                                                 </div>
                                                 <div class="mb-3">
@@ -102,8 +108,11 @@
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label">Hostelier or Non-Hostelier Report</label>
-                                                    <input type="file" name="hostelier_report{{ i + 1 }}" accept=".pdf" class="form-control file_validation" required
+                                                    <label class="form-label">Hostelier or Non-Hostelier Report<span class="text-danger">*</span>
+                                                      <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                      title="PDF Format allowed only. The PDF size should be under or equal to 250KB.">
+                                                    (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)</label>
+                                                    <input type="file" name="hostelier_report{{ i + 1 }}" accept=".pdf" class="form-control accept_pdf" required
                                                             {% if 'hostelier_report' ~ (i + 1) in submitted_documents %} disabled {% endif %}>
                                                 </div>
                                                 <div class="text-center">

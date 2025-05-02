@@ -62,11 +62,27 @@ def presenty_auth(app):
         # reports = {f"monthly_report{i}": user_data.get(f"monthly_report{i}") for i in range(1, 61)}
 
         if joining_date:
+            report_months = []
             start_dates = [joining_date + datetime.timedelta(days=i * 30) for i in range(60)]
             end_dates = [start_date + datetime.timedelta(days=30) for start_date in start_dates]
             zipped_dates = zip(start_dates, end_dates)
+
+            start_month = joining_date.month
+            current_month = start_month
+            current_year = joining_date.year
+
+            for i in range(60):
+                report_months.append(current_month)
+                current_month += 1
+                if current_month > 12:
+                    current_month = 1
+                    current_year += 1
+
+            zipped_dates = zip(start_dates, end_dates, report_months)
+            print(f"Months for 60 Reports: {report_months}")
         else:
             zipped_dates = []
+            report_months = []
 
         reports = {f"monthly_report{i}": user_data.get(f"monthly_report{i}") for i in range(1, 61)}
         dates = {f"submission_date_report{i}": user_data.get(f"submission_date_report{i}") for i in range(1, 61)}

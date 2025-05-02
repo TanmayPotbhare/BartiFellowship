@@ -96,6 +96,10 @@ def login_auth(app, mail):
                             if is_withdrawn(email):
                                 flash('You have withdrawn from Fellowship. Please BARTI office for any queries.', 'info')
                                 return redirect(url_for('login_signup.login'))
+                            elif unlocked_application_form(email):
+                                session['logged_in_from_login'] = True
+                                print('I am unlocked Application Form') 
+                                return redirect(url_for('section1.section1'))
                             elif check_final_approval(email):
                                 print('I am here 2')
                                 session['final_approval'] = "accepted"
@@ -138,6 +142,10 @@ def login_auth(app, mail):
                         if is_withdrawn(email):
                             flash('You have withdrawn from Fellowship. Please BARTI office for any queries.', 'info')
                             return redirect(url_for('login_signup.login'))
+                        elif unlocked_application_form(email):
+                            session['logged_in_from_login'] = True
+                            print('I am unlocked Application Form') 
+                            return redirect(url_for('section1.section1'))
                         elif check_final_approval(email):
                             print('I am here 2')
                             session['final_approval'] = "accepted"
@@ -295,6 +303,29 @@ def login_auth(app, mail):
         cursor.close()
         cnx.close()
         return result[0]
+
+
+    def unlocked_application_form(email):  # ----------- CHECK IF THE FORM IS UNLOCKED
+        """
+            This function checks whether the application form is unlocked
+            :param email: Email is attempting to log in.
+            :return: Returns the lock_application_form column from database for the entered email id.
+            These forms are unlocked from backend. Hance form_filled = '1' AND lock_application_form = 'unlocked'.
+        """
+        host = HostConfig.host
+        connect_param = ConnectParam(host)
+        cnx, cursor = connect_param.connect()
+        sql = "SELECT lock_application_form FROM application_page WHERE email = %s AND lock_application_form = 'unlocked' AND form_filled = '1' "
+        cursor.execute(sql, (email,))
+        result = cursor.fetchone()
+        print(result)
+        cursor.close()
+        cnx.close()
+        if result:
+            flash('Successfully Logged in. Your application is unlocked. You may now review and modify your information.', 'success')
+        else:
+           flash('Please enter correct Email address', 'error')
+        return result is not None    
     # ---------------------------------
     #           END LOGIN ROUTE
     # ---------------------------------

@@ -107,8 +107,160 @@ $('.accept_pdf').on('change', function () {
 
 })
 
-     // Enable "View" button when an image file is selected
-     function toggleViewImageButton(input, viewButtonId) {
+
+$('.accept_1mb_pdf').on('change', function () {
+    // File extension allowed on site
+    var allowExtensions = ['pdf'];
+
+    // Max file size is defined (1 MB)
+    var maxFileSize = 1024 * 1024; // 1 MB
+
+    // English-only regex (allowing only alphabets, numbers, spaces, and specific punctuation marks)
+    const englishOnlyPattern = /^[A-Za-z0-9.,'"\s\-()]*$/;
+
+    // Get selected file
+    var uploadFile = this.files[0];
+
+    if (uploadFile) {
+        var fileName = uploadFile.name;
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        if (allowExtensions.indexOf(fileExtension) === -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'Invalid file type. Allowed file types are PDF.'
+            });
+            $(this).val('')
+        }
+
+        if (uploadFile.size > maxFileSize) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry',
+                text: 'File size exceeds the maximum allowed size of 1MB.',
+            });
+            $(this).val('')
+        }
+
+        // Check if the filename is in English
+        if (!englishOnlyPattern.test(fileName)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Language Detected',
+                text: 'The file name contains invalid characters. Please use English letters and numbers only.',
+            });
+            $(this).val(''); // Reset file input
+            return;
+        }
+    }
+
+})
+
+
+$('.accept_15mb_pdf').on('change', function () {
+    // File extension allowed on site
+    var allowExtensions = ['pdf'];
+
+    /// Max file size is defined (15 MB)
+    var maxFileSize = 15 * 1024 * 1024;
+
+    // English-only regex (allowing only alphabets, numbers, spaces, and specific punctuation marks)
+    const englishOnlyPattern = /^[A-Za-z0-9.,'"\s\-()]*$/;
+
+    // Get selected file
+    var uploadFile = this.files[0];
+
+    if (uploadFile) {
+        var fileName = uploadFile.name;
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        if (allowExtensions.indexOf(fileExtension) === -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'Invalid file type. Allowed file types are PDF.'
+            });
+            $(this).val('')
+        }
+
+        if (uploadFile.size > maxFileSize) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry',
+                text: 'File size exceeds the maximum allowed size of 15MB.',
+            });
+            $(this).val('')
+        }
+
+        // Check if the filename is in English
+        if (!englishOnlyPattern.test(fileName)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Language Detected',
+                text: 'The file name contains invalid characters. Please use English letters and numbers only.',
+            });
+            $(this).val(''); // Reset file input
+            return;
+        }
+    }
+
+})
+
+
+$('.accept_500kb_pdf').on('change', function () {
+    // File extension allowed on site
+    var allowExtensions = ['pdf'];
+
+    // Max file size is defined (500 KB)
+    var maxFileSize = 500 * 1024;
+
+    // English-only regex (allowing only alphabets, numbers, spaces, and specific punctuation marks)
+    const englishOnlyPattern = /^[A-Za-z0-9.,'"\s\-()]*$/;
+
+    // Get selected file
+    var uploadFile = this.files[0];
+
+    if (uploadFile) {
+        var fileName = uploadFile.name;
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+
+        if (allowExtensions.indexOf(fileExtension) === -1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'Invalid file type. Allowed file types are PDF.'
+            });
+            $(this).val('')
+        }
+
+        if (uploadFile.size > maxFileSize) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry',
+                text: 'File size exceeds the maximum allowed size of 500KB.',
+            });
+            $(this).val('')
+        }
+
+        // Check if the filename is in English
+        if (!englishOnlyPattern.test(fileName)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Language Detected',
+                text: 'The file name contains invalid characters. Please use English letters and numbers only.',
+            });
+            $(this).val(''); // Reset file input
+            return;
+        }
+    }
+
+})
+
+
+
+    // Enable "View" button when an image file is selected
+    function toggleViewImageButton(input, viewButtonId) {
         var viewButton = document.getElementById(viewButtonId);
         var file = input.files[0];
 
@@ -172,24 +324,34 @@ window.onload = function() {
     enableDisabledFields4();
 };
 
-function confirmLock(event) { // Add 'event' as a parameter
-    return Swal.fire({
-        title: 'Do you want to Lock the application form?',
-        text: "You will not be able to Edit further.",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#800080',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Submit & Lock Application',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            //  The form will submit because confirmLock returns true
-            return true;
-        } else {
-            //  The form will not submit because confirmLock returns false
-            event.preventDefault(); // Prevent form submission
-            return false;
-        }
-    });
+function handleSection5Submit() {
+    const form1 = document.getElementById('section5_form');
+    // Use HTML5 checkValidity() to validate the form
+    if (form1.checkValidity()) {
+        // Show the modal if all required fields are filled
+        const modal = new bootstrap.Modal(document.getElementById('lockApplicationModal'));
+        modal.show();
+    } else {
+        // Trigger built-in HTML5 validation messages
+        form1.reportValidity();
+    }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const confirmBtn = document.getElementById("confirmSubmit");
+    confirmBtn.addEventListener("click", function () {
+        const form1 = document.getElementById("section5_form");
+        // Check if the form is actually found and not being shadowed
+        if (form1.checkValidity()) {
+            // form.submit(); 
+            document.getElementById("section5_form").submit();
+        } else {
+            const cancelButn = document.getElementById("closeModal");
+            cancelButn.click()
+            // const modal = new bootstrap.Modal(document.getElementById('lockApplicationModal'));
+            // modal.hide();
+            console.log("Form not found or submit is not a function");
+        }
+
+    });
+});

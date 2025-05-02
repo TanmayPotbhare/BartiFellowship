@@ -1,0 +1,155 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+
+          <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        {% if records %}
+                            {% set fullname = records['first_name'] + ' '  + records['middle_name'] + ' '  + records['last_name'] %}
+                              {% if records['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ records['applicant_photo'] }}" alt="Avatar Image" style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block">{{ records['email'] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+          </div>
+          <div class="card-footer card-profile-footer text-center">
+                <h5 class="text-dark fw-bold">Upload Utilization Reports for HRA Utilization & Fellowship/Contingency Utilization</h5>
+          </div>
+          <div class="card-body">
+            <div class="applicant-cards">
+                {% if records %}
+                  <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ records['application_date'] }}</span></h6>
+                {% endif %}
+                <span class="text-danger mb-2">
+                    Please make sure you upload the correct document. Once uploaded it will not be changed under any circumstances.<br>
+                    <strong>Moreover, the format of this documents can be found on Homepage under Circulars/Orders.</strong>
+                </span>
+                <div class="card mb-3">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <div class="col-md-12">
+                            {% if records %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h4 class="text-center mb-3"><strong>Fellowship/House Rent Allowance Utilization Reports</strong></h4>
+                                                <table class="table table-bordered datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr No</th>
+                                                            <th class ="col-sm-4">HRA Utility Document Name</th>
+                                                            <th>Uploaded Report<span class="text-danger">*</span>
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                title="PDF Format allowed only. The PDF size should be under or equal to 250KB.">
+                                                              (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>) </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <form action="/hra_utility_report_submit" method="post" enctype="multipart/form-data">
+                                                            {% for i in range(5) %}
+                                                            <tr>
+                                                                <td>{{ i + 1 }}</td>
+                                                                <td>HRA Utilization Report {{ i + 1 }}</td>
+                                                                <td>
+                                                                    {% if hra_reports and hra_reports['hra_utility_doc' ~ (i + 1)] %}
+                                                                        <a href="{{ hra_reports['hra_utility_doc' ~ (i + 1)] }}"
+                                                                            target="_blank" class="btn btn-primary btn-sm tooltip-trigger"
+                                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                            data-bs-original-title="View Document">
+                                                                            <i class="mdi mdi-eye"></i>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        <div class="row">
+                                                                            <div class="col-md-8">
+                                                                                <input type="file"
+                                                                                        name="hra_utility_report{{ i + 1 }}"
+                                                                                        accept=".pdf"
+                                                                                        class="form-control accept_pdf"
+                                                                                        {% if hra_submitted_count < loop.index %} required {% endif %}
+                                                                                        {% if hra_submitted_count + 1 != loop.index %} disabled {% endif %}>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                        </form>
+                                                    </tbody>
+                                                </table>
+
+                                                <h4 class="text-center mb-3 mt-3"><strong>Contingency Utilization Reports</strong></h4>
+                                                <table class="table table-bordered datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr No</th>
+                                                            <th class ="col-sm-4">Contingency Utility Document Name</th>
+                                                            <th>Uploaded Report<span class="text-danger">*</span>
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                title="PDF Format allowed only. The PDF size should be under or equal to 250KB.">
+                                                              (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <form action="/fellowship_utility_report_submit" method="post" enctype="multipart/form-data">
+                                                            {% for i in range(5) %}
+                                                            <tr>
+                                                                <td>{{ i + 1 }}</td>
+                                                                <td>Contingency Utilization Report {{ i + 1 }}</td>
+                                                                <td>
+                                                                    {% if fellowship_reports and fellowship_reports['fellowship_utility_doc' ~ (i + 1)] %}
+                                                                        <a href="{{ fellowship_reports['fellowship_utility_doc' ~ (i + 1)] }}"
+                                                                            target="_blank" class="btn btn-primary btn-sm tooltip-trigger"
+                                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                            data-bs-original-title="View Document">
+                                                                            <i class="mdi mdi-eye"></i>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        <div class="row">
+                                                                            <div class="col-md-8">
+                                                                                <input type="file"
+                                                                                        name="fellowship_utility_report{{ i + 1 }}"
+                                                                                        accept=".pdf"
+                                                                                        class="form-control accept_pdf"
+                                                                                        {% if fellowship_submitted_count < loop.index %} required {% endif %}
+                                                                                        {% if fellowship_submitted_count + 1 != loop.index %} disabled {% endif %}>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </form>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

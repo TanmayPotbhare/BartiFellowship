@@ -31,6 +31,10 @@ def upload_thesis_auth(app):
         cursor.execute(sql, (email,))
         records = cursor.fetchone()
 
+        sql = """SELECT * FROM documents WHERE email = %s"""
+        cursor.execute(sql, (email,))
+        doc_records = cursor.fetchone()
+
         # Check if the user is approved for fellowship no matter the year to show the desired sidebar.
         if records['final_approval'] == 'accepted':
             finally_approved = 'approved'
@@ -44,8 +48,8 @@ def upload_thesis_auth(app):
         else:
             user = "Admin"
             photo = '/static/assets/img/default_user.png'
-        return render_template('CandidatePages/upload_thesis.html', title="Change Center Details", records=records,
-                               user=user, photo=photo, finally_approved=finally_approved)
+        return render_template('CandidatePages/upload_thesis.html', title="Upload Thesis", records=records,
+                               user=user, photo=photo, finally_approved=finally_approved, doc_records=doc_records)
 
     @upload_thesis_blueprint.route('/upload_thesis_submit', methods=['GET', 'POST'])
     def upload_thesis_submit():
@@ -55,33 +59,53 @@ def upload_thesis_auth(app):
         connect_param = ConnectParam(host)
         cnx, cursor = connect_param.connect(use_dict=True)
 
-        sql = """SELECT phd_thesis, first_name, last_name FROM application_page WHERE email = %s"""
+        sql = """SELECT applicant_id, first_name, last_name FROM application_page WHERE email = %s"""
+        cursor.execute(sql, (email,))
+        application_data = cursor.fetchone()
+
+        applicant_id = application_data['applicant_id']
+        first_name = application_data['first_name']
+        last_name = application_data['last_name']
+
+        # Check if record exists in documents table
+        sql = """SELECT doc_id FROM documents WHERE email = %s"""
+        cursor.execute(sql, (email,))
+        document_record = cursor.fetchone()
+
+        sql = """SELECT upgradation_doc FROM documents WHERE email = %s"""
         cursor.execute(sql, (email,))
         records = cursor.fetchone()
-
-        first_name = records['first_name']
-        last_name = records['last_name']
 
         if request.method == 'POST':
             phd_thesis = save_file_uplaod_thesis(request.files['phd_thesis'], first_name, last_name)
             current_date = datetime.datetime.now().strftime('%Y-%m-%d')  # Fixed format for date
             current_time = datetime.datetime.now().strftime('%H:%M:%S')  # Fixed format for time
 
-            # Handle case where joining_report is not already uploaded
+            if document_record:
+                # UPDATE existing document
+                update_query = """
+                    UPDATE documents 
+                    SET phd_thesis = %s, phd_thesis_uploaded_date = %s, phd_thesis_uploaded_time = %s 
+                    WHERE email = %s
+                """
+                cursor.execute(update_query, (phd_thesis, current_date, current_time, email))
+                flash('PHD Thesis Report updated successfully.', 'success')
+            else:
+                # INSERT new document
+                insert_query = """
+                    INSERT INTO documents 
+                    (applicant_id_fk, email, phd_thesis, phd_thesis_uploaded_date, phd_thesis_uploaded_time) 
+                    VALUES (%s, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_query, (applicant_id, email, phd_thesis, current_date, current_time))
+                flash('PHD Thesis uploaded successfully.', 'success')
 
-            update_query = """UPDATE application_page 
-                                                  SET phd_thesis=%s, 
-                                                  phd_thesis_uploaded_date=%s, phd_thesis_uploaded_time=%s 
-                                                  WHERE email = %s
-                                          """
-            cursor.execute(update_query,
-                           (phd_thesis, current_date, current_time, email))
             cnx.commit()
-
             cursor.close()
             cnx.close()
 
             session['thesis'] = True
+            
             return redirect(url_for('upload_thesis.upload_thesis'))
         else:
             cursor.close()

@@ -40,10 +40,19 @@ class ConfigPaths:
             'HRA_UTILITY_REPORT': 'static/uploads/hra_utility_report/',
             'FELLOWSHIP_UTILITY_REPORT': 'static/uploads/fellowship_utility_report/',
             'UNDERTAKING_REPORT': 'static/uploads/undertaking_doc/',
+            'CONTINUATION_REPORT': 'static/uploads/continuation_doc/',
+            'UPGRADATION_REPORT': 'static/uploads/upgradation_doc/',
+            'THREE_MEMBER_COMMITTEE_REPORT': 'static/uploads/three_member_committee_doc/',
             'AFFIDAVIT_REPORT': 'static/uploads/affidavit_report/',
             'RESEARCH_PAPER_FEEDBACK': 'static/uploads/research_paper_feedback/',
             'SAVE_NEWS': 'static/uploads/save_news/',
             # Add other paths here
+
+            # ------ For PDF paths which is on this path: PythonFiles/CandidatePages/ApplicationForm/application_form_pdf.py
+            'barti_image': 'static/assets/img/logo/barti_new.png',
+            'diya_image': 'static/assets/img/logo/diya.png',
+            'dr_ambedkar_image': 'static/admin_assets/images/b-r-ambedkar.png',
+            'absolute_path': ''
         },
         HostConfig.hostserver: {
             'USER_DOC_SEC_FIVE': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/user_doc_secfive/',
@@ -60,10 +69,20 @@ class ConfigPaths:
             'HRA_UTILITY_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/hra_utility_report/',
             'FELLOWSHIP_UTILITY_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/fellowship_utility_report/',
             'UNDERTAKING_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/undertaking_doc/',
+            'CONTINUATION_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/continuation_doc/',
+            'THREE_MEMBER_COMMITTEE_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/three_member_committee_doc/',
+            'UPGRADATION_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/upgradation_doc/',
             'AFFIDAVIT_REPORT': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/affidavit_report/',
             'RESEARCH_PAPER_FEEDBACK': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/research_paper_feedback/',
             'SAVE_NEWS': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/uploads/save_news/',
             # Add other paths here
+
+
+            # ------ For PDF paths which is on this path: PythonFiles/CandidatePages/ApplicationForm/application_form_pdf.py
+            'barti_image': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/barti_new.png',
+            'diya_image': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/assets/img/logo/diya.png',
+            'dr_ambedkar_image': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship/static/admin_assets/images/b-r-ambedkar.png',
+            'absolute_path': '/var/www/fellowship/fellowship/BartiFellowship/BartiFellowship'
         }
     }
 

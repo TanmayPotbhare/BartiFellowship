@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">
 
-             <form action="/section5_submit" method="POST" enctype="multipart/form-data" class="personal-details-form">
+            <form action="/section5_submit" method="POST" id="section5_form" enctype="multipart/form-data" class="personal-details-form">
 
                 <h4 class="mb-4 text-center">Documents</h4>
 
@@ -683,7 +683,7 @@
                                 <tr>
                                     <td>2</td>
                                     <td>
-                                        <label>12th Marksheet & Passing Certificate
+                                        <label>12th or Equivalent Marksheet & Passing Certificate
                                             <span class="text-danger">*</span>
                                         </label>
                                         <span data-bs-toggle="tooltip" data-bs-placement="top"
@@ -894,7 +894,7 @@
                                 <tr>
                                     <td>5</td>
                                     <td>
-                                        <label>M.Phil/PET/SET/NET/GATE Marksheet & Passing Certificate
+                                        <label>M.Phil/PET/SET/NET/GATE/Other Marksheet & Passing Certificate
                                             <span class="text-danger">*</span>
                                         </label>
                                         <span data-bs-toggle="tooltip" data-bs-placement="top"
@@ -1741,7 +1741,6 @@
                                                     <span class="text-danger me-2">No document added</span>
                                                 {% endif %}
                                 
-                                                <!-- Optional replacement -->
                                                 <input type="file"
                                                        name="gazete_doc"
                                                        id="gazete_doc"
@@ -1827,11 +1826,11 @@
                                     <td>10</td>
                                     <td>
                                         <label for="research_letter_doc">
-                                            Research Synopsis / Research Center Allotment letter
+                                            Research Synopsis
                                             <span class="text-danger">*</span>
                                         </label>
                                         <span data-bs-toggle="tooltip" data-bs-placement="top"
-                                              title="PDF Format allowed only. The PDF should be under or equal to 250KB.">
+                                              title="PDF Format allowed only. The PDF should be under or equal to 1MB.">
                                             (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
                                         </span>
                                     </td>
@@ -1869,7 +1868,7 @@
                                                 <input type="file"
                                                        name="research_letter_doc"
                                                        id="research_letter_doc"
-                                                       class="form-control accept_pdf ms-2"
+                                                       class="form-control accept_1mb_pdf ms-2"
                                                        {% if record['research_letter_doc'] == '' %}required{% endif %}
                                                        onchange="toggleViewDocumentButton(this, 'view_research_letter_doc_btn')">
                                 
@@ -1891,7 +1890,7 @@
                                                 <input type="file"
                                                        name="research_letter_doc"
                                                        id="research_letter_doc"
-                                                       class="form-control accept_pdf"
+                                                       class="form-control accept_1mb_pdf"
                                                        required
                                                        onchange="toggleViewDocumentButton(this, 'view_research_letter_doc_btn')">
                                 
@@ -1918,7 +1917,7 @@
                             {% elif record['section5'] == 'filled' %}
                             <div class="text-center">
                                 <a href="/section4" class="btn btn-primary btn-sm ms-2">Previous</a>
-                                <button type="submit" class="btn btn-primary btn-sm ms-2">Update</button>
+                                <button type="button" class="btn btn-primary btn-sm ms-2" onclick="handleSection5Submit(this)">Update & Lock Application </button>
                             </div>
                            
                             {% endif %}
@@ -1937,12 +1936,31 @@
                                     </label>
                                     <div class="text-center mt-4">
                                         <a href="/section4" class="btn btn-primary btn-sm ms-2">Previous</a>
-                                        <button type="submit" id="submit" class="btn btn-primary btn-sm ms-2" onclick="enableDisabledFields5(); return confirmLock();" disabled>Submit & Lock Application</button>
+                                        <button type="button" id="submit" class="btn btn-primary btn-sm ms-2"
+                                                onclick="handleSection5Submit(this); enableDisabledFields5()" disabled>
+                                            Submit & Lock Application
+                                        </button>
                                     </div>
                             </div>
                             {% endif %}
+                            <div class="modal fade" id="lockApplicationModal" tabindex="-1" aria-labelledby="lockApplicationModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Lock Application</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Once locked, you will not be able to edit further.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" id="closeModal" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" id="confirmSubmit">Submit & Lock Application</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
              </form>
-
         </div>
     </div>
 </div>

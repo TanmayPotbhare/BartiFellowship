@@ -162,17 +162,17 @@ function calculateAge(input) {
         age--;
     }
 
-    // Check age criteria
-    // if (age > 45) {
-    //     Swal.fire({
-    //         icon: 'error',
-    //         title: 'Age Criteria Not Met!',
-    //         text: 'Age allowed for getting the fellowship is 45. Unfortunately, you do not match the criteria.'
-    //     });
-    //     input.value = ''; // Clear the input if the age is invalid
-    //     ageField.value = ''; // Clear the age field
-    //     return; // Exit the function
-    // }
+    // To prevent the user from entering invalid date
+    if (age > 100) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid Date!',
+            text: 'Please check the date you have entered.'
+        });
+        input.value = ''; // Clear the input if the age is invalid
+        ageField.value = ''; // Clear the age field
+        return; // Exit the function
+    }
 
     if (age < 15) {
         Swal.fire({

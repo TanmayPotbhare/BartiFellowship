@@ -44,8 +44,7 @@
                             {% if records['phd_registration_date'] %}
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body py-3">
+
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <table class="table table-bordered datatable">
@@ -53,18 +52,56 @@
                                                             <tr>
                                                                 <th>Sr No</th>
                                                                 <th>Start Date</th>
-                                                                <th>End Date</th>
-                                                                <th>Half-Yearly Document Name</th>
-                                                                <th>Upload Report <span class="text-danger">*</span></th>
+<!--                                                                <th>End Date</th>-->
+                                                                <th>Monthly Reports</th>
+                                                                <th>JRF/SRF Status</th>
+                                                                <th>Upload Report <span class="text-danger">*</span>
+                                                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    title="PDF Format allowed only. The PDF size should be under or equal to 250KB.">
+                                                                  (<span class="mdi mdi-file-pdf-box text-danger">PDF</span>)
+                                                              </span></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             {% for i in range(10) %}
                                                             <tr>
-                                                                <td>{{ i + 1 }}</td>
-                                                                <td>{{ start_dates[i].strftime('%d-%m-%Y') }}</td>
-                                                                <td>{{ end_dates[i].strftime('%d-%m-%Y') }}</td>
-                                                                <td>Half-Yearly Report {{ i + 1 }}</td>
+                                                                <td><span class="text-dark">{{ i + 1 }}</span></td>
+                                                                <td><span class="text-dark">{{ start_dates[i].strftime('%d-%m-%Y') }}</span></td>
+<!--                                                                <td>{{ end_dates[i].strftime('%d-%m-%Y') }}</td>-->
+                                                                <td>
+                                                                    {% if report_months[i] == 1 %}
+                                                                        <span class="text-dark">January Report</span>
+                                                                    {% elif report_months[i] == 2 %}
+                                                                        <span class="text-dark">February Report</span>
+                                                                    {% elif report_months[i] == 3 %}
+                                                                        <span class="text-dark">March Report</span>
+                                                                    {% elif report_months[i] == 4 %}
+                                                                        <span class="text-dark">April Report</span>
+                                                                    {% elif report_months[i] == 5 %}
+                                                                        <span class="text-dark">May Report</span>
+                                                                    {% elif report_months[i] == 6 %}
+                                                                        <span class="text-dark">June Report</span>
+                                                                    {% elif report_months[i] == 7 %}
+                                                                        <span class="text-dark">July Report</span>
+                                                                    {% elif report_months[i] == 8 %}
+                                                                        <span class="text-dark">August Report</span>
+                                                                    {% elif report_months[i] == 9 %}
+                                                                        <span class="text-dark">September Report</span>
+                                                                    {% elif report_months[i] == 10 %}
+                                                                        <span class="text-dark">October Report</span>
+                                                                    {% elif report_months[i] == 11 %}
+                                                                        <span class="text-dark">November Report</span>
+                                                                    {% elif report_months[i] == 12 %}
+                                                                        <span class="text-dark">December Report</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if i in [0, 1, 2, 3] %}
+                                                                        <span class="badge badge-warning text-dark">JRF</span>
+                                                                    {% else %}
+                                                                        <span class="badge badge-dark text-white">SRF</span>
+                                                                    {% endif %}
+                                                                </td>
                                                                 <td>
                                                                     {% if loop.index <= submitted_count %} <a
                                                                         href="{{ reports['half_yearly_report' ~ (loop.index)] }}"
@@ -84,7 +121,7 @@
                                                                                         <input type="file"
                                                                                             name="half_yearly_report{{ loop.index }}"
                                                                                             accept=".pdf"
-                                                                                            class="form-control file_validation"
+                                                                                            class="form-control accept_pdf"
                                                                                             required
                                                                                             {% if submitted_documents|length + 1 != loop.index %}
                                                                                                 disabled="true"
@@ -105,8 +142,7 @@
                                                     </table>
                                                 </div>
 
-                                            </div>
-                                        </div>
+
                                     </div>
 
                                 </div>

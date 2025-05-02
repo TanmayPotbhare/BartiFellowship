@@ -1,0 +1,174 @@
+{% extends 'CandidatePages/layout/layout.html' %}
+{% block content %}
+
+<!-- Table Product -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-default">
+
+          <div class="card-header justify-content-center">
+                <!-- Center Content -->
+                <div class="text-center">
+                    <div class="profile-avata">
+                        {% if records %}
+                            {% set fullname = records['first_name'] + ' ' + records['middle_name'] + ' ' + records['last_name'] %}
+                              {% if records['applicant_photo'] %}
+                                  <img class="rounded-circle" src="{{ records['applicant_photo'] }}" alt="Avatar Image"
+                                       style="height: 120px;width: 120px;">
+                              {% else %}
+                                  <img class="rounded-circle" src="/static/assets/img/default_user.png'" alt="Avatar Image">
+                              {% endif %}
+                              <span class="h5 d-block mt-3 mb-2">{{ fullname }}</span>
+                              <span class="d-block">{{ records['email'] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+          </div>
+          <div class="card-footer card-profile-footer text-center">
+                <h5 class="text-dark fw-bold">Continuation Reports</h5>
+          </div>
+          <div class="card-body">
+            <div class="applicant-cards">
+                {% if records %}
+                  <h6 class="mb-3">Application Submitted Date: <span class="text-muted">{{ records['application_date'] }}</span></h6>
+                {% endif %}
+            </div>
+              <span class="text-danger">
+                Please make sure you upload the correct document. Once uploaded it will not be changed under any circumstances.<br>
+                <strong>Moreover, the format of this documents can be found on Homepage under Circulars/Orders.</strong>
+            </span>
+              <hr>
+            <div class="card-body">
+                 <div class="applicant-cards">
+
+                            {% if records['phd_registration_date'] %}
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table class="table table-bordered datatable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Sr No</th>
+                                                                <th>Start Date</th>
+<!--                                                                <th>End Date</th>-->
+                                                                <th>Continuation Reports</th>
+                                                                <th>JRF/SRF Status</th>
+                                                                <th>Upload Report <span class="text-danger">*</span></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for i in range(10) %}
+                                                            <tr>
+                                                                <td>{{ i + 1 }}</td>
+                                                                <td>{{ start_dates[i].strftime('%d-%m-%Y') }}</td>
+<!--                                                                <td>{{ end_dates[i].strftime('%d-%m-%Y') }}</td>-->
+                                                                <td>
+                                                                    {% if report_months[i] == 1 %}
+                                                                        January Report
+                                                                    {% elif report_months[i] == 2 %}
+                                                                        February Report
+                                                                    {% elif report_months[i] == 3 %}
+                                                                        March Report
+                                                                    {% elif report_months[i] == 4 %}
+                                                                        April Report
+                                                                    {% elif report_months[i] == 5 %}
+                                                                        May Report
+                                                                    {% elif report_months[i] == 6 %}
+                                                                        June Report
+                                                                    {% elif report_months[i] == 7 %}
+                                                                        July Report
+                                                                    {% elif report_months[i] == 8 %}
+                                                                        August Report
+                                                                    {% elif report_months[i] == 9 %}
+                                                                        September Report
+                                                                    {% elif report_months[i] == 10 %}
+                                                                        October Report
+                                                                    {% elif report_months[i] == 11 %}
+                                                                        November Report
+                                                                    {% elif report_months[i] == 12 %}
+                                                                        December Report
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if i in [0, 1, 2, 3] %}
+                                                                        <span class="badge badge-warning text-dark">JRF</span>
+                                                                    {% else %}
+                                                                        <span class="badge badge-dark text-white">SRF</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                {% if loop.index <= submitted_count %}
+                                                                    {% if reports['continuation_doc' ~ (loop.index)] is not none %}
+                                                                        <a
+                                                                            href="{{ reports['continuation_doc' ~ (loop.index)] }}"
+                                                                            target="_blank" class="btn btn-primary btn-sm tooltip-trigger"
+                                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                            data-bs-original-title="View Document">
+                                                                            <i class="mdi mdi-eye"></i>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        <form action="/submit_half_yearly_reports" method="post" enctype="multipart/form-data">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <input type="file"
+                                                                                        name="continuation_doc{{ loop.index }}"
+                                                                                        accept=".pdf"
+                                                                                        class="form-control file_validation"
+                                                                                        required
+                                                                                        {% if submitted_documents|length + 1 != loop.index %}
+                                                                                            disabled="true"
+                                                                                        {% endif %}>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-primary btn-sm">Upload</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <form action="/continuation_report_submit" method="post" enctype="multipart/form-data">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <input type="file"
+                                                                                    name="continuation_doc{{ loop.index }}"
+                                                                                    accept=".pdf"
+                                                                                    class="form-control file_validation"
+                                                                                    required
+                                                                                    {% if submitted_documents|length + 1 != loop.index %}
+                                                                                        disabled="true"
+                                                                                    {% endif %}>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary btn-sm">Upload</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                    {% endif %}
+
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+
+                                </div>
+                            </div>
+                            {% else %}
+                            <p>Joining date not available.</p>
+                            {% endif %}
+
+                 </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

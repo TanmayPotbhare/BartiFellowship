@@ -114,6 +114,7 @@
                             <th>Student Name</th>
                             <th>Faculty</th>
                             <th>Date of PHD Registration</th>
+                            <th>Fellowship Application Year</th>
                             <th>Ticket Rasied Status</th>
                             <th>Action</th>
                           </tr>
@@ -125,8 +126,13 @@
                               <td>{{ row['applicant_id'] }}</td>
                               <td>{{ row['email'] }}</td>
                               <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
-                              <td>{{ row['faculty'] }}</td>
+                              {% if row['faculty'] == "Other" %}
+                                <td>{{ row['other_faculty'] }}</td>
+                              {% else %}
+                                <td>{{ row['faculty'] }}</td>
+                              {% endif %}
                               <td>{{ row['phd_registration_date'] }}</td>
+                              <td>{{ row['fellowship_application_year'] }}</td>
                               <td>{% if row['request_withdrawal'] %} Withdrawal Requested {% endif %}</td>
                               <td><a href="#">Date Remaining</a></td>
                           </tr>
@@ -153,7 +159,8 @@
                             <th>Email</th>
                             <th>Student Name</th>
                             <th>Faculty</th>
-                            <th>Date of PHD Registration</th>
+                            <th>Ph.D. Registration Date</th>
+                            <th>Fellowship Application Date</th>
                             <th>Ticket Rasied Status</th>
                             <th>Action</th>
                           </tr>
@@ -167,6 +174,7 @@
                               <td>{{ row['first_name'] }} {{ row['last_name'] }}</td>
                               <td>{{ row['faculty'] }}</td>
                               <td>{{ row['phd_registration_date'] }}</td>
+                              <td>{{ row['fellowship_application_date'] }}</td>
                               <td>{% if row['request_withdrawal'] %} Withdrawal Requested {% endif %}</td>
                               <td><a href="#">Date Remaining</a></td>
                           </tr>

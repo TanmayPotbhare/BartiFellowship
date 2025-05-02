@@ -100,6 +100,39 @@
 <!--                    </a>-->
 <!--                  </li>-->
                   {% if finally_approved == 'approved' %}
+                        {% if request.path in paths %}
+                            <li>
+                              <a class="sidenav-item-link active" href="#">
+                                <span class="nav-text">Profile Page</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Qualification Page</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Caste Details</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Bank Details</span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">Documents</span>
+                              </a>
+                            </li>
+
+                        {% else %}
+
                       <li>
                         <a class="sidenav-item-link " href="/installments">
                           <i class="mdi mdi-finance"></i>
@@ -126,9 +159,9 @@
                       </li>
 
                       <li>
-                        <a class="sidenav-item-link" href="/undertaking_report">
-                          <i class="mdi mdi-format-underline"></i>
-                          <span class="nav-text">Undertaking Report</span>
+                        <a class="sidenav-item-link" href="/halfyearly">
+                          <i class="mdi mdi-file-replace-outline"></i>
+                          <span class="nav-text">Half Yearly Report</span>
                         </a>
                       </li>
 
@@ -140,11 +173,33 @@
                       </li>
 
                       <li>
-                        <a class="sidenav-item-link" href="/halfyearly">
-                          <i class="mdi mdi-file-replace-outline"></i>
-                          <span class="nav-text">Half Yearly Report</span>
+                         <a class="sidenav-item-link" href="/continuation_report">
+<!--                          <a class="sidenav-item-link" href="#">-->
+                          <i class="mdi mdi-account-convert"></i>
+                          <span class="nav-text">Continuation Report</span>
                         </a>
                       </li>
+
+                      <!-- <li>
+                        <a class="sidenav-item-link" href="/undertaking_report">
+                          <i class="mdi mdi-format-underline"></i>
+                          <span class="nav-text">Undertaking Report</span>
+                        </a>
+                      </li> -->
+
+                      <li>
+                        <a class="sidenav-item-link" href="/srf_report">
+                          <i class="mdi mdi-clipboard-outline"></i>
+                          <span class="nav-text">SRF Reports</span>
+                        </a>
+                      </li>
+
+                      <!-- <li>
+                        <a class="sidenav-item-link" href="/three_member_committee_report">
+                          <i class="mdi mdi-clipboard-outline"></i>
+                          <span class="nav-text">Three Member Committee Report</span>
+                        </a>
+                      </li> -->
 
                        <li>
                         <a class="sidenav-item-link" href="/hra_reports">
@@ -154,7 +209,7 @@
                       </li>
 
                       <li>
-                        <a class="sidenav-item-link" href="/assessment_report">
+                        <a class="sidenav-item-link" href="/utilization_report">
                           <i class="mdi mdi-file-download-outline"></i>
                           <span class="nav-text">Utilization Reports</span>
                         </a>
@@ -172,9 +227,23 @@
                       </li>
 
                       <li>
-                        <a class="sidenav-item-link" href="/withdraw_fellowship">
-                          <i class="mdi mdi-sword-cross"></i>
-                          <span class="nav-text">Withdraw Fellowship</span>
+                        <a class="sidenav-item-link" href="/upload_phd">
+                          <i class="mdi mdi-trophy-award"></i>
+                          <span class="nav-text">Upload Ph.D. Award</span>
+                        </a>
+                      </li>
+
+                      <!-- <li>
+                        <a class="sidenav-item-link" href="/upload_phd">
+                          <i class="mdi mdi-trophy-award"></i>
+                          <span class="nav-text">Research Papers</span>
+                        </a>
+                      </li> -->
+
+                      <li>
+                        <a class="sidenav-item-link" href="/upload_thesis">
+                          <i class="mdi mdi-cloud-upload"></i>
+                          <span class="nav-text">Upload Thesis</span>
                         </a>
                       </li>
 
@@ -193,16 +262,9 @@
                       </li>
 
                       <li>
-                        <a class="sidenav-item-link" href="/upload_phd">
-                          <i class="mdi mdi-trophy-award"></i>
-                          <span class="nav-text">Upload P.H.D Award</span>
-                        </a>
-                      </li>
-
-                      <li>
-                        <a class="sidenav-item-link" href="/upload_thesis">
-                          <i class="mdi mdi-cloud-upload"></i>
-                          <span class="nav-text">Upload Thesis</span>
+                        <a class="sidenav-item-link" href="/withdraw_fellowship">
+                          <i class="mdi mdi-sword-cross"></i>
+                          <span class="nav-text">Withdraw Fellowship</span>
                         </a>
                       </li>
 
@@ -212,6 +274,7 @@
                           <span class="nav-text">Give Feedback</span>
                         </a>
                       </li>
+                      {% endif %}
                   {% else %}
                   {% endif %}
 

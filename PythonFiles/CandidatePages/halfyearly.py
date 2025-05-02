@@ -77,6 +77,21 @@ def halfyearly_auth(app):
         else:
             start_dates, end_dates = [], []
 
+        report_months = []
+
+        start_month = joining_date.month
+        current_month = start_month
+        current_year = joining_date.year
+
+        for i in range(10):
+            report_months.append(current_month)
+            # Increment by 6 months
+            current_month += 6
+            if current_month > 12:
+                years_to_add = (current_month - 1) // 12
+                current_year += years_to_add
+                current_month = (current_month - 1) % 12 + 1
+
         # Close the database connection
         cursor.close()
         cnx.close()
@@ -93,7 +108,8 @@ def halfyearly_auth(app):
             submitted_count=submitted_count,
             submitted_documents=submitted_documents,
             start_dates=start_dates,
-            end_dates=end_dates
+            end_dates=end_dates,
+            report_months=report_months
         )
 
     @halfyearly_blueprint.route('/submit_half_yearly_reports', methods=['POST'])

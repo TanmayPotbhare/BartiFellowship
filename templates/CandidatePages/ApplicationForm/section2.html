@@ -92,14 +92,14 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="ssc_total" class="form-label">Total Marks<span
+                                                    <label for="ssc_total" class="form-label">Obtained Marks<span
                                                             class="text-danger">*</span></label>
                                                     {% if record['lock_application_form'] == 'locked' %}
                                                     <br>
                                                     <span class="text-dark">{{ record['ssc_total'] }}</span>
                                                     {% else %}
                                                     <input type="text" class="form-control" id="ssc_total"
-                                                        name="ssc_total" placeholder="Ex. 500"
+                                                        name="ssc_total" placeholder="Enter Obtained Marks"
                                                         oninput="validateTotalMarks(this)"
                                                         {% if record['section2'] == 'filled' %}
                                                             value="{{ record['ssc_total'] }}" 
@@ -170,6 +170,7 @@
                                                         <option value="Arts" {% if record['hsc_stream'] == 'Arts' %}selected{% endif %}>Arts</option>
                                                         <option value="Diploma" {% if record['hsc_stream'] == 'Diploma' %}selected{% endif %}>Diploma</option>
                                                         <option value="ITI" {% if record['hsc_stream'] == 'ITI' %}selected{% endif %}>ITI</option>
+                                                        <option value="MCVC" {% if record['hsc_stream'] == 'MCVC' %}selected{% endif %}>MCVC</option>
                                                     </select>
                                                     {% endif %}
                                                 </div>
@@ -208,14 +209,14 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="hsc_total" class="form-label">Total Marks<span
+                                                    <label for="hsc_total" class="form-label">Obtained Marks<span
                                                             class="text-danger">*</span></label>
                                                     {% if record['lock_application_form'] == 'locked' %}
                                                     <br>
                                                     <span class="text-dark">{{ record['hsc_total'] }}</span>
                                                     {% else %}
                                                     <input type="text" class="form-control" id="hsc_total"
-                                                        name="hsc_total" placeholder="Ex. 500"
+                                                        name="hsc_total" placeholder="Enter Obtained Marks"
                                                         oninput="validateTotalMarks(this)" required
                                                         {% if record['section2'] == 'filled' %}
                                                             value="{{ record['hsc_total'] }}" 
@@ -298,6 +299,7 @@
                                                         <option value="Fine Arts" {% if record['grad_stream'] == 'Fine Arts' %}selected{% endif %}>Fine Arts and Performing Arts</option>
                                                         <option value="Hospitality" {% if record['grad_stream'] == 'Hospitality' %}selected{% endif %}>Hospitality and Tourism</option>
                                                         <option value="Vocational" {% if record['grad_stream'] == 'Vocational' %}selected{% endif %}>Vocational</option>
+                                                        <option value="Physical Education" {% if record['grad_stream'] == 'Physical Education' %}selected{% endif %}>Physical Education</option>
                                                     </select>
                                                     {% endif %}
                                                 </div>
@@ -338,14 +340,14 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="grad_total" class="form-label">Total Marks<span
+                                                    <label for="grad_total" class="form-label">Obtained Marks<span
                                                             class="text-danger">*</span></label>
                                                     {% if record['lock_application_form'] == 'locked' %}
                                                     <br>
                                                     <span class="text-dark">{{ record['grad_total'] }}</span>
                                                     {% else %}
                                                     <input type="text" class="form-control" id="grad_total"
-                                                        name="grad_total" placeholder="Ex. 500"
+                                                        name="grad_total" placeholder="Enter Obtained Marks"
                                                         oninput="validateTotalMarks(this)" 
                                                         {% if record['section2'] == 'filled' %}
                                                             value="{{ record['grad_total'] }}" 
@@ -429,6 +431,7 @@
                                                         <option value="Fine Arts" {% if record['pg_stream'] == 'Fine Arts' %}selected{% endif %}>Fine Arts and Performing Arts</option>
                                                         <option value="Hospitality" {% if record['pg_stream'] == 'Hospitality' %}selected{% endif %}>Hospitality and Tourism</option>
                                                         <option value="Vocational" {% if record['pg_stream'] == 'Vocational' %}selected{% endif %}>Vocational</option>
+                                                        <option value="Physical Education" {% if record['pg_stream'] == 'Physical Education' %}selected{% endif %}>Physical Education</option>
                                                     </select>
                                                     {% endif %}
                                                 </div>
@@ -469,7 +472,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="pg_total" class="form-label">
-                                                        Total Marks
+                                                        Obtained Marks
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     {% if record['lock_application_form'] == 'locked' %}
@@ -477,7 +480,7 @@
                                                     <span class="text-dark">{{ record['pg_total'] }}</span>
                                                     {% else %}
                                                     <input type="text" class="form-control" id="pg_total"
-                                                        name="pg_total" placeholder="Ex. 500"
+                                                        name="pg_total" placeholder="Enter Obtained Marks"
                                                         oninput="validateTotalMarks(this)" 
                                                         {% if record['section2'] == 'filled' %}
                                                             value="{{ record['pg_total'] }}" 

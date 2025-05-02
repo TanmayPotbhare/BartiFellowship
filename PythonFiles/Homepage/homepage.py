@@ -20,27 +20,34 @@ def homepage_auth(app):
     #           HOMEPAGE
     # ---------------------------------
     @homepage_blueprint.route('/', methods=['GET', 'POST'])
-    def home_page():
+    def test_page():
         """
             This function is the main function which renders when the website is being hit.
         """
-        if 'language' in session:
-            language = session['language']
-        else:
-            language = 'marathi'
+        return render_template('test_page.html')
 
-        # --------------------------  HOME PAGE
-        total_count = applications_today()
-        fellow_awarded = fellow_awarded_count()
-        total_appl_22 = total_appl_22_count()
-        total_appl_23 = total_appl_23_count()
-
-        # print("old user 2022",old_user_22)
-        news_record = news_fetch()
-        print(news_record)
-        return render_template('Homepage/landing.html', total_count=total_count, fellow_awarded=fellow_awarded,
-                               total_appl_22=total_appl_22, total_appl_23=total_appl_23,
-                               language=language, multilingual_content=multilingual_content, news_record=news_record)
+    # @homepage_blueprint.route('/', methods=['GET', 'POST'])
+    # def home_page():
+    #     """
+    #         This function is the main function which renders when the website is being hit.
+    #     """
+    #     if 'language' in session:
+    #         language = session['language']
+    #     else:
+    #         language = 'marathi'
+    #
+    #     # --------------------------  HOME PAGE
+    #     total_count = applications_today()
+    #     fellow_awarded = fellow_awarded_count()
+    #     total_appl_22 = total_appl_22_count()
+    #     total_appl_23 = total_appl_23_count()
+    #
+    #     # print("old user 2022",old_user_22)
+    #     news_record = news_fetch()
+    #     print(news_record)
+    #     return render_template('Homepage/landing.html', total_count=total_count, fellow_awarded=fellow_awarded,
+    #                            total_appl_22=total_appl_22, total_appl_23=total_appl_23,
+    #                            language=language, multilingual_content=multilingual_content, news_record=news_record)
 
     def applications_today():
         """
